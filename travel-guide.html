@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Viaje · Jami & Franco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<!-- QR code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+:root {
+  --paper:  #f8f5ef;
+  --paper2: #f0ebe0;
+  --paper3: #e8e0d0;
+  --paper4: #ddd3be;
+  --ink:    #1c1510;
+  --ink2:   #2e2018;
+  --burg:   #5c0d2a;
+  --wine:   #7a1535;
+  --gold:   #765f25;
+  --gold2:  #c4a050;
+  --goldA:  rgba(196,160,80,.2);
+  --goldB:  rgba(196,160,80,.38);
+  --muted:  #6a5a42;
+  --muted2: #786848;
+  --forest: #1e3326;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.68;
+  overflow-x: hidden;
+}
+body::before {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.62;
+}
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--paper2); }
+::-webkit-scrollbar-thumb { background:var(--burg); }
+
+/* ── LANG TOGGLE ── */
+.lang-toggle {
+  position:fixed; top:1.1rem; right:1.4rem; z-index:500; display:flex; gap:.4rem;
+}
+.lang-btn {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.18em;
+  background:none; border:1px solid var(--burg); color:var(--burg);
+  padding:.28rem .65rem; cursor:pointer; transition:all .3s;
+}
+.lang-btn.active,.lang-btn:hover { background:var(--burg); color:var(--paper); }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--paper);
+  border-bottom:1px solid var(--goldA);
+  padding:1.2rem 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+  background:linear-gradient(to bottom, rgba(248,245,239,.98), rgba(248,245,239,.95));
+  backdrop-filter:blur(4px);
+}
+.back-link {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.22em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .3s;
+}
+.back-link:hover { color:var(--burg); }
+.header-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300;
+  font-style:italic; color:var(--ink); text-align:center;
+}
+.header-sub {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.3em;
+  color:var(--gold); text-transform:uppercase; display:block; text-align:center;
+}
+
+/* ── PAGE HERO ── */
+.page-hero {
+  text-align:center; padding:5rem 2rem 3.5rem;
+  position:relative;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(196,160,80,.06) 0%, transparent 70%);
+  border-bottom:1px solid var(--goldA);
+}
+.page-hero::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background-image:url('textura.jpg');
+  background-repeat:repeat; background-size:900px auto;
+  opacity:.55; pointer-events:none;
+}
+.page-hero > * { position:relative; z-index:1; }
+.ph-eyebrow {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.5em;
+  color:var(--gold2); text-transform:uppercase; margin-bottom:1rem;
+}
+.ph-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5rem);
+  font-weight:300; font-style:italic; color:var(--ink); line-height:.95;
+  margin-bottom:1rem;
+}
+.ph-rule {
+  display:flex; align-items:center; gap:.9rem;
+  justify-content:center; margin:1.2rem auto;
+}
+.ph-line { width:60px; height:1px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.ph-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.ph-sym { color:var(--gold2); font-size:.8rem; opacity:.8; }
+.ph-sub {
+  font-style:italic; color:var(--muted); font-size:.95rem; max-width:500px; margin:0 auto;
+}
+
+/* ── TOC ── */
+.toc {
+  max-width:760px; margin:3rem auto; padding:0 2rem;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.5rem;
+}
+.toc-item {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.2em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase;
+  padding:.6rem .9rem; border:1px solid var(--goldA);
+  background:var(--burgA); transition:all .3s; text-align:center;
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+}
+.toc-item:hover { border-color:rgba(92,13,42,.35); color:var(--burg); background:var(--burgB); }
+
+/* ── CONTENT WRAPPER ── */
+.content {
+  max-width:820px; margin:0 auto; padding:0 2rem 6rem;
+}
+
+/* ── SECTION ── */
+.gsec {
+  padding:4rem 0; border-top:1px solid rgba(92,13,42,.09);
+}
+.gsec:first-child { border-top:none; }
+
+.slabel {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.42em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.35rem;
+}
+.stitle {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2.2rem,5vw,3.2rem); color:var(--ink); line-height:1;
+  margin-bottom:.3rem;
+}
+
+.div {
+  display:flex; align-items:center; gap:.9rem; margin:1.2rem 0 2.5rem;
+}
+.div-line { height:1px; flex:1; max-width:80px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.div-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.div-sym { color:var(--gold2); font-size:.78rem; opacity:.75; }
+
+/* ── INFO CARD ── */
+.info-card {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18);
+  padding:2rem 2.2rem; margin-bottom:1.2rem; position:relative;
+  transition:border-color .3s;
+}
+.info-card:hover { border-color:rgba(92,13,42,.35); }
+.info-card-icon { font-size:1.5rem; margin-bottom:.7rem; display:block; }
+.info-card-title {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.28em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.6rem;
+}
+.info-card-body { font-size:1rem; color:var(--muted); line-height:1.68; }
+.info-card-body strong { color:var(--ink); font-weight:normal; }
+.info-card-body em { color:var(--burg); font-style:italic; }
+
+/* price tag */
+.price-tag {
+  display:inline-block;
+  font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.1em;
+  color:var(--ink2); background:var(--goldA); border:1px solid var(--gold);
+  padding:.2rem .65rem; margin-top:.5rem;
+}
+
+/* ── GRID 2 ── */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+
+/* ── HIGHLIGHT BOX ── */
+.hbox {
+  background:var(--paper3); border:1px solid rgba(196,160,80,.32); border-left:3px solid var(--gold2);
+  padding:1.6rem 2rem; margin-bottom:1.2rem;
+}
+.hbox.burg {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18); border-left:3px solid rgba(92,13,42,.45);
+}
+.hbox-title {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.25em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.5rem;
+}
+.hbox-body { font-size:1rem; color:var(--muted); line-height:1.68; }
+.hbox-body strong { color:var(--ink); }
+.hbox-body a { color:var(--burg); }
+
+/* ── WARNING BOX ── */
+.warn-box {
+  background:rgba(92,13,42,.04); border:1px solid rgba(92,13,42,.2); border-left:3px solid var(--burg);
+  padding:1.6rem 2rem; margin-bottom:2rem;
+}
+.warn-title {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.25em;
+  color:var(--burg); text-transform:uppercase; margin-bottom:.5rem;
+}
+.warn-body { font-size:1rem; color:var(--muted); line-height:1.68; }
+.warn-body strong { color:var(--ink); }
+.warn-body a { color:var(--burg); text-decoration:underline; }
+
+/* ── TRANSPORT STEPS ── */
+.steps { counter-reset:s; }
+.step {
+  counter-increment:s; display:flex; gap:1.2rem; align-items:flex-start;
+  padding:1.2rem 0; border-bottom:1px solid rgba(196,160,80,.12);
+}
+.step:last-child { border-bottom:none; }
+.step-num {
+  min-width:2rem; height:2rem; border:1px solid var(--goldB);
+  font-family:'Cinzel',serif; font-size:.55rem; color:var(--gold2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  margin-top:.15rem;
+}
+.step-content { flex:1; }
+.step-title {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.22em;
+  color:var(--ink2); text-transform:uppercase; margin-bottom:.3rem;
+}
+.step-body { font-size:1rem; color:var(--muted); line-height:1.68; }
+.step-body strong { color:var(--ink); }
+.step-body em { color:var(--burg); }
+
+/* ── FOOD CARDS ── */
+.food-card {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18);
+  padding:1.8rem 2rem; margin-bottom:1rem;
+  transition:border-color .3s, background .3s;
+}
+.food-card:hover { border-color:rgba(92,13,42,.35); background:var(--burgB); }
+.food-card-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:.5rem; margin-bottom:.4rem; }
+.food-name {
+  font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; color:var(--ink);
+}
+.food-type {
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.22em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.3rem;
+}
+.food-price {
+  font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.08em;
+  color:var(--ink2); background:var(--goldA); border:1px solid var(--gold);
+  padding:.22rem .6rem; white-space:nowrap; align-self:start; margin-top:.15rem;
+}
+.food-desc { font-size:1rem; color:var(--muted); line-height:1.68; margin:.5rem 0 1rem; }
+.food-map-btn {
+  display:inline-block; font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--burg); text-decoration:none;
+  border:1px solid rgba(92,13,42,.28); padding:.42rem .85rem; transition:all .3s;
+}
+.food-map-btn:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+.fav-badge {
+  display:inline-block; font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.15em;
+  color:var(--gold); border:1px solid rgba(196,160,80,.4); padding:.12rem .45rem; margin-left:.4rem;
+}
+
+/* ── QR BOX ── */
+.qr-box {
+  background:var(--paper2); border:1px solid rgba(196,160,80,.22);
+  padding:2.2rem; text-align:center; margin-top:2rem; position:relative;
+}
+.qr-box::before {
+  content:'✦'; position:absolute; top:-.78rem; left:50%; transform:translateX(-50%);
+  width:1.55rem; height:1.55rem; border-radius:50%;
+  background:var(--paper); color:var(--gold2); font-size:.8rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.qr-title {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.32em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.4rem;
+}
+.qr-sub {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.07em; color:var(--muted); margin-bottom:1.5rem; line-height:1.8;
+}
+#qr-scotrail {
+  display:inline-block;
+  padding:.8rem; background:white;
+  border:1px solid var(--goldA);
+}
+.qr-link {
+  display:inline-block; margin-top:1rem;
+  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.2em;
+  color:var(--burg); text-decoration:none; text-transform:uppercase;
+  border:1px solid rgba(92,13,42,.28); padding:.55rem 1.2rem; display:inline-block;
+  transition:all .3s;
+}
+.qr-link:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+
+/* ── CLIMATE TABLE ── */
+.climate-table {
+  width:100%; border-collapse:collapse; margin:1.5rem 0;
+}
+.climate-table th {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.2em;
+  color:var(--gold); text-transform:uppercase; text-align:left;
+  padding:.7rem 1rem; border-bottom:1px solid var(--goldB);
+  background:var(--paper3);
+}
+.climate-table td {
+  font-size:.85rem; color:var(--muted); padding:.65rem 1rem;
+  border-bottom:1px solid rgba(196,160,80,.1); vertical-align:top;
+}
+.climate-table tr:hover td { background:var(--paper2); }
+
+/* ── FOOTER ── */
+.page-footer {
+  text-align:center; padding:3rem 2rem 5rem;
+  border-top:1px solid rgba(196,160,80,.16);
+  background:linear-gradient(to top,var(--paper3),transparent);
+}
+.pf-names {
+  font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300;
+  font-style:italic; color:var(--ink);
+}
+.pf-back {
+  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.3em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase;
+  border:1px solid var(--goldA); padding:.55rem 1.2rem; display:inline-block;
+  margin-top:1.5rem; transition:all .3s;
+}
+.pf-back:hover { border-color:var(--goldB); color:var(--burg); }
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── LANG ── */
+[data-lang="en"] { display:none; }
+body.en [data-lang="es"] { display:none; }
+body.en [data-lang="en"] { display:unset; }
+.blk-es, .blk-en { }
+body.en .blk-es { display:none; }
+.blk-en { display:none; }
+body.en .blk-en { display:block; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .grid2, .grid3 { grid-template-columns:1fr; }
+  .food-card { grid-template-columns:1fr; }
+  .toc { grid-template-columns:1fr 1fr; }
+  .climate-table { font-size:.78rem; }
+  .climate-table th, .climate-table td { padding:.5rem .6rem; }
+}
+@media(max-width:480px){
+  .toc { grid-template-columns:1fr; }
+  .content { padding:0 1.2rem 5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="lang-toggle" role="group" aria-label="Idioma / Language">
+  <button class="lang-btn active" onclick="setLang('es')" aria-label="Ver en español" aria-pressed="true">ES</button>
+  <button class="lang-btn" onclick="setLang('en')" aria-label="View in English" aria-pressed="false">EN</button>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="back-link" href="jami-franco-wedding.html">
+    ← <span data-lang="es">Volver</span><span data-lang="en">Back</span>
+  </a>
+  <div>
+    <p class="header-title">Jami & Franco</p>
+    <span class="header-sub"><span data-lang="es">Guía de Viaje</span><span data-lang="en">Travel Guide</span></span>
+  </div>
+  <div style="width:80px"></div><!-- spacer -->
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="ph-eyebrow">
+    <span data-lang="es">Para nuestros invitados</span>
+    <span data-lang="en">For our guests</span>
+  </p>
+  <h1 class="ph-title">
+    <span data-lang="es">UK & Escocia</span>
+    <span data-lang="en">UK & Scotland</span>
+  </h1>
+  <div class="ph-rule">
+    <div class="ph-line"></div>
+    <span class="ph-sym">✦ ❧ ✦</span>
+    <div class="ph-line rv"></div>
+  </div>
+  <p class="ph-sub">
+    <span data-lang="es">Todo lo que necesitas saber para llegar, moverte y disfrutar Escocia antes de la boda.</span>
+    <span data-lang="en">Everything you need to know to arrive, get around and enjoy Scotland before the wedding.</span>
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<nav class="toc">
+  <a class="toc-item" href="#eta">🛂 ETA</a>
+  <a class="toc-item" href="#vuelos">✈️ <span data-lang="es">Vuelos</span><span data-lang="en">Flights</span></a>
+  <a class="toc-item" href="#clima">🌧️ <span data-lang="es">Clima</span><span data-lang="en">Weather</span></a>
+  <a class="toc-item" href="#transporte">🚇 <span data-lang="es">Transporte & Edinburgh</span><span data-lang="en">Transport & Edinburgh</span></a>
+  <a class="toc-item" href="#comida">🍽️ <span data-lang="es">Comida</span><span data-lang="en">Food</span></a>
+</nav>
+
+<div class="content">
+
+  <!-- ═══ ETA ═══ -->
+  <section class="gsec" id="eta">
+    <p class="slabel">ETA</p>
+    <h2 class="stitle"><span data-lang="es">Autorización de Viaje Electrónica</span><span data-lang="en">Electronic Travel Authorisation</span></h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <div class="warn-box">
+      <p class="warn-title">⚠️ <span data-lang="es">Obligatorio desde 2025</span><span data-lang="en">Required since 2025</span></p>
+      <p class="warn-body">
+        <span data-lang="es">Si tienes pasaporte peruano u otro no-europeo, <strong>necesitas solicitar un ETA del Reino Unido</strong> antes de viajar. No es una visa, es una autorización electrónica. Sin ella no podrás embarcar.</span>
+        <span data-lang="en">If you hold a Peruvian or other non-European passport, <strong>you must apply for a UK ETA</strong> before travelling. It is not a visa, it's an electronic travel authorisation. Without it you will not be allowed to board.</span>
+      </p>
+    </div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <span class="info-card-icon">📋</span>
+        <p class="info-card-title"><span data-lang="es">¿Qué es?</span><span data-lang="en">What is it?</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">El ETA (Electronic Travel Authorisation) es un permiso digital vinculado a tu pasaporte. Permite múltiples entradas a UK por hasta <strong>6 meses por visita</strong>.</span>
+          <span data-lang="en">The ETA (Electronic Travel Authorisation) is a digital permission linked to your passport. It allows multiple entries to the UK for up to <strong>6 months per visit</strong>.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">💷</span>
+        <p class="info-card-title"><span data-lang="es">Costo</span><span data-lang="en">Cost</span></p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>£10 GBP</strong> por persona (aprox. <em>$13 USD</em>). Válido por <strong>2 años</strong> o hasta que expire tu pasaporte. Se paga en línea con tarjeta.</span>
+          <span data-lang="en"><strong>£10 GBP</strong> per person (approx. <em>$13 USD</em>). Valid for <strong>2 years</strong> or until your passport expires. Paid online by card.</span>
+        </p>
+        <span class="price-tag">£10 · ~$13 USD</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">⏱️</span>
+        <p class="info-card-title"><span data-lang="es">Tiempo de procesamiento</span><span data-lang="en">Processing time</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">Normalmente aprobado en <strong>3 días hábiles</strong>. Puede tardar hasta 7. Solicitarlo con al menos <em>2-3 semanas de anticipación</em>.</span>
+          <span data-lang="en">Usually approved within <strong>3 working days</strong>. Can take up to 7. Apply at least <em>2–3 weeks before</em> your trip.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">📱</span>
+        <p class="info-card-title"><span data-lang="es">Cómo solicitarlo</span><span data-lang="en">How to apply</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">Solo se puede solicitar en línea en el sitio oficial del gobierno del UK o usando la app <strong>"UK ETA"</strong> en tu teléfono.</span>
+          <span data-lang="en">Apply online on the official UK government website or using the <strong>"UK ETA"</strong> app on your phone.</span>
+        </p>
+        <a href="https://www.gov.uk/eta" target="_blank" style="display:inline-block;margin-top:.8rem;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;color:var(--burg);border:1px solid rgba(92,13,42,.3);padding:.45rem .9rem;text-decoration:none;text-transform:uppercase;transition:all .3s;">
+          <span data-lang="es">Solicitar ETA →</span>
+          <span data-lang="en">Apply for ETA →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hbox burg">
+      <p class="hbox-title">💡 <span data-lang="es">Consejo</span><span data-lang="en">Tip</span></p>
+      <p class="hbox-body">
+        <span data-lang="es">Descarga la app oficial <strong>"UK ETA"</strong> en tu teléfono para hacer el proceso más rápido. Necesitarás una foto de tu pasaporte y una selfie. La aprobación llega por email.</span>
+        <span data-lang="en">Download the official <strong>"UK ETA"</strong> app on your phone for a faster process. You'll need a photo of your passport and a selfie. Approval comes via email.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ VUELOS ═══ -->
+  <section class="gsec" id="vuelos">
+    <p class="slabel"><span data-lang="es">Vuelos desde Lima</span><span data-lang="en">Flights from Lima</span></p>
+    <h2 class="stitle"><span data-lang="es">Pasajes de Avión</span><span data-lang="en">Flights</span></h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <div class="grid2">
+      <div class="info-card">
+        <span class="info-card-icon">✈️</span>
+        <p class="info-card-title"><span data-lang="es">Destino recomendado</span><span data-lang="en">Recommended airport</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">Volar a <strong>Edinburgh (EDI)</strong> es lo más práctico. También puedes llegar a <strong>Glasgow (GLA)</strong>, ambos están a ~1.5h de Lockerbie.</span>
+          <span data-lang="en">Flying into <strong>Edinburgh (EDI)</strong> is the most convenient. <strong>Glasgow (GLA)</strong> also works, both are ~1.5h from Lockerbie.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">💰</span>
+        <p class="info-card-title"><span data-lang="es">Costo aproximado</span><span data-lang="en">Approximate cost</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">Lima → Edinburgh con escala: entre <em>$700–$1,200 USD</em> ida y vuelta. Mejor precio comprando con <strong>4-6 meses de anticipación</strong>.</span>
+          <span data-lang="en">Lima → Edinburgh with layover: around <em>$700–$1,200 USD</em> return. Best prices when booked <strong>4–6 months in advance</strong>.</span>
+        </p>
+        <span class="price-tag">~$700–$1,200 USD RT</span>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">🛫</span>
+        <p class="info-card-title"><span data-lang="es">Aerolíneas sugeridas</span><span data-lang="en">Suggested airlines</span></p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>British Airways</strong> (escala en Londres), <strong>Iberia</strong> (escala en Madrid), <strong>KLM</strong> (escala en Amsterdam). Duración: ~15–18h total.</span>
+          <span data-lang="en"><strong>British Airways</strong> (via London), <strong>Iberia</strong> (via Madrid), <strong>KLM</strong> (via Amsterdam). Total duration: ~15–18h.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">📅</span>
+        <p class="info-card-title"><span data-lang="es">¿Cuándo volar?</span><span data-lang="en">When to fly?</span></p>
+        <p class="info-card-body">
+          <span data-lang="es">Recomendamos llegar el <strong>25 o 26 de julio</strong> para tener tiempo de descansar, recorrer Edinburgh con calma y llegar a la boda el 28 sin apuros.</span>
+          <span data-lang="en">We recommend arriving on <strong>25 or 26 July</strong> to rest, explore Edinburgh at your own pace, and arrive at the wedding on the 28th refreshed.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CLIMA ═══ -->
+  <section class="gsec" id="clima">
+    <p class="slabel"><span data-lang="es">Qué esperar</span><span data-lang="en">What to expect</span></p>
+    <h2 class="stitle"><span data-lang="es">Clima en Julio</span><span data-lang="en">July Weather</span></h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <div class="warn-box">
+      <p class="warn-title">🌧️ <span data-lang="es">Escocia es Escocia</span><span data-lang="en">Scotland is Scotland</span></p>
+      <p class="warn-body">
+        <span data-lang="es">Julio es el mes más cálido, pero <strong>siempre puede llover</strong>. El clima es impredecible, puede haber sol brillante por la mañana y lluvia por la tarde. <strong>Llevar siempre un paraguas y una capa ligera.</strong></span>
+        <span data-lang="en">July is the warmest month, but <strong>it can always rain</strong>. The weather is unpredictable, bright sunshine in the morning and rain by afternoon is common. <strong>Always carry an umbrella and a light layer.</strong></span>
+      </p>
+    </div>
+
+    <table class="climate-table">
+      <thead>
+        <tr>
+          <th><span data-lang="es">Aspecto</span><span data-lang="en">Aspect</span></th>
+          <th><span data-lang="es">Valores</span><span data-lang="en">Values</span></th>
+          <th><span data-lang="es">Consejo</span><span data-lang="en">Tip</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span data-lang="es">🌡️ Temperatura</span><span data-lang="en">🌡️ Temperature</span></td>
+          <td>14°C–20°C (57°F–68°F)</td>
+          <td><span data-lang="es">Fresco. Nada de verano tropical.</span><span data-lang="en">Cool. Nothing like tropical summer.</span></td>
+        </tr>
+        <tr>
+          <td><span data-lang="es">🌧️ Lluvia</span><span data-lang="en">🌧️ Rain</span></td>
+          <td><span data-lang="es">~12 días lluviosos en julio</span><span data-lang="en">~12 rainy days in July</span></td>
+          <td><span data-lang="es">Impredecible. Llevar impermeable.</span><span data-lang="en">Unpredictable. Bring a raincoat.</span></td>
+        </tr>
+        <tr>
+          <td><span data-lang="es">☀️ Luz solar</span><span data-lang="en">☀️ Daylight</span></td>
+          <td><span data-lang="es">Hasta las 10pm</span><span data-lang="en">Until 10pm</span></td>
+          <td><span data-lang="es">¡Los días son larguísimos en verano!</span><span data-lang="en">Days are very long in Scottish summer!</span></td>
+        </tr>
+        <tr>
+          <td><span data-lang="es">💨 Viento</span><span data-lang="en">💨 Wind</span></td>
+          <td><span data-lang="es">Moderado</span><span data-lang="en">Moderate</span></td>
+          <td><span data-lang="es">Más intenso en zonas abiertas.</span><span data-lang="en">Stronger in open countryside areas.</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hbox burg">
+      <p class="hbox-title">👜 <span data-lang="es">Qué llevar</span><span data-lang="en">What to pack</span></p>
+      <p class="hbox-body">
+        <span data-lang="es"><strong>Imprescindible:</strong> paraguas compacto, capa o chaqueta ligera impermeable, zapatos cómodos para caminar sobre césped y adoquines. Para la boda: el traje o vestido de black tie (ver dress code), la <strong>ceremonia es al aire libre</strong> y la <strong>recepción es en interior</strong>.</span>
+        <span data-lang="en"><strong>Essentials:</strong> compact umbrella, light waterproof layer, comfortable shoes for grass and cobblestones. For the wedding: your black tie outfit (see dress code), the <strong>ceremony is outdoors</strong> and the <strong>reception is indoors</strong>.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ TRANSPORTE + EDINBURGH + TREN ═══ -->
+  <section class="gsec" id="transporte">
+    <p class="slabel"><span data-lang="es">Moverse por Edinburgh y UK</span><span data-lang="en">Getting around Edinburgh & UK</span></p>
+    <h2 class="stitle"><span data-lang="es">Transporte</span><span data-lang="en">Transport</span></h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <!-- TAP TO PAY -->
+    <div class="hbox burg" style="border-left-color:rgba(92,13,42,.45); margin-bottom:2rem;">
+      <p class="hbox-title">💳 Tap &amp; Cap, <span data-lang="es">Paga tocando tu tarjeta</span><span data-lang="en">Pay by tapping your card</span></p>
+      <p class="hbox-body">
+        <span data-lang="es">En Edinburgh puedes pagar buses y tram directamente con tu tarjeta de débito/crédito o Apple/Google Pay, sin necesidad de comprar tickets. Solo toca el lector al subir.<br><br>
+        El sistema aplica un <strong>cap diario automático</strong>: una vez que pagas el equivalente al pase diario, el resto de viajes en ese día son gratis. El cap compartido entre <strong>buses y tram juntos es de £5.70/día</strong>. No importa cuántos viajes hagas, nunca pagarás más de eso en un mismo día.<br><br>
+        <strong>Tram:</strong> debes tocar tu tarjeta en el lector de la <em>estación</em> al entrar <strong>y</strong> al salir, antes de subir y después de bajar del tram. <em>No hay lectores dentro del tram.</em><br>
+        <strong>Bus:</strong> solo toca una vez al subir al bus. No hay que hacer nada al bajar.</span>
+        <span data-lang="en">In Edinburgh you can pay for buses and the tram directly with your debit/credit card or Apple/Google Pay, no need to buy tickets in advance. Just tap the reader as you board.<br><br>
+        The system applies an <strong>automatic daily cap</strong>: once your taps reach the equivalent of a day pass, all remaining journeys that day are free. The combined <strong>bus and tram daily cap is £5.70</strong>, so you'll never pay more than that in a single day.<br><br>
+        <strong>Tram:</strong> tap your card at the <em>station reader</em> on the way in <strong>and</strong> on the way out, before boarding and after alighting. <em>There are no readers inside the tram.</em><br>
+        <strong>Bus:</strong> tap once as you step on. No need to tap when you get off.</span>
+      </p>
+    </div>
+
+    <!-- AEROPUERTO AL CENTRO -->
+    <h3 id="edinburgh" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:2rem;color:var(--ink);margin:0 0 .5rem;">
+      <span data-lang="es">Del aeropuerto al centro</span><span data-lang="en">Airport to city centre</span>
+    </h3>
+    <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.04em;color:var(--muted);margin-bottom:1.8rem;line-height:1.8;">
+      <span data-lang="es">Edinburgh (EDI) está a ~30 min del centro. Estas son tus opciones, de más a menos recomendada:</span>
+      <span data-lang="en">Edinburgh Airport (EDI) is ~30 min from the city centre. Here are your options, most to least recommended:</span>
+    </p>
+
+    <div class="steps" style="margin-bottom:2.5rem;">
+      <div class="step">
+        <div class="step-num" style="background:var(--burg);color:var(--paper);border-color:var(--burg);">★</div>
+        <div class="step-content">
+          <p class="step-title"><span data-lang="es">Bus Airlink 100, Recomendado</span><span data-lang="en">Airlink 100 Bus, Recommended</span></p>
+          <p class="step-body">
+            <span data-lang="es">Sale justo al salir de llegadas internacionales del aeropuerto. Va directo al centro (Waverley / Princes St) en ~25–35 min, cada 10 minutos. Paga al conductor con tarjeta.<br><br>
+            La mejor opción es el <strong>Open Return por £8 (~$10)</strong>: compras un solo ticket que incluye el viaje de ida y el de vuelta al aeropuerto. El bus del centro al aeropuerto también sale desde Princes Street. <em>En total pagas £8 por ambos viajes</em>, en comparación con el tram que cuesta £8 por cada vez.</span>
+            <span data-lang="en">Departs right outside international arrivals. Goes directly to the city centre (Waverley / Princes St) in ~25–35 min, every 10 minutes. Pay the driver by card.<br><br>
+            The best option is the <strong>Open Return for £8 (~$10)</strong>: one ticket covers both your inbound and return trips to the airport. The bus from the city centre also departs from Princes Street. <em>You pay £8 total for both journeys</em>, compared to the tram which costs £8 each way.</span>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <p class="step-title"><span data-lang="es">Tram al centro</span><span data-lang="en">Tram to city centre</span></p>
+          <p class="step-body">
+            <span data-lang="es">También va del aeropuerto al centro (St Andrew Square) en ~35 min. Toca tu tarjeta en el lector de la estación antes de subir. <strong>£8 por viaje (~$10)</strong>, tarifa plana, no aplica el cap de tap &amp; cap en este trayecto aeropuerto–centro. Por eso preferimos el bus.</span>
+            <span data-lang="en">Also runs from the airport to the city centre (St Andrew Square) in ~35 min. Tap your card at the station reader before boarding. <strong>£8 per journey (~$10)</strong>, flat fare, the tap &amp; cap daily limit does not apply to this airport route. That's why we prefer the bus.</span>
+          </p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <p class="step-title">Taxi / Uber</p>
+          <p class="step-body">
+            <span data-lang="es">La opción más cómoda con mucho equipaje o en grupo. Aprox. <em>£25–£35 (~$32–$45)</em> al centro.</span>
+            <span data-lang="en">Most convenient with heavy luggage or as a group. Approx. <em>£25–£35 (~$32–$45)</em> to the city centre.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALOJAMIENTO EDINBURGH -->
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:2rem;color:var(--ink);margin:0 0 .5rem;">
+      <span data-lang="es">Dónde quedarse en Edinburgh</span><span data-lang="en">Where to stay in Edinburgh</span>
+    </h3>
+    <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.04em;color:var(--muted);margin-bottom:1.8rem;line-height:1.8;">
+      <span data-lang="es">Precios aproximados por noche, julio 2026. Reserva con anticipación.</span>
+      <span data-lang="en">Approximate nightly prices, July 2026. Book well in advance.</span>
+    </p>
+    <div class="grid2" style="margin-bottom:3rem;">
+      <div class="info-card"><span class="info-card-icon">🏰</span><p class="info-card-title"><span data-lang="es">Gama alta</span><span data-lang="en">Upscale</span></p><p class="info-card-body"><span data-lang="es"><strong>The Balmoral</strong> o <strong>Waldorf Astoria</strong>. En pleno centro, históricos y elegantes.</span><span data-lang="en"><strong>The Balmoral</strong> or <strong>Waldorf Astoria</strong>. Historic and elegant, right in the centre.</span></p><span class="price-tag">£250–£450 ~$320–$580</span></div>
+      <div class="info-card"><span class="info-card-icon">🏨</span><p class="info-card-title"><span data-lang="es">Gama media</span><span data-lang="en">Mid-range</span></p><p class="info-card-body"><span data-lang="es"><strong>Mercure Edinburgh City</strong>, <strong>ibis Styles</strong> o <strong>Point A Hotel</strong>. Bien ubicados y prácticos.</span><span data-lang="en"><strong>Mercure Edinburgh City</strong>, <strong>ibis Styles</strong> or <strong>Point A Hotel</strong>. Well-located and reliable.</span></p><span class="price-tag">£80–£150 ~$100–$190</span></div>
+      <div class="info-card"><span class="info-card-icon">🏠</span><p class="info-card-title">Airbnb</p><p class="info-card-body"><span data-lang="es">Ideal para grupos. Apartamentos en el Old Town o New Town.</span><span data-lang="en">Great for groups. Apartments in Old Town or New Town.</span></p><span class="price-tag">£60–£120 ~$77–$155</span></div>
+      <div class="info-card"><span class="info-card-icon">🛏️</span><p class="info-card-title"><span data-lang="es">Hostales</span><span data-lang="en">Hostels</span></p><p class="info-card-body"><span data-lang="es"><strong>Code Hostel</strong> o <strong>Castle Rock Hostel</strong>. Bien ubicados y con buenas reseñas.</span><span data-lang="en"><strong>Code Hostel</strong> or <strong>Castle Rock Hostel</strong>. Well-located with great reviews.</span></p><span class="price-tag">£25–£40 ~$32–$52</span></div>
+    </div>
+
+    <!-- TREN A SPRINGKELL -->
+    <h3 id="tren" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:2rem;color:var(--ink);margin:0 0 .5rem;">
+      <span data-lang="es">Edinburgh → Springkell en tren</span><span data-lang="en">Edinburgh → Springkell by train</span>
+    </h3>
+    <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.04em;color:var(--muted);margin-bottom:1.8rem;line-height:1.8;">
+      <span data-lang="es"><strong>Edinburgh Waverley → Lockerbie</strong> · ~1h15 min · cada hora aprox. Para trenes te recomendamos comprar por <strong>ScotRail</strong> directamente (sin comisiones) o por Trainline.</span>
+      <span data-lang="en"><strong>Edinburgh Waverley → Lockerbie</strong> · ~1h15 min · roughly every hour. For trains we recommend booking directly with <strong>ScotRail</strong> (no fees) or via Trainline.</span>
+    </p>
+
+    <div class="grid2" style="margin-bottom:1.5rem;">
+      <div class="info-card"><span class="info-card-icon">💷</span><p class="info-card-title"><span data-lang="es">Precio</span><span data-lang="en">Price</span></p><p class="info-card-body"><span data-lang="es">Reservando con anticipación: desde <em>£12–£25 ida (~$15–$32)</em>. Si compras el mismo día puede costar £35–£50. Compra con semanas de anticipación.</span><span data-lang="en">Booked in advance: from <em>£12–£25 one-way (~$15–$32)</em>. On the day it can reach £35–£50. Book weeks ahead for the best fares.</span></p><span class="price-tag">£12–£25 ~$15–$32</span></div>
+      <div class="info-card"><span class="info-card-icon">🚕</span><p class="info-card-title"><span data-lang="es">Taxi a Springkell</span><span data-lang="en">Taxi to Springkell</span></p><p class="info-card-body"><span data-lang="es">Desde la estación de Lockerbie son ~15 min en taxi hasta Springkell Estate. Aprox. <em>£15–£20 (~$19–$26)</em>. Coordina con otros invitados para compartir el viaje.</span><span data-lang="en">From Lockerbie station it's ~15 min by taxi to Springkell Estate. Approx. <em>£15–£20 (~$19–$26)</em>. Coordinate with other guests to share the ride.</span></p></div>
+    </div>
+
+    <!-- QR ScotRail, fixed layout -->
+    <div class="qr-box">
+      <p class="qr-title">ScotRail</p>
+      <p class="qr-sub">
+        <span data-lang="es">Descarga la app para comprar tu pasaje Edinburgh → Lockerbie sin comisiones. O visita el enlace desde tu computadora.</span>
+        <span data-lang="en">Download the app to book your Edinburgh → Lockerbie ticket with no fees. Or visit the link from your computer.</span>
+      </p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+        <div id="qr-scotrail" style="display:inline-block;padding:.7rem;background:white;border:1px solid rgba(196,160,80,.2);"></div>
+        <p style="font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.18em;color:var(--muted);text-align:center;margin:0;">
+          <span data-lang="es">Escanea para descargar la app</span>
+          <span data-lang="en">Scan to download the app</span>
+        </p>
+        <a class="qr-link" href="https://www.scotrail.co.uk/" target="_blank">
+          scotrail.co.uk →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMIDA ═══ -->
+  <section class="gsec" id="comida">
+    <p class="slabel"><span data-lang="es">Nuestros favoritos</span><span data-lang="en">Our favourites</span></p>
+    <h2 class="stitle"><span data-lang="es">Dónde Comer</span><span data-lang="en">Where to Eat</span></h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <p style="font-style:italic;color:var(--muted);margin-bottom:2rem;font-size:.9rem;">
+      <span data-lang="es">Edinburgh tiene una escena gastronómica increíble. Aquí nuestros lugares preferidos, todos en o cerca del centro. Precio promedio: <strong>~£12–£18 por persona (~$15–$23)</strong>.</span>
+      <span data-lang="en">Edinburgh has an incredible food scene. Here are our personal favourites, all in or near the city centre. Average price: <strong>~£12–£18 per person (~$15–$23)</strong>.</span>
+    </p>
+
+    <!-- Nuestros 3 favoritos primero -->
+    <div class="food-card">
+      <div class="food-card-header">
+        <p class="food-name">Leith Shawarma <span class="fav-badge">★ Favorito</span></p>
+        <span class="food-price">~£12 · ~$15</span>
+      </div>
+      <p class="food-type">Middle Eastern · Street Food · Leith</p>
+      <p class="food-desc">
+        <span data-lang="es">El mejor shawarma de Edinburgh, en el barrio portuario de Leith. Shawarmas generosos con salsas increíbles. Sencillo, auténtico y absolutamente delicioso.</span>
+        <span data-lang="en">The best shawarma in Edinburgh, in the port neighbourhood of Leith. Generous portions with incredible sauces. Simple, authentic and absolutely delicious.</span>
+      </p>
+      <a class="food-map-btn" href="https://www.google.com/maps/search/?api=1&query=Leith+Shawarma+Edinburgh" target="_blank">📍 <span data-lang="es">Ver en Google Maps</span><span data-lang="en">Open in Google Maps</span></a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-card-header">
+        <p class="food-name">Mr. Rice <span class="fav-badge">★ Favorito</span></p>
+        <span class="food-price">~£13 · ~$17</span>
+      </div>
+      <p class="food-type">Asian · Casual · City Centre</p>
+      <p class="food-desc">
+        <span data-lang="es">Cocina asiática de calidad a precios muy accesibles. Perfecta para un almuerzo rápido o cena antes de salir. Bowls llenos de sabor.</span>
+        <span data-lang="en">Quality Asian food at very accessible prices. Perfect for a quick lunch or dinner before heading out. Flavour-packed bowls.</span>
+      </p>
+      <a class="food-map-btn" href="https://www.google.com/maps/search/?api=1&query=Mr+Rice+Edinburgh" target="_blank">📍 <span data-lang="es">Ver en Google Maps</span><span data-lang="en">Open in Google Maps</span></a>
+    </div>
+
+    <div class="food-card">
+      <div class="food-card-header">
+        <p class="food-name">Edinburgh Street Food <span class="fav-badge">★ Favorito</span></p>
+        <span class="food-price">~£12–£15 · ~$15–$19</span>
+      </div>
+      <p class="food-type">Street Food Market · City Centre</p>
+      <p class="food-desc">
+        <span data-lang="es">Mercado de street food en el centro con docenas de puestos internacionales. Ideal para explorar sabores distintos en un mismo lugar. Ambiente animado y vibrante.</span>
+        <span data-lang="en">Street food market in the centre with dozens of international stalls. Ideal for trying different flavours in one place. Lively and vibrant atmosphere.</span>
+      </p>
+      <a class="food-map-btn" href="https://www.google.com/maps/search/?api=1&query=Edinburgh+Street+Food+Market" target="_blank">📍 <span data-lang="es">Ver en Google Maps</span><span data-lang="en">Open in Google Maps</span></a>
+    </div>
+
+    <!-- Otras recomendaciones -->
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:1.7rem;color:var(--ink);margin:2.5rem 0 1.2rem;">
+      <span data-lang="es">Otras recomendaciones</span>
+      <span data-lang="en">More recommendations</span>
+    </h3>
+
+    <div class="grid2">
+      <div class="info-card">
+        <span class="info-card-icon">🥐</span>
+        <p class="info-card-title"><span data-lang="es">Desayuno / Café</span><span data-lang="en">Breakfast / Coffee</span></p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>The Pantry</strong> (Stockbridge) o <strong>Loudons</strong>. Brunchs increíbles. <em>~£10–£15 (~$13–$19)</em>.</span>
+          <span data-lang="en"><strong>The Pantry</strong> (Stockbridge) or <strong>Loudons</strong>. Incredible brunches. <em>~£10–£15 (~$13–$19)</em>.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">🐟</span>
+        <p class="info-card-title">Fish & Chips</p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>The Fishmarket</strong> (Newhaven), fresco y delicioso junto al mar. <em>~£15–£20 (~$19–$26)</em>.</span>
+          <span data-lang="en"><strong>The Fishmarket</strong> (Newhaven), fresh and delicious by the water. <em>~£15–£20 (~$19–$26)</em>.</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">🍺</span>
+        <p class="info-card-title"><span data-lang="es">Pub Escocés</span><span data-lang="en">Scottish Pub</span></p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>The Royal Mile Tavern</strong> o cualquier pub del <em>Old Town</em>. Una pinta de Tennent's cuesta ~£5 (~$6.40).</span>
+          <span data-lang="en"><strong>The Royal Mile Tavern</strong> or any pub in the <em>Old Town</em>. A pint of Tennent's costs ~£5 (~$6.40).</span>
+        </p>
+      </div>
+      <div class="info-card">
+        <span class="info-card-icon">🥃</span>
+        <p class="info-card-title">Whisky</p>
+        <p class="info-card-body">
+          <span data-lang="es"><strong>The Scotch Malt Whisky Society</strong> o The Dome Bar. Probar un single malt escocés es obligatorio. <em>~£8–£15 por dram (~$10–$19)</em>.</span>
+          <span data-lang="en"><strong>The Scotch Malt Whisky Society</strong> or The Dome Bar. Trying a Scottish single malt is a must. <em>~£8–£15 per dram (~$10–$19)</em>.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="hbox burg" style="margin-top:1.5rem;">
+      <p class="hbox-title">💡 <span data-lang="es">Consejo</span><span data-lang="en">Tip</span></p>
+      <p class="hbox-body">
+        <span data-lang="es">En UK prácticamente <strong>todo acepta tarjeta</strong>. Muy pocos lugares son solo efectivo. Tu tarjeta de débito/crédito internacional funcionará en la mayoría de lugares. Ojo con las comisiones de cambio, usar una tarjeta sin comisión internacional (como <strong>Revolut</strong> o <strong>Wise</strong>) te ahorra bastante.</span>
+        <span data-lang="en">In the UK <strong>almost everything accepts cards</strong>. Very few places are cash-only. Your international debit/credit card will work almost everywhere. Watch out for foreign transaction fees, using a no-fee card (<strong>Revolut</strong> or <strong>Wise</strong>) saves you a lot.</span>
+      </p>
+    </div>
+  </section>
+
+</div><!-- end .content -->
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div style="display:flex;align-items:center;gap:1.1rem;justify-content:center;margin-bottom:1.8rem;">
+    <div class="f-line" style="height:1px;width:75px;background:linear-gradient(to right,transparent,rgba(196,160,80,.38));"></div>
+    <span style="color:var(--gold2);font-size:.85rem;opacity:.68;">✦ ❧ ✦</span>
+    <div style="height:1px;width:75px;background:linear-gradient(to left,transparent,rgba(196,160,80,.38));"></div>
+  </div>
+  <p class="pf-names">Jami & Franco · 28.07.2026</p>
+  <a class="pf-back" href="jami-franco-wedding.html">
+    ← <span data-lang="es">Volver a la página principal</span><span data-lang="en">Back to main page</span>
+  </a>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+}
+
+// Generate QR code for ScotRail
+window.addEventListener('load', function(){
+  try {
+    new QRCode(document.getElementById('qr-scotrail'), {
+      text: 'scotrail-app.html',
+      width: 140,
+      height: 140,
+      colorDark: '#1c1510',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch(e) { console.log('QR error', e); }
+});
+</script>
+</body>
+</html>

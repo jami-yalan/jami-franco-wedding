@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reconfirmación · Jami & Franco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f8f5ef;--paper2:#f0ebe0;--paper3:#e8e0d0;
+  --ink:#1c1510;--ink2:#2e2018;
+  --burg:#5c0d2a;--wine:#7a1535;
+  --gold:#765f25;--gold2:#c4a050;
+  --goldA:rgba(196,160,80,.2);--goldB:rgba(196,160,80,.38);
+  --muted:#6a5a42;--muted2:#786848;
+  --err:#8b1a1a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--paper);
+  color:var(--ink);font-family:'Cinzel',serif;font-size:16px;line-height:1.8;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.65;
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--paper2);}
+::-webkit-scrollbar-thumb{background:var(--burg);}
+
+/* LANG */
+.lang-toggle{position:fixed;top:1.1rem;right:1.4rem;z-index:500;display:flex;gap:.4rem;}
+.lang-btn{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;background:none;border:1px solid var(--burg);color:var(--burg);padding:.28rem .65rem;cursor:pointer;transition:all .3s;}
+.lang-btn.active,.lang-btn:hover{background:var(--burg);color:var(--paper);}
+[data-lang="en"]{display:none;}
+body.en [data-lang="es"]{display:none;}
+body.en [data-lang="en"]{display:unset;}
+
+/* HEADER */
+.site-header{
+  background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);
+  padding:1.2rem 2rem;display:flex;align-items:center;justify-content:center;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);
+}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
+.header-sub{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;display:block;text-align:center;}
+
+/* HERO */
+.page-hero{text-align:center;padding:4.5rem 2rem 3rem;position:relative;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,160,80,.06) 0%,transparent 70%);}
+.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;opacity:.55;pointer-events:none;}
+.page-hero > *{position:relative;z-index:1;}
+.ph-eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.32em;color:var(--gold2);text-transform:uppercase;margin-bottom:.8rem;}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,4rem);font-weight:300;font-style:italic;color:var(--ink);line-height:.95;margin-bottom:.9rem;}
+.ph-rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:1rem auto;}
+.ph-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));}
+.ph-line.rv{background:linear-gradient(to left,transparent,var(--goldB));}
+.ph-sym{color:var(--gold2);font-size:.8rem;opacity:.8;}
+.ph-sub{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.68;}
+
+/* FORM WRAP */
+.form-wrap{max-width:620px;margin:0 auto;padding:2.5rem 2rem 6rem;}
+
+/* SECTION LABEL */
+.fsec-label{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.26em;
+  color:var(--gold);text-transform:uppercase;
+  border-bottom:1px solid var(--goldA);padding-bottom:.6rem;margin:2.8rem 0 1.6rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.fsec-label::before{content:'✦';font-size:.7rem;color:var(--gold2);}
+
+/* FIELD */
+.field{margin-bottom:1.3rem;}
+.field label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:.4rem;}
+.field label .req{color:var(--burg);margin-left:.2rem;}
+.field input,.field select{
+  width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);
+  color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;
+  padding:.62rem 1rem;outline:none;transition:border-color .3s,background .3s;
+  appearance:none;-webkit-appearance:none;
+}
+.field input:focus,.field select:focus{border-color:var(--gold2);background:rgba(255,255,255,.8);}
+.field-err{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--err);margin-top:.3rem;display:none;}
+.field.invalid input,.field.invalid select{border-color:var(--err);}
+.field.invalid .field-err{display:block;}
+.field-hint{font-family:'EB Garamond',serif;font-size:.92rem;letter-spacing:0;color:var(--muted2);margin-top:.35rem;line-height:1.65;}
+
+/* AUTOCOMPLETE */
+.autocomplete-wrap{position:relative;}
+.autocomplete-list{
+  position:absolute;top:100%;left:0;right:0;z-index:200;
+  background:var(--paper);border:1px solid var(--goldB);border-top:none;
+  max-height:220px;overflow-y:auto;
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+}
+.autocomplete-item{
+  padding:.6rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.06em;
+  color:var(--ink2);cursor:pointer;transition:background .15s;
+  border-bottom:1px solid rgba(196,160,80,.1);
+}
+.autocomplete-item:hover,.autocomplete-item.highlighted{background:var(--paper2);}
+.autocomplete-item em{color:var(--burg);font-style:normal;}
+.autocomplete-loading{padding:.8rem 1rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted);}
+
+/* CONFIRMED PERSON BOX */
+.person-confirmed{
+  display:none;background:var(--paper2);border:1px solid var(--goldB);
+  border-left:3px solid var(--gold2);padding:1rem 1.4rem;
+  margin-top:.5rem;
+  font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.05em;color:var(--ink2);
+}
+.person-confirmed.show{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.person-confirmed-name{font-size:.72rem;color:var(--burg);}
+.person-change-btn{background:none;border:1px solid rgba(196,160,80,.3);color:var(--muted);font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.14em;padding:.3rem .7rem;cursor:pointer;transition:all .2s;}
+.person-change-btn:hover{border-color:var(--gold2);color:var(--gold);}
+
+/* ATTEND TOGGLE */
+.attend-toggle{display:flex;gap:.6rem;}
+.attend-btn{flex:1;padding:.7rem;text-align:center;cursor:pointer;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(196,160,80,.28);color:var(--muted);transition:all .3s;background:rgba(255,255,255,.4);}
+.attend-btn.selected-yes{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.attend-btn.selected-no{background:var(--paper3);color:var(--ink2);border-color:rgba(92,13,42,.3);}
+
+/* TRANSPORT CHIPS */
+.transport-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.4rem;}
+.transport-chip{font-family:'Cinzel',serif;font-size:.74rem;letter-spacing:.07em;border:1px solid rgba(196,160,80,.3);color:var(--muted);padding:.4rem 1rem;cursor:pointer;transition:all .25s;background:rgba(255,255,255,.35);}
+.transport-chip.selected{background:var(--paper3);border-color:var(--gold2);color:var(--ink2);}
+
+/* CONDITIONAL */
+.conditional{display:none;}
+.conditional.show{display:block;}
+
+/* SUBMIT */
+.submit-btn{width:100%;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;background:var(--burg);color:var(--paper);border:none;padding:1.1rem;cursor:pointer;transition:background .3s;margin-top:2rem;}
+.submit-btn:hover{background:var(--wine);}
+.submit-btn:disabled{background:var(--muted2);cursor:not-allowed;}
+
+/* SUCCESS */
+.success-box{display:none;text-align:center;padding:3.5rem 2rem;background:var(--paper2);border:1px solid var(--goldB);animation:fadeUp .5s ease;}
+.success-box.show{display:block;}
+.success-icon{font-size:2.5rem;margin-bottom:1.2rem;display:block;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.8rem;}
+.success-body{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted);line-height:1.68;max-width:400px;margin:0 auto;}
+
+/* REGRETS */
+.regrets-box{display:none;text-align:center;padding:2.5rem;background:var(--paper2);border:1px solid var(--goldA);margin-top:1.5rem;}
+.regrets-box.show{display:block;}
+
+/* INFO BOX */
+.info-box{background:rgba(196,160,80,.08);border-left:3px solid var(--gold2);padding:1rem 1.4rem;margin:1.2rem 0;}
+.info-box p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+
+/* FOOTER */
+.page-footer{text-align:center;padding:3rem 2rem 5rem;border-top:1px solid rgba(196,160,80,.16);background:linear-gradient(to top,var(--paper3),transparent);}
+.pf-names{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:600px){.form-wrap{padding:2rem 1.2rem 5rem;}.attend-toggle{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<div class="lang-toggle" role="group" aria-label="Idioma / Language">
+  <button class="lang-btn active" onclick="setLang('es')" aria-label="Ver en español" aria-pressed="true">ES</button>
+  <button class="lang-btn" onclick="setLang('en')" aria-label="View in English" aria-pressed="false">EN</button>
+</div>
+
+<header class="site-header">
+  <div>
+    <p class="header-title">Jami & Franco · 28.07.2026</p>
+    <span class="header-sub"><span data-lang="es">Reconfirmación de asistencia</span><span data-lang="en">Attendance reconfirmation</span></span>
+  </div>
+</header>
+
+<div class="page-hero">
+  <p class="ph-eyebrow"><span data-lang="es">¡Ya falta poco!</span><span data-lang="en">Almost time!</span></p>
+  <h1 class="ph-title"><span data-lang="es">Reconfirma tu asistencia</span><span data-lang="en">Reconfirm your attendance</span></h1>
+  <div class="ph-rule"><div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div></div>
+  <p class="ph-sub">
+    <span data-lang="es">¡Ya falta muy poco para el 28 de julio! Por favor reconfirma que vas a venir y danos un par de datos más para terminar de organizar todo. 🖤</span>
+    <span data-lang="en">July 28th is almost here! Please reconfirm your attendance and give us a couple more details so we can finish organising everything. 🖤</span>
+  </p>
+</div>
+
+<div class="form-wrap">
+  <div id="reconf-form">
+
+    <!-- STEP 1: Find your name -->
+    <p class="fsec-label"><span data-lang="es">Encuéntrate en la lista</span><span data-lang="en">Find yourself in the list</span></p>
+
+    <div class="info-box">
+      <p><span data-lang="es">Escribe tu nombre o apellido y selecciónate de la lista. Así vinculamos tu reconfirmación con tu RSVP original.</span>
+      <span data-lang="en">Type your name or surname and select yourself from the list. This links your reconfirmation to your original RSVP.</span></p>
+    </div>
+
+    <div class="field" id="f-buscar">
+      <label for="search-name"><span data-lang="es">Nombre o apellido</span><span data-lang="en">Name or surname</span><span class="req">*</span></label>
+      <div class="autocomplete-wrap">
+        <input type="text" id="search-name"
+          placeholder="Ej. María García…"
+          autocomplete="off"
+          oninput="onSearchInput(this.value)"
+          onkeydown="onSearchKey(event)">
+        <div class="autocomplete-list" id="autocomplete-list" style="display:none;"></div>
+      </div>
+      <div class="person-confirmed" id="person-confirmed">
+        <span class="person-confirmed-name" id="person-name-display"></span>
+        <button class="person-change-btn" onclick="clearPerson()">
+          <span data-lang="es">Cambiar</span><span data-lang="en">Change</span>
+        </button>
+      </div>
+      <div class="field-err"><span data-lang="es">Por favor selecciona tu nombre de la lista</span><span data-lang="en">Please select your name from the list</span></div>
+    </div>
+
+    <!-- STEP 2: The form (shown after name is selected) -->
+    <div class="conditional" id="section-main">
+
+      <!-- RECONFIRM ATTENDANCE -->
+      <p class="fsec-label"><span data-lang="es">¿Confirmas que vienes?</span><span data-lang="en">Confirming you'll be there?</span></p>
+
+      <div class="field">
+        <label><span data-lang="es">Asistencia</span><span data-lang="en">Attendance</span><span class="req">*</span></label>
+        <div class="attend-toggle">
+          <div class="attend-btn" id="btn2-yes" onclick="setAttend2('yes')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend2('yes')">
+            <span data-lang="es">¡Sí, ahí estaré!</span><span data-lang="en">Yes, I'll be there!</span>
+          </div>
+          <div class="attend-btn" id="btn2-no" onclick="setAttend2('no')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend2('no')">
+            <span data-lang="es">Ya no puedo ir</span><span data-lang="en">I can no longer make it</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IF YES: transport -->
+      <div class="conditional" id="section2-yes">
+
+        <!-- TRANSPORT -->
+        <p class="fsec-label"><span data-lang="es">Transporte</span><span data-lang="en">Transport</span></p>
+
+        <div class="info-box">
+          <p><span data-lang="es">Organizaremos transporte entre la estación de Lockerbie y Springkell. ¿Necesitas que te recojamos?</span>
+          <span data-lang="en">We'll organise transport between Lockerbie station and Springkell. Do you need a pick-up?</span></p>
+        </div>
+
+        <div class="field">
+          <label><span data-lang="es">¿Necesitas transporte a Springkell el 27?</span><span data-lang="en">Do you need a lift to Springkell on the 27th?</span></label>
+          <div class="transport-row">
+            <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="yes" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
+              <span data-lang="es">Sí, el 27</span><span data-lang="en">Yes, 27th</span>
+            </div>
+            <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="no" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
+              <span data-lang="es">No, me llego por mi cuenta</span><span data-lang="en">No, I'll get there myself</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label><span data-lang="es">¿Necesitas transporte de regreso el 29?</span><span data-lang="en">Do you need a lift back on the 29th?</span></label>
+          <div class="transport-row">
+            <div class="transport-chip" onclick="toggleTransport(this,'salida')" data-val="yes" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'salida')">
+              <span data-lang="es">Sí, el 29</span><span data-lang="en">Yes, 29th</span>
+            </div>
+            <div class="transport-chip" onclick="toggleTransport(this,'salida')" data-val="no" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'salida')">
+              <span data-lang="es">No, me voy por mi cuenta</span><span data-lang="en">No, I'll make my own way back</span>
+            </div>
+          </div>
+          <div class="field-hint"><span data-lang="es">Los horarios exactos se confirmarán más adelante.</span><span data-lang="en">Exact times will be confirmed closer to the date.</span></div>
+        </div>
+
+        <div class="field">
+          <label for="dieta2"><span data-lang="es">¿Algún cambio en tu dieta desde el RSVP?</span><span data-lang="en">Any dietary changes since your RSVP?</span></label>
+          <input type="text" id="dieta2" placeholder="Ej. ahora soy vegano / sin cambios…">
+          <div class="field-hint"><span data-lang="es">Déjalo en blanco si no hay cambios</span><span data-lang="en">Leave blank if nothing has changed</span></div>
+        </div>
+
+        <!-- ALOJAMIENTO — siempre visible para quien confirma asistencia -->
+        <div id="section-stay-reconf">
+          <p class="fsec-label"><span data-lang="es">Alojamiento en Springkell</span><span data-lang="en">Accommodation at Springkell</span></p>
+
+          <!-- info-box: texto dinámico según lo que respondió en RSVP1 -->
+          <div class="info-box" id="stay-infobox">
+            <p id="stay-infobox-text">
+              <span data-lang="es">¿Quieres hacer algún cambio en tu alojamiento?</span>
+              <span data-lang="en">Would you like to make any changes to your accommodation?</span>
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="stay2"><span data-lang="es">¿Quieres quedarte en Springkell?</span><span data-lang="en">Would you like to stay at Springkell?</span></label>
+            <select id="stay2" onchange="toggleStay2(this.value)">
+              <option value="">—</option>
+              <option value="yes-both">Sí · 27/07 &amp; 28/07</option>
+              <option value="yes-28">Sí · 28/07</option>
+              <option value="undecided"><span data-lang="es">Aún no decido</span><span data-lang="en">Still not sure</span></option>
+              <option value="no"><span data-lang="es">No, me busco alojamiento por mi cuenta</span><span data-lang="en">No, I'll sort my own accommodation</span></option>
+            </select>
+          </div>
+
+          <div id="section-rooms2" style="display:none;">
+            <div class="field">
+              <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
+              <!-- aviso cuando hay habitaciones pre-cargadas del RSVP1 -->
+              <div id="rooms-preloaded-notice" style="display:none;font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);margin-bottom:.8rem;line-height:1.65;">
+                <span data-lang="es">Estas son las habitaciones que pediste en tu RSVP original. Puedes modificarlas si algo cambió.</span>
+                <span data-lang="en">These are the rooms you requested in your original RSVP. Feel free to update them if anything has changed.</span>
+              </div>
+              <div id="room-list2"></div>
+              <button class="add-room-btn2" onclick="addRoom2()">+ <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span></button>
+            </div>
+            <div class="field">
+              <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="groundfloor"><span data-lang="es">Planta baja</span><span data-lang="en">Ground floor</span></div>
+                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="handrails"><span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span></div>
+                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="other-acc2"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
+              </div>
+              <input type="text" id="acc2-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.6rem;display:none;width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:Cinzel,serif;font-size:.7rem;padding:.62rem 1rem;outline:none;">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notas2"><span data-lang="es">Algo más que quieras contarnos</span><span data-lang="en">Anything else you'd like to share</span></label>
+          <input type="text" id="notas2" placeholder="…">
+        </div>
+
+      </div><!-- /section2-yes -->
+
+      <!-- IF NO -->
+      <div class="regrets-box" id="section2-no">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.7rem;">
+          <span data-lang="es">Lo sentimos mucho 🖤</span><span data-lang="en">We're so sorry to hear that 🖤</span>
+        </p>
+        <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);line-height:1.8;">
+          <span data-lang="es">Entendemos que las cosas cambian. Gracias por avisarnos y te mandamos todo nuestro cariño.</span>
+          <span data-lang="en">We understand things change. Thank you for letting us know, sending you all our love.</span>
+        </p>
+      </div>
+
+      <button class="submit-btn" id="submit-btn2" onclick="submitReconf()">
+        <span data-lang="es">Enviar reconfirmación</span><span data-lang="en">Send reconfirmation</span>
+      </button>
+
+    </div><!-- /section-main -->
+
+  </div><!-- /reconf-form -->
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="success-box">
+    <span class="success-icon">🖤</span>
+    <p class="success-title"><span data-lang="es">¡Listo!</span><span data-lang="en">Done!</span></p>
+    <p class="success-body">
+      <span data-lang="es">Gracias por reconfirmar. ¡Ya casi es el día, los esperamos con todo nuestro amor!</span>
+      <span data-lang="en">Thank you for reconfirming. The day is almost here, we can't wait to celebrate with you!</span>
+    </p>
+  </div>
+
+</div>
+
+<footer class="page-footer">
+  <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.5rem;">
+    <div style="height:1px;width:70px;background:linear-gradient(to right,transparent,rgba(196,160,80,.38));"></div>
+    <span style="color:var(--gold2);font-size:.85rem;opacity:.65;">✦ ❧ ✦</span>
+    <div style="height:1px;width:70px;background:linear-gradient(to left,transparent,rgba(196,160,80,.38));"></div>
+  </div>
+  <p class="pf-names">Jami & Franco · 28.07.2026</p>
+</footer>
+
+<script>
+// ── CONFIG ──
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+// ── LANG ──
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+}
+
+// ── AUTOCOMPLETE ──
+let selectedPerson = null;
+let searchTimer = null;
+let highlighted = -1;
+let currentSuggestions = [];
+
+async function onSearchInput(val) {
+  clearTimeout(searchTimer);
+  const list = document.getElementById('autocomplete-list');
+  if(val.trim().length < 2){ list.style.display='none'; return; }
+  searchTimer = setTimeout(async ()=>{
+    list.innerHTML = '<div class="autocomplete-loading">…</div>';
+    list.style.display = 'block';
+    try {
+      const url = APPS_SCRIPT_URL + '?action=search&q=' + encodeURIComponent(val.trim());
+      const res = await fetch(url);
+      const data = await res.json();
+      currentSuggestions = data.results || [];
+      renderSuggestions(val.trim());
+    } catch(e) {
+      list.innerHTML = '<div class="autocomplete-loading">—</div>';
+    }
+  }, 320);
+}
+
+function renderSuggestions(query) {
+  const list = document.getElementById('autocomplete-list');
+  if(!currentSuggestions.length){
+    list.innerHTML = `<div class="autocomplete-loading">${document.body.classList.contains('en') ? 'No results found' : 'No se encontraron resultados'}</div>`;
+    return;
+  }
+  list.innerHTML = currentSuggestions.map((p, i) => {
+    const full = p.nombre + ' ' + p.apellido;
+    const re = new RegExp('('+query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')', 'gi');
+    const highlighted_name = full.replace(re, '<em>$1</em>');
+    return `<div class="autocomplete-item" data-idx="${i}" onmousedown="selectPerson(${i})">${highlighted_name}</div>`;
+  }).join('');
+  list.style.display = 'block';
+  highlighted = -1;
+}
+
+function onSearchKey(e) {
+  const items = document.querySelectorAll('.autocomplete-item');
+  if(e.key === 'ArrowDown'){ e.preventDefault(); highlighted = Math.min(highlighted+1, items.length-1); updateHighlight(items); }
+  else if(e.key === 'ArrowUp'){ e.preventDefault(); highlighted = Math.max(highlighted-1, 0); updateHighlight(items); }
+  else if(e.key === 'Enter' && highlighted >= 0){ e.preventDefault(); selectPerson(highlighted); }
+  else if(e.key === 'Escape'){ document.getElementById('autocomplete-list').style.display='none'; }
+}
+
+function updateHighlight(items) {
+  items.forEach((el,i) => el.classList.toggle('highlighted', i === highlighted));
+}
+
+async function selectPerson(idx) {
+  selectedPerson = currentSuggestions[idx];
+  document.getElementById('autocomplete-list').style.display = 'none';
+  document.getElementById('search-name').value = selectedPerson.nombre + ' ' + selectedPerson.apellido;
+  document.getElementById('f-buscar').classList.remove('invalid');
+  const box = document.getElementById('person-confirmed');
+  document.getElementById('person-name-display').textContent = selectedPerson.nombre + ' ' + selectedPerson.apellido;
+  box.classList.add('show');
+  document.getElementById('section-main').classList.add('show');
+
+  // Jalar datos del RSVP original para pre-cargar alojamiento y habitaciones
+  try {
+    const url = APPS_SCRIPT_URL + '?action=person'
+      + '&nombre='   + encodeURIComponent(selectedPerson.nombre)
+      + '&apellido=' + encodeURIComponent(selectedPerson.apellido);
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.found) {
+      preloadRsvpData(data);
+    }
+  } catch(e) {
+    // Si falla la carga, el formulario igual funciona vacío — no bloqueamos
+    console.warn('No se pudo cargar datos del RSVP:', e);
+  }
+}
+
+// Pre-carga los datos de alojamiento del RSVP1 en el formulario de reconf
+function preloadRsvpData(data) {
+  const isEN        = document.body.classList.contains('en');
+  const alojamiento = data.alojamiento_springkell || '';
+  const stay2El     = document.getElementById('stay2');
+  const infoText    = document.getElementById('stay-infobox-text');
+
+  // Resetear habitaciones previas
+  document.getElementById('room-list2').innerHTML = '';
+  roomCount2 = 0;
+
+  if (alojamiento === 'undecided' || alojamiento === '') {
+    // Era indeciso → texto preguntando si ya decidió
+    infoText.innerHTML = isEN
+      ? 'In your original RSVP you hadn\'t decided about staying at Springkell. Have you decided now?'
+      : 'En tu RSVP inicial indicaste que aún no habías decidido sobre el alojamiento en Springkell. ¿Ya lo sabes?';
+    stay2El.value = '';
+    document.getElementById('section-rooms2').style.display = 'none';
+    document.getElementById('rooms-preloaded-notice').style.display = 'none';
+
+  } else if (alojamiento === 'no') {
+    // Dijo que no se queda → le preguntamos si cambió de opinión
+    infoText.innerHTML = isEN
+      ? 'In your original RSVP you said you wouldn\'t be staying at Springkell. Has that changed?'
+      : 'En tu RSVP inicial dijiste que no te ibas a quedar en Springkell. ¿Cambió algo?';
+    stay2El.value = 'no';
+    document.getElementById('section-rooms2').style.display = 'none';
+    document.getElementById('rooms-preloaded-notice').style.display = 'none';
+
+  } else {
+    // Tenía noches confirmadas (yes-both o yes-28) → mostramos sus habitaciones
+    infoText.innerHTML = isEN
+      ? 'These are the accommodation details from your original RSVP. You can update anything that has changed.'
+      : 'Estos son los datos de alojamiento de tu RSVP original. Puedes modificar lo que haya cambiado.';
+    stay2El.value = alojamiento;
+    document.getElementById('section-rooms2').style.display = 'block';
+
+    // Cargar habitaciones del RSVP1 si las hay
+    let habitaciones = [];
+    try {
+      if (data.habitaciones && data.habitaciones.trim() !== '') {
+        habitaciones = JSON.parse(data.habitaciones);
+      }
+    } catch(e) { habitaciones = []; }
+
+    if (habitaciones.length > 0) {
+      document.getElementById('rooms-preloaded-notice').style.display = 'block';
+      habitaciones.forEach(h => addRoom2(h));
+    } else {
+      document.getElementById('rooms-preloaded-notice').style.display = 'none';
+      addRoom2();
+    }
+  }
+}
+
+function clearPerson() {
+  selectedPerson = null;
+  document.getElementById('search-name').value = '';
+  document.getElementById('person-confirmed').classList.remove('show');
+  document.getElementById('section-main').classList.remove('show');
+  // Limpiar datos pre-cargados
+  document.getElementById('room-list2').innerHTML = '';
+  roomCount2 = 0;
+  document.getElementById('stay2').value = '';
+  document.getElementById('section-rooms2').style.display = 'none';
+  document.getElementById('rooms-preloaded-notice').style.display = 'none';
+  document.getElementById('search-name').focus();
+}
+
+// Hide list on outside click
+document.addEventListener('click', e => {
+  if(!e.target.closest('.autocomplete-wrap')) {
+    document.getElementById('autocomplete-list').style.display='none';
+  }
+});
+
+// ── ATTENDANCE ──
+let attend2 = '';
+function setAttend2(val) {
+  attend2 = val;
+  const btn2yes = document.getElementById('btn2-yes');
+  const btn2no  = document.getElementById('btn2-no');
+  btn2yes.className = 'attend-btn' + (val==='yes'?' selected-yes':'');
+  btn2no.className  = 'attend-btn' + (val==='no'?' selected-no':'');
+  btn2yes.setAttribute('aria-pressed', val==='yes' ? 'true' : 'false');
+  btn2no.setAttribute('aria-pressed',  val==='no'  ? 'true' : 'false');
+  document.getElementById('section2-yes').classList.toggle('show', val==='yes');
+  document.getElementById('section2-no').classList.toggle('show', val==='no');
+}
+
+// ── TRANSPORT CHIPS (single select per group) ──
+const transportVals = { llegada: '', salida: '' };
+function toggleTransport(el, group) {
+  document.querySelectorAll(`.transport-chip`).forEach(c => {
+    if(c.closest('.field') === el.closest('.field')) c.classList.remove('selected');
+  });
+  el.classList.add('selected');
+  transportVals[group] = el.dataset.val;
+}
+
+// ── STAY 2 (for undecided guests) ──
+let roomCount2 = 0;
+function toggleStay2(val) {
+  const staying = val === 'yes-both' || val === 'yes-28';
+  document.getElementById('section-rooms2').style.display = staying ? 'block' : 'none';
+  if(staying && document.getElementById('room-list2').children.length === 0) addRoom2();
+}
+
+function addRoom2(prefill) {
+  roomCount2++;
+  const idx = roomCount2;
+  const div = document.createElement('div');
+  div.id = 'room2-' + idx;
+  div.style.cssText = 'background:rgba(255,255,255,.3);border:1px solid rgba(196,160,80,.2);padding:1rem 1.2rem;margin-bottom:.6rem;position:relative;';
+  const initDbl  = (prefill && prefill.doubles) ? prefill.doubles : 0;
+  const initSgl  = (prefill && prefill.singles) ? prefill.singles : 0;
+  const initNote = (prefill && prefill.note)    ? prefill.note    : '';
+  div.innerHTML = `
+    <p style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.8rem;text-transform:uppercase;">Habitación / Room ${idx}</p>
+    ${roomCount2 > 1 ? `<button style="position:absolute;top:.5rem;right:.6rem;background:none;border:none;color:var(--muted2);font-size:1rem;cursor:pointer;" onclick="document.getElementById('room2-${idx}').remove()">×</button>` : ''}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.6rem;">
+      <div>
+        <p style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem;">Double / King</p>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <button type="button" class="counter-btn" onclick="chgCnt('d2-${idx}',-1)">−</button>
+          <span class="counter-val" id="d2-${idx}">${initDbl}</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('d2-${idx}',1)">+</button>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem;">Single / Twin</p>
+        <div style="display:flex;align-items:center;gap:.5rem;">
+          <button type="button" class="counter-btn" onclick="chgCnt('s2-${idx}',-1)">−</button>
+          <span class="counter-val" id="s2-${idx}">${initSgl}</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('s2-${idx}',1)">+</button>
+        </div>
+      </div>
+    </div>
+    <input type="text" id="rn2-${idx}" placeholder="Nota · Note" value="${initNote.replace(/"/g,'&quot;')}"
+      style="width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.25);color:var(--ink);font-family:'Cinzel',serif;font-size:.65rem;padding:.5rem .8rem;outline:none;">
+  `;
+  document.getElementById('room-list2').appendChild(div);
+}
+function chgCnt(id, d) {
+  const el=document.getElementById(id); if(!el) return;
+  el.textContent=Math.max(0,(parseInt(el.textContent)||0)+d);
+}
+function collectRooms2() {
+  const rooms=[];
+  for(let i=1;i<=roomCount2;i++){
+    if(!document.getElementById('room2-'+i)) continue;
+    rooms.push({room:i, doubles:parseInt(document.getElementById('d2-'+i)?.textContent)||0, singles:parseInt(document.getElementById('s2-'+i)?.textContent)||0, note:document.getElementById('rn2-'+i)?.value||''});
+  }
+  return rooms;
+}
+function collectAcc2() {
+  const chips=[...document.querySelectorAll('#section-stay-reconf .transport-chip.selected')].map(c=>c.dataset.val);
+  const other=document.getElementById('acc2-other')?.value.trim();
+  if(other) chips.push('other:'+other);
+  return chips.join(', ');
+}
+
+// Show acc2 other input
+document.addEventListener('click', e => {
+  const chip = e.target.closest('[data-val="other-acc2"]');
+  if(chip) {
+    chip.classList.toggle('selected');
+    const inp=document.getElementById('acc2-other');
+    if(inp) inp.style.display=chip.classList.contains('selected')?'block':'none';
+  }
+});
+
+// ── VALIDATE ──
+function validate2() {
+  let ok = true;
+  if(!selectedPerson){ document.getElementById('f-buscar').classList.add('invalid'); ok=false; }
+  if(!attend2) ok=false;
+  return ok;
+}
+
+// ── SUBMIT ──
+async function submitReconf() {
+  if(!validate2()) return;
+  const btn = document.getElementById('submit-btn2');
+  btn.disabled = true;
+  btn.textContent = '…';
+
+  const stayVal2 = document.getElementById('stay2')?.value || '';
+  const payload = {
+    type: 'reconfirmation',
+    nombre: selectedPerson.nombre,
+    apellido: selectedPerson.apellido,
+    email: selectedPerson.email || '',
+    asistencia_reconf: attend2,
+    transporte_llegada: transportVals.llegada,
+    transporte_salida: transportVals.salida,
+    dieta_cambio: document.getElementById('dieta2')?.value.trim() || '',
+    alojamiento_reconf: stayVal2,
+    habitaciones_reconf: (stayVal2 === 'yes-both' || stayVal2 === 'yes-28') ? JSON.stringify(collectRooms2()) : '',
+    accesibilidad_reconf: collectAcc2(),
+    notas_reconf: document.getElementById('notas2')?.value.trim() || '',
+    timestamp_reconf: new Date().toISOString()
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    document.getElementById('reconf-form').style.display='none';
+    document.getElementById('success-box').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = document.body.classList.contains('en') ? 'Error, try again' : 'Error, intenta de nuevo';
+    setTimeout(()=>{ btn.textContent = document.body.classList.contains('en') ? 'Send reconfirmation' : 'Enviar reconfirmación'; }, 3000);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP · Jami & Franco · 28.07.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#f8f5ef; --paper2:#f0ebe0; --paper3:#e8e0d0; --paper4:#ddd3be;
+  --ink:#1c1510; --ink2:#2e2018;
+  --burg:#5c0d2a; --wine:#7a1535;
+  --gold:#765f25; --gold2:#c4a050;
+  --goldA:rgba(196,160,80,.2); --goldB:rgba(196,160,80,.38);
+  --muted:#6a5a42; --muted2:#786848;
+  --err:#8b1a1a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--paper);
+  color:var(--ink); font-family:'Cinzel',serif; font-size:16px; line-height:1.8; overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.65;
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--paper2);}
+::-webkit-scrollbar-thumb{background:var(--burg);}
+
+/* LANG */
+.lang-toggle{position:fixed;top:1.1rem;right:1.4rem;z-index:500;display:flex;gap:.4rem;}
+.lang-btn{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;background:none;border:1px solid var(--burg);color:var(--burg);padding:.28rem .65rem;cursor:pointer;transition:all .3s;}
+.lang-btn.active,.lang-btn:hover{background:var(--burg);color:var(--paper);}
+[data-lang="en"]{display:none;}
+body.en [data-lang="es"]{display:none;}
+body.en [data-lang="en"]{display:unset;}
+.blk-es{display:block;}
+.blk-en{display:none;}
+body.en .blk-es{display:none;}
+body.en .blk-en{display:block;}
+span.blk-es,span.blk-en{display:inline;}
+body.en span.blk-es{display:none;}
+body.en span.blk-en{display:inline;}
+
+/* HEADER */
+.site-header{
+  background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);
+  padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);
+}
+.back-link{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.14em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.back-link:hover{color:var(--burg);}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
+.header-sub{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;display:block;text-align:center;}
+
+/* PAGE HERO */
+.page-hero{text-align:center;padding:4.5rem 2rem 3rem;position:relative;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,160,80,.06) 0%,transparent 70%);}
+.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;opacity:.55;pointer-events:none;}
+.page-hero > *{position:relative;z-index:1;}
+.ph-eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.35em;color:var(--gold2);text-transform:uppercase;margin-bottom:.8rem;}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,7vw,4.5rem);font-weight:300;font-style:italic;color:var(--ink);line-height:.95;margin-bottom:.9rem;}
+.ph-rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:1rem auto;}
+.ph-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));}
+.ph-line.rv{background:linear-gradient(to left,transparent,var(--goldB));}
+.ph-sym{color:var(--gold2);font-size:.8rem;opacity:.8;}
+.ph-sub{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.68;}
+
+/* FORM */
+.form-wrap{max-width:720px;margin:0 auto;padding:2.5rem 2rem 6rem;}
+
+/* SECTION LABEL */
+.fsec-label{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.26em;
+  color:var(--gold);text-transform:uppercase;
+  border-bottom:1px solid var(--goldA);padding-bottom:.6rem;margin:2.8rem 0 1.6rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.fsec-label::before{content:'✦';font-size:.7rem;color:var(--gold2);}
+
+/* FIELD */
+.field{margin-bottom:1.3rem;}
+.field label{
+  font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase;display:block;margin-bottom:.4rem;
+}
+.field label .req{color:var(--burg);margin-left:.2rem;}
+.field input,.field select,.field textarea{
+  width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);
+  color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;
+  padding:.62rem 1rem;outline:none;transition:border-color .3s,background .3s;
+  appearance:none;-webkit-appearance:none;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--gold2);background:rgba(255,255,255,.8);
+}
+.field textarea{resize:vertical;min-height:80px;line-height:1.7;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8a70' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
+.field-err{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--err);margin-top:.3rem;display:none;}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err);}
+.field.invalid .field-err{display:block;}
+.field-hint{font-family:'EB Garamond',serif;font-size:.92rem;letter-spacing:0;color:var(--muted2);margin-top:.35rem;line-height:1.65;}
+
+/* 2-col grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+/* ATTENDANCE TOGGLE */
+.attend-toggle{display:flex;gap:.6rem;margin-top:.2rem;}
+.attend-btn{
+  flex:1;padding:.7rem;text-align:center;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(196,160,80,.28);color:var(--muted);transition:all .3s;
+  background:rgba(255,255,255,.4);
+}
+.attend-btn.selected-yes{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.attend-btn.selected-no{background:var(--paper3);color:var(--ink2);border-color:rgba(92,13,42,.3);}
+.attend-btn:hover{border-color:var(--gold2);}
+
+/* ROOM BUILDER */
+.room-builder{margin-top:.6rem;}
+.room-entry{
+  background:var(--paper2);border:1px solid var(--goldA);
+  padding:1.4rem 1.6rem;margin-bottom:.8rem;position:relative;
+}
+.room-entry-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;}
+.remove-room{
+  position:absolute;top:.8rem;right:.9rem;background:none;border:none;
+  font-size:1rem;color:var(--muted2);cursor:pointer;transition:color .2s;line-height:1;
+}
+.remove-room:hover{color:var(--burg);}
+.add-room-btn{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  background:none;border:1px dashed rgba(196,160,80,.4);color:var(--muted2);
+  padding:.55rem 1rem;cursor:pointer;width:100%;transition:all .3s;margin-top:.3rem;
+}
+.add-room-btn:hover{border-color:var(--gold2);color:var(--gold);}
+
+/* NIGHTS CHECKBOXES */
+.nights-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.2rem;}
+.night-cb{display:flex;align-items:center;gap:.4rem;cursor:pointer;}
+.night-cb input[type=checkbox]{
+  width:1.1rem;height:1.1rem;accent-color:var(--burg);cursor:pointer;flex-shrink:0;
+}
+.night-cb span{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.05em;color:var(--muted);}
+
+/* BEDS COUNTER */
+.beds-row{display:flex;align-items:center;gap:.6rem;margin-top:.2rem;}
+.counter-btn{
+  width:1.8rem;height:1.8rem;border:1px solid rgba(196,160,80,.35);
+  background:none;color:var(--ink2);font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.counter-btn:hover{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.counter-val{
+  font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;
+  color:var(--ink);min-width:1.5rem;text-align:center;
+}
+.beds-type-label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.06em;color:var(--muted2);}
+
+/* ACCESSIBILITY */
+.accessibility-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem;}
+.acc-chip{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;
+  border:1px solid rgba(196,160,80,.3);color:var(--muted);
+  padding:.35rem .8rem;cursor:pointer;transition:all .25s;
+  background:rgba(255,255,255,.35);
+}
+.acc-chip.selected{background:var(--paper3);border-color:var(--gold2);color:var(--ink2);}
+
+/* SUBMIT */
+.submit-btn{
+  width:100%;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.18em;
+  text-transform:uppercase;background:var(--burg);color:var(--paper);
+  border:none;padding:1.1rem;cursor:pointer;transition:background .3s;margin-top:2rem;
+}
+.submit-btn:hover{background:var(--wine);}
+.submit-btn:disabled{background:var(--muted2);cursor:not-allowed;}
+
+/* SUCCESS */
+.success-box{
+  display:none;text-align:center;padding:3.5rem 2rem;
+  background:var(--paper2);border:1px solid var(--goldB);
+  animation:fadeUp .5s ease;
+}
+.success-box.show{display:block;}
+.success-icon{font-size:2.5rem;margin-bottom:1.2rem;display:block;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.8rem;}
+.success-body{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);line-height:1.9;max-width:420px;margin:0 auto;}
+
+/* REGRETS BOX */
+.regrets-box{
+  display:none;text-align:center;padding:2.5rem;
+  background:var(--paper2);border:1px solid var(--goldA);margin-top:1.5rem;
+}
+.regrets-box.show{display:block;}
+
+/* INFO BOX */
+.info-box{
+  background:rgba(196,160,80,.08);border-left:3px solid var(--gold2);
+  padding:1.1rem 1.4rem;margin:1.4rem 0;
+}
+.info-box p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+
+/* CONDITIONAL SECTIONS */
+.conditional{display:none;}
+.conditional.show{display:block;}
+
+/* FOOTER */
+.page-footer{text-align:center;padding:3rem 2rem 5rem;border-top:1px solid rgba(196,160,80,.16);background:linear-gradient(to top,var(--paper3),transparent);}
+.pf-names{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);}
+.pf-back{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--muted);text-decoration:none;text-transform:uppercase;border:1px solid var(--goldA);padding:.5rem 1.2rem;display:inline-block;margin-top:1.2rem;transition:all .3s;}
+.pf-back:hover{border-color:var(--goldB);color:var(--burg);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:600px){
+  .grid2{grid-template-columns:1fr;}
+  .form-wrap{padding:2rem 1.2rem 5rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('es')">ES</button>
+  <button class="lang-btn" onclick="setLang('en')">EN</button>
+</div>
+
+<header class="site-header">
+  <a class="back-link" href="jami-franco-wedding.html">← <span data-lang="es">Volver</span><span data-lang="en">Back</span></a>
+  <div>
+    <p class="header-title">Jami & Franco</p>
+    <span class="header-sub">28 · 07 · 2026</span>
+  </div>
+  <div style="width:80px"></div>
+</header>
+
+<div class="page-hero">
+  <p class="ph-eyebrow"><span data-lang="es">Confirma tu asistencia</span><span data-lang="en">Confirm your attendance</span></p>
+  <h1 class="ph-title">RSVP</h1>
+  <div class="ph-rule"><div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div></div>
+  <p class="ph-sub">
+    <span data-lang="es">Por favor completa este formulario antes del <strong>1 de abril de 2026</strong>. Nos ayuda muchísimo para organizar todo con amor. 🖤</span>
+    <span data-lang="en">Please complete this form before <strong>April 1st, 2026</strong>. It helps us enormously to organise everything with care. 🖤</span>
+  </p>
+</div>
+
+<div class="form-wrap">
+  <div id="rsvp-form">
+
+    <!-- ── 1. DATOS PERSONALES ── -->
+    <p class="fsec-label"><span data-lang="es">Tus datos</span><span data-lang="en">Your details</span></p>
+
+    <div class="grid2">
+      <div class="field" id="f-nombre">
+        <label for="nombre"><span data-lang="es">Nombre(s)</span><span data-lang="en">First name(s)</span><span class="req">*</span></label>
+        <input type="text" id="nombre" placeholder="Ej. María" autocomplete="given-name">
+        <div class="field-err"><span data-lang="es">Por favor ingresa tu nombre</span><span data-lang="en">Please enter your first name</span></div>
+      </div>
+      <div class="field" id="f-apellido">
+        <label for="apellido"><span data-lang="es">Apellido(s)</span><span data-lang="en">Last name(s)</span><span class="req">*</span></label>
+        <input type="text" id="apellido" placeholder="Ej. García" autocomplete="family-name">
+        <div class="field-err"><span data-lang="es">Por favor ingresa tu apellido</span><span data-lang="en">Please enter your last name</span></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="field" id="f-email">
+        <label for="email">Email<span class="req">*</span></label>
+        <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+        <div class="field-err"><span data-lang="es">Por favor ingresa un email válido</span><span data-lang="en">Please enter a valid email</span></div>
+      </div>
+      <div class="field" id="f-whatsapp">
+        <label for="whatsapp">WhatsApp<span class="req">*</span></label>
+        <input type="tel" id="whatsapp" placeholder="+51 999 999 999" autocomplete="tel">
+        <div class="field-err"><span data-lang="es">Por favor ingresa tu WhatsApp</span><span data-lang="en">Please enter your WhatsApp number</span></div>
+      </div>
+    </div>
+
+    <!-- ── 2. ASISTENCIA ── -->
+    <p class="fsec-label"><span data-lang="es">¿Vas a poder acompañarnos?</span><span data-lang="en">Will you be able to join us?</span></p>
+
+    <div class="field">
+      <label><span data-lang="es">Confirmación</span><span data-lang="en">Confirmation</span><span class="req">*</span></label>
+      <div class="attend-toggle" role="group" aria-label="Confirmación de asistencia">
+        <div class="attend-btn" id="btn-yes" onclick="setAttend('yes')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('yes')">
+          <span data-lang="es">¡Sí, voy!</span><span data-lang="en">Yes, I'll be there!</span>
+        </div>
+        <div class="attend-btn" id="btn-no" onclick="setAttend('no')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('no')">
+          <span data-lang="es">No podré ir</span><span data-lang="en">I can't make it</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATTENDING: more fields -->
+    <div class="conditional" id="section-attending">
+
+      <div class="field" id="f-llegada">
+        <label for="llegada"><span data-lang="es">¿Qué día llegas a UK?</span><span data-lang="en">Which day do you arrive in the UK?</span><span class="req">*</span></label>
+        <select id="llegada">
+          <option value="" disabled selected>— DD/MM/YYYY —</option>
+          <option value="antes-25" data-es="Antes del 25/07/2026" data-en="Before 25/07/2026">Antes del 25/07/2026</option>
+          <option value="25-jul">25/07/2026</option>
+          <option value="26-jul">26/07/2026</option>
+          <option value="27-jul">27/07/2026</option>
+          <option value="28-jul">28/07/2026</option>
+        </select>
+        <div class="field-err"><span data-lang="es">Por favor selecciona tu fecha de llegada</span><span data-lang="en">Please select your arrival date</span></div>
+      </div>
+
+      <!-- ── 3. DIETA ── -->
+      <p class="fsec-label"><span data-lang="es">Alimentación</span><span data-lang="en">Dietary requirements</span></p>
+
+      <div class="field">
+        <label for="dieta"><span data-lang="es">¿Tienes algún requerimiento alimenticio?</span><span data-lang="en">Any dietary requirements?</span></label>
+        <input type="text" id="dieta" placeholder="Ej. vegetariano, sin gluten… · E.g. vegetarian, gluten-free…">
+        <div class="field-hint"><span data-lang="es">Si no tienes, déjalo en blanco</span><span data-lang="en">Leave blank if none</span></div>
+      </div>
+
+      <!-- ── 4. ALOJAMIENTO ── -->
+      <p class="fsec-label"><span data-lang="es">Alojamiento en Springkell</span><span data-lang="en">Accommodation at Springkell</span></p>
+
+      <div class="info-box">
+        <p><span data-lang="es">Springkell tiene 21 habitaciones en suite + 3 cottages. Como invitado a la boda accedes a precios especiales. Indica a continuación si te quedarás en el venue y cuántas habitaciones necesitas.</span>
+        <span data-lang="en">Springkell has 21 en-suite rooms + 3 cottages. As a wedding guest you get a special discounted rate. Let us know below if you'll be staying at the venue and how many rooms you need.</span></p>
+      </div>
+
+      <div class="field">
+        <label for="stay-springkell"><span data-lang="es">¿Quieres quedarte en Springkell para que te mandemos una cotización?</span><span data-lang="en">Would you like to stay at Springkell so we can send you a quote?</span><span class="req">*</span></label>
+        <select id="stay-springkell" onchange="toggleStay(this.value)">
+          <option value="" disabled selected>—</option>
+          <option value="yes-both" class="opt-es" data-es="Sí · 27/07 &amp; 28/07" data-en="Yes · 27/07 &amp; 28/07">Sí · 27/07 &amp; 28/07</option>
+          <option value="yes-28" data-es="Sí · 28/07" data-en="Yes · 28/07">Sí · 28/07</option>
+          <option value="undecided" data-es="Aún no decido" data-en="Not sure yet">Aún no decido</option>
+          <option value="no" data-es="No, me quedaré en otro lugar" data-en="No, I'll stay elsewhere">No, me quedaré en otro lugar</option>
+        </select>
+      </div>
+
+      <!-- Room builder -->
+      <div class="conditional" id="section-rooms">
+        <div class="field">
+          <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
+          <div class="field-hint" style="margin-bottom:.8rem;"><span data-lang="es">Agrega una entrada por cada habitación. Puedes especificar qué tipo de cama necesitas.</span><span data-lang="en">Add one entry per room. You can specify what type of bed you need.</span></div>
+          <div id="room-list"></div>
+          <button class="add-room-btn" onclick="addRoom()">
+            + <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span>
+          </button>
+        </div>
+
+        <div class="field">
+          <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
+          <div class="field-hint" style="margin-bottom:.6rem;"><span data-lang="es">Selecciona todo lo que aplique</span><span data-lang="en">Select all that apply</span></div>
+          <div class="accessibility-row" role="group" aria-label="Requerimientos de accesibilidad">
+            <div class="acc-chip" onclick="toggleChip(this)" data-val="groundfloor" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+              <span data-lang="es">Planta baja</span><span data-lang="en">Ground floor room</span>
+            </div>
+            <div class="acc-chip" onclick="toggleChip(this)" data-val="handrails" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+              <span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span>
+            </div>
+            <div class="acc-chip" onclick="toggleChip(this)" data-val="other-acc" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+              <span data-lang="es">Otro</span><span data-lang="en">Other</span>
+            </div>
+          </div>
+          <input type="text" id="accessibility-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.7rem;display:none;"
+            oninput="document.getElementById('accessibility-other').style.display = 'block'">
+        </div>
+      </div>
+
+      <!-- NOT staying -->
+      <div class="conditional" id="section-no-stay">
+        <div class="field">
+          <label for="stay-other"><span data-lang="es">¿Dónde te quedarás?</span><span data-lang="en">Where will you be staying?</span></label>
+          <input type="text" id="stay-other" placeholder="Hotel / Airbnb / con amigos…">
+        </div>
+      </div>
+
+    </div><!-- /section-attending -->
+
+    <!-- NOT ATTENDING -->
+    <div class="regrets-box" id="section-regrets">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.7rem;">
+        <span data-lang="es">Te vamos a extrañar 🖤</span><span data-lang="en">We'll miss you 🖤</span>
+      </p>
+      <p style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.05em;color:var(--muted);line-height:1.8;">
+        <span data-lang="es">Lamentamos que no puedas venir, pero agradecemos que nos lo hagas saber. ¡Seguimos en contacto!</span>
+        <span data-lang="en">We're sorry you can't make it, but we appreciate you letting us know. Let's keep in touch!</span>
+      </p>
+    </div>
+
+    <!-- NOTAS ADICIONALES -->
+    <div class="conditional" id="section-notes">
+      <p class="fsec-label"><span data-lang="es">Notas adicionales</span><span data-lang="en">Additional notes</span></p>
+      <div class="field">
+        <label for="notas"><span data-lang="es">¿Algo más que debamos saber?</span><span data-lang="en">Anything else we should know?</span></label>
+        <textarea id="notas" placeholder="…"></textarea>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">
+      <span data-lang="es">Enviar confirmación</span><span data-lang="en">Send my RSVP</span>
+    </button>
+
+  </div><!-- /rsvp-form -->
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="success-box">
+    <span class="success-icon">🖤</span>
+    <p class="success-title"><span data-lang="es">¡Recibido!</span><span data-lang="en">All received!</span></p>
+    <p class="success-body">
+      <span data-lang="es">Gracias por confirmar. Estaremos en contacto con más detalles antes de la boda. ¡Los esperamos!</span>
+      <span data-lang="en">Thank you for confirming. We'll be in touch with more details before the wedding. We can't wait to see you!</span>
+    </p>
+  </div>
+
+</div>
+
+<footer class="page-footer">
+  <div style="display:flex;align-items:center;gap:1rem;justify-content:center;margin-bottom:1.5rem;">
+    <div style="height:1px;width:70px;background:linear-gradient(to right,transparent,rgba(196,160,80,.38));"></div>
+    <span style="color:var(--gold2);font-size:.85rem;opacity:.65;">✦ ❧ ✦</span>
+    <div style="height:1px;width:70px;background:linear-gradient(to left,transparent,rgba(196,160,80,.38));"></div>
+  </div>
+  <p class="pf-names">Jami & Franco · 28.07.2026</p>
+  <a class="pf-back" href="jami-franco-wedding.html">← <span data-lang="es">Volver a la página principal</span><span data-lang="en">Back to main page</span></a>
+</footer>
+
+<script>
+// ── CONFIG, reemplaza con tu Apps Script URL ──
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+// ── LANG ──
+function translateSelects(isEN) {
+  document.querySelectorAll('select option[data-es]').forEach(opt => {
+    opt.textContent = isEN ? opt.dataset.en : opt.dataset.es;
+  });
+}
+
+function setLang(l){
+  const isEN = l === 'en';
+  document.body.classList.toggle('en', isEN);
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+  translateSelects(isEN);
+  // re-apply lang to dynamically added elements
+  document.querySelectorAll('.room-entry [data-lang="es"]').forEach(el=>el.style.display=isEN?'none':'');
+  document.querySelectorAll('.room-entry [data-lang="en"]').forEach(el=>el.style.display=isEN?'':'none');
+}
+
+// ── ATTENDANCE ──
+let attendValue = '';
+function setAttend(val) {
+  attendValue = val;
+  const btnYes = document.getElementById('btn-yes');
+  const btnNo  = document.getElementById('btn-no');
+  btnYes.className = 'attend-btn' + (val==='yes' ? ' selected-yes' : '');
+  btnNo.className  = 'attend-btn' + (val==='no'  ? ' selected-no'  : '');
+  btnYes.setAttribute('aria-pressed', val==='yes' ? 'true' : 'false');
+  btnNo.setAttribute('aria-pressed',  val==='no'  ? 'true' : 'false');
+  document.getElementById('section-attending').classList.toggle('show', val==='yes');
+  document.getElementById('section-regrets').classList.toggle('show', val==='no');
+  document.getElementById('section-notes').classList.toggle('show', val==='yes');
+}
+
+// ── STAY ──
+function toggleStay(val) {
+  const staying = val === 'yes-both' || val === 'yes-28';
+  document.getElementById('section-rooms').classList.toggle('show', staying);
+  document.getElementById('section-no-stay').classList.toggle('show', val==='no');
+  if(staying && document.getElementById('room-list').children.length === 0) addRoom();
+}
+
+// ── ROOM BUILDER ──
+let roomCount = 0;
+function addRoom() {
+  roomCount++;
+  const idx = roomCount;
+  const isEN = document.body.classList.contains('en');
+  const div = document.createElement('div');
+  div.className = 'room-entry';
+  div.id = 'room-' + idx;
+  div.innerHTML = `
+    <p class="room-entry-title">
+      <span data-lang="es">Habitación ${idx}</span>
+      <span data-lang="en" style="display:none">Room ${idx}</span>
+    </p>
+    ${roomCount > 1 ? `<button class="remove-room" onclick="removeRoom(${idx})" aria-label="Eliminar habitación ${idx}">×</button>` : ''}
+    <div class="grid2" style="margin-bottom:.8rem;">
+      <div class="field" style="margin-bottom:0">
+        <label><span data-lang="es">Tipo de cama doble</span><span data-lang="en" style="display:none">Double beds</span></label>
+        <div class="beds-row">
+          <button type="button" class="counter-btn" onclick="changeCount('dbl-${idx}',-1)" aria-label="Reducir camas dobles">−</button>
+          <span class="counter-val" id="dbl-${idx}" aria-live="polite">0</span>
+          <button type="button" class="counter-btn" onclick="changeCount('dbl-${idx}',1)" aria-label="Agregar cama doble">+</button>
+          <span class="beds-type-label">Double / King</span>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label><span data-lang="es">Camas individuales</span><span data-lang="en" style="display:none">Single beds</span></label>
+        <div class="beds-row">
+          <button type="button" class="counter-btn" onclick="changeCount('sgl-${idx}',-1)" aria-label="Reducir camas individuales">−</button>
+          <span class="counter-val" id="sgl-${idx}" aria-live="polite">0</span>
+          <button type="button" class="counter-btn" onclick="changeCount('sgl-${idx}',1)" aria-label="Agregar cama individual">+</button>
+          <span class="beds-type-label">Single / Twin</span>
+        </div>
+      </div>
+    </div>
+    <div class="field" style="margin-bottom:0">
+      <label><span data-lang="es">Nota sobre esta habitación</span><span data-lang="en" style="display:none">Note for this room</span></label>
+      <input type="text" id="room-note-${idx}" placeholder="Ej. para 2 adultos, cama doble · E.g. for 2 adults, double bed">
+    </div>
+  `;
+  document.getElementById('room-list').appendChild(div);
+  // re-apply lang
+  const isE = document.body.classList.contains('en');
+  div.querySelectorAll('[data-lang="es"]').forEach(el=>el.style.display=isE?'none':'');
+  div.querySelectorAll('[data-lang="en"]').forEach(el=>el.style.display=isE?'':'none');
+}
+
+function removeRoom(idx) {
+  const el = document.getElementById('room-' + idx);
+  if(el) el.remove();
+}
+
+function changeCount(id, delta) {
+  const el = document.getElementById(id);
+  if(!el) return;
+  const cur = parseInt(el.textContent)||0;
+  el.textContent = Math.max(0, cur + delta);
+}
+
+// ── ACCESSIBILITY CHIPS ──
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  el.setAttribute('aria-checked', el.classList.contains('selected') ? 'true' : 'false');
+  const otherInput = document.getElementById('accessibility-other');
+  const hasOther = document.querySelector('.acc-chip[data-val="other-acc"].selected');
+  otherInput.style.display = hasOther ? 'block' : 'none';
+}
+
+// ── COLLECT ROOMS ──
+function collectRooms() {
+  const rooms = [];
+  document.querySelectorAll('.room-entry').forEach((entry, i) => {
+    const id = entry.id.replace('room-','');
+    rooms.push({
+      room: i+1,
+      doubles: parseInt(document.getElementById('dbl-'+id)?.textContent)||0,
+      singles: parseInt(document.getElementById('sgl-'+id)?.textContent)||0,
+      note: document.getElementById('room-note-'+id)?.value||''
+    });
+  });
+  return rooms;
+}
+
+function collectAccessibility() {
+  const chips = [...document.querySelectorAll('.acc-chip.selected')].map(c=>c.dataset.val);
+  const other = document.getElementById('accessibility-other').value.trim();
+  if(other) chips.push('other: '+other);
+  return chips.join(', ');
+}
+
+// ── VALIDATION ──
+function validate() {
+  let ok = true;
+  const required = ['nombre','apellido','email','whatsapp'];
+  required.forEach(id=>{
+    const val = document.getElementById(id).value.trim();
+    const field = document.getElementById('f-'+id);
+    if(!val){ field.classList.add('invalid'); ok=false; }
+    else field.classList.remove('invalid');
+  });
+  // email format
+  const em = document.getElementById('email').value.trim();
+  if(em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
+    document.getElementById('f-email').classList.add('invalid'); ok=false;
+  }
+  if(!attendValue){ ok=false; }
+  if(attendValue==='yes'){
+    const ll = document.getElementById('llegada').value;
+    const fllegada = document.getElementById('f-llegada');
+    if(!ll){ fllegada.classList.add('invalid'); ok=false; }
+    else fllegada.classList.remove('invalid');
+  }
+  return ok;
+}
+
+// ── SUBMIT ──
+async function submitRSVP() {
+  if(!validate()) {
+    window.scrollTo({top: document.querySelector('.field.invalid')?.offsetTop - 80, behavior:'smooth'});
+    return;
+  }
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '…';
+
+  const stayVal = document.getElementById('stay-springkell')?.value || '';
+  const rooms = collectRooms();
+  const accessibility = collectAccessibility();
+
+  const payload = {
+    type: 'rsvp',
+    nombre: document.getElementById('nombre').value.trim(),
+    apellido: document.getElementById('apellido').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    whatsapp: document.getElementById('whatsapp').value.trim(),
+    asistencia: attendValue,
+    llegada: document.getElementById('llegada')?.value || '',
+    dieta: document.getElementById('dieta')?.value.trim() || '',
+    alojamiento_springkell: stayVal,
+    habitaciones: JSON.stringify(rooms),
+    accesibilidad: accessibility,
+    alojamiento_otro: document.getElementById('stay-other')?.value.trim() || '',
+    notas: document.getElementById('notas')?.value.trim() || '',
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    document.getElementById('rsvp-form').style.display='none';
+    document.getElementById('success-box').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch(e) {
+    btn.disabled = false;
+    const isEN = document.body.classList.contains('en');
+    btn.textContent = isEN ? 'Error, try again' : 'Error, intenta de nuevo';
+    setTimeout(()=>{
+      btn.textContent = isEN ? 'Send my RSVP' : 'Enviar confirmación';
+    }, 3000);
+  }
+}
+
+
+</script>
+</body>
+</html>

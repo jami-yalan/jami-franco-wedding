@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScotRail App</title>
+<style>
+  body { margin:0; background:#1c1510; display:flex; align-items:center; justify-content:center; min-height:100vh; font-family:sans-serif; }
+  p { color:#f8f5ef; font-size:.9rem; text-align:center; opacity:.6; }
+</style>
+<script>
+  (function(){
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      window.location.href = 'https://geo.itunes.apple.com/gb/app/scotrail-train-times-tickets/id464015282?mt=8';
+    } else {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.firstscotrail&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1';
+    }
+  })();
+</script>
+</head>
+<body>
+  <p>Redirecting to ScotRail app…</p>
+</body>
+</html>

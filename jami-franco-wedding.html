@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jami & Franco · 28.07.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* FONTS: Cormorant Garamond (display/names), Cinzel (everything else) */
+:root {
+  --paper:  #f8f5ef;
+  --paper2: #f0ebe0;
+  --paper3: #e8e0d0;
+  --paper4: #ddd3be;
+  --ink:    #1c1510;
+  --ink2:   #2e2018;
+  --burg:   #5c0d2a;
+  --wine:   #7a1535;
+  --gold:   #765f25;
+  --gold2:  #c4a050;
+  --goldA:  rgba(196,160,80,.2);
+  --goldB:  rgba(196,160,80,.38);
+  --burgA:  rgba(92,13,42,.07);
+  --burgB:  rgba(92,13,42,.13);
+  --burgC:  rgba(92,13,42,.19);
+  --muted:  #6a5a42;
+  --muted2: #786848;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  line-height: 1.8;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.65;
+}
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--paper2); }
+::-webkit-scrollbar-thumb { background:var(--burg); }
+
+/* ── LANG ── */
+.lang-toggle { position:fixed; top:1.1rem; right:1.4rem; z-index:500; display:flex; gap:.4rem; }
+.lang-btn {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.18em;
+  background:none; border:1px solid var(--burg); color:var(--burg);
+  padding:.28rem .65rem; cursor:pointer; transition:all .3s;
+}
+.lang-btn.active,.lang-btn:hover { background:var(--burg); color:var(--paper); }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; width:100%; z-index:100;
+  display:flex; align-items:center; justify-content:center; gap:2rem; padding:1.2rem 2rem;
+  background:rgba(248,245,239,.0);
+  border-bottom:1px solid transparent;
+  transition:background .35s, border-color .35s, backdrop-filter .35s;
+}
+nav.scrolled {
+  background:rgba(248,245,239,.97);
+  border-bottom-color:rgba(196,160,80,.18);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+nav a {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .3s;
+}
+nav a:hover { color:var(--burg); }
+nav .nav-rsvp-btn {
+  background:var(--burg); color:var(--paper) !important;
+  padding:.32rem 1rem; border:1px solid var(--burg);
+  transition:background .3s, border-color .3s;
+  margin-left:.5rem;
+}
+nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); color:var(--paper) !important; }
+
+/* ── HAMBURGER ── */
+.nav-hamburger {
+  display:none; flex-direction:column; gap:5px; cursor:pointer;
+  background:none; border:none; padding:.4rem; z-index:200;
+  position:absolute; left:1.4rem; top:50%; transform:translateY(-50%);
+}
+.nav-hamburger span {
+  display:block; width:22px; height:1px; background:var(--muted);
+  transition:transform .3s, opacity .3s, background .3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); background:var(--burg); }
+.nav-hamburger.open span:nth-child(2) { opacity:0; }
+.nav-hamburger.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); background:var(--burg); }
+.nav-hamburger:hover span { background:var(--burg); }
+
+.nav-links {
+  display:flex; align-items:center; gap:2rem;
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  position:relative; min-height:100vh;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; background:var(--paper);
+}
+#hero::before {
+  content:'';
+  position:absolute; inset:0; z-index:0;
+  background-image: url('textura.jpg');
+  background-repeat: repeat;
+  background-size: 900px auto;
+  pointer-events: none;
+}
+#hero-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; opacity:.06; mix-blend-mode:normal; filter:sepia(1) saturate(.5);
+}
+
+.c-ring-outer {
+  position:absolute; top:calc(50% - 32px); left:50%; transform:translate(-50%,-50%);
+  width:min(700px,90vw); height:min(700px,90vw);
+  pointer-events:none; animation:spin 130s linear infinite;
+}
+.c-ring-inner {
+  position:absolute; top:calc(50% - 32px); left:50%; transform:translate(-50%,-50%);
+  width:min(520px,67vw); height:min(520px,67vw);
+  pointer-events:none; animation:spinRev 95s linear infinite;
+}
+@keyframes spin    { to { transform:translate(-50%,-50%) rotate(360deg); } }
+@keyframes spinRev { to { transform:translate(-50%,-50%) rotate(-360deg); } }
+
+
+.hero-content {
+  position:relative; z-index:2; text-align:center;
+  display:flex; flex-direction:column; align-items:center; padding:3rem 1.5rem;
+}
+
+/* "Nos casamos" inside the ring */
+.hero-eyebrow {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.55em;
+  color:var(--gold2); text-transform:uppercase; margin-bottom:1.6rem;
+  margin-top:32px;
+  opacity:0; animation:fadeUp 1.4s .3s ease forwards;
+}
+
+.hero-rule {
+  display:flex; align-items:center; gap:.9rem; margin-bottom:1.3rem;
+  opacity:0; animation:fadeUp 1.4s .5s ease forwards;
+}
+.rule-line { width:50px; height:1px; background:linear-gradient(to right,transparent,var(--gold2)); }
+.rule-line.rv { background:linear-gradient(to left,transparent,var(--gold2)); }
+.rule-glyph { color:var(--gold2); font-size:.65rem; }
+
+.name-frame {
+  position:relative; padding:2.2rem 3.5rem;
+  margin-top:64px;
+  opacity:0; animation:fadeUp 1.4s .6s ease forwards;
+}
+
+
+.hero-names {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(3.8rem,11vw,9rem); line-height:.88; color:var(--ink);
+  margin-top:12px;
+  opacity:0; animation:fadeUp 1.4s .7s ease forwards;
+}
+.hero-amp { display:block; font-style:italic; color:var(--burg); font-size:.47em; margin:.2em 0; }
+
+.hero-rule-2 {
+  display:flex; align-items:center; gap:.9rem; margin-top:calc(1.3rem - 32px);
+  opacity:0; animation:fadeUp 1.4s .88s ease forwards;
+}
+.hero-date {
+  font-family:'Cinzel',serif; font-size:.76rem; letter-spacing:.42em;
+  color:var(--ink2); margin-top:calc(1.8rem + 128px);
+  opacity:0; animation:fadeUp 1.4s 1s ease forwards;
+}
+.hero-place {
+  font-family:'Cinzel',serif; font-style:normal; font-size:.72rem; letter-spacing:.15em;
+  color:var(--muted); margin-top:.5rem; text-transform:uppercase;
+  opacity:0; animation:fadeUp 1.4s 1.15s ease forwards;
+}
+.hero-stem { margin-top:2.8rem; opacity:0; animation:fadeUp 1.4s 1.3s ease forwards; }
+.hero-stem-line { width:1px; height:65px; background:linear-gradient(to bottom,var(--gold2),transparent); margin:0 auto; }
+
+
+/* ── COUNTDOWN ── */
+#cbar {
+  background:var(--burg); position:relative; overflow:hidden;
+  display:flex; justify-content:center; padding:2.1rem 1rem;
+}
+#cbar::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(105deg,transparent 30%,rgba(196,160,80,.07) 50%,transparent 70%);
+}
+.cu { text-align:center; padding:0 2.2rem; border-right:1px solid rgba(244,236,224,.1); }
+.cu:last-child { border-right:none; }
+.cn { font-family:'Cormorant Garamond',serif; font-size:2.9rem; font-weight:300; color:var(--paper); line-height:1; display:block; }
+.cl { font-family:'Cinzel',serif; font-size:.44rem; letter-spacing:.28em; color:var(--gold); text-transform:uppercase; display:block; margin-top:.2rem; }
+
+/* ── SECTIONS ── */
+.sec { max-width:860px; margin:0 auto; padding:5.5rem 2rem; position:relative; }
+.sec+.sec { border-top:1px solid rgba(92,13,42,.09); }
+
+.slabel { font-family:'Cinzel',serif; font-size:.54rem; letter-spacing:.42em; color:var(--gold); text-transform:uppercase; text-align:center; margin-bottom:.35rem; }
+.stitle { font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; font-size:clamp(2.4rem,5.5vw,3.8rem); color:var(--ink); text-align:center; line-height:1; }
+
+.div { display:flex; align-items:center; gap:.9rem; justify-content:center; margin:1.4rem auto 3.2rem; }
+.div-line { height:1px; flex:1; max-width:88px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.div-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.div-sym { color:var(--gold2); font-size:.82rem; letter-spacing:.12rem; opacity:.8; }
+
+/* ── DRESS CODE ── */
+.dress-intro { text-align:center; font-family:'Cinzel',serif; font-size:.82rem; letter-spacing:.1em; color:var(--muted); max-width:510px; margin:0 auto 2.8rem; line-height:1.8; }
+.dress-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+.dress-card {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18);
+  padding:2.8rem 2.2rem; text-align:center; position:relative;
+  transition:border-color .35s, background .3s;
+}
+.dress-card:hover { border-color:rgba(92,13,42,.35); background:var(--burgB); }
+.dress-card::after { content:''; position:absolute; inset:.55rem; border:1px solid rgba(196,160,80,.07); pointer-events:none; }
+.dress-glyph { font-size:1.5rem; margin-bottom:1.1rem; display:block; }
+.dress-who { font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.32em; color:var(--gold); text-transform:uppercase; margin-bottom:.45rem; }
+.dress-what { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; font-style:italic; color:var(--ink); margin-bottom:.8rem; }
+.dress-desc { font-family:'EB Garamond',serif; font-size:1rem; letter-spacing:0; color:var(--muted); line-height:1.68; }
+
+/* Color swatches, shared palette box */
+.dress-palette-box {
+  margin-top:2.2rem; padding:2rem 2.2rem;
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18); text-align:center;
+}
+.palette-title {
+  font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.22em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.3rem;
+}
+.palette-hint {
+  font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; font-style:italic;
+  color:var(--muted2); margin-bottom:1.3rem;
+}
+.palette-row {
+  display:flex; gap:1.4rem; justify-content:center; flex-wrap:wrap;
+}
+.sw-item {
+  display:flex; flex-direction:column; align-items:center; gap:.4rem;
+}
+.sw-name-lbl {
+  font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.08em;
+  color:var(--muted); text-transform:uppercase;
+}
+.sw {
+  width:28px; height:28px; border-radius:50%;
+  border:1px solid rgba(0,0,0,.12); cursor:pointer;
+  transition:transform .2s, box-shadow .2s;
+}
+.sw:hover { transform:scale(1.22); box-shadow:0 2px 10px rgba(0,0,0,.25); }
+
+/* Swatch modal */
+.sw-modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(26,18,12,.78); z-index:400;
+  align-items:center; justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.sw-modal-overlay.open { display:flex; }
+.sw-modal {
+  text-align:center; padding:3rem 2.5rem;
+  animation:fadeUp .3s ease;
+  display:flex; flex-direction:column; align-items:center; gap:1.1rem;
+}
+.sw-circle {
+  width:160px; height:160px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.15);
+  box-shadow: 0 8px 40px rgba(0,0,0,.45);
+}
+.sw-name { font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.3em; color:var(--paper); text-transform:uppercase; }
+/* Hex copy row */
+.sw-hex-row {
+  display:flex; align-items:center; gap:.7rem;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+  padding:.45rem 1rem; cursor:pointer; transition:background .2s;
+}
+.sw-hex-row:hover { background:rgba(255,255,255,.15); }
+.sw-hex { font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.22em; color:rgba(244,236,224,.75); }
+.sw-copy-icon { font-size:.8rem; color:rgba(244,236,224,.4); transition:color .2s; }
+.sw-hex-row:hover .sw-copy-icon { color:var(--gold2); }
+.sw-hex-toast {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.22em;
+  color:var(--gold2); white-space:nowrap; pointer-events:none;
+  height:1.2rem; /* reserved space, close button never jumps */
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; transition:opacity .2s;
+}
+.sw-hex-toast.show { opacity:1; }
+.sw-close-btn {
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em; text-transform:uppercase;
+  background:none; border:1px solid rgba(244,236,224,.3); color:rgba(244,236,224,.6);
+  padding:.5rem 1.4rem; cursor:pointer; transition:all .3s; margin-top:.2rem;
+}
+.sw-close-btn:hover { border-color:rgba(244,236,224,.7); color:var(--paper); }
+
+/* ── VENUE STAY CARD ── */
+.venue-stay-card {
+  display:grid; grid-template-columns:1fr 1.4fr;
+  border:1px solid var(--goldA); overflow:hidden;
+  margin-bottom:1.2rem;
+  transition:border-color .3s;
+}
+.venue-stay-card:hover { border-color:var(--goldB); }
+.venue-photo {
+  position:relative; background-size:cover; background-position:center;
+  min-height:320px;
+  background-color:var(--paper3);
+  background-image:linear-gradient(135deg, var(--paper3) 0%, var(--paper4) 100%);
+}
+.venue-photo-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(26,18,12,.45) 0%, transparent 60%);
+}
+.venue-photo-label {
+  position:absolute; bottom:1rem; left:1rem;
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.22em;
+  color:rgba(248,245,239,.75); text-transform:uppercase;
+}
+.venue-stay-body {
+  padding:2.2rem 2.3rem; background:var(--paper2);
+  display:flex; flex-direction:column; justify-content:center;
+}
+.venue-stay-tag {
+  font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.14em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.7rem;
+}
+.venue-stay-name {
+  font-family:'Cormorant Garamond',serif; font-size:2.2rem;
+  font-weight:300; font-style:italic; color:var(--ink);
+  margin-bottom:1rem; line-height:1;
+}
+.venue-stay-desc {
+  font-family:'EB Garamond',serif; font-size:1rem; letter-spacing:0;
+  color:var(--muted); line-height:1.68;
+}
+.venue-stay-desc strong {
+  font-weight:700; color:var(--ink2);
+}
+
+/* Other stay toggle */
+.other-stay-toggle {
+  font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.08em;
+  color:var(--muted2); cursor:pointer; padding:.9rem 0;
+  display:flex; align-items:center; gap:.6rem;
+  border-top:1px solid rgba(196,160,80,.15);
+  transition:color .25s; user-select:none;
+}
+.other-stay-toggle:hover { color:var(--burg); }
+.other-stay-arrow {
+  display:inline-block; transition:transform .3s; font-size:1rem; line-height:1;
+}
+.other-stay-toggle.open .other-stay-arrow { transform:rotate(90deg); }
+.other-stay-list {
+  max-height:0; overflow:hidden;
+  transition:max-height .45s ease;
+  padding-top:0;
+}
+.other-stay-list.open { max-height:600px; padding-top:.5rem; }
+
+@media(max-width:700px){
+  .venue-stay-card { grid-template-columns:1fr; }
+  .venue-photo { min-height:200px; }
+}
+
+/* ── HOTELS ── */
+.hotel-list { display:flex; flex-direction:column; gap:.75rem; }
+.hotel-card {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18);
+  padding:1.4rem 1.8rem;
+  display:grid; grid-template-columns:2.3rem 1fr auto;
+  align-items:center; gap:1.2rem;
+  transition:border-color .3s, background .3s;
+  margin-bottom:.5rem;
+}
+.hotel-card:hover { border-color:rgba(92,13,42,.35); background:var(--burgB); }
+.hotel-num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; font-style:italic; color:rgba(196,160,80,.4); line-height:1; }
+.hotel-name { font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.1em; color:var(--ink); margin-bottom:.2rem; }
+.hotel-det { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.05em; color:var(--muted); }
+.btn-link {
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.16em;
+  color:var(--burg); text-decoration:none; border:1px solid rgba(92,13,42,.28);
+  padding:.5rem .85rem; text-transform:uppercase; transition:all .3s; white-space:nowrap; display:inline-block;
+}
+.btn-link:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+
+/* ── TRAVEL ── */
+.travel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
+.travel-card { background:var(--burgA); border:1px solid rgba(92,13,42,.18); padding:2.3rem 1.8rem; transition:border-color .3s, background .3s; }
+.travel-card:hover { border-color:rgba(92,13,42,.35); background:var(--burgB); }
+.venue-card {
+  background:var(--burgA); border:1px solid rgba(92,13,42,.18);
+  padding:2.5rem 2.5rem; text-align:center;
+  transition:border-color .3s, background .3s;
+}
+.venue-card:hover { border-color:rgba(92,13,42,.35); background:var(--burgB); }
+.t-icon { font-size:1.35rem; display:block; margin-bottom:.85rem; }
+.t-title { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:.65rem; }
+.t-body { font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.03em; color:var(--muted); line-height:1.8; }
+
+.tg-label { font-family:'Cinzel',serif; font-size:.54rem; letter-spacing:.38em; color:var(--gold); text-transform:uppercase; margin-bottom:.5rem; }
+.tg-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; font-style:italic; color:var(--ink); margin-bottom:.6rem; }
+.tg-desc { font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.03em; color:var(--muted); margin-bottom:1.5rem; line-height:1.8; }
+
+/* ── GIFTS ── */
+#regalos { max-width:760px; }
+.gift-intro { text-align:center; font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.05em; color:var(--muted); margin:0 auto 2.8rem; max-width:490px; line-height:1.9; }
+.gift-item { background:var(--burgA); border:1px solid rgba(92,13,42,.18); border-left:3px solid var(--burg); padding:1.8rem 2.3rem; margin-bottom:.75rem; transition:background .3s, border-color .3s; }
+.gift-item:hover { background:var(--burgB); border-color:rgba(92,13,42,.35); }
+.gift-hd { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:.9rem; flex-wrap:wrap; gap:.4rem; }
+.gift-name { font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.08em; color:var(--ink); }
+.gift-sub { font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--muted); font-size:1rem; margin-left:.3rem; }
+.gift-goal { font-family:'Cinzel',serif; font-size:.75rem; color:var(--gold); letter-spacing:.06em; }
+.bar-t { height:1px; background:rgba(196,160,80,.18); margin-bottom:1.3rem; }
+.bar-f { height:100%; background:linear-gradient(to right,var(--burg),var(--gold2)); transition:width 1s; }
+.gift-row { display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
+.gift-row-lbl { font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.1em; color:var(--muted2); text-transform:uppercase; white-space:nowrap; }
+.gift-input { flex:1; min-width:100px; background:rgba(255,255,255,.5); border:1px solid rgba(196,160,80,.28); color:var(--ink); font-family:'Cinzel',serif; font-size:.75rem; padding:.48rem .9rem; outline:none; transition:border-color .3s; }
+.gift-input:focus { border-color:var(--gold2); }
+.gift-input::placeholder { color:var(--muted); opacity:.45; }
+.gift-btn { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; background:none; border:1px solid rgba(196,160,80,.38); color:var(--gold); padding:.55rem 1rem; cursor:pointer; transition:all .3s; white-space:nowrap; }
+.gift-btn:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+.gift-contributed { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.06em; color:var(--muted); margin-bottom:.5rem; }
+.bar-empty { opacity:.3; }
+.receipt-row { display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; padding:.8rem 0 0; border-top:1px solid rgba(196,160,80,.15); margin-top:.6rem; }
+.receipt-lbl { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.1em; color:var(--muted2); flex:1; min-width:160px; }
+.receipt-upload-btn { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em; text-transform:uppercase; background:none; border:1px solid var(--goldA); color:var(--muted); padding:.38rem .9rem; cursor:pointer; transition:all .25s; white-space:nowrap; }
+.receipt-upload-btn:hover { border-color:var(--gold2); color:var(--gold); }
+
+/* ── BANK BOX, copy on click ── */
+.bank-box { margin-top:3.2rem; position:relative; border:1px solid rgba(196,160,80,.22); padding:2.8rem 2.3rem; text-align:center; background:var(--paper2); }
+.bc { position:absolute; width:20px; height:20px; border-color:var(--gold2); border-style:solid; opacity:.45; }
+.bc.tl { top:.55rem; left:.55rem; border-width:1px 0 0 1px; }
+.bc.tr { top:.55rem; right:.55rem; border-width:1px 1px 0 0; }
+.bc.bl { bottom:.55rem; left:.55rem; border-width:0 0 1px 1px; }
+.bc.br { bottom:.55rem; right:.55rem; border-width:0 1px 1px 0; }
+.bank-box::before { content:'✦'; position:absolute; top:-.78rem; left:50%; transform:translateX(-50%); width:1.55rem; height:1.55rem; border-radius:50%; background:var(--paper); color:var(--gold2); font-size:.8rem; display:flex; align-items:center; justify-content:center; }
+
+.revolut-box {
+  margin-top:3.2rem; position:relative;
+  border:1px solid rgba(196,160,80,.22); padding:2.8rem 2.3rem; text-align:center;
+  background:var(--paper2);
+}
+.revolut-box::before { content:'✦'; position:absolute; top:-.78rem; left:50%; transform:translateX(-50%); width:1.55rem; height:1.55rem; border-radius:50%; background:var(--paper); color:var(--gold2); font-size:.8rem; display:flex; align-items:center; justify-content:center; }
+.bank-ey { font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.25em; color:var(--gold); text-transform:uppercase; margin-bottom:1.4rem; }
+.bank-nm { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; font-style:italic; color:var(--ink); margin-bottom:1.6rem; }
+.bank-row { margin-bottom:1rem; }
+.bank-lbl { font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; display:block; margin-bottom:.3rem; }
+
+/* Clickable number */
+.bank-num {
+  font-family:'Cinzel',serif; font-size:1rem; letter-spacing:.12em;
+  color:var(--burg); cursor:pointer; display:inline-flex; align-items:center; gap:.6rem;
+  padding:.4rem .8rem; border:1px solid rgba(92,13,42,.15); background:rgba(92,13,42,.04);
+  transition:background .25s, border-color .25s; position:relative; user-select:none;
+  flex-wrap:wrap; justify-content:center;
+}
+.bank-num:hover { background:rgba(92,13,42,.08); border-color:rgba(92,13,42,.3); }
+.bank-num:active { background:rgba(92,13,42,.14); }
+.bank-num .copy-icon { font-size:.85rem; color:var(--muted2); transition:color .2s; flex-shrink:0; }
+.bank-num:hover .copy-icon { color:var(--burg); }
+
+/* Copied toast, sits below, full width of the row */
+.bank-row { position:relative; margin-bottom:1.2rem; }
+.copied-toast {
+  display:block; margin-top:.4rem;
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.25em; text-transform:uppercase;
+  color:var(--gold2); pointer-events:none;
+  max-height:0; overflow:hidden; opacity:0;
+  transition:opacity .25s, max-height .25s;
+}
+.copied-toast.show { opacity:1; max-height:2rem; }
+
+.bank-note { font-family:'Cinzel',serif; font-size:.76rem; letter-spacing:.04em; color:var(--muted); margin-top:1.6rem; line-height:1.8; }
+
+/* ── GIFT MODAL STEPS ── */
+.modal-step { display:none; }
+.modal-step.active { display:block; }
+.m-step-indicator {
+  display:flex; align-items:center; justify-content:center;
+  gap:0; margin-bottom:1.8rem;
+}
+.m-step-line {
+  height:1px; width:52px;
+  transition:background .4s;
+}
+.m-step-glyph {
+  font-size:.65rem; line-height:1;
+  transition:color .4s;
+  padding:0 .2rem;
+}
+/* inactivo */
+.m-step-line       { background:rgba(92,13,42,.15); }
+.m-step-glyph      { color:rgba(92,13,42,.2); }
+/* activo */
+.m-step-line.active  { background:var(--gold2); }
+.m-step-glyph.active { color:var(--burg); }
+/* Fields inside modal */
+.m-field-lbl {
+  font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.18em;
+  color:var(--muted); text-transform:uppercase; display:block; margin-bottom:.38rem;
+}
+.m-input {
+  width:100%; background:rgba(255,255,255,.55); border:1px solid rgba(196,160,80,.28);
+  color:var(--ink); font-family:'Cinzel',serif; font-size:.7rem;
+  padding:.48rem .85rem; outline:none; transition:border-color .3s; margin-bottom:1.1rem;
+}
+.m-input:focus { border-color:var(--gold2); }
+.m-input::placeholder { color:var(--muted); opacity:.45; }
+.m-textarea {
+  width:100%; background:rgba(255,255,255,.55); border:1px solid rgba(196,160,80,.28);
+  color:var(--ink); font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.02em;
+  padding:.65rem .85rem; outline:none; transition:border-color .3s; resize:vertical;
+  min-height:80px; margin-bottom:1.1rem; line-height:1.7;
+}
+.m-textarea:focus { border-color:var(--gold2); }
+.m-textarea::placeholder { color:var(--muted); opacity:.45; }
+.m-upload-area {
+  border:1px dashed rgba(196,160,80,.35); padding:1rem; text-align:center;
+  cursor:pointer; transition:border-color .3s, background .3s; margin-bottom:1.2rem;
+}
+.m-upload-area:hover { border-color:var(--gold2); background:rgba(196,160,80,.04); }
+.m-upload-lbl { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.06em; color:var(--muted2); }
+.m-upload-name { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.08em; color:var(--gold); margin-top:.35rem; display:none; }
+.m-next-btn {
+  width:100%; font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em; text-transform:uppercase;
+  background:var(--burg); color:var(--paper); border:1px solid var(--burg);
+  padding:.65rem 1rem; cursor:pointer; transition:background .3s; margin-top:.4rem;
+}
+.m-next-btn:hover { background:var(--wine); border-color:var(--wine); }
+.m-back-link {
+  font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.1em; color:var(--muted2);
+  cursor:pointer; text-align:center; display:block; margin-top:.8rem;
+  text-transform:uppercase; transition:color .25s;
+}
+.m-back-link:hover { color:var(--burg); }
+.m-success-icon { font-size:1.8rem; text-align:center; margin-bottom:.6rem; }
+.m-success-txt {
+  font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.05em;
+  color:var(--gold); text-align:center; line-height:1.9;
+}
+
+/* ── GIFT MODAL ── */
+.m-overlay { display:none; position:fixed; inset:0; background:rgba(26,18,12,.8); z-index:300; backdrop-filter:blur(3px); align-items:center; justify-content:center; padding:1rem; }
+.m-overlay.open { display:flex; }
+.modal { background:var(--paper2); border:1px solid rgba(196,160,80,.38); max-width:450px; width:100%; padding:2.8rem; position:relative; animation:fadeUp .3s ease; }
+.modal::before { content:''; position:absolute; top:.45rem; left:.45rem; right:.45rem; bottom:.45rem; border:1px solid rgba(196,160,80,.09); pointer-events:none; }
+.m-close { position:absolute; top:.9rem; right:1.1rem; background:none; border:none; color:var(--muted); font-size:1.15rem; cursor:pointer; transition:color .2s; }
+.m-close:hover { color:var(--burg); }
+.m-tag { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.18em; color:var(--gold); text-transform:uppercase; margin-bottom:.28rem; }
+.m-name { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; font-style:italic; color:var(--ink); margin-bottom:1.8rem; }
+.m-steps { counter-reset:st; }
+.m-step { counter-increment:st; position:relative; padding-left:2rem; margin-bottom:1rem; font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.03em; color:var(--muted); line-height:1.7; }
+.m-step::before { content:counter(st); position:absolute; left:0; top:.04rem; width:1.3rem; height:1.3rem; border:1px solid rgba(196,160,80,.38); color:var(--gold); font-family:'Cinzel',serif; font-size:.5rem; display:flex; align-items:center; justify-content:center; }
+
+/* ── FOOTER ── */
+footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgba(196,160,80,.18); background:linear-gradient(to top,var(--burgA),transparent); }
+.f-orn { display:flex; align-items:center; gap:1.1rem; justify-content:center; margin-bottom:1.8rem; }
+.f-line { height:1px; width:75px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.f-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.f-sym { color:var(--gold2); font-size:.85rem; opacity:.68; }
+.f-names { font-family:'Cormorant Garamond',serif; font-size:2.8rem; font-weight:300; font-style:italic; color:var(--ink); }
+.f-date { font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.38em; color:var(--muted); text-transform:uppercase; margin-top:.9rem; display:block; }
+.f-love { font-family:'Cinzel',serif; font-size:.78rem; letter-spacing:.05em; color:var(--muted); margin-top:1.4rem; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── FOTOS POLAROID DISPERSAS ── */
+.fp{
+  position:absolute;
+  overflow:hidden;
+  background:#f5f0e8;
+  padding:11px 11px 36px 11px;
+  box-shadow:0 12px 40px rgba(28,21,16,.35),0 4px 12px rgba(28,21,16,.2),0 1px 3px rgba(28,21,16,.15);
+  opacity:0;
+  cursor:grab;
+  user-select:none;
+  will-change:transform;
+  transition:opacity .9s ease, box-shadow .25s ease, transform .6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events:auto;
+}
+.fp.visible{ opacity:1; }
+.fp.dragging{
+  cursor:grabbing;
+  box-shadow:0 28px 70px rgba(28,21,16,.45),0 10px 28px rgba(28,21,16,.25);
+  transition:box-shadow .15s ease;
+  z-index:500 !important;
+}
+.fp::before{
+  content:'';position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 20%,rgba(180,150,90,.08) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 50% at 85% 75%,rgba(160,130,70,.07) 0%,transparent 60%);
+}
+.fp::after{
+  content:'';position:absolute;
+  top:11px;left:11px;right:11px;bottom:36px;
+  pointer-events:none;z-index:2;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%,transparent 45%,rgba(28,18,8,.30) 100%),
+    linear-gradient(135deg,rgba(200,170,100,.07) 0%,transparent 50%,rgba(80,40,10,.05) 100%);
+  mix-blend-mode:multiply;
+}
+.fp img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;pointer-events:none;
+  filter:sepia(.32) contrast(.9) saturate(.8) brightness(1.05);
+}
+.fp.horizontal img{ object-position:center center; }
+
+/* iconos de hint en cada foto: borde inferior polaroid */
+.fp-hints{
+  position:absolute;
+  bottom:0; left:0; right:0;
+  height:36px;
+  display:flex; align-items:center; justify-content:center;
+  gap:6px;
+  pointer-events:none; z-index:4;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+/* desktop: aparece al hover */
+@media(hover:hover){
+  .fp:hover .fp-hints{ opacity:1; }
+}
+/* móvil/touch: siempre visible con menor opacidad */
+@media(hover:none){
+  .fp-hints{ opacity:.55; }
+}
+.fp-hint-icon{
+  font-size:10px; color:rgba(92,13,42,.55);
+  font-family:'Cinzel',serif; letter-spacing:.03em;
+  display:flex; align-items:center; gap:3px;
+  line-height:1; white-space:nowrap;
+}
+.fp-hint-icon .hint-emoji{
+  font-size:11px; line-height:1;
+}
+.fp-hint-sep{ color:rgba(92,13,42,.2); font-size:8px; }
+
+/* tooltip flotante: una vez, adaptado a móvil */
+.fp-tooltip{
+  position:fixed;
+  bottom:2rem; left:50%; transform:translateX(-50%);
+  z-index:8000;
+  background:rgba(28,21,16,.85);
+  backdrop-filter:blur(8px);
+  color:#f5f0e8;
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.14em;
+  padding:.5rem 1.2rem;
+  text-align:center;
+  max-width:90vw;
+  white-space:normal;
+  line-height:1.7;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .5s ease;
+}
+.fp-tooltip.show{ opacity:1; }
+.fp-tooltip span{ color:rgba(196,160,80,.85); margin:0 .3em; }
+.fp-lightbox{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(20,14,10,.88);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s ease;
+}
+.fp-lightbox.open{ opacity:1;pointer-events:auto; }
+.fp-lightbox img{
+  max-width:88vw;max-height:88vh;
+  object-fit:contain;
+  box-shadow:0 24px 80px rgba(0,0,0,.6);
+  background:#f5f0e8;
+  padding:14px 14px 48px 14px;
+  filter:sepia(.2) contrast(.95) saturate(.85);
+}
+
+#photos-layer{
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  pointer-events:none;
+  z-index:5;
+  overflow:visible;
+}
+/* la foto heroTop en móvil va detrás del nav — el nav en z-index:100 la tapa naturalmente */
+
+/* Fade-in al hacer scroll */
+.reveal {
+  opacity:0; transform:translateY(28px);
+  transition:opacity .85s ease, transform .85s ease;
+}
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-left {
+  opacity:0; transform:translateX(-22px);
+  transition:opacity .85s ease, transform .85s ease;
+}
+.reveal-left.visible { opacity:1; transform:translateX(0); }
+.reveal-right {
+  opacity:0; transform:translateX(22px);
+  transition:opacity .85s ease, transform .85s ease;
+}
+.reveal-right.visible { opacity:1; transform:translateX(0); }
+
+@media(max-width:600px){
+  .photo-strip { grid-template-columns:1fr; }
+  .photo-strip-item { height:clamp(220px, 80vw, 380px); }
+  .photo-collage { grid-template-columns:1fr 1fr; }
+  .photo-collage-item.wide { grid-column:1/-1; }
+  .photo-collage-item.tall { height:clamp(180px,55vw,320px); }
+}
+
+/* ── LANG ── */
+[data-lang="en"] { display:none; }
+body.en [data-lang="es"] { display:none; }
+body.en [data-lang="en"] { display:unset; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav {
+    justify-content:flex-end; padding:1rem 1.4rem;
+    gap:0;
+  }
+  .nav-hamburger { display:flex; }
+  .nav-links {
+    display:none; flex-direction:column; gap:0;
+    position:fixed; top:0; left:0; width:100vw; height:100vh;
+    background:rgba(248,245,239,.98); backdrop-filter:blur(8px);
+    justify-content:center; align-items:center;
+    z-index:150;
+  }
+  .nav-links.open { display:flex; }
+  .nav-links a {
+    font-size:.65rem; letter-spacing:.3em; padding:1.1rem 2rem;
+    border-bottom:1px solid rgba(92,13,42,.07); width:100%; text-align:center;
+    color:var(--muted);
+  }
+  .nav-links a:hover { color:var(--burg); background:var(--burgA); }
+  .nav-rsvp-btn { margin-left:0 !important; }
+  .dress-grid { grid-template-columns:1fr; }
+  .travel-grid { grid-template-columns:1fr; }
+  .hotel-card { grid-template-columns:1fr; gap:.6rem; }
+  .cn { font-size:2rem; } .cu { padding:0 .9rem; }
+  .c-ring-outer { width:min(460px,92vw); height:min(460px,92vw); }
+  .c-ring-inner { width:min(340px,70vw); height:min(340px,70vw); }
+  .lang-toggle { bottom:1.4rem; top:auto; right:1rem; }
+}
+@media(max-width:480px){
+  .hero-names { font-size:clamp(3rem,16vw,5rem); }
+  .name-frame { padding:1.5rem 1.5rem; }
+  .sec { padding:4rem 1.2rem; }
+  .gift-item, .bank-box { padding:1.5rem 1.2rem; }
+  .bank-num { font-size:.78rem; }
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<div class="lang-toggle" role="group" aria-label="Idioma / Language">
+  <button class="lang-btn active" onclick="setLang('es')" aria-label="Ver en español" aria-pressed="true">ES</button>
+  <button class="lang-btn" onclick="setLang('en')" aria-label="View in English" aria-pressed="false">EN</button>
+</div>
+
+<nav>
+  <button class="nav-hamburger" id="nav-ham" onclick="toggleNav()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="#dresscode" onclick="closeNav()">Dress Code</a>
+    <a href="#alojamiento" onclick="closeNav()"><span data-lang="es">Alojamiento</span><span data-lang="en">Stay</span></a>
+    <a href="travel-guide.html"><span data-lang="es">Viaje</span><span data-lang="en">Travel</span></a>
+    <a href="#regalos" onclick="closeNav()"><span data-lang="es">Regalos</span><span data-lang="en">Gifts</span></a>
+    <a href="faq.html">FAQ</a>
+    <a href="fotos.html"><span data-lang="es">Fotos</span><span data-lang="en">Photos</span></a>
+    <a href="livestream.html">Livestream</a>
+  </div>
+  <a href="rsvp.html" class="nav-rsvp-btn">RSVP</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <video id="hero-video" autoplay muted loop playsinline aria-hidden="true"><source src="" type="video/mp4"></video>
+
+  <!-- OUTER RING -->
+  <svg class="c-ring-outer" viewBox="0 0 600 600" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="gr1" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#9a7830" stop-opacity=".55"/>
+        <stop offset="50%" stop-color="#c4a050" stop-opacity=".88"/>
+        <stop offset="100%" stop-color="#9a7830" stop-opacity=".55"/>
+      </linearGradient>
+    </defs>
+    <circle cx="300" cy="300" r="278" stroke="url(#gr1)" stroke-width=".9"/>
+    <circle cx="300" cy="300" r="262" stroke="#c4a050" stroke-width=".4" stroke-dasharray="2 9" opacity=".45"/>
+    <circle cx="300" cy="300" r="247" stroke="#9a7830" stroke-width=".5" opacity=".35"/>
+    <polygon points="300,17 303.5,27 314,27 305.5,33.5 309,43.5 300,37 291,43.5 294.5,33.5 286,27 296.5,27" fill="#c4a050" opacity=".75"/>
+    <polygon points="300,583 303.5,573 314,573 305.5,566.5 309,556.5 300,563 291,556.5 294.5,566.5 286,573 296.5,573" fill="#c4a050" opacity=".75"/>
+    <polygon points="583,300 573,303.5 573,314 566.5,305.5 556.5,309 563,300 556.5,291 566.5,294.5 573,286 573,296.5" fill="#c4a050" opacity=".75"/>
+    <polygon points="17,300 27,303.5 27,314 33.5,305.5 43.5,309 37,300 43.5,291 33.5,294.5 27,286 27,296.5" fill="#c4a050" opacity=".75"/>
+    <circle cx="497" cy="103" r="2.8" fill="#c4a050" opacity=".55"/>
+    <circle cx="103" cy="497" r="2.8" fill="#c4a050" opacity=".55"/>
+    <circle cx="497" cy="497" r="2.8" fill="#c4a050" opacity=".55"/>
+    <circle cx="103" cy="103" r="2.8" fill="#c4a050" opacity=".55"/>
+    <line x1="300" y1="22" x2="300" y2="73"  stroke="#c4a050" stroke-width=".5" opacity=".4"/>
+    <line x1="300" y1="527" x2="300" y2="578" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
+    <line x1="22"  y1="300" x2="73"  y2="300" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
+    <line x1="527" y1="300" x2="578" y2="300" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
+    <g stroke="#c4a050" stroke-width=".5" opacity=".28">
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(30 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(60 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(120 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(150 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(210 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(240 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(300 300 300)"/>
+      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(330 300 300)"/>
+    </g>
+    <path d="M300 52 A22 22 0 1 1 300 96 A12 12 0 1 0 300 52Z" fill="#5c0d2a" opacity=".32"/>
+  </svg>
+
+  <!-- INNER RING -->
+  <svg class="c-ring-inner" viewBox="0 0 500 500" fill="none" aria-hidden="true">
+    <circle cx="250" cy="250" r="233" stroke="#c4a050" stroke-width=".35" stroke-dasharray="1.5 13" opacity=".4"/>
+    <circle cx="250" cy="250" r="218" stroke="#9a7830" stroke-width=".45" opacity=".3"/>
+    <rect x="246" y="13"  width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 250 17)"/>
+    <rect x="246" y="471" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 250 475)"/>
+    <rect x="13"  y="246" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 17 250)"/>
+    <rect x="471" y="246" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 475 250)"/>
+    <line x1="250" y1="28" x2="250" y2="472" stroke="#c4a050" stroke-width=".22" stroke-dasharray="3 22" opacity=".18"/>
+    <line x1="28"  y1="250" x2="472" y2="250" stroke="#c4a050" stroke-width=".22" stroke-dasharray="3 22" opacity=".18"/>
+  </svg>
+
+  <!-- BOTANICALS -->
+
+  <div class="hero-content">
+    <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
+    <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
+    <div class="name-frame">
+
+      <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
+    </div>
+    <div class="hero-rule-2"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
+    <p class="hero-date">28 &nbsp;·&nbsp; Julio &nbsp;·&nbsp; 2026</p>
+    <p class="hero-place">Springkell Estate · Lockerbie · Scotland</p>
+    <div class="hero-stem"><div class="hero-stem-line"></div></div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div id="cbar">
+  <div class="cu"><span class="cn" id="cd-d">—</span><span class="cl"><span data-lang="es">Días</span><span data-lang="en">Days</span></span></div>
+  <div class="cu"><span class="cn" id="cd-h">—</span><span class="cl"><span data-lang="es">Horas</span><span data-lang="en">Hours</span></span></div>
+  <div class="cu"><span class="cn" id="cd-m">—</span><span class="cl">Min</span></div>
+  <div class="cu"><span class="cn" id="cd-s">—</span><span class="cl"><span data-lang="es">Seg</span><span data-lang="en">Sec</span></span></div>
+</div>
+
+<!-- RSVP CTA -->
+<section class="sec" id="rsvp" style="text-align:center;padding:4rem 2rem;background:linear-gradient(135deg,var(--paper2) 0%,var(--paper3) 100%);">
+  <p class="slabel"><span data-lang="es">Confirma tu asistencia</span><span data-lang="en">Confirm your attendance</span></p>
+  <h2 class="stitle" style="margin-bottom:.6rem;"><span data-lang="es">¿Vas a poder acompañarnos?</span><span data-lang="en">Will you be able to join us?</span></h2>
+  <div class="div"><div class="div-line"></div><span class="div-sym">❧ ✦ ❧</span><div class="div-line rv"></div></div>
+  <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);max-width:460px;margin:0 auto 2rem;line-height:1.9;">
+    <span data-lang="es">Esperamos tu confirmación antes del <strong>1 de abril de 2026</strong>.</span>
+    <span data-lang="en">Please confirm your attendance by <strong>April 1st, 2026</strong>.</span>
+  </p>
+  <a class="btn-link" href="rsvp.html" style="font-size:.65rem;padding:.85rem 2.8rem;background:var(--burg);color:var(--paper);border-color:var(--burg);">
+    <span data-lang="es">Confirmar asistencia →</span><span data-lang="en">RSVP now →</span>
+  </a>
+</section>
+
+<!-- FOTOS ZONA 1: entre RSVP y Dress Code -->
+<!-- eliminado: ahora gestionado por #photos-layer en JS -->
+
+<!-- DRESS CODE -->
+<section class="sec" id="dresscode">
+  <p class="slabel"><span data-lang="es">Cómo vestir</span><span data-lang="en">What to wear</span></p>
+  <h2 class="stitle">Dress Code</h2>
+  <div class="div"><div class="div-line"></div><span class="div-sym">❧ ✦ ❧</span><div class="div-line rv"></div></div>
+
+  <p class="dress-intro">
+    <span data-lang="es">Queremos que te sientas a gusto y te expreses como eres, pero en tu versión más formal. No todas las referencias son perfectas, pero te dan una buena idea del estilo y el ambiente que buscamos.</span>
+    <span data-lang="en">We want you to feel comfortable and express yourself, just in your most formal version. Not every reference is perfect, but they'll give you a feel for the style and atmosphere we're going for.</span>
+  </p>
+
+  <!-- Pinterest board -->
+  <div style="margin:0 auto 2.8rem;text-align:center;">
+    <a href="https://pin.it/YDffNI6E4" target="_blank" rel="noopener noreferrer"
+       style="display:inline-flex;align-items:center;gap:.7rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--paper);background:var(--burg);border:1px solid var(--burg);padding:.65rem 1.6rem;text-decoration:none;transition:background .3s;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:.85;flex-shrink:0;"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+      <span data-lang="es">Ver inspiración en Pinterest →</span>
+      <span data-lang="en">See inspiration on Pinterest →</span>
+    </a>
+  </div>
+
+  <div class="dress-grid">
+    <div class="dress-card">
+      <span class="dress-glyph">🌹</span>
+      <p class="dress-who"><span data-lang="es">Vestido</span><span data-lang="en">Dress</span></p>
+      <p class="dress-what">Formal</p>
+      <p class="dress-desc">
+        <span data-lang="es">Vestido largo elegante en un solo color, sin estampados ni colores muy claros. Telas como terciopelo, satén, encaje o seda funcionan perfecto. La idea es que se vea elegante y romántico.</span>
+        <span data-lang="en">An elegant floor-length dress in a single colour, no prints or very light shades. Fabrics like velvet, satin, lace or silk work beautifully. The idea is elegant and romantic.</span>
+      </p>
+    </div>
+    <div class="dress-card">
+      <span class="dress-glyph">🕯️</span>
+      <p class="dress-who"><span data-lang="es">Traje</span><span data-lang="en">Suit</span></p>
+      <p class="dress-what">Formal</p>
+      <p class="dress-desc">
+        <span data-lang="es">Traje completo en tono oscuro, con corbata o pajarita. Puede ser un clásico de dos o tres piezas, un tuxedo o un blazer bien estructurado. Lo importante es que sea formal y coordinado, no una mezcla casual de prendas.</span>
+        <span data-lang="en">A full suit in a dark shade, with a tie or bow tie. A classic two or three-piece, tuxedo or well-structured blazer all work. The key is intentionally formal and put-together, not a casual mix of pieces.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Shared palette -->
+  <div class="dress-palette-box">
+    <p class="dress-who" style="margin-bottom:.45rem;">
+      <span data-lang="es">Paleta de colores</span>
+      <span data-lang="en">Colour palette</span>
+    </p>
+    <p class="dress-what" style="margin-bottom:.8rem;">
+      <span data-lang="es">Elige tu color</span>
+      <span data-lang="en">Pick your colour</span>
+    </p>
+    <p class="dress-desc" style="margin-bottom:1.3rem;">
+      <span data-lang="es">No tienes que ir al color exacto, son referencias para que te inspires y busques tonos similares. Presiona cada uno para verlo en detalle.</span>
+      <span data-lang="en">You don't need to match exactly — these are references to inspire you and help you find similar shades. Tap each one to preview it.</span>
+    </p>
+    <div class="palette-row">
+      <div class="sw-item">
+        <div class="sw" style="background:#1a1218" onclick="openSwatch('#1a1218','Negro','Black')" role="button" tabindex="0" aria-label="Negro / Black" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#1a1218','Negro','Black')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Negro</span><span data-lang="en">Black</span></span>
+      </div>
+      <div class="sw-item">
+        <div class="sw" style="background:#5c0d2a" onclick="openSwatch('#5c0d2a','Borgoña','Burgundy')" role="button" tabindex="0" aria-label="Borgoña / Burgundy" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#5c0d2a','Borgoña','Burgundy')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Borgoña</span><span data-lang="en">Burgundy</span></span>
+      </div>
+      <div class="sw-item">
+        <div class="sw" style="background:#3a1a35" onclick="openSwatch('#3a1a35','Ciruela','Dark Plum')" role="button" tabindex="0" aria-label="Ciruela / Dark Plum" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#3a1a35','Ciruela','Dark Plum')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Ciruela</span><span data-lang="en">Plum</span></span>
+      </div>
+      <div class="sw-item">
+        <div class="sw" style="background:#0f1c2e" onclick="openSwatch('#0f1c2e','Azul Noche','Midnight Navy')" role="button" tabindex="0" aria-label="Azul Noche / Midnight Navy" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#0f1c2e','Azul Noche','Midnight Navy')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Azul Noche</span><span data-lang="en">Navy</span></span>
+      </div>
+      <div class="sw-item">
+        <div class="sw" style="background:#2a2a2a" onclick="openSwatch('#2a2a2a','Carbón','Charcoal')" role="button" tabindex="0" aria-label="Carbón / Charcoal" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#2a2a2a','Carbón','Charcoal')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Carbón</span><span data-lang="en">Charcoal</span></span>
+      </div>
+      <div class="sw-item">
+        <div class="sw" style="background:#1e3326" onclick="openSwatch('#1e3326','Verde Bosque','Forest Green')" role="button" tabindex="0" aria-label="Verde Bosque / Forest Green" onkeydown="if(event.key==='Enter'||event.key===' ')openSwatch('#1e3326','Verde Bosque','Forest Green')"></div>
+        <span class="sw-name-lbl"><span data-lang="es">Bosque</span><span data-lang="en">Forest</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTOS ZONA 2: eliminada -->
+
+<!-- ALOJAMIENTO -->
+<section class="sec" id="alojamiento">
+  <p class="slabel"><span data-lang="es">Dónde será</span><span data-lang="en">Where it'll be</span></p>
+  <h2 class="stitle"><span data-lang="es">El lugar de la boda & alojamiento</span><span data-lang="en">The wedding venue & accommodation</span></h2>
+  <div class="div"><div class="div-line"></div><span class="div-sym">❧ ✦ ❧</span><div class="div-line rv"></div></div>
+
+  <!-- SPRINGKELL MAIN CARD -->
+  <div class="venue-stay-card">
+    <!-- Photo -->
+    <div class="venue-photo" style="background-image:url('springkell.jpg');">
+      <div class="venue-photo-overlay"></div>
+      <div class="venue-photo-label">
+        <span data-lang="es">El lugar de la boda</span>
+        <span data-lang="en">The wedding venue</span>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="venue-stay-body">
+      <p class="venue-stay-tag">
+        <span data-lang="es">✦ Recomendado · Precio especial para invitados</span>
+        <span data-lang="en">✦ Recommended · Special rate for guests</span>
+      </p>
+      <h3 class="venue-stay-name">Springkell Estate</h3>
+      <p class="venue-stay-desc">
+        <span data-lang="es">Para que puedas vivir la experiencia completa, hemos reservado habitaciones en el mismo Springkell para los invitados. Quedarte aquí significa despertar el día de la boda rodeado de los jardines del venue, y despedirte con calma al día siguiente.<br><br>
+        Springkell tiene <strong>21 habitaciones en suite</strong> en la casa principal y <strong>3 cottages</strong> a 50 metros, cada uno diseñado de forma única. Los precios incluyen desayuno escocés y tienen un <strong>descuento especial por el evento</strong>.<br><br>
+        Indicarás tu preferencia de habitación al confirmar asistencia. Puedes reservar para <strong>las noches del 27 y 28 de julio</strong> o solo <strong>el 28 de julio</strong>.</span>
+        <span data-lang="en">To make the most of the experience, we have reserved rooms at Springkell itself for our guests. Staying here means waking up on the wedding day surrounded by the venue's gardens, and leaving at your own pace the next morning.<br><br>
+        Springkell has <strong>21 en-suite bedrooms</strong> in the main house and <strong>3 self-catering cottages</strong> just 50 metres away, each uniquely designed. Prices include a Scottish breakfast and come at a <strong>special discounted rate for our wedding guests</strong>.<br><br>
+        You'll indicate your room preference when you RSVP. You can book for the <strong>nights of 27th and 28th July</strong> or just the <strong>28th July</strong>.</span>
+      </p>
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem;">
+        <a class="btn-link" href="https://www.springkell.com/stay" target="_blank" rel="noopener noreferrer" aria-label="Ver el venue Springkell (abre en nueva pestaña)" style="font-size:.72rem; padding:.6rem 1.3rem;">
+          <span data-lang="es">Ver el venue →</span>
+          <span data-lang="en">See the venue →</span>
+        </a>
+        <a class="btn-link" href="https://www.google.com/maps/search/?api=1&query=Springkell+House+Lockerbie+Scotland" target="_blank" rel="noopener noreferrer" aria-label="Ver Springkell en Google Maps (abre en nueva pestaña)" style="font-size:.72rem; padding:.6rem 1.3rem; border-color:rgba(92,13,42,.2); color:var(--muted);">
+          <span data-lang="es">Ver en Google Maps</span>
+          <span data-lang="en">Open in Google Maps</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTHER OPTIONS COLLAPSED -->
+  <div class="other-stay-toggle" onclick="toggleOtherStay(this)" role="button" tabindex="0" aria-expanded="false" aria-controls="other-stay" onkeydown="if(event.key==='Enter'||event.key===' ')toggleOtherStay(this)">
+    <span data-lang="es">Otras opciones de alojamiento cerca</span>
+    <span data-lang="en">Other nearby accommodation options</span>
+    <span class="other-stay-arrow">›</span>
+  </div>
+  <div class="other-stay-list" id="other-stay">
+    <div class="hotel-card"><span class="hotel-num">I</span><div><p class="hotel-name">Dryfesdale Country House Hotel</p><p class="hotel-det"><span data-lang="es">~15 min · Lockerbie · Boutique & encantador</span><span data-lang="en">~15 min · Lockerbie · Boutique & charming</span></p></div><a class="btn-link" href="https://www.dryfesdalehotel.co.uk" target="_blank"><span data-lang="es">Ver</span><span data-lang="en">View</span></a></div>
+    <div class="hotel-card"><span class="hotel-num">II</span><div><p class="hotel-name">Kings Arms Hotel</p><p class="hotel-det"><span data-lang="es">~10 min · Lockerbie · Clásico escocés</span><span data-lang="en">~10 min · Lockerbie · Classic Scottish</span></p></div><a class="btn-link" href="https://www.kingsarmslockerbie.co.uk" target="_blank"><span data-lang="es">Ver</span><span data-lang="en">View</span></a></div>
+    <div class="hotel-card"><span class="hotel-num">III</span><div><p class="hotel-name">Airbnb &amp; Cottages</p><p class="hotel-det"><span data-lang="es">Casas rurales, ideal para grupos</span><span data-lang="en">Countryside cottages, ideal for groups</span></p></div><a class="btn-link" href="https://www.airbnb.com/s/Lockerbie--Scotland" target="_blank"><span data-lang="es">Buscar</span><span data-lang="en">Search</span></a></div>
+  </div>
+</section>
+
+
+<!-- GUÍA DE VIAJE -->
+<section class="sec" id="viaje">
+  <p class="slabel"><span data-lang="es">Cómo llegar</span><span data-lang="en">Getting there</span></p>
+  <h2 class="stitle"><span data-lang="es">Todo sobre UK & Escocia</span><span data-lang="en">All about UK & Scotland</span></h2>
+  <div class="div"><div class="div-line"></div><span class="div-sym">❧ ✦ ❧</span><div class="div-line rv"></div></div>
+  <p style="text-align:center;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);max-width:460px;margin:0 auto 2.8rem;line-height:1.9;">
+    <span data-lang="es">ETA, clima, transporte, tren a Springkell, alojamiento en Edinburgh y dónde comer.</span>
+    <span data-lang="en">ETA, weather, transport, train to Springkell, Edinburgh accommodation and food.</span>
+  </p>
+  <div style="text-align:center;">
+    <a class="btn-link" href="travel-guide.html" style="font-size:.65rem;padding:.85rem 2.8rem;background:var(--burg);color:var(--paper);border-color:var(--burg);">
+      <span data-lang="es">Ver guía completa →</span><span data-lang="en">View full guide →</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOTOS ZONA 3: eliminada -->
+
+<!-- REGALOS -->
+<section class="sec" id="regalos">
+  <p class="slabel"><span data-lang="es">Cómo apoyarnos</span><span data-lang="en">How to support us</span></p>
+  <h2 class="stitle"><span data-lang="es">Regalos</span><span data-lang="en">Gifts</span></h2>
+  <div class="div"><div class="div-line"></div><span class="div-sym">❧ ♡ ❧</span><div class="div-line rv"></div></div>
+  <p class="gift-intro">
+    <span data-lang="es">Tu presencia es el mejor regalo. Pero si deseas contribuir a nuestra nueva aventura, puedes apoyarnos en cualquiera de estas metas y dejarnos un mensaje al finalizar.</span>
+    <span data-lang="en">Your presence is the greatest gift. But if you'd like to help us start our adventure, here are a few ideas we'd treasure.</span>
+  </p>
+  <div id="gift-list"></div>
+  <div class="bank-box">
+    <div class="bc tl"></div><div class="bc tr"></div><div class="bc bl"></div><div class="bc br"></div>
+    <p class="bank-ey"><span data-lang="es">Datos bancarios</span><span data-lang="en">Bank details</span></p>
+    <p class="bank-nm">Banco Interbank</p>
+    <p style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.06em;color:var(--muted2);margin-bottom:1.4rem;">
+      <span data-lang="es">Cuenta en <strong>dólares (USD)</strong></span>
+      <span data-lang="en">Account in <strong>US dollars (USD)</strong></span>
+    </p>
+
+    <div class="bank-row">
+      <span class="bank-lbl"><span data-lang="es">Número de cuenta</span><span data-lang="en">Account number</span></span>
+      <div class="bank-num" onclick="copyBank('8983127219711', this)">
+        8983127219711
+        <span class="copy-icon">⎘</span>
+      </div>
+      <span class="copied-toast"><span data-lang="es">✦ copiado</span><span data-lang="en">✦ copied</span></span>
+    </div>
+
+    <div class="bank-row">
+      <span class="bank-lbl">CCI</span>
+      <div class="bank-num" onclick="copyBank('00389801312721971145', this)">
+        00389801312721971145
+        <span class="copy-icon">⎘</span>
+      </div>
+      <span class="copied-toast"><span data-lang="es">✦ copiado</span><span data-lang="en">✦ copied</span></span>
+    </div>
+
+    <div style="text-align:center;margin-top:1.8rem;">
+      <button class="m-next-btn" style="max-width:320px;margin:0 auto;" onclick="openMLibre()">
+        <span data-lang="es">Confirmar mi transferencia →</span>
+        <span data-lang="en">Confirm my transfer →</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- REVOLUT ALTERNATIVE -->
+  <div class="revolut-box">
+    <div class="bc tl"></div><div class="bc tr"></div><div class="bc bl"></div><div class="bc br"></div>
+    <p class="bank-ey"><span data-lang="es">Si estás en UK · Alternativa</span><span data-lang="en">If you're in the UK · Alternative</span></p>
+    <p class="bank-nm">Revolut</p>
+    <p style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.06em;color:var(--muted2);margin-bottom:1.8rem;">
+      <span data-lang="es">Sin comisiones · Pago instantáneo</span>
+      <span data-lang="en">No fees · Instant transfer</span>
+    </p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+      <div style="padding:.7rem;background:white;border:1px solid rgba(196,160,80,.2);display:inline-block;" id="qr-revolut"></div>
+      <a class="btn-link" href="https://revolut.me/jamilet/pocket/bcssiSyQ2s" target="_blank" style="font-size:.75rem;padding:.6rem 1.6rem;">
+        <span data-lang="es">Abrir en Revolut →</span><span data-lang="en">Open in Revolut →</span>
+      </a>
+      <button class="m-next-btn" style="max-width:320px;" onclick="openMLibre()">
+        <span data-lang="es">Confirmar mi transferencia →</span>
+        <span data-lang="en">Confirm my transfer →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOTOS ZONA 4: eliminada -->
+
+<!-- FAQ TEASER -->
+<div style="text-align:center; padding:4rem 2rem; border-top:1px solid rgba(196,160,80,.15);">
+  <p style="font-family:'Cinzel',serif; font-size:.54rem; letter-spacing:.42em; color:var(--gold); text-transform:uppercase; margin-bottom:.7rem;">
+    <span data-lang="es">¿Tienes dudas?</span><span data-lang="en">Got questions?</span>
+  </p>
+  <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:300; font-style:italic; color:var(--ink); margin-bottom:1.6rem; line-height:1.1;">
+    <span data-lang="es">Revisa nuestras preguntas frecuentes</span>
+    <span data-lang="en">Check our frequently asked questions</span>
+  </p>
+  <a class="btn-link" href="faq.html" style="font-size:.75rem; padding:.7rem 2rem;">
+    <span data-lang="es">Ver FAQ →</span><span data-lang="en">View FAQ →</span>
+  </a>
+</div>
+
+<!-- CAPA DE FOTOS POLAROID -->
+<div id="photos-layer"></div>
+
+<!-- TOOLTIP FOTOS -->
+<div class="fp-tooltip" id="fp-tooltip">
+  <span id="fp-tooltip-text"></span>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="fp-lightbox" id="fp-lightbox" onclick="this.classList.remove('open')">
+  <img id="fp-lightbox-img" src="" alt="Jami & Franco">
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-orn"><div class="f-line"></div><span class="f-sym">✦ ❧ ✦</span><div class="f-line rv"></div></div>
+  <p class="f-names">Jami & Franco</p>
+  <span class="f-date">28 · 07 · 2026 · Springkell, Scotland</span>
+  <p class="f-love"><span data-lang="es">Los esperamos. 🖤</span><span data-lang="en">We can't wait to see you. 🖤</span></p>
+</footer>
+
+<!-- GIFT MODAL -->
+<div class="m-overlay" id="modal" onclick="closeM(event)" role="dialog" aria-modal="true" aria-labelledby="mn">
+  <div class="modal">
+    <button class="m-close" onclick="closeMBtn()" aria-label="Cerrar">×</button>
+    <p class="m-tag" id="m-tag-label"><span data-lang="es">Contribuir a</span><span data-lang="en">Contribute to</span></p>
+    <p class="m-name" id="mn"></p>
+
+    <!-- INDICADOR DE PASOS -->
+    <div class="m-step-indicator">
+      <div class="m-step-line active" id="sline-1a"></div>
+      <span class="m-step-glyph active" id="sglyph-1">✦</span>
+      <div class="m-step-line active" id="sline-1b"></div>
+      <div class="m-step-line" id="sline-2a"></div>
+      <span class="m-step-glyph" id="sglyph-2">✦</span>
+      <div class="m-step-line" id="sline-2b"></div>
+    </div>
+
+    <!-- PASO 1: instrucciones de transferencia -->
+    <div class="modal-step active" id="modal-step-1">
+      <div class="m-steps">
+        <div class="m-step"><span data-lang="es">Monto: <strong id="ma-es" style="color:var(--burg)"></strong></span><span data-lang="en">Amount: <strong id="ma-en" style="color:var(--burg)"></strong></span></div>
+        <div class="m-step"><span data-lang="es">Transfiere a <strong>Banco Interbank</strong> · Cuenta <strong style="color:var(--burg)">8983127219711</strong> · o <a href="https://revolut.me/jamilet/pocket/bcssiSyQ2s" target="_blank" rel="noopener noreferrer" style="color:var(--burg);text-decoration:underline;text-underline-offset:3px;">Cuenta Revolut (UK) →</a></span><span data-lang="en">Transfer to <strong>Banco Interbank</strong> · Account <strong style="color:var(--burg)">8983127219711</strong> · or <a href="https://revolut.me/jamilet/pocket/bcssiSyQ2s" target="_blank" rel="noopener noreferrer" style="color:var(--burg);text-decoration:underline;text-underline-offset:3px;">Revolut (UK) →</a></span></div>
+      </div>
+      <button class="m-next-btn" onclick="goToStep2()">
+        <span data-lang="es">Ya transferí · Dejar mensaje →</span>
+        <span data-lang="en">I've transferred · Leave a message →</span>
+      </button>
+    </div>
+
+    <!-- PASO 2: nombre, mensaje y comprobante -->
+    <div class="modal-step" id="modal-step-2">
+      <label class="m-field-lbl" for="m-name-input"><span data-lang="es">Tu nombre</span><span data-lang="en">Your name</span></label>
+      <input class="m-input" id="m-name-input" type="text" placeholder="Ej: María García" autocomplete="name"/>
+
+      <label class="m-field-lbl" for="m-msg-input"><span data-lang="es">Tu mensaje para nosotros</span><span data-lang="en">Your message for us</span></label>
+      <textarea class="m-textarea" id="m-msg-input" placeholder="Escríbenos algo bonito ♡"></textarea>
+
+      <label class="m-field-lbl"><span data-lang="es">Por favor adjunta tu comprobante para nuestro registro</span><span data-lang="en">Please attach your receipt for our records</span></label>
+      <div class="m-upload-area" onclick="document.getElementById('m-file-input').click()">
+        <input type="file" id="m-file-input" accept="image/*,application/pdf" style="display:none" onchange="mFileChosen(this)"/>
+        <p class="m-upload-lbl">📎 <span data-lang="es">Toca para subir foto o PDF</span><span data-lang="en">Tap to upload photo or PDF</span></p>
+        <p class="m-upload-name" id="m-upload-name"></p>
+      </div>
+
+      <button class="m-next-btn" id="modal-submit-btn" onclick="submitModalMsg()">
+        <span data-lang="es">Enviar mensaje 🖤</span>
+        <span data-lang="en">Send message 🖤</span>
+      </button>
+      <span class="m-back-link" onclick="goToStep1()">
+        <span data-lang="es">← Volver</span><span data-lang="en">← Back</span>
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<!-- SWATCH MODAL -->
+<div class="sw-modal-overlay" id="sw-modal" role="dialog" aria-modal="true" aria-label="Vista previa de color">
+  <div class="sw-modal">
+    <div class="sw-circle" id="sw-circle"></div>
+    <p class="sw-name" id="sw-name"></p>
+    <div class="sw-hex-row" onclick="copyHex()" id="sw-hex-row" role="button" tabindex="0" aria-label="Copiar código de color" onkeydown="if(event.key==='Enter'||event.key===' ')copyHex()">
+      <span class="sw-hex" id="sw-hex"></span>
+      <span class="sw-copy-icon">⎘</span>
+    </div>
+    <span class="sw-hex-toast" id="sw-hex-toast"><span data-lang="es">✦ copiado</span><span data-lang="en">✦ copied</span></span>
+    <button class="sw-close-btn" onclick="closeSwatch()">
+      <span data-lang="es">Cerrar</span><span data-lang="en">Close</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// ── LANG ──
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>{
+    const active = (i===0&&l==='es')||(i===1&&l==='en');
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+}
+
+// ── HAMBURGER NAV ──
+function toggleNav(){
+  document.getElementById('nav-ham').classList.toggle('open');
+  document.getElementById('nav-links').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('nav-links').classList.contains('open') ? 'hidden' : '';
+}
+function closeNav(){
+  document.getElementById('nav-ham').classList.remove('open');
+  document.getElementById('nav-links').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── NAV scroll background ──
+const navEl = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  navEl.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+function toggleOtherStay(btn) {
+  btn.classList.toggle('open');
+  const isOpen = btn.classList.contains('open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  document.getElementById('other-stay').classList.toggle('open');
+}
+
+// ── COUNTDOWN ──
+const WD=new Date('2026-07-28T21:15:00+01:00'); // 21:15 hora de Escocia (BST)
+function tick(){
+  const d=WD-new Date(); if(d<=0)return;
+  document.getElementById('cd-d').textContent=String(Math.floor(d/86400000)).padStart(3,'0');
+  document.getElementById('cd-h').textContent=String(Math.floor((d%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(Math.floor((d%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(Math.floor((d%60000)/1000)).padStart(2,'0');
+}
+setInterval(tick,1000); tick();
+
+// ── COPY BANK NUMBER ──
+function copyBank(text, el) {
+  const toast = el.closest('.bank-row').querySelector('.copied-toast');
+  function showFeedback() {
+    el.style.borderColor = 'var(--gold2)';
+    el.style.background = 'rgba(196,160,80,.08)';
+    toast.classList.add('show');
+    setTimeout(()=>{
+      toast.classList.remove('show');
+      el.style.borderColor = '';
+      el.style.background = '';
+    }, 2500);
+  }
+  // Try modern clipboard API first
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(showFeedback).catch(()=>{
+      // Fallback: create temp input
+      const inp = document.createElement('input');
+      inp.value = text;
+      document.body.appendChild(inp);
+      inp.select();
+      inp.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      document.body.removeChild(inp);
+      showFeedback();
+    });
+  } else {
+    // execCommand fallback
+    const inp = document.createElement('input');
+    inp.value = text;
+    document.body.appendChild(inp);
+    inp.select();
+    inp.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    document.body.removeChild(inp);
+    showFeedback();
+  }
+}
+
+// ── SWATCH MODAL ──
+let _currentHex = '';
+function openSwatch(hex, nameES, nameEN) {
+  _currentHex = hex;
+  const isEN = document.body.classList.contains('en');
+  document.getElementById('sw-circle').style.background = hex;
+  document.getElementById('sw-name').textContent = isEN ? nameEN : nameES;
+  document.getElementById('sw-hex').textContent = hex.toUpperCase();
+  document.getElementById('sw-modal').classList.add('open');
+}
+function closeSwatch(){ document.getElementById('sw-modal').classList.remove('open'); }
+
+function copyHex() {
+  const row = document.getElementById('sw-hex-row');
+  const toast = document.getElementById('sw-hex-toast');
+  function showFeedback() {
+    row.style.background = 'rgba(196,160,80,.15)';
+    toast.classList.add('show');
+    setTimeout(()=>{ toast.classList.remove('show'); row.style.background = ''; }, 2500);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(_currentHex.toUpperCase()).then(showFeedback).catch(()=>{
+      const inp = document.createElement('input');
+      inp.value = _currentHex.toUpperCase();
+      document.body.appendChild(inp); inp.select(); inp.setSelectionRange(0,99999);
+      document.execCommand('copy'); document.body.removeChild(inp);
+      showFeedback();
+    });
+  } else {
+    const inp = document.createElement('input');
+    inp.value = _currentHex.toUpperCase();
+    document.body.appendChild(inp); inp.select(); inp.setSelectionRange(0,99999);
+    document.execCommand('copy'); document.body.removeChild(inp);
+    showFeedback();
+  }
+}
+
+// ── GIFTS ──
+const gifts=[
+  {id:1,es:'Pasajes de luna de miel a Grecia',en:'Honeymoon flights to Greece',icon:'✈️',goal:800},
+  {id:2,es:'Estadía en Grecia',en:'Accommodation in Greece',icon:'🏨',goal:1500},
+  {id:3,es:'Museos en Grecia',en:'Museums in Greece',icon:'🏛️',goal:500},
+  {id:4,es:'Pasajes para visitar islas en Grecia',en:'Flights to Greek islands',icon:'🚤',goal:500},
+  {id:5,es:'Visita Ítaca',en:'Visit Ithaca',icon:'⛵',goal:1000},
+  {id:6,es:'Viáticos',en:'Daily expenses',icon:'💰',goal:1000},
+  {id:7,es:'Tours',en:'Tours',icon:'🗺️',goal:500},
+];
+
+// C stores confirmed amounts (only after receipt upload)
+// P stores pending amounts (entered but receipt not yet uploaded)
+const C=JSON.parse(localStorage.getItem('jf7')||'{}');
+
+function render(){
+  const isEN = document.body.classList.contains('en');
+  const html = gifts.map(g=>{
+    const confirmed = C[g.id] || 0;
+    const showBar = confirmed > 0;
+    let barHtml = '';
+    if(showBar){
+      const contribLabel = isEN ? 'Contributed' : 'Contribuido';
+      barHtml = '<div class="bar-t"><div class="bar-f" id="bf-'+g.id+'" style="width:0%"></div></div>'
+        + '<div class="gift-contributed"><span>'
+        + contribLabel+': <strong>$ '+confirmed.toLocaleString()+' USD</strong></span></div>';
+    } else {
+      barHtml = '<div class="bar-t bar-empty"><div class="bar-f" style="width:0%"></div></div>';
+    }
+    const cuantoLabel = isEN ? 'Amount?' : '¿Cuánto?';
+    const contribBtn  = isEN ? 'Contribute' : 'Contribuir';
+    return '<div class="gift-item">'
+      + '<div class="gift-hd">'
+      + '<p class="gift-name">'+g.icon+' '+g.es+'<span class="gift-sub"> · '+g.en+'</span></p>'
+      + '<p class="gift-goal">$ '+g.goal.toLocaleString()+' USD</p>'
+      + '</div>'
+      + barHtml
+      + '<div class="gift-row">'
+      + '<span class="gift-row-lbl">'+cuantoLabel+'</span>'
+      + '<input class="gift-input" id="gi-'+g.id+'" type="number" min="1" placeholder="$ USD"/>'
+      + '<button class="gift-btn" onclick="openM('+g.id+')">'+contribBtn+'</button>'
+      + '</div>'
+      + '</div>';
+  }).join('');
+  document.getElementById('gift-list').innerHTML = html;
+  setTimeout(()=>gifts.forEach(g=>{
+    const b=document.getElementById('bf-'+g.id);
+    if(b) b.style.width=Math.min((C[g.id]||0)/g.goal*100,100).toFixed(1)+'%';
+  }),120);
+}
+
+// ── REVOLUT QR ──
+window.addEventListener('load', () => {
+  render(); // populate gift list
+  if(typeof QRCode !== 'undefined' && document.getElementById('qr-revolut')) {
+    new QRCode(document.getElementById('qr-revolut'), {
+      text: 'https://revolut.me/jamilet/pocket/bcssiSyQ2s',
+      width: 140, height: 140,
+      colorDark: '#1c1510', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+});
+
+// ── CONFIGURACIÓN BACKEND ──
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // ← Pega aquí tu URL cuando tengas el Apps Script
+
+// ── MODAL DE REGALO: DOS PASOS ──
+let _pendingGiftId = null;
+let _pendingAmt = 0;
+
+function setModalStep(n) {
+  [1,2].forEach(i => {
+    document.getElementById('modal-step-'+i).classList.toggle('active', i===n);
+  });
+  // Paso 1 activo: primer ✦ y sus líneas encendidos, segundo apagado
+  // Paso 2 activo: ambos ✦ y todas las líneas encendidas
+  const on1 = true; // el primer ✦ siempre activo
+  const on2 = n === 2;
+  ['sline-1a','sline-1b','sglyph-1'].forEach(id => {
+    document.getElementById(id).classList.toggle('active', on1);
+  });
+  ['sline-2a','sline-2b','sglyph-2'].forEach(id => {
+    document.getElementById(id).classList.toggle('active', on2);
+  });
+}
+
+function goToStep2() { setModalStep(2); }
+function goToStep1() { setModalStep(1); }
+
+function mFileChosen(input) {
+  const nameEl = document.getElementById('m-upload-name');
+  if(input.files && input.files[0]) {
+    nameEl.textContent = '✦ ' + input.files[0].name;
+    nameEl.style.display = 'block';
+  }
+}
+
+async function submitModalMsg() {
+  const name = document.getElementById('m-name-input').value.trim();
+  const text = document.getElementById('m-msg-input').value.trim();
+  const isEN = document.body.classList.contains('en');
+
+  if(!name) { alert(isEN ? 'Please enter your name.' : 'Por favor escribe tu nombre.'); return; }
+  if(!text) { alert(isEN ? 'Please write a message.' : 'Por favor escribe un mensaje.'); return; }
+
+  const btn = document.getElementById('modal-submit-btn');
+  if(btn) { btn.disabled = true; btn.textContent = '…'; }
+
+  const fileInput = document.getElementById('m-file-input');
+  const file      = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+  const giftName  = document.getElementById('mn').textContent;
+
+  // Convertir comprobante a base64 si hay archivo
+  let archivoNombre = '';
+  let archivoData   = '';
+  let archivoTipo   = '';
+  if (file) {
+    archivoNombre = file.name;
+    archivoTipo   = file.type;
+    archivoData   = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload  = e => res(e.target.result.split(',')[1]); // solo el base64, sin el prefijo
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  const payload = {
+    type: 'regalo',
+    nombre: name,
+    meta: giftName || (isEN ? 'Free Contribution' : 'Contribución Libre'),
+    monto_usd: _pendingAmt || 0,
+    mensaje: text,
+    archivo_nombre: archivoNombre,
+    archivo_data:   archivoData,
+    archivo_tipo:   archivoTipo,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(err) {
+    console.warn('fetch error:', err);
+  }
+
+  // Cerrar modal
+  document.getElementById('modal').classList.remove('open');
+  _resetModalTitle();
+
+  // Registrar monto y animar la barra
+  if(_pendingGiftId && _pendingAmt > 0) {
+    C[_pendingGiftId] = (C[_pendingGiftId]||0) + _pendingAmt;
+    localStorage.setItem('jf7', JSON.stringify(C));
+    render(); // re-renderiza la lista con el nuevo monto
+    // La barra ya hace su propia animación CSS al aparecer,
+    // pero forzamos un pequeño delay para que se vea el movimiento
+    setTimeout(() => {
+      const b = document.getElementById('bf-'+_pendingGiftId);
+      if(b) b.style.width = Math.min(C[_pendingGiftId]/gifts.find(g=>g.id===_pendingGiftId).goal*100, 100).toFixed(1)+'%';
+    }, 80);
+  }
+
+  // Toast de gracias
+  const msg = isEN ? '🖤 Thank you! Your gift is on its way.' : '🖤 ¡Gracias! Tu regalo ya está en camino.';
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--burg);color:var(--paper);font-family:Cinzel,serif;font-size:.58rem;letter-spacing:.15em;padding:.75rem 1.8rem;z-index:9000;opacity:0;transition:opacity .35s;white-space:nowrap;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>{
+    t.style.opacity='1';
+    setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(), 400); }, 3500);
+  });
+}
+
+function openM(id){
+  const g = gifts.find(x=>x.id===id);
+  const amt = parseFloat(document.getElementById(`gi-${id}`).value) || null;
+  if(!amt) return;
+  _pendingGiftId = id;
+  _pendingAmt = amt;
+  document.getElementById('mn').textContent = document.body.classList.contains('en') ? g.en : g.es;
+  const s = `$ ${amt.toLocaleString()} USD`;
+  document.getElementById('ma-es').textContent = s;
+  document.getElementById('ma-en').textContent = s;
+  // Resetear campos y pasos
+  document.getElementById('m-name-input').value = '';
+  document.getElementById('m-msg-input').value = '';
+  document.getElementById('m-file-input').value = '';
+  document.getElementById('m-upload-name').style.display = 'none';
+  setModalStep(1);
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeM(e){
+  if(e.target===document.getElementById('modal')) {
+    document.getElementById('modal').classList.remove('open');
+    _resetModalTitle();
+  }
+}
+
+function closeMBtn(){
+  document.getElementById('modal').classList.remove('open');
+  _resetModalTitle();
+}
+
+// ── MODAL CONTRIBUCIÓN LIBRE (desde datos bancarios) ──
+function openMLibre(){
+  const isEN = document.body.classList.contains('en');
+  _pendingGiftId = null;
+  _pendingAmt = 0;
+  // Cambiar título: quitar "Contribuir a" y poner "Contribución Libre"
+  document.getElementById('m-tag-label').style.display = 'none';
+  document.getElementById('mn').textContent = isEN ? 'Free Contribution' : 'Contribución Libre';
+  // Resetear campos
+  document.getElementById('m-name-input').value = '';
+  document.getElementById('m-msg-input').value = '';
+  document.getElementById('m-file-input').value = '';
+  document.getElementById('m-upload-name').style.display = 'none';
+  // Ir directo al paso 2
+  setModalStep(2);
+  document.getElementById('modal').classList.add('open');
+}
+
+// Al cerrar el modal, restaurar el título normal
+function _resetModalTitle(){
+  document.getElementById('m-tag-label').style.display = '';
+}
+
+// ── FOTOS POLAROID: POSICIÓN FIJA EN PÁGINA + PARALLAX + DRAG + LIGHTBOX ──
+(function(){
+
+  // Cada foto: { src, horizontal, rot, size(px w,h), topPct(% del body), side('left'|'right'), offsetX(vw) }
+  // topPct = % de la altura total del documento donde queremos centrar la foto
+  // Distribuimos las 12 fotos a lo largo del 20%–88% del documento
+  const PHOTOS = [
+    // foto extra en la parte superior del hero — detrás del nav en móvil
+    { src:'Foto12.jpg', rot: 3,   w:210, h:315, topPct: 1,  side:'right', ox:1,  heroTop:true },
+    // Foto8 protagonista
+    { src:'Foto8.jpg',  rot:-4.5, w:240, h:360, topPct: 8,  side:'left',  ox:1,  big:true },
+    { src:'Foto11.jpg', rot: 4.5, w:220, h:330, topPct:14,  side:'right', ox:1 },
+    { src:'Foto3.jpg',  rot: 6,   w:194, h:289, topPct:21,  side:'left',  ox:1 },
+    { src:'Foto1.jpg',  rot:-5,   w:210, h:313, topPct:28,  side:'right', ox:1,  horiz:true },
+    { src:'Foto9.jpg',  rot: 3.5, w:205, h:307, topPct:34,  side:'left',  ox:1 },
+    { src:'Foto7.jpg',  rot:-7,   w:231, h:347, topPct:44,  side:'right', ox:1,  horiz:true },
+    { src:'Foto5.jpg',  rot: 5.5, w:189, h:284, topPct:51,  side:'left',  ox:1 },
+    { src:'Foto2.jpg',  rot:-3.5, w:226, h:336, topPct:58,  side:'right', ox:1 },
+    // fotos zona regalos: en móvil se recortan más por los lados
+    { src:'Foto4.jpg',  rot: 6.5, w:210, h:315, topPct:65,  side:'left',  ox:1,  regalos:true },
+    { src:'Foto6.jpg',  rot: 4,   w:231, h:347, topPct:73,  side:'right', ox:1,  regalos:true },
+    { src:'Foto10.jpg', rot:-4,   w:205, h:305, topPct:81,  side:'left',  ox:1,  regalos:true },
+  ];
+
+  const layer  = document.getElementById('photos-layer');
+  const lb     = document.getElementById('fp-lightbox');
+  const lbImg  = document.getElementById('fp-lightbox-img');
+  const SPEED  = 0.35; // factor parallax: 0=inmóvil, 1=igual que scroll
+  let zTop     = 10;
+
+  // parallax offset acumulado por foto (independiente de drag)
+  const parallaxY = new Array(PHOTOS.length).fill(0);
+  // posición de drag por foto
+  const dragOff   = PHOTOS.map(()=>({x:0,y:0}));
+
+  function getDocHeight(){ return document.documentElement.scrollHeight; }
+
+  function buildPhotos(){
+    layer.innerHTML = '';
+    const docH = getDocHeight();
+
+    PHOTOS.forEach((p, i) => {
+      const el = document.createElement('div');
+      el.className = 'fp' + (p.horiz ? ' horizontal' : '');
+      el.dataset.i = i;
+
+      const vw = window.innerWidth;
+      const isMobile = vw < 600;
+      const isTablet = vw < 1024;
+      const responsive = isMobile ? 0.55 : (isTablet ? 0.72 : 1);
+      const scale = (p.big ? 1.2 : 1.05) * responsive;
+      const w = Math.round(p.w * scale);
+      const h = Math.round(p.h * scale);
+      el.style.width  = w + 'px';
+      el.style.height = h + 'px';
+
+      const topPx = (p.topPct / 100) * docH;
+
+      // ── heroTop: en móvil se asoma detrás del nav (z-index < 100) y se corta arriba
+      if(p.heroTop){
+        el.style.zIndex = isMobile ? 4 : (i + 2); // detrás del nav en móvil
+        // en móvil: posición más arriba, parcialmente tapada por el nav
+        const heroOffset = isMobile ? -18 : 0; // sube 18px extra en móvil → nav la tapa
+        el.style.top = (topPx + heroOffset) + 'px';
+      } else {
+        el.style.zIndex = i + 2;
+        el.style.top = topPx + 'px';
+      }
+
+      // ── posición horizontal
+      // maxInset: cuánto puede entrar hacia el centro del viewport
+      // regalos en móvil: maxInset más pequeño → se cortan más por los lados
+      let maxInset;
+      if(p.regalos && isMobile){
+        maxInset = Math.round(vw * 0.12); // solo 12% visible en móvil → se recortan bastante
+      } else if(isMobile){
+        maxInset = Math.round(vw * 0.18);
+      } else {
+        maxInset = Math.round(vw * 0.22);
+      }
+
+      const edgeMargin = Math.round(vw * (p.ox / 100));
+      let leftPx;
+      if(p.side === 'left'){
+        leftPx = edgeMargin - Math.max(0, w - maxInset);
+      } else {
+        leftPx = vw - edgeMargin - maxInset;
+      }
+
+      el.style.left = leftPx + 'px';
+
+      // transform inicial (antes de visible = entrada desde abajo)
+      el.style.transform = `rotate(${p.rot}deg) translateY(24px)`;
+
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = 'Jami & Franco';
+      img.loading = 'lazy';
+      el.appendChild(img);
+
+      // iconos de hint en el borde inferior polaroid
+      const hints = document.createElement('div');
+      hints.className = 'fp-hints';
+      hints.innerHTML = `
+        <span class="fp-hint-icon"><span class="hint-emoji">✋</span> mover</span>
+        <span class="fp-hint-sep">·</span>
+        <span class="fp-hint-icon"><span class="hint-emoji">🔍</span> clic para ampliar</span>`;
+      el.appendChild(hints);
+
+      layer.appendChild(el);
+
+      // --- DRAG ---
+      let dragging = false, startX, startY, startDX, startDY;
+
+      function startDrag(clientX, clientY){
+        dragging = true;
+        startX = clientX; startY = clientY;
+        startDX = dragOff[i].x; startDY = dragOff[i].y;
+        el.classList.add('dragging');
+        el.style.zIndex = ++zTop;
+      }
+      function moveDrag(clientX, clientY){
+        if(!dragging) return;
+        dragOff[i].x = startDX + (clientX - startX);
+        dragOff[i].y = startDY + (clientY - startY);
+        applyTransform(i, el, p);
+      }
+      function endDrag(){ dragging = false; el.classList.remove('dragging'); }
+
+      el.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
+      window.addEventListener('mousemove', e=>{ if(dragging) moveDrag(e.clientX,e.clientY); });
+      window.addEventListener('mouseup', endDrag);
+
+      el.addEventListener('touchstart', e=>{ startDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
+      el.addEventListener('touchmove',  e=>{ e.preventDefault(); moveDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
+      el.addEventListener('touchend',   endDrag);
+
+      // --- CLIC: lightbox (distingue de drag) ---
+      let clickStartX, clickStartY;
+      el.addEventListener('mousedown', e=>{ clickStartX=e.clientX; clickStartY=e.clientY; });
+      el.addEventListener('click', e=>{
+        const moved = Math.abs(e.clientX-clickStartX) + Math.abs(e.clientY-clickStartY);
+        if(moved > 6) return; // fue drag, no clic
+        lbImg.src = p.src;
+        lb.classList.add('open');
+      });
+      el.addEventListener('touchend', e=>{
+        const t = e.changedTouches[0];
+        const moved = Math.abs(t.clientX-clickStartX) + Math.abs(t.clientY-clickStartY);
+        if(moved > 10) return;
+        lbImg.src = p.src;
+        lb.classList.add('open');
+      });
+
+  const tooltip   = document.getElementById('fp-tooltip');
+  const tooltipTxt = document.getElementById('fp-tooltip-text');
+  const isTouch   = window.matchMedia('(hover:none)').matches;
+  let tooltipShown = localStorage.getItem('jf-photo-hint') === '1';
+
+  function showTooltip(){
+    if(tooltipShown) return;
+    tooltipShown = true;
+    localStorage.setItem('jf-photo-hint','1');
+    tooltipTxt.innerHTML = isTouch
+      ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
+      : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
+    tooltip.classList.add('show');
+    setTimeout(()=>{ tooltip.classList.remove('show'); }, 4200);
+  }
+
+  // IntersectionObserver para fade-in
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        setTimeout(()=>{
+          el.classList.add('visible');
+          applyTransform(i,el,p);
+          // mostrar tooltip la primera vez que aparece cualquier foto
+          if(i === 0) showTooltip();
+        }, i%3 * 120);
+        io.unobserve(el);
+      }
+    });
+  },{ threshold:0.05 });
+  io.observe(el);
+    });
+  }
+
+  function applyTransform(i, el, p){
+    const py = parallaxY[i];
+    const dx = dragOff[i].x;
+    const dy = dragOff[i].y;
+    el.style.transform = `rotate(${p.rot}deg) translate(${dx}px, ${py + dy}px)`;
+  }
+
+  // --- PARALLAX etéreo en scroll ---
+  let ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(()=>{
+      const scrollY = window.scrollY;
+      const docH    = getDocHeight();
+      const vh      = window.innerHeight;
+      const els     = layer.querySelectorAll('.fp');
+      els.forEach((el, i)=>{
+        if(!el.classList.contains('visible')) return;
+        const p     = PHOTOS[i];
+        const topPx = (p.topPct / 100) * docH;
+        const h     = parseInt(el.style.height);
+        // distancia del centro de la foto al centro del viewport
+        const dist  = (topPx + h/2) - (scrollY + vh/2);
+        // cada foto tiene velocidad levemente distinta para sensación de profundidad
+        const speed = 0.06 + (i % 3) * 0.02; // 0.06, 0.08, 0.10 alternando
+        parallaxY[i] = dist * speed;
+        applyTransform(i, el, p);
+      });
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // construir cuando el DOM esté listo
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', buildPhotos);
+  } else {
+    buildPhotos();
+  }
+  window.addEventListener('resize', ()=>{ buildPhotos(); });
+
+})();
+
+// ── SCROLL REVEAL (resto de elementos) ──
+(function(){
+  const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
