@@ -198,8 +198,8 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 
     <div class="info-box">
       <p>
-        <span data-lang="es">Escribe tu nombre y selecciónate de la lista. Si no apareces, escribe tu nombre completo igual.</span>
-        <span data-lang="en">Type your name and select yourself from the list. If you don't appear, just type your full name.</span>
+        <span data-lang="es">Escribe tu nombre y selecciónate de la lista. Solo pueden confirmar asistencia personas en la lista de invitados.</span>
+        <span data-lang="en">Type your name and select yourself from the list. Only guests on the list can confirm attendance.</span>
       </p>
     </div>
 
@@ -384,6 +384,9 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
       <span data-lang="es">Gracias por confirmar. Estaremos en contacto con más detalles antes de la boda. ¡Los esperamos!</span>
       <span data-lang="en">Thank you for confirming. We'll be in touch with more details before the wedding. We can't wait to see you!</span>
     </p>
+    <a href="jami-franco-wedding.html" class="pf-back" style="margin-top:1.8rem;display:inline-block;">
+      <span data-lang="es">Ir a la página principal</span><span data-lang="en">Go to the main page</span>
+    </a>
   </div>
 
 </div>
@@ -431,7 +434,11 @@ function onSearchInput(val) {
   document.getElementById('person-confirmed').classList.remove('show');
   document.getElementById('search-name').style.display = '';
   const list = document.getElementById('autocomplete-list');
-  if (val.trim().length < 2) { list.style.display = 'none'; return; }
+  if (val.trim().length < 2) { 
+    list.style.display = 'none'; 
+    if (!selectedPerson) document.getElementById('section-attendance').classList.remove('show');
+    return; 
+  }
   searchTimer = setTimeout(() => {
     list.innerHTML = '<div class="autocomplete-loading"><span class="loading-dots"><span>·</span><span>·</span><span>·</span></span></div>';
     list.classList.add('is-loading');
@@ -616,8 +623,8 @@ function collectAccessibility() {
 // ── VALIDATION ──
 function validate() {
   let ok = true;
-  // Nombre
-  if (!selectedPerson && !document.getElementById('search-name').value.trim()) {
+  // Nombre — solo válido si se seleccionó de la lista
+  if (!selectedPerson) {
     document.getElementById('f-buscar').classList.add('invalid'); ok = false;
   } else {
     document.getElementById('f-buscar').classList.remove('invalid');
@@ -644,7 +651,7 @@ async function submitRSVP() {
   document.getElementById('loader-overlay').classList.add('show');
 
   const stayVal = document.getElementById('stay-springkell')?.value || '';
-  const nameVal = selectedPerson ? selectedPerson.name : document.getElementById('search-name').value.trim();
+  const nameVal = selectedPerson.name;
 
   const payload = {
     type: 'rsvp',
