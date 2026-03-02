@@ -186,6 +186,10 @@ body.en [data-lang="en"]{display:unset;}
 /* GROUP NOTE BOX */
 .group-note{background:rgba(92,13,42,.05);border-left:3px solid var(--burg);padding:1rem 1.4rem;margin:1rem 0;}
 .group-note p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+/* ACCOMMODATION LOCKED BLOCK */
+.acc-locked{opacity:.45;pointer-events:none;transition:opacity .3s;}
+.acc-locked.unlocked{opacity:1;pointer-events:all;}
+
 /* LOADER OVERLAY */
 .loader-overlay{position:fixed;inset:0;z-index:9000;background:rgba(248,245,239,.92);backdrop-filter:blur(6px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
 .loader-overlay.show{display:flex;}
@@ -330,13 +334,13 @@ body.en [data-lang="en"]{display:unset;}
             </p>
           </div>
 
+          <div id="accommodation-block" class="acc-locked">
           <div class="field">
             <label for="stay2"><span data-lang="es">¿Quieres quedarte en Springkell?</span><span data-lang="en">Would you like to stay at Springkell?</span></label>
             <select id="stay2" onchange="toggleStay2(this.value)">
               <option value="">—</option>
               <option value="yes-both">Sí · 27/07 &amp; 28/07 / Yes · 27/07 &amp; 28/07</option>
               <option value="yes-28">Sí · 28/07 / Yes · 28/07</option>
-              <option value="undecided">Aún no decido / Still not sure</option>
               <option value="no">No, me busco alojamiento por mi cuenta / No, I'll sort my own</option>
             </select>
           </div>
@@ -344,7 +348,6 @@ body.en [data-lang="en"]{display:unset;}
           <div id="section-rooms2" style="display:none;">
             <div class="field">
               <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
-              <!-- aviso cuando hay habitaciones pre-cargadas del RSVP1 -->
               <div id="rooms-preloaded-notice" style="display:none;font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);margin-bottom:.8rem;line-height:1.65;">
                 <span data-lang="es">Estas son las habitaciones que pediste en tu RSVP original. Puedes modificarlas si algo cambió.</span>
                 <span data-lang="en">These are the rooms you requested in your original RSVP. Feel free to update them if anything has changed.</span>
@@ -359,14 +362,15 @@ body.en [data-lang="en"]{display:unset;}
             <div class="field">
               <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
               <div class="field-hint" style="margin-bottom:.6rem;"><span data-lang="es">Selecciona todo lo que aplique</span><span data-lang="en">Select all that apply</span></div>
-              <div class="accessibility-row" role="group">
-                <div class="acc-chip" onclick="toggleChip2(this)" data-val="groundfloor"><span data-lang="es">Planta baja</span><span data-lang="en">Ground floor</span></div>
-                <div class="acc-chip" onclick="toggleChip2(this)" data-val="handrails"><span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span></div>
-                <div class="acc-chip" onclick="toggleChip2(this)" data-val="other-acc2"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
+              <div class="accessibility-row" role="group" id="acc-chips2">
+                <div class="acc-chip" data-val="groundfloor"><span data-lang="es">Planta baja</span><span data-lang="en">Ground floor</span></div>
+                <div class="acc-chip" data-val="handrails"><span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span></div>
+                <div class="acc-chip" data-val="other-acc2"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
               </div>
               <input type="text" id="acc2-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.7rem;display:none;width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;padding:.62rem 1rem;outline:none;">
             </div>
           </div>
+          </div><!-- /accommodation-block -->
         </div>
 
         <div class="field">
@@ -601,14 +605,21 @@ function preloadRsvpData(data) {
 
 function unlockAccommodation() {
   const isEN = document.body.classList.contains('en');
+  const block = document.getElementById('accommodation-block');
+  block.classList.remove('acc-locked');
+  block.classList.add('unlocked');
   const stay2El = document.getElementById('stay2');
   stay2El.disabled = false;
-  stay2El.style.opacity = '1';
   // Desbloquear habitaciones
   document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
     el.disabled = false; el.style.opacity = '1';
   });
-  // Cambiar el infobox a texto editable
+  // Activar chips de accesibilidad
+  document.querySelectorAll('#acc-chips2 .acc-chip').forEach(chip => {
+    chip.onclick = function() { toggleChip2(this); };
+    chip.style.cursor = 'pointer';
+  });
+  // Cambiar el infobox
   document.getElementById('stay-infobox-text').innerHTML = isEN
     ? 'You can now update your accommodation details.'
     : 'Ya puedes actualizar tus datos de alojamiento.';
