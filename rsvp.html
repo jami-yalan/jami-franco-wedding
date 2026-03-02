@@ -19,15 +19,8 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{
-  background-color:var(--paper);
-  color:var(--ink); font-family:'Cinzel',serif; font-size:16px; line-height:1.8; overflow-x:hidden;
-}
-body::before{
-  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
-  opacity:.65;
-}
+body{background-color:var(--paper);color:var(--ink);font-family:'Cinzel',serif;font-size:16px;line-height:1.8;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");opacity:.65;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--paper2);}
 ::-webkit-scrollbar-thumb{background:var(--burg);}
@@ -39,26 +32,19 @@ body::before{
 [data-lang="en"]{display:none;}
 body.en [data-lang="es"]{display:none;}
 body.en [data-lang="en"]{display:unset;}
-.blk-es{display:block;}
-.blk-en{display:none;}
-body.en .blk-es{display:none;}
-body.en .blk-en{display:block;}
+.blk-es{display:block;} .blk-en{display:none;}
+body.en .blk-es{display:none;} body.en .blk-en{display:block;}
 span.blk-es,span.blk-en{display:inline;}
-body.en span.blk-es{display:none;}
-body.en span.blk-en{display:inline;}
+body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 
 /* HEADER */
-.site-header{
-  background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);
-  padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);
-}
+.site-header{background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);}
 .back-link{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.14em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .3s;}
 .back-link:hover{color:var(--burg);}
 .header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
 .header-sub{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;display:block;text-align:center;}
 
-/* PAGE HERO */
+/* HERO */
 .page-hero{text-align:center;padding:4.5rem 2rem 3rem;position:relative;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,160,80,.06) 0%,transparent 70%);}
 .page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;opacity:.55;pointer-events:none;}
 .page-hero > *{position:relative;z-index:1;}
@@ -72,142 +58,98 @@ body.en span.blk-en{display:inline;}
 
 /* FORM */
 .form-wrap{max-width:720px;margin:0 auto;padding:2.5rem 2rem 6rem;}
-
-/* SECTION LABEL */
-.fsec-label{
-  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.26em;
-  color:var(--gold);text-transform:uppercase;
-  border-bottom:1px solid var(--goldA);padding-bottom:.6rem;margin:2.8rem 0 1.6rem;
-  display:flex;align-items:center;gap:.8rem;
-}
+.fsec-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.26em;color:var(--gold);text-transform:uppercase;border-bottom:1px solid var(--goldA);padding-bottom:.6rem;margin:2.8rem 0 1.6rem;display:flex;align-items:center;gap:.8rem;}
 .fsec-label::before{content:'✦';font-size:.7rem;color:var(--gold2);}
-
-/* FIELD */
 .field{margin-bottom:1.3rem;}
-.field label{
-  font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.1em;
-  color:var(--muted);text-transform:uppercase;display:block;margin-bottom:.4rem;
-}
+.field label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:.4rem;}
 .field label .req{color:var(--burg);margin-left:.2rem;}
-.field input,.field select,.field textarea{
-  width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);
-  color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;
-  padding:.62rem 1rem;outline:none;transition:border-color .3s,background .3s;
-  appearance:none;-webkit-appearance:none;
-}
-.field input:focus,.field select:focus,.field textarea:focus{
-  border-color:var(--gold2);background:rgba(255,255,255,.8);
-}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;padding:.62rem 1rem;outline:none;transition:border-color .3s,background .3s;appearance:none;-webkit-appearance:none;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold2);background:rgba(255,255,255,.8);}
 .field textarea{resize:vertical;min-height:80px;line-height:1.7;}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8a70' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
 .field-err{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--err);margin-top:.3rem;display:none;}
 .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err);}
 .field.invalid .field-err{display:block;}
 .field-hint{font-family:'EB Garamond',serif;font-size:.92rem;letter-spacing:0;color:var(--muted2);margin-top:.35rem;line-height:1.65;}
-
-/* 2-col grid */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 
-/* ATTENDANCE TOGGLE */
+/* AUTOCOMPLETE */
+.autocomplete-wrap{position:relative;}
+.autocomplete-list{position:absolute;top:100%;left:0;right:0;z-index:200;background:var(--paper);border:1px solid var(--goldB);border-top:none;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.15);}
+.autocomplete-item{padding:.6rem 1rem;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.06em;color:var(--ink2);cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(196,160,80,.1);}
+.autocomplete-item:hover,.autocomplete-item.highlighted{background:var(--paper2);}
+.autocomplete-item em{color:var(--burg);font-style:normal;}
+.autocomplete-loading{padding:.8rem 1rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted);}
+.autocomplete-list.is-loading{animation:pulse-border 0.8s ease-in-out infinite;}
+@keyframes pulse-border{0%,100%{border-color:var(--goldA);box-shadow:0 4px 18px rgba(0,0,0,.06);}50%{border-color:var(--gold2);box-shadow:0 4px 18px rgba(196,160,80,.25);}}
+.loading-dots span{animation:blink 1.2s infinite;}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:0;}40%{opacity:1;}}
+
+/* PERSON CONFIRMED BOX */
+.person-confirmed{display:none;background:var(--paper2);border:1px solid var(--goldB);border-left:3px solid var(--gold2);padding:1rem 1.4rem;margin-top:.5rem;}
+.person-confirmed.show{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.person-confirmed-name{font-family:'Cinzel',serif;font-size:.72rem;color:var(--burg);}
+.person-change-btn{background:none;border:1px solid rgba(196,160,80,.3);color:var(--muted);font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.14em;padding:.3rem .7rem;cursor:pointer;transition:all .2s;}
+.person-change-btn:hover{border-color:var(--gold2);color:var(--gold);}
+
+/* ATTENDANCE */
 .attend-toggle{display:flex;gap:.6rem;margin-top:.2rem;}
-.attend-btn{
-  flex:1;padding:.7rem;text-align:center;cursor:pointer;
-  font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
-  border:1px solid rgba(196,160,80,.28);color:var(--muted);transition:all .3s;
-  background:rgba(255,255,255,.4);
-}
+.attend-btn{flex:1;padding:.7rem;text-align:center;cursor:pointer;font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(196,160,80,.28);color:var(--muted);transition:all .3s;background:rgba(255,255,255,.4);}
 .attend-btn.selected-yes{background:var(--burg);color:var(--paper);border-color:var(--burg);}
 .attend-btn.selected-no{background:var(--paper3);color:var(--ink2);border-color:rgba(92,13,42,.3);}
 .attend-btn:hover{border-color:var(--gold2);}
 
 /* ROOM BUILDER */
-.room-builder{margin-top:.6rem;}
-.room-entry{
-  background:var(--paper2);border:1px solid var(--goldA);
-  padding:1.4rem 1.6rem;margin-bottom:.8rem;position:relative;
-}
+.room-entry{background:var(--paper2);border:1px solid var(--goldA);padding:1.4rem 1.6rem;margin-bottom:.8rem;position:relative;}
 .room-entry-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;}
-.remove-room{
-  position:absolute;top:.8rem;right:.9rem;background:none;border:none;
-  font-size:1rem;color:var(--muted2);cursor:pointer;transition:color .2s;line-height:1;
-}
+.remove-room{position:absolute;top:.8rem;right:.9rem;background:none;border:none;font-size:1rem;color:var(--muted2);cursor:pointer;transition:color .2s;line-height:1;}
 .remove-room:hover{color:var(--burg);}
-.add-room-btn{
-  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  background:none;border:1px dashed rgba(196,160,80,.4);color:var(--muted2);
-  padding:.55rem 1rem;cursor:pointer;width:100%;transition:all .3s;margin-top:.3rem;
-}
+.add-room-btn{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px dashed rgba(196,160,80,.4);color:var(--muted2);padding:.55rem 1rem;cursor:pointer;width:100%;transition:all .3s;margin-top:.3rem;}
 .add-room-btn:hover{border-color:var(--gold2);color:var(--gold);}
-
-/* NIGHTS CHECKBOXES */
-.nights-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:.2rem;}
-.night-cb{display:flex;align-items:center;gap:.4rem;cursor:pointer;}
-.night-cb input[type=checkbox]{
-  width:1.1rem;height:1.1rem;accent-color:var(--burg);cursor:pointer;flex-shrink:0;
-}
-.night-cb span{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.05em;color:var(--muted);}
-
-/* BEDS COUNTER */
 .beds-row{display:flex;align-items:center;gap:.6rem;margin-top:.2rem;}
-.counter-btn{
-  width:1.8rem;height:1.8rem;border:1px solid rgba(196,160,80,.35);
-  background:none;color:var(--ink2);font-size:1rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .2s;
-}
+.counter-btn{width:1.8rem;height:1.8rem;border:1px solid rgba(196,160,80,.35);background:none;color:var(--ink2);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .counter-btn:hover{background:var(--burg);color:var(--paper);border-color:var(--burg);}
-.counter-val{
-  font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;
-  color:var(--ink);min-width:1.5rem;text-align:center;
-}
+.counter-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink);min-width:1.5rem;text-align:center;}
 .beds-type-label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.06em;color:var(--muted2);}
-
-/* ACCESSIBILITY */
 .accessibility-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem;}
-.acc-chip{
-  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;
-  border:1px solid rgba(196,160,80,.3);color:var(--muted);
-  padding:.35rem .8rem;cursor:pointer;transition:all .25s;
-  background:rgba(255,255,255,.35);
-}
+.acc-chip{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;border:1px solid rgba(196,160,80,.3);color:var(--muted);padding:.35rem .8rem;cursor:pointer;transition:all .25s;background:rgba(255,255,255,.35);}
 .acc-chip.selected{background:var(--paper3);border-color:var(--gold2);color:var(--ink2);}
 
+/* INFO & GROUP NOTE */
+.info-box{background:rgba(196,160,80,.08);border-left:3px solid var(--gold2);padding:1.1rem 1.4rem;margin:1.4rem 0;}
+.info-box p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+.group-note{background:rgba(92,13,42,.05);border-left:3px solid var(--burg);padding:1rem 1.4rem;margin:1rem 0;}
+.group-note p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+
+/* CONDITIONAL */
+.conditional{display:none;}
+.conditional.show{display:block;}
+
 /* SUBMIT */
-.submit-btn{
-  width:100%;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.18em;
-  text-transform:uppercase;background:var(--burg);color:var(--paper);
-  border:none;padding:1.1rem;cursor:pointer;transition:background .3s;margin-top:2rem;
-}
+.submit-btn{width:100%;font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;background:var(--burg);color:var(--paper);border:none;padding:1.1rem;cursor:pointer;transition:background .3s;margin-top:2rem;}
 .submit-btn:hover{background:var(--wine);}
 .submit-btn:disabled{background:var(--muted2);cursor:not-allowed;}
 
 /* SUCCESS */
-.success-box{
-  display:none;text-align:center;padding:3.5rem 2rem;
-  background:var(--paper2);border:1px solid var(--goldB);
-  animation:fadeUp .5s ease;
-}
+.success-box{display:none;text-align:center;padding:3.5rem 2rem;background:var(--paper2);border:1px solid var(--goldB);animation:fadeUp .5s ease;}
 .success-box.show{display:block;}
 .success-icon{font-size:2.5rem;margin-bottom:1.2rem;display:block;}
 .success-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.8rem;}
 .success-body{font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);line-height:1.9;max-width:420px;margin:0 auto;}
 
-/* REGRETS BOX */
-.regrets-box{
-  display:none;text-align:center;padding:2.5rem;
-  background:var(--paper2);border:1px solid var(--goldA);margin-top:1.5rem;
-}
+/* REGRETS */
+.regrets-box{display:none;text-align:center;padding:2.5rem;background:var(--paper2);border:1px solid var(--goldA);margin-top:1.5rem;}
 .regrets-box.show{display:block;}
 
-/* INFO BOX */
-.info-box{
-  background:rgba(196,160,80,.08);border-left:3px solid var(--gold2);
-  padding:1.1rem 1.4rem;margin:1.4rem 0;
-}
-.info-box p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
-
-/* CONDITIONAL SECTIONS */
-.conditional{display:none;}
-.conditional.show{display:block;}
+/* LOADER */
+.loader-overlay{position:fixed;inset:0;z-index:9000;background:rgba(248,245,239,.92);backdrop-filter:blur(6px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.loader-overlay.show{display:flex;}
+.loader-ring{width:64px;height:64px;border-radius:50%;border:2px solid var(--goldA);border-top-color:var(--gold2);animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--muted);letter-spacing:.06em;animation:fadepulse 2s ease-in-out infinite;}
+@keyframes fadepulse{0%,100%{opacity:.5;}50%{opacity:1;}}
 
 /* FOOTER */
 .page-footer{text-align:center;padding:3rem 2rem 5rem;border-top:1px solid rgba(196,160,80,.16);background:linear-gradient(to top,var(--paper3),transparent);}
@@ -230,7 +172,7 @@ body.en span.blk-en{display:inline;}
 </div>
 
 <header class="site-header">
-  <a class="back-link" href="index.html">← <span data-lang="es">Volver</span><span data-lang="en">Back</span></a>
+  <a class="back-link" href="jami-franco-wedding.html">← <span data-lang="es">Volver</span><span data-lang="en">Back</span></a>
   <div>
     <p class="header-title">Jami & Franco</p>
     <span class="header-sub">28 · 07 · 2026</span>
@@ -251,157 +193,186 @@ body.en span.blk-en{display:inline;}
 <div class="form-wrap">
   <div id="rsvp-form">
 
-    <!-- ── 1. DATOS PERSONALES ── -->
-    <p class="fsec-label"><span data-lang="es">Tus datos</span><span data-lang="en">Your details</span></p>
+    <!-- STEP 1: BÚSQUEDA DE NOMBRE -->
+    <p class="fsec-label"><span data-lang="es">Encuéntrate en la lista</span><span data-lang="en">Find yourself in the list</span></p>
 
-    <div class="grid2">
-      <div class="field" id="f-nombre">
-        <label for="nombre"><span data-lang="es">Nombre(s)</span><span data-lang="en">First name(s)</span><span class="req">*</span></label>
-        <input type="text" id="nombre" placeholder="Ej. María" autocomplete="given-name">
-        <div class="field-err"><span data-lang="es">Por favor ingresa tu nombre</span><span data-lang="en">Please enter your first name</span></div>
-      </div>
-      <div class="field" id="f-apellido">
-        <label for="apellido"><span data-lang="es">Apellido(s)</span><span data-lang="en">Last name(s)</span><span class="req">*</span></label>
-        <input type="text" id="apellido" placeholder="Ej. García" autocomplete="family-name">
-        <div class="field-err"><span data-lang="es">Por favor ingresa tu apellido</span><span data-lang="en">Please enter your last name</span></div>
-      </div>
+    <div class="info-box">
+      <p>
+        <span data-lang="es">Escribe tu nombre y selecciónate de la lista. Si no apareces, escribe tu nombre completo igual.</span>
+        <span data-lang="en">Type your name and select yourself from the list. If you don't appear, just type your full name.</span>
+      </p>
     </div>
 
-    <div class="grid2">
-      <div class="field" id="f-email">
-        <label for="email">Email<span class="req">*</span></label>
-        <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
-        <div class="field-err"><span data-lang="es">Por favor ingresa un email válido</span><span data-lang="en">Please enter a valid email</span></div>
+    <div class="field" id="f-buscar">
+      <label for="search-name"><span data-lang="es">Tu nombre</span><span data-lang="en">Your name</span><span class="req">*</span></label>
+      <div class="autocomplete-wrap">
+        <input type="text" id="search-name"
+          placeholder="Ej. María García…"
+          autocomplete="off"
+          oninput="onSearchInput(this.value)"
+          onkeydown="onSearchKey(event)">
+        <div class="autocomplete-list" id="autocomplete-list" style="display:none;"></div>
       </div>
-      <div class="field" id="f-whatsapp">
-        <label for="whatsapp">WhatsApp<span class="req">*</span></label>
-        <input type="tel" id="whatsapp" placeholder="+51 999 999 999" autocomplete="tel">
-        <div class="field-err"><span data-lang="es">Por favor ingresa tu WhatsApp</span><span data-lang="en">Please enter your WhatsApp number</span></div>
+      <div class="person-confirmed" id="person-confirmed">
+        <span class="person-confirmed-name" id="person-name-display"></span>
+        <button class="person-change-btn" onclick="clearPerson()">
+          <span data-lang="es">Cambiar</span><span data-lang="en">Change</span>
+        </button>
       </div>
+      <div class="field-err"><span data-lang="es">Por favor ingresa tu nombre</span><span data-lang="en">Please enter your name</span></div>
     </div>
 
-    <!-- ── 2. ASISTENCIA ── -->
-    <p class="fsec-label"><span data-lang="es">¿Vas a poder acompañarnos?</span><span data-lang="en">Will you be able to join us?</span></p>
+    <!-- STEP 2: ASISTENCIA -->
+    <div class="conditional" id="section-attendance">
 
-    <div class="field">
-      <label><span data-lang="es">Confirmación</span><span data-lang="en">Confirmation</span><span class="req">*</span></label>
-      <div class="attend-toggle" role="group" aria-label="Confirmación de asistencia">
-        <div class="attend-btn" id="btn-yes" onclick="setAttend('yes')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('yes')">
-          <span data-lang="es">¡Sí, voy!</span><span data-lang="en">Yes, I'll be there!</span>
-        </div>
-        <div class="attend-btn" id="btn-no" onclick="setAttend('no')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('no')">
-          <span data-lang="es">No podré ir</span><span data-lang="en">I can't make it</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- ATTENDING: more fields -->
-    <div class="conditional" id="section-attending">
-
-      <div class="field" id="f-llegada">
-        <label for="llegada"><span data-lang="es">¿Qué día llegas a UK?</span><span data-lang="en">Which day do you arrive in the UK?</span><span class="req">*</span></label>
-        <select id="llegada">
-          <option value="" disabled selected>— DD/MM/YYYY —</option>
-          <option value="antes-25" data-es="Antes del 25/07/2026" data-en="Before 25/07/2026">Antes del 25/07/2026</option>
-          <option value="25-jul">25/07/2026</option>
-          <option value="26-jul">26/07/2026</option>
-          <option value="27-jul">27/07/2026</option>
-          <option value="28-jul">28/07/2026</option>
-        </select>
-        <div class="field-err"><span data-lang="es">Por favor selecciona tu fecha de llegada</span><span data-lang="en">Please select your arrival date</span></div>
-      </div>
-
-      <!-- ── 3. DIETA ── -->
-      <p class="fsec-label"><span data-lang="es">Alimentación</span><span data-lang="en">Dietary requirements</span></p>
+      <p class="fsec-label"><span data-lang="es">¿Vas a poder acompañarnos?</span><span data-lang="en">Will you be able to join us?</span></p>
 
       <div class="field">
-        <label for="dieta"><span data-lang="es">¿Tienes algún requerimiento alimenticio?</span><span data-lang="en">Any dietary requirements?</span></label>
-        <input type="text" id="dieta" placeholder="Ej. vegetariano, sin gluten… · E.g. vegetarian, gluten-free…">
-        <div class="field-hint"><span data-lang="es">Si no tienes, déjalo en blanco</span><span data-lang="en">Leave blank if none</span></div>
-      </div>
-
-      <!-- ── 4. ALOJAMIENTO ── -->
-      <p class="fsec-label"><span data-lang="es">Alojamiento en Springkell</span><span data-lang="en">Accommodation at Springkell</span></p>
-
-      <div class="info-box">
-        <p><span data-lang="es">Springkell tiene 21 habitaciones en suite + 3 cottages. Como invitado a la boda accedes a precios especiales. Indica a continuación si te quedarás en el venue y cuántas habitaciones necesitas.</span>
-        <span data-lang="en">Springkell has 21 en-suite rooms + 3 cottages. As a wedding guest you get a special discounted rate. Let us know below if you'll be staying at the venue and how many rooms you need.</span></p>
-      </div>
-
-      <div class="field">
-        <label for="stay-springkell"><span data-lang="es">¿Quieres quedarte en Springkell para que te mandemos una cotización?</span><span data-lang="en">Would you like to stay at Springkell so we can send you a quote?</span><span class="req">*</span></label>
-        <select id="stay-springkell" onchange="toggleStay(this.value)">
-          <option value="" disabled selected>—</option>
-          <option value="yes-both" class="opt-es" data-es="Sí · 27/07 &amp; 28/07" data-en="Yes · 27/07 &amp; 28/07">Sí · 27/07 &amp; 28/07</option>
-          <option value="yes-28" data-es="Sí · 28/07" data-en="Yes · 28/07">Sí · 28/07</option>
-          <option value="undecided" data-es="Aún no decido" data-en="Not sure yet">Aún no decido</option>
-          <option value="no" data-es="No, me quedaré en otro lugar" data-en="No, I'll stay elsewhere">No, me quedaré en otro lugar</option>
-        </select>
-      </div>
-
-      <!-- Room builder -->
-      <div class="conditional" id="section-rooms">
-        <div class="field">
-          <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
-          <div class="field-hint" style="margin-bottom:.8rem;"><span data-lang="es">Agrega una entrada por cada habitación. Puedes especificar qué tipo de cama necesitas.</span><span data-lang="en">Add one entry per room. You can specify what type of bed you need.</span></div>
-          <div id="room-list"></div>
-          <button class="add-room-btn" onclick="addRoom()">
-            + <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span>
-          </button>
-        </div>
-
-        <div class="field">
-          <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
-          <div class="field-hint" style="margin-bottom:.6rem;"><span data-lang="es">Selecciona todo lo que aplique</span><span data-lang="en">Select all that apply</span></div>
-          <div class="accessibility-row" role="group" aria-label="Requerimientos de accesibilidad">
-            <div class="acc-chip" onclick="toggleChip(this)" data-val="groundfloor" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
-              <span data-lang="es">Planta baja</span><span data-lang="en">Ground floor room</span>
-            </div>
-            <div class="acc-chip" onclick="toggleChip(this)" data-val="handrails" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
-              <span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span>
-            </div>
-            <div class="acc-chip" onclick="toggleChip(this)" data-val="other-acc" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
-              <span data-lang="es">Otro</span><span data-lang="en">Other</span>
-            </div>
+        <label><span data-lang="es">Confirmación</span><span data-lang="en">Confirmation</span><span class="req">*</span></label>
+        <div class="attend-toggle" role="group">
+          <div class="attend-btn" id="btn-yes" onclick="setAttend('yes')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('yes')">
+            <span data-lang="es">¡Sí, voy!</span><span data-lang="en">Yes, I'll be there!</span>
           </div>
-          <input type="text" id="accessibility-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.7rem;display:none;"
-            oninput="document.getElementById('accessibility-other').style.display = 'block'">
+          <div class="attend-btn" id="btn-no" onclick="setAttend('no')" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key==='Enter'||event.key===' ')setAttend('no')">
+            <span data-lang="es">No podré ir</span><span data-lang="en">I can't make it</span>
+          </div>
         </div>
       </div>
 
-      <!-- NOT staying -->
-      <div class="conditional" id="section-no-stay">
+      <!-- NO ASISTE -->
+      <div class="regrets-box" id="section-regrets">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.7rem;">
+          <span data-lang="es">Te vamos a extrañar 🖤</span><span data-lang="en">We'll miss you 🖤</span>
+        </p>
+        <p style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.05em;color:var(--muted);line-height:1.8;">
+          <span data-lang="es">Lamentamos que no puedas venir, pero agradecemos que nos lo hagas saber. ¡Seguimos en contacto!</span>
+          <span data-lang="en">We're sorry you can't make it, but we appreciate you letting us know. Let's keep in touch!</span>
+        </p>
+      </div>
+
+      <!-- SÍ ASISTE: más campos -->
+      <div class="conditional" id="section-attending">
+
+        <!-- CONTACTO -->
+        <p class="fsec-label"><span data-lang="es">Tus datos de contacto</span><span data-lang="en">Your contact details</span></p>
+
+        <div class="grid2">
+          <div class="field" id="f-email">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+            <div class="field-hint"><span data-lang="es">Déjalo en blanco si no tienes</span><span data-lang="en">Leave blank if you don't have one</span></div>
+          </div>
+          <div class="field" id="f-whatsapp">
+            <label for="whatsapp">WhatsApp</label>
+            <input type="tel" id="whatsapp" placeholder="+51 999 999 999" autocomplete="tel">
+            <div class="field-hint"><span data-lang="es">Con código de país</span><span data-lang="en">Including country code</span></div>
+          </div>
+        </div>
+
+        <!-- LLEGADA -->
+        <div class="field" id="f-llegada">
+          <label for="llegada"><span data-lang="es">¿Qué día llegas a UK?</span><span data-lang="en">Which day do you arrive in the UK?</span><span class="req">*</span></label>
+          <select id="llegada">
+            <option value="" disabled selected>— DD/MM/YYYY —</option>
+            <option value="antes-25">Antes del 25/07/2026 / Before 25/07/2026</option>
+            <option value="25-jul">25/07/2026</option>
+            <option value="26-jul">26/07/2026</option>
+            <option value="27-jul">27/07/2026</option>
+            <option value="28-jul">28/07/2026</option>
+          </select>
+          <div class="field-err"><span data-lang="es">Por favor selecciona tu fecha de llegada</span><span data-lang="en">Please select your arrival date</span></div>
+        </div>
+
+        <!-- DIETA -->
+        <p class="fsec-label"><span data-lang="es">Alimentación</span><span data-lang="en">Dietary requirements</span></p>
+
         <div class="field">
-          <label for="stay-other"><span data-lang="es">¿Dónde te quedarás?</span><span data-lang="en">Where will you be staying?</span></label>
-          <input type="text" id="stay-other" placeholder="Hotel / Airbnb / con amigos…">
+          <label for="dieta"><span data-lang="es">¿Tienes algún requerimiento alimenticio?</span><span data-lang="en">Any dietary requirements?</span></label>
+          <input type="text" id="dieta" placeholder="Ej. vegetariano, sin gluten… · E.g. vegetarian, gluten-free…">
+          <div class="field-hint"><span data-lang="es">Si no tienes, déjalo en blanco</span><span data-lang="en">Leave blank if none</span></div>
         </div>
-      </div>
 
-    </div><!-- /section-attending -->
+        <!-- ALOJAMIENTO -->
+        <p class="fsec-label"><span data-lang="es">Alojamiento en Springkell</span><span data-lang="en">Accommodation at Springkell</span></p>
 
-    <!-- NOT ATTENDING -->
-    <div class="regrets-box" id="section-regrets">
-      <p style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);margin-bottom:.7rem;">
-        <span data-lang="es">Te vamos a extrañar 🖤</span><span data-lang="en">We'll miss you 🖤</span>
-      </p>
-      <p style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.05em;color:var(--muted);line-height:1.8;">
-        <span data-lang="es">Lamentamos que no puedas venir, pero agradecemos que nos lo hagas saber. ¡Seguimos en contacto!</span>
-        <span data-lang="en">We're sorry you can't make it, but we appreciate you letting us know. Let's keep in touch!</span>
-      </p>
-    </div>
+        <div class="info-box">
+          <p>
+            <span data-lang="es">Springkell tiene 21 habitaciones en suite + 3 cottages. Como invitado a la boda accedes a precios especiales. Indica a continuación si te quedarás en el venue y cuántas habitaciones necesitas.</span>
+            <span data-lang="en">Springkell has 21 en-suite rooms + 3 cottages. As a wedding guest you get a special discounted rate. Let us know below if you'll be staying at the venue and how many rooms you need.</span>
+          </p>
+        </div>
 
-    <!-- NOTAS ADICIONALES -->
-    <div class="conditional" id="section-notes">
-      <p class="fsec-label"><span data-lang="es">Notas adicionales</span><span data-lang="en">Additional notes</span></p>
-      <div class="field">
-        <label for="notas"><span data-lang="es">¿Algo más que debamos saber?</span><span data-lang="en">Anything else we should know?</span></label>
-        <textarea id="notas" placeholder="…"></textarea>
-      </div>
-    </div>
+        <div class="field">
+          <label for="stay-springkell"><span data-lang="es">¿Quieres quedarte en Springkell?</span><span data-lang="en">Would you like to stay at Springkell?</span><span class="req">*</span></label>
+          <select id="stay-springkell" onchange="toggleStay(this.value)">
+            <option value="" disabled selected>—</option>
+            <option value="yes-both">Sí · 27/07 &amp; 28/07 / Yes · 27/07 &amp; 28/07</option>
+            <option value="yes-28">Sí · 28/07 / Yes · 28/07</option>
+            <option value="undecided">Aún no decido / Still not sure</option>
+            <option value="no">No, me quedo en otro lugar / No, I'll stay elsewhere</option>
+          </select>
+        </div>
 
-    <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">
-      <span data-lang="es">Enviar confirmación</span><span data-lang="en">Send my RSVP</span>
-    </button>
+        <!-- HABITACIONES -->
+        <div class="conditional" id="section-rooms">
+          <div class="field">
+            <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
+            <div class="field-hint" style="margin-bottom:.8rem;">
+              <span data-lang="es">Agrega una entrada por cada habitación.</span>
+              <span data-lang="en">Add one entry per room.</span>
+            </div>
+            <div class="group-note">
+              <p>
+                <span data-lang="es">Si vienes en grupo, solo una persona debe completar las habitaciones para no generar confusión. Esa persona será el punto de contacto para el pago.</span>
+                <span data-lang="en">If you're coming as a group, only one person should fill in the rooms to avoid confusion. That person will be the point of contact for payment.</span>
+              </p>
+            </div>
+            <div id="room-list"></div>
+            <button class="add-room-btn" onclick="addRoom()">
+              + <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span>
+            </button>
+          </div>
+
+          <div class="field">
+            <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
+            <div class="field-hint" style="margin-bottom:.6rem;"><span data-lang="es">Selecciona todo lo que aplique</span><span data-lang="en">Select all that apply</span></div>
+            <div class="accessibility-row" role="group">
+              <div class="acc-chip" onclick="toggleChip(this)" data-val="groundfloor" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+                <span data-lang="es">Planta baja</span><span data-lang="en">Ground floor room</span>
+              </div>
+              <div class="acc-chip" onclick="toggleChip(this)" data-val="handrails" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+                <span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span>
+              </div>
+              <div class="acc-chip" onclick="toggleChip(this)" data-val="other-acc" role="checkbox" tabindex="0" aria-checked="false" onkeydown="if(event.key==='Enter'||event.key===' ')toggleChip(this)">
+                <span data-lang="es">Otro</span><span data-lang="en">Other</span>
+              </div>
+            </div>
+            <input type="text" id="accessibility-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.7rem;display:none;">
+          </div>
+        </div>
+
+        <!-- NO SE QUEDA -->
+        <div class="conditional" id="section-no-stay">
+          <div class="field">
+            <label for="stay-other"><span data-lang="es">¿Dónde te quedarás?</span><span data-lang="en">Where will you be staying?</span></label>
+            <input type="text" id="stay-other" placeholder="Hotel / Airbnb / con amigos…">
+          </div>
+        </div>
+
+        <!-- NOTAS -->
+        <p class="fsec-label"><span data-lang="es">Notas adicionales</span><span data-lang="en">Additional notes</span></p>
+        <div class="field">
+          <label for="notas"><span data-lang="es">¿Algo más que debamos saber?</span><span data-lang="en">Anything else we should know?</span></label>
+          <textarea id="notas" placeholder="…"></textarea>
+        </div>
+
+      </div><!-- /section-attending -->
+
+      <button class="submit-btn" id="submit-btn" onclick="submitRSVP()">
+        <span data-lang="es">Enviar confirmación</span><span data-lang="en">Send my RSVP</span>
+      </button>
+
+    </div><!-- /section-attendance -->
 
   </div><!-- /rsvp-form -->
 
@@ -424,51 +395,151 @@ body.en span.blk-en{display:inline;}
     <div style="height:1px;width:70px;background:linear-gradient(to left,transparent,rgba(196,160,80,.38));"></div>
   </div>
   <p class="pf-names">Jami & Franco · 28.07.2026</p>
-  <a class="pf-back" href="index.html">← <span data-lang="es">Volver a la página principal</span><span data-lang="en">Back to main page</span></a>
+  <a href="jami-franco-wedding.html" class="pf-back">
+    <span data-lang="es">← Volver al inicio</span><span data-lang="en">← Back to home</span>
+  </a>
 </footer>
 
+<!-- LOADER -->
+<div class="loader-overlay" id="loader-overlay">
+  <div class="loader-ring"></div>
+  <p class="loader-text"><span data-lang="es">Enviando tu confirmación…</span><span data-lang="en">Sending your RSVP…</span></p>
+</div>
+
 <script>
-// ── CONFIG, reemplaza con tu Apps Script URL ──
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS3gkP_AEbT49scb60QKbP8FsOIm2hVLs9LXsTvoNaAY9oEPpm1L2a2_lO6b126NeQbw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyNAXYgdeZr6GfbNwAuZDXeeTSC24G1GSmJC4jQKJpvCXdxtBfX4lscDGdEO61CNc/exec';
 
 // ── LANG ──
-function translateSelects(isEN) {
-  document.querySelectorAll('select option[data-es]').forEach(opt => {
-    opt.textContent = isEN ? opt.dataset.en : opt.dataset.es;
-  });
+function setLang(l) {
+  document.body.classList.toggle('en', l === 'en');
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === l.toUpperCase()));
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
+}
+(function() {
+  try { const s = localStorage.getItem('jf-lang'); if(s === 'en') setLang('en'); } catch(e) {}
+})();
+
+// ── AUTOCOMPLETE ──
+let selectedPerson = null;
+let searchTimer = null;
+let highlighted = -1;
+let currentSuggestions = [];
+
+function onSearchInput(val) {
+  clearTimeout(searchTimer);
+  selectedPerson = null;
+  document.getElementById('person-confirmed').classList.remove('show');
+  document.getElementById('search-name').style.display = '';
+  const list = document.getElementById('autocomplete-list');
+  if (val.trim().length < 2) { list.style.display = 'none'; return; }
+  searchTimer = setTimeout(() => {
+    list.innerHTML = '<div class="autocomplete-loading"><span class="loading-dots"><span>·</span><span>·</span><span>·</span></span></div>';
+    list.classList.add('is-loading');
+    list.style.display = 'block';
+    const cbName = 'jfCbSearch_' + Date.now();
+    window[cbName] = function(data) {
+      delete window[cbName];
+      const s = document.getElementById('jf-search-script');
+      if(s) s.remove();
+      list.classList.remove('is-loading');
+      currentSuggestions = data.results || [];
+      renderSuggestions(val.trim());
+    };
+    const s = document.createElement('script');
+    s.id = 'jf-search-script';
+    s.src = APPS_SCRIPT_URL + '?action=search&q=' + encodeURIComponent(val.trim()) + '&callback=' + cbName;
+    s.onerror = function() {
+      delete window[cbName];
+      list.classList.remove('is-loading');
+      list.innerHTML = '<div class="autocomplete-loading">—</div>';
+    };
+    document.head.appendChild(s);
+  }, 320);
 }
 
-function setLang(l){
-  const isEN = l === 'en';
-  document.body.classList.toggle('en', isEN);
-  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
-  translateSelects(isEN);
-  // re-apply lang to dynamically added elements
-  document.querySelectorAll('.room-entry [data-lang="es"]').forEach(el=>el.style.display=isEN?'none':'');
-  document.querySelectorAll('.room-entry [data-lang="en"]').forEach(el=>el.style.display=isEN?'':'none');
+function renderSuggestions(query) {
+  const list = document.getElementById('autocomplete-list');
+  const isEN = document.body.classList.contains('en');
+  if (!currentSuggestions.length) {
+    list.innerHTML = '<div class="autocomplete-loading">' + (isEN ? 'No results found' : 'No se encontraron resultados') + '</div>';
+    list.style.display = 'block';
+    return;
+  }
+  list.innerHTML = currentSuggestions.map((p, i) => {
+    const full = p.name || '';
+    const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+    const highlighted_name = full.replace(re, '<em>$1</em>');
+    return `<div class="autocomplete-item" data-idx="${i}" onmousedown="selectPerson(${i})">${highlighted_name}</div>`;
+  }).join('');
+  list.style.display = 'block';
+  highlighted = -1;
 }
+
+function onSearchKey(e) {
+  const items = document.querySelectorAll('.autocomplete-item');
+  if (e.key === 'ArrowDown') { highlighted = Math.min(highlighted+1, items.length-1); }
+  else if (e.key === 'ArrowUp') { highlighted = Math.max(highlighted-1, 0); }
+  else if (e.key === 'Enter' && highlighted >= 0) { selectPerson(highlighted); return; }
+  else if (e.key === 'Escape') { document.getElementById('autocomplete-list').style.display='none'; }
+  items.forEach((it,i) => it.classList.toggle('highlighted', i === highlighted));
+}
+
+function selectPerson(idx) {
+  selectedPerson = currentSuggestions[idx];
+  document.getElementById('search-name').style.display = 'none';
+  document.getElementById('autocomplete-list').style.display = 'none';
+  document.getElementById('person-name-display').textContent = selectedPerson.name;
+  document.getElementById('person-confirmed').classList.add('show');
+  document.getElementById('f-buscar').classList.remove('invalid');
+  // Pre-rellenar email y whatsapp si vienen de la lista
+  if (selectedPerson.email) document.getElementById('email').value = selectedPerson.email;
+  if (selectedPerson.whatsapp) document.getElementById('whatsapp').value = selectedPerson.whatsapp;
+  // Mostrar sección de asistencia
+  document.getElementById('section-attendance').classList.add('show');
+}
+
+function clearPerson() {
+  selectedPerson = null;
+  document.getElementById('search-name').style.display = '';
+  document.getElementById('search-name').value = '';
+  document.getElementById('person-confirmed').classList.remove('show');
+  document.getElementById('section-attendance').classList.remove('show');
+  document.getElementById('section-attending').classList.remove('show');
+  document.getElementById('section-regrets').classList.remove('show');
+  attendValue = '';
+  document.getElementById('btn-yes').className = 'attend-btn';
+  document.getElementById('btn-no').className = 'attend-btn';
+  document.getElementById('search-name').focus();
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.autocomplete-wrap')) {
+    document.getElementById('autocomplete-list').style.display = 'none';
+  }
+});
 
 // ── ATTENDANCE ──
 let attendValue = '';
 function setAttend(val) {
   attendValue = val;
-  const btnYes = document.getElementById('btn-yes');
-  const btnNo  = document.getElementById('btn-no');
-  btnYes.className = 'attend-btn' + (val==='yes' ? ' selected-yes' : '');
-  btnNo.className  = 'attend-btn' + (val==='no'  ? ' selected-no'  : '');
-  btnYes.setAttribute('aria-pressed', val==='yes' ? 'true' : 'false');
-  btnNo.setAttribute('aria-pressed',  val==='no'  ? 'true' : 'false');
-  document.getElementById('section-attending').classList.toggle('show', val==='yes');
-  document.getElementById('section-regrets').classList.toggle('show', val==='no');
-  document.getElementById('section-notes').classList.toggle('show', val==='yes');
+  document.getElementById('btn-yes').className = 'attend-btn' + (val==='yes' ? ' selected-yes' : '');
+  document.getElementById('btn-no').className  = 'attend-btn' + (val==='no'  ? ' selected-no'  : '');
+  document.getElementById('section-attending').classList.toggle('show', val === 'yes');
+  document.getElementById('section-regrets').classList.toggle('show', val === 'no');
+  if (val === 'yes' && document.getElementById('room-list').children.length === 0) {
+    // no agregamos habitación automáticamente, esperan a que elijan Springkell
+  }
 }
 
-// ── STAY ──
+// ── STAY TOGGLE ──
 function toggleStay(val) {
-  const staying = val === 'yes-both' || val === 'yes-28';
-  document.getElementById('section-rooms').classList.toggle('show', staying);
-  document.getElementById('section-no-stay').classList.toggle('show', val==='no');
-  if(staying && document.getElementById('room-list').children.length === 0) addRoom();
+  const rooms  = document.getElementById('section-rooms');
+  const noStay = document.getElementById('section-no-stay');
+  rooms.classList.toggle('show',  val === 'yes-both' || val === 'yes-28' || val === 'undecided');
+  noStay.classList.toggle('show', val === 'no');
+  if ((val === 'yes-both' || val === 'yes-28') && document.getElementById('room-list').children.length === 0) {
+    addRoom();
+  }
 }
 
 // ── ROOM BUILDER ──
@@ -481,65 +552,38 @@ function addRoom() {
   div.className = 'room-entry';
   div.id = 'room-' + idx;
   div.innerHTML = `
-    <p class="room-entry-title">
-      <span data-lang="es">Habitación ${idx}</span>
-      <span data-lang="en" style="display:none">Room ${idx}</span>
-    </p>
-    ${roomCount > 1 ? `<button class="remove-room" onclick="removeRoom(${idx})" aria-label="Eliminar habitación ${idx}">×</button>` : ''}
+    <p class="room-entry-title">${isEN ? 'Room' : 'Habitación'} ${idx}</p>
+    ${roomCount > 1 ? `<button class="remove-room" onclick="document.getElementById('room-${idx}').remove()">×</button>` : ''}
     <div class="grid2" style="margin-bottom:.8rem;">
-      <div class="field" style="margin-bottom:0">
-        <label><span data-lang="es">Tipo de cama doble</span><span data-lang="en" style="display:none">Double beds</span></label>
+      <div>
+        <p class="beds-type-label" style="margin-bottom:.4rem;">Double / King</p>
         <div class="beds-row">
-          <button type="button" class="counter-btn" onclick="changeCount('dbl-${idx}',-1)" aria-label="Reducir camas dobles">−</button>
-          <span class="counter-val" id="dbl-${idx}" aria-live="polite">0</span>
-          <button type="button" class="counter-btn" onclick="changeCount('dbl-${idx}',1)" aria-label="Agregar cama doble">+</button>
-          <span class="beds-type-label">Double / King</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('dbl-${idx}',-1)">−</button>
+          <span class="counter-val" id="dbl-${idx}">0</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('dbl-${idx}',1)">+</button>
         </div>
       </div>
-      <div class="field" style="margin-bottom:0">
-        <label><span data-lang="es">Camas individuales</span><span data-lang="en" style="display:none">Single beds</span></label>
+      <div>
+        <p class="beds-type-label" style="margin-bottom:.4rem;">Single / Twin</p>
         <div class="beds-row">
-          <button type="button" class="counter-btn" onclick="changeCount('sgl-${idx}',-1)" aria-label="Reducir camas individuales">−</button>
-          <span class="counter-val" id="sgl-${idx}" aria-live="polite">0</span>
-          <button type="button" class="counter-btn" onclick="changeCount('sgl-${idx}',1)" aria-label="Agregar cama individual">+</button>
-          <span class="beds-type-label">Single / Twin</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('sgl-${idx}',-1)">−</button>
+          <span class="counter-val" id="sgl-${idx}">0</span>
+          <button type="button" class="counter-btn" onclick="chgCnt('sgl-${idx}',1)">+</button>
         </div>
       </div>
     </div>
-    <div class="field" style="margin-bottom:0">
-      <label><span data-lang="es">Nota sobre esta habitación</span><span data-lang="en" style="display:none">Note for this room</span></label>
-      <input type="text" id="room-note-${idx}" placeholder="Ej. para 2 adultos, cama doble · E.g. for 2 adults, double bed">
-    </div>
+    <input type="text" id="room-note-${idx}" placeholder="Nota · Note"
+      style="width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.25);color:var(--ink);font-family:'Cinzel',serif;font-size:.65rem;padding:.5rem .8rem;outline:none;">
   `;
   document.getElementById('room-list').appendChild(div);
-  // re-apply lang
-  const isE = document.body.classList.contains('en');
-  div.querySelectorAll('[data-lang="es"]').forEach(el=>el.style.display=isE?'none':'');
-  div.querySelectorAll('[data-lang="en"]').forEach(el=>el.style.display=isE?'':'none');
 }
 
-function removeRoom(idx) {
-  const el = document.getElementById('room-' + idx);
-  if(el) el.remove();
-}
-
-function changeCount(id, delta) {
+function chgCnt(id, d) {
   const el = document.getElementById(id);
-  if(!el) return;
-  const cur = parseInt(el.textContent)||0;
-  el.textContent = Math.max(0, cur + delta);
+  if (!el) return;
+  el.textContent = Math.max(0, (parseInt(el.textContent)||0) + d);
 }
 
-// ── ACCESSIBILITY CHIPS ──
-function toggleChip(el) {
-  el.classList.toggle('selected');
-  el.setAttribute('aria-checked', el.classList.contains('selected') ? 'true' : 'false');
-  const otherInput = document.getElementById('accessibility-other');
-  const hasOther = document.querySelector('.acc-chip[data-val="other-acc"].selected');
-  otherInput.style.display = hasOther ? 'block' : 'none';
-}
-
-// ── COLLECT ROOMS ──
 function collectRooms() {
   const rooms = [];
   document.querySelectorAll('.room-entry').forEach((entry, i) => {
@@ -554,90 +598,91 @@ function collectRooms() {
   return rooms;
 }
 
+// ── ACCESSIBILITY ──
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  el.setAttribute('aria-checked', el.classList.contains('selected') ? 'true' : 'false');
+  const hasOther = document.querySelector('.acc-chip[data-val="other-acc"].selected');
+  document.getElementById('accessibility-other').style.display = hasOther ? 'block' : 'none';
+}
+
 function collectAccessibility() {
-  const chips = [...document.querySelectorAll('.acc-chip.selected')].map(c=>c.dataset.val);
+  const chips = [...document.querySelectorAll('.acc-chip.selected')].map(c => c.dataset.val);
   const other = document.getElementById('accessibility-other').value.trim();
-  if(other) chips.push('other: '+other);
+  if (other) chips.push('other: ' + other);
   return chips.join(', ');
 }
 
 // ── VALIDATION ──
 function validate() {
   let ok = true;
-  const required = ['nombre','apellido','email','whatsapp'];
-  required.forEach(id=>{
-    const val = document.getElementById(id).value.trim();
-    const field = document.getElementById('f-'+id);
-    if(!val){ field.classList.add('invalid'); ok=false; }
-    else field.classList.remove('invalid');
-  });
-  // email format
-  const em = document.getElementById('email').value.trim();
-  if(em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){
-    document.getElementById('f-email').classList.add('invalid'); ok=false;
+  // Nombre
+  if (!selectedPerson && !document.getElementById('search-name').value.trim()) {
+    document.getElementById('f-buscar').classList.add('invalid'); ok = false;
+  } else {
+    document.getElementById('f-buscar').classList.remove('invalid');
   }
-  if(!attendValue){ ok=false; }
-  if(attendValue==='yes'){
+  if (!attendValue) ok = false;
+  if (attendValue === 'yes') {
     const ll = document.getElementById('llegada').value;
-    const fllegada = document.getElementById('f-llegada');
-    if(!ll){ fllegada.classList.add('invalid'); ok=false; }
-    else fllegada.classList.remove('invalid');
+    const fll = document.getElementById('f-llegada');
+    if (!ll) { fll.classList.add('invalid'); ok = false; }
+    else fll.classList.remove('invalid');
   }
   return ok;
 }
 
 // ── SUBMIT ──
 async function submitRSVP() {
-  if(!validate()) {
-    window.scrollTo({top: document.querySelector('.field.invalid')?.offsetTop - 80, behavior:'smooth'});
+  if (!validate()) {
+    const invalid = document.querySelector('.field.invalid');
+    if (invalid) window.scrollTo({ top: invalid.offsetTop - 80, behavior: 'smooth' });
     return;
   }
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
-  btn.textContent = '…';
+  document.getElementById('loader-overlay').classList.add('show');
 
   const stayVal = document.getElementById('stay-springkell')?.value || '';
-  const rooms = collectRooms();
-  const accessibility = collectAccessibility();
+  const nameVal = selectedPerson ? selectedPerson.name : document.getElementById('search-name').value.trim();
 
   const payload = {
     type: 'rsvp',
-    nombre: document.getElementById('nombre').value.trim(),
-    apellido: document.getElementById('apellido').value.trim(),
+    name: nameVal,
     email: document.getElementById('email').value.trim(),
     whatsapp: document.getElementById('whatsapp').value.trim(),
-    asistencia: attendValue,
-    llegada: document.getElementById('llegada')?.value || '',
-    dieta: document.getElementById('dieta')?.value.trim() || '',
-    alojamiento_springkell: stayVal,
-    habitaciones: JSON.stringify(rooms),
-    accesibilidad: accessibility,
-    alojamiento_otro: document.getElementById('stay-other')?.value.trim() || '',
-    notas: document.getElementById('notas')?.value.trim() || '',
+    attendance: attendValue,
+    uk_arrival: document.getElementById('llegada')?.value || '',
+    diet: document.getElementById('dieta')?.value.trim() || '',
+    springkell_accommodation: stayVal,
+    rooms: JSON.stringify(collectRooms()),
+    accessibility: collectAccessibility(),
+    other_accommodation: document.getElementById('stay-other')?.value.trim() || '',
     timestamp: new Date().toISOString()
   };
 
   try {
     await fetch(APPS_SCRIPT_URL, {
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
-    document.getElementById('rsvp-form').style.display='none';
+    document.getElementById('loader-overlay').classList.remove('show');
+    document.getElementById('rsvp-form').style.display = 'none';
     document.getElementById('success-box').classList.add('show');
-    window.scrollTo({top:0,behavior:'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch(e) {
+    document.getElementById('loader-overlay').classList.remove('show');
     btn.disabled = false;
     const isEN = document.body.classList.contains('en');
     btn.textContent = isEN ? 'Error, try again' : 'Error, intenta de nuevo';
-    setTimeout(()=>{
+    setTimeout(() => {
       btn.textContent = isEN ? 'Send my RSVP' : 'Enviar confirmación';
+      btn.disabled = false;
     }, 3000);
   }
 }
-
-
 </script>
 </body>
 </html>
