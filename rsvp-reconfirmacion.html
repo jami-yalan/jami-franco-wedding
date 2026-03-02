@@ -533,56 +533,85 @@ async function selectPerson(idx) {
 // Pre-carga los datos de alojamiento del RSVP1 en el formulario de reconf
 function preloadRsvpData(data) {
   const isEN        = document.body.classList.contains('en');
-  const alojamiento = data.alojamiento_springkell || '';
+  const alojamiento = data.springkell_accommodation || data.alojamiento_springkell || '';
   const stay2El     = document.getElementById('stay2');
-  const infoText    = document.getElementById('stay-infobox-text');
 
   // Resetear habitaciones previas
   document.getElementById('room-list2').innerHTML = '';
   roomCount2 = 0;
 
-  if (alojamiento === 'undecided' || alojamiento === '') {
-    // Era indeciso → texto preguntando si ya decidió
-    infoText.innerHTML = isEN
-      ? 'In your original RSVP you hadn\'t decided about staying at Springkell. Have you decided now?'
-      : 'En tu RSVP inicial indicaste que aún no habías decidido sobre el alojamiento en Springkell. ¿Ya lo sabes?';
-    stay2El.value = '';
-    document.getElementById('section-rooms2').style.display = 'none';
-    document.getElementById('rooms-preloaded-notice').style.display = 'none';
+  // Etiquetas legibles de la opción elegida
+  const labels = {
+    'yes-both':  isEN ? 'Yes · 27/07 & 28/07' : 'Sí · 27/07 & 28/07',
+    'yes-28':    isEN ? 'Yes · 28/07' : 'Sí · 28/07',
+    'undecided': isEN ? 'Still not sure' : 'Aún no decidido',
+    'no':        isEN ? 'No, staying elsewhere' : 'No, me quedo en otro lugar',
+    '':          isEN ? 'Not answered' : 'Sin respuesta'
+  };
+  const labelActual = labels[alojamiento] || alojamiento;
 
-  } else if (alojamiento === 'no') {
-    // Dijo que no se queda → le preguntamos si cambió de opinión
-    infoText.innerHTML = isEN
-      ? 'In your original RSVP you said you wouldn\'t be staying at Springkell. Has that changed?'
-      : 'En tu RSVP inicial dijiste que no te ibas a quedar en Springkell. ¿Cambió algo?';
-    stay2El.value = 'no';
-    document.getElementById('section-rooms2').style.display = 'none';
-    document.getElementById('rooms-preloaded-notice').style.display = 'none';
+  // Mostrar lo que eligieron, bloqueado, con botón editar
+  const infoText = document.getElementById('stay-infobox-text');
+  infoText.innerHTML = `
+    <span style="display:block;margin-bottom:.5rem;">
+      ${isEN ? 'From your original RSVP' : 'De tu RSVP original'}:
+      <strong style="color:var(--ink2);">${labelActual}</strong>
+    </span>
+    <button type="button" onclick="unlockAccommodation()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.3rem .8rem;cursor:pointer;">
+      ${isEN ? '✎ Edit' : '✎ Editar'}
+    </button>
+  `;
 
-  } else {
-    // Tenía noches confirmadas (yes-both o yes-28) → mostramos sus habitaciones
-    infoText.innerHTML = isEN
-      ? 'These are the accommodation details from your original RSVP. You can update anything that has changed.'
-      : 'Estos son los datos de alojamiento de tu RSVP original. Puedes modificar lo que haya cambiado.';
-    stay2El.value = alojamiento;
+  // Bloquear el select por defecto
+  stay2El.value = alojamiento;
+  stay2El.disabled = true;
+  stay2El.style.opacity = '.6';
+
+  // Mostrar habitaciones si aplica, también bloqueadas
+  if (alojamiento === 'yes-both' || alojamiento === 'yes-28') {
     document.getElementById('section-rooms2').style.display = 'block';
-
-    // Cargar habitaciones del RSVP1 si las hay
     let habitaciones = [];
     try {
-      if (data.habitaciones && data.habitaciones.trim() !== '') {
-        habitaciones = JSON.parse(data.habitaciones);
-      }
+      const raw = data.rooms || data.habitaciones || '';
+      if (raw.trim()) habitaciones = JSON.parse(raw);
     } catch(e) { habitaciones = []; }
-
     if (habitaciones.length > 0) {
       document.getElementById('rooms-preloaded-notice').style.display = 'block';
       habitaciones.forEach(h => addRoom2(h));
+      // Bloquear inputs de habitaciones
+      setTimeout(() => {
+        document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
+          el.disabled = true; el.style.opacity = '.6';
+        });
+      }, 100);
     } else {
       document.getElementById('rooms-preloaded-notice').style.display = 'none';
       addRoom2();
+      setTimeout(() => {
+        document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
+          el.disabled = true; el.style.opacity = '.6';
+        });
+      }, 100);
     }
+  } else {
+    document.getElementById('section-rooms2').style.display = 'none';
+    document.getElementById('rooms-preloaded-notice').style.display = 'none';
   }
+}
+
+function unlockAccommodation() {
+  const isEN = document.body.classList.contains('en');
+  const stay2El = document.getElementById('stay2');
+  stay2El.disabled = false;
+  stay2El.style.opacity = '1';
+  // Desbloquear habitaciones
+  document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
+    el.disabled = false; el.style.opacity = '1';
+  });
+  // Cambiar el infobox a texto editable
+  document.getElementById('stay-infobox-text').innerHTML = isEN
+    ? 'You can now update your accommodation details.'
+    : 'Ya puedes actualizar tus datos de alojamiento.';
 }
 
 function clearPerson() {
