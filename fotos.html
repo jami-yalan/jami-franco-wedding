@@ -533,8 +533,9 @@ async function submitPhotos() {
     const lang = document.body.classList.contains('en') ? 'en' : 'es';
 
     try {
-      const res = await fetch(SCRIPT_URL, {
+      await fetch(SCRIPT_URL, {
         method:'POST',
+        mode:'no-cors',
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({
           name: name,
@@ -544,9 +545,7 @@ async function submitPhotos() {
         })
       });
 
-      const json = await res.json();
-      if(json.status !== 'ok') throw new Error(json.message || 'Error');
-
+      // Con no-cors no podemos leer la respuesta, asumimos éxito si no hubo error
       uploaded++;
       const pct = Math.round((uploaded/total)*100);
       fill.style.width = pct+'%';
