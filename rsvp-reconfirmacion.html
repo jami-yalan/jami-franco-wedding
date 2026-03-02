@@ -294,7 +294,7 @@ body.en [data-lang="en"]{display:unset;}
               <span data-lang="es">Sí, el 27</span><span data-lang="en">Yes, 27th</span>
             </div>
             <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="no" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
-              <span data-lang="es">No, me llego por mi cuenta</span><span data-lang="en">No, I'll get there myself</span>
+              <span data-lang="es">No, llego por mi cuenta</span><span data-lang="en">No, I'll get there myself</span>
             </div>
           </div>
         </div>
@@ -480,7 +480,7 @@ function renderSuggestions(query) {
     return;
   }
   list.innerHTML = currentSuggestions.map((p, i) => {
-    const full = p.nombre + ' ' + p.apellido;
+    const full = p.name || '';
     const re = new RegExp('('+query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')', 'gi');
     const highlighted_name = full.replace(re, '<em>$1</em>');
     return `<div class="autocomplete-item" data-idx="${i}" onmousedown="selectPerson(${i})">${highlighted_name}</div>`;
