@@ -43,7 +43,7 @@ body.en [data-lang="en"]{display:unset;}
 /* HEADER */
 .site-header{
   background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);
-  padding:1.2rem 2rem;display:flex;align-items:center;justify-content:center;
+  padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);
 }
 .header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
@@ -105,6 +105,15 @@ body.en [data-lang="en"]{display:unset;}
 .autocomplete-item:hover,.autocomplete-item.highlighted{background:var(--paper2);}
 .autocomplete-item em{color:var(--burg);font-style:normal;}
 .autocomplete-loading{padding:.8rem 1rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:var(--muted);}
+.autocomplete-list.is-loading{animation:pulse-border 0.8s ease-in-out infinite;}
+@keyframes pulse-border{
+  0%,100%{border-color:var(--goldA);box-shadow:0 4px 18px rgba(0,0,0,.06);}
+  50%{border-color:var(--gold2);box-shadow:0 4px 18px rgba(196,160,80,.25);}
+}
+.loading-dots span{animation:blink 1.2s infinite;}
+.loading-dots span:nth-child(2){animation-delay:.2s;}
+.loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:0;}40%{opacity:1;}}
 
 /* CONFIRMED PERSON BOX */
 .person-confirmed{
@@ -157,8 +166,40 @@ body.en [data-lang="en"]{display:unset;}
 .page-footer{text-align:center;padding:3rem 2rem 5rem;border-top:1px solid rgba(196,160,80,.16);background:linear-gradient(to top,var(--paper3),transparent);}
 .pf-names{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--ink);}
 
+/* ROOM BUILDER */
+.room-builder{margin-top:.6rem;}
+.room-entry{background:var(--paper2);border:1px solid var(--goldA);padding:1.4rem 1.6rem;margin-bottom:.8rem;position:relative;}
+.room-entry-title{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;color:var(--gold);margin-bottom:1rem;text-transform:uppercase;}
+.remove-room{position:absolute;top:.8rem;right:.9rem;background:none;border:none;font-size:1rem;color:var(--muted2);cursor:pointer;transition:color .2s;line-height:1;}
+.remove-room:hover{color:var(--burg);}
+.add-room-btn{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:none;border:1px dashed rgba(196,160,80,.4);color:var(--muted2);padding:.55rem 1rem;cursor:pointer;width:100%;transition:all .3s;margin-top:.3rem;}
+.add-room-btn:hover{border-color:var(--gold2);color:var(--gold);}
+.beds-row{display:flex;align-items:center;gap:.6rem;margin-top:.2rem;}
+.counter-btn{width:1.8rem;height:1.8rem;border:1px solid rgba(196,160,80,.35);background:none;color:var(--ink2);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.counter-btn:hover{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.counter-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--ink);min-width:1.5rem;text-align:center;}
+.beds-type-label{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.06em;color:var(--muted2);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.accessibility-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.4rem;}
+.acc-chip{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.07em;border:1px solid rgba(196,160,80,.3);color:var(--muted);padding:.35rem .8rem;cursor:pointer;transition:all .25s;background:rgba(255,255,255,.35);}
+.acc-chip.selected{background:var(--paper3);border-color:var(--gold2);color:var(--ink2);}
+/* GROUP NOTE BOX */
+.group-note{background:rgba(92,13,42,.05);border-left:3px solid var(--burg);padding:1rem 1.4rem;margin:1rem 0;}
+.group-note p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
+/* LOADER OVERLAY */
+.loader-overlay{position:fixed;inset:0;z-index:9000;background:rgba(248,245,239,.92);backdrop-filter:blur(6px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.loader-overlay.show{display:flex;}
+.loader-ring{width:64px;height:64px;border-radius:50%;border:2px solid var(--goldA);border-top-color:var(--gold2);animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loader-text{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;font-style:italic;color:var(--muted);letter-spacing:.06em;animation:fadepulse 2s ease-in-out infinite;}
+@keyframes fadepulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+/* BACK BTN */
+.back-link{font-family:'Cinzel',serif;font-size:.76rem;letter-spacing:.14em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .3s;}
+.back-link:hover{color:var(--burg);}
+.pf-back{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--muted);text-decoration:none;text-transform:uppercase;border:1px solid var(--goldA);padding:.5rem 1.2rem;display:inline-block;margin-top:1.2rem;transition:all .3s;}
+.pf-back:hover{border-color:var(--goldB);color:var(--burg);}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-@media(max-width:600px){.form-wrap{padding:2rem 1.2rem 5rem;}.attend-toggle{flex-direction:column;}}
+@media(max-width:600px){.form-wrap{padding:2rem 1.2rem 5rem;}.attend-toggle{flex-direction:column;}.grid2{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -169,10 +210,12 @@ body.en [data-lang="en"]{display:unset;}
 </div>
 
 <header class="site-header">
+  <a class="back-link" href="index.html">← <span data-lang="es">Volver</span><span data-lang="en">Back</span></a>
   <div>
-    <p class="header-title">Jami & Franco · 28.07.2026</p>
-    <span class="header-sub"><span data-lang="es">Reconfirmación de asistencia</span><span data-lang="en">Attendance reconfirmation</span></span>
+    <p class="header-title">Jami & Franco</p>
+    <span class="header-sub">28 · 07 · 2026</span>
   </div>
+  <div style="width:80px"></div>
 </header>
 
 <div class="page-hero">
@@ -306,17 +349,22 @@ body.en [data-lang="en"]{display:unset;}
                 <span data-lang="es">Estas son las habitaciones que pediste en tu RSVP original. Puedes modificarlas si algo cambió.</span>
                 <span data-lang="en">These are the rooms you requested in your original RSVP. Feel free to update them if anything has changed.</span>
               </div>
+              <div class="group-note">
+              <p><span data-lang="es">Si vienes en grupo, solo una persona del grupo debe completar las habitaciones para no generar confusión. Esa persona será el punto de contacto para el pago.</span>
+              <span data-lang="en">If you're coming as a group, only one person should fill in the rooms to avoid confusion. That person will be the point of contact for payment.</span></p>
+            </div>
               <div id="room-list2"></div>
-              <button class="add-room-btn2" onclick="addRoom2()">+ <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span></button>
+              <button class="add-room-btn" onclick="addRoom2()">+ <span data-lang="es">Agregar habitación</span><span data-lang="en">Add room</span></button>
             </div>
             <div class="field">
               <label><span data-lang="es">Requerimientos de accesibilidad</span><span data-lang="en">Accessibility requirements</span></label>
-              <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
-                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="groundfloor"><span data-lang="es">Planta baja</span><span data-lang="en">Ground floor</span></div>
-                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="handrails"><span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span></div>
-                <div class="transport-chip" onclick="this.classList.toggle('selected')" data-val="other-acc2"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
+              <div class="field-hint" style="margin-bottom:.6rem;"><span data-lang="es">Selecciona todo lo que aplique</span><span data-lang="en">Select all that apply</span></div>
+              <div class="accessibility-row" role="group">
+                <div class="acc-chip" onclick="toggleChip2(this)" data-val="groundfloor"><span data-lang="es">Planta baja</span><span data-lang="en">Ground floor</span></div>
+                <div class="acc-chip" onclick="toggleChip2(this)" data-val="handrails"><span data-lang="es">Barras de apoyo</span><span data-lang="en">Grab rails</span></div>
+                <div class="acc-chip" onclick="toggleChip2(this)" data-val="other-acc2"><span data-lang="es">Otro</span><span data-lang="en">Other</span></div>
               </div>
-              <input type="text" id="acc2-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.6rem;display:none;width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:Cinzel,serif;font-size:.7rem;padding:.62rem 1rem;outline:none;">
+              <input type="text" id="acc2-other" placeholder="Especifica aquí · Please specify here" style="margin-top:.7rem;display:none;width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;padding:.62rem 1rem;outline:none;">
             </div>
           </div>
         </div>
@@ -355,6 +403,9 @@ body.en [data-lang="en"]{display:unset;}
       <span data-lang="es">Gracias por reconfirmar. ¡Ya casi es el día, los esperamos con todo nuestro amor!</span>
       <span data-lang="en">Thank you for reconfirming. The day is almost here, we can't wait to celebrate with you!</span>
     </p>
+    <a href="index.html" class="pf-back" style="margin-top:1.8rem;display:inline-block;">
+      <span data-lang="es">← Volver al inicio</span><span data-lang="en">← Back to home</span>
+    </a>
   </div>
 
 </div>
@@ -368,15 +419,25 @@ body.en [data-lang="en"]{display:unset;}
   <p class="pf-names">Jami & Franco · 28.07.2026</p>
 </footer>
 
+<!-- LOADER OVERLAY -->
+<div class="loader-overlay" id="loader-overlay">
+  <div class="loader-ring"></div>
+  <p class="loader-text"><span data-lang="es">Enviando tu reconfirmación…</span><span data-lang="en">Sending your reconfirmation…</span></p>
+</div>
+
 <script>
 // ── CONFIG ──
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwS3gkP_AEbT49scb60QKbP8FsOIm2hVLs9LXsTvoNaAY9oEPpm1L2a2_lO6b126NeQbw/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyNAXYgdeZr6GfbNwAuZDXeeTSC24G1GSmJC4jQKJpvCXdxtBfX4lscDGdEO61CNc/exec';
 
 // ── LANG ──
 function setLang(l){
   document.body.classList.toggle('en',l==='en');
   document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
 }
+(function() {
+  try { const s = localStorage.getItem('jf-lang'); if(s==='en') setLang('en'); } catch(e) {}
+})();
 
 // ── AUTOCOMPLETE ──
 let selectedPerson = null;
@@ -389,7 +450,8 @@ async function onSearchInput(val) {
   const list = document.getElementById('autocomplete-list');
   if(val.trim().length < 2){ list.style.display='none'; return; }
   searchTimer = setTimeout(()=>{
-    list.innerHTML = '<div class="autocomplete-loading">…</div>';
+    list.innerHTML = '<div class="autocomplete-loading"><span class="loading-dots"><span>·</span><span>·</span><span>·</span></span></div>';
+    list.classList.add('is-loading');
     list.style.display = 'block';
     const cbName = 'jfSearchCb_' + Date.now();
     window[cbName] = function(data) {
@@ -403,6 +465,7 @@ async function onSearchInput(val) {
     s.id = 'jf-search-script';
     s.src = APPS_SCRIPT_URL + '?action=search&q=' + encodeURIComponent(val.trim()) + '&callback=' + cbName;
     s.onerror = function() {
+      list.classList.remove('is-loading');
       list.innerHTML = '<div class="autocomplete-loading">—</div>';
       delete window[cbName]; s.remove();
     };
@@ -422,6 +485,7 @@ function renderSuggestions(query) {
     const highlighted_name = full.replace(re, '<em>$1</em>');
     return `<div class="autocomplete-item" data-idx="${i}" onmousedown="selectPerson(${i})">${highlighted_name}</div>`;
   }).join('');
+  list.classList.remove('is-loading');
   list.style.display = 'block';
   highlighted = -1;
 }
@@ -441,10 +505,10 @@ function updateHighlight(items) {
 async function selectPerson(idx) {
   selectedPerson = currentSuggestions[idx];
   document.getElementById('autocomplete-list').style.display = 'none';
-  document.getElementById('search-name').value = selectedPerson.nombre + ' ' + selectedPerson.apellido;
+  document.getElementById('search-name').value = selectedPerson.name;
   document.getElementById('f-buscar').classList.remove('invalid');
   const box = document.getElementById('person-confirmed');
-  document.getElementById('person-name-display').textContent = selectedPerson.nombre + ' ' + selectedPerson.apellido;
+  document.getElementById('person-name-display').textContent = selectedPerson.name;
   box.classList.add('show');
   document.getElementById('section-main').classList.add('show');
 
@@ -459,8 +523,7 @@ async function selectPerson(idx) {
   const sp = document.createElement('script');
   sp.id = 'jf-person-script';
   sp.src = APPS_SCRIPT_URL + '?action=person'
-    + '&nombre='   + encodeURIComponent(selectedPerson.nombre)
-    + '&apellido=' + encodeURIComponent(selectedPerson.apellido)
+    + '&name=' + encodeURIComponent(selectedPerson.name)
     + '&callback=' + cbName2;
   sp.onerror = function() { delete window[cbName2]; sp.remove(); };
   document.head.appendChild(sp);
@@ -579,25 +642,26 @@ function addRoom2(prefill) {
   const idx = roomCount2;
   const div = document.createElement('div');
   div.id = 'room2-' + idx;
-  div.style.cssText = 'background:rgba(255,255,255,.3);border:1px solid rgba(196,160,80,.2);padding:1rem 1.2rem;margin-bottom:.6rem;position:relative;';
+  div.className = 'room-entry';
   const initDbl  = (prefill && prefill.doubles) ? prefill.doubles : 0;
   const initSgl  = (prefill && prefill.singles) ? prefill.singles : 0;
   const initNote = (prefill && prefill.note)    ? prefill.note    : '';
+  const isEN = document.body.classList.contains('en');
   div.innerHTML = `
-    <p style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;color:var(--gold);margin-bottom:.8rem;text-transform:uppercase;">Habitación / Room ${idx}</p>
-    ${roomCount2 > 1 ? `<button style="position:absolute;top:.5rem;right:.6rem;background:none;border:none;color:var(--muted2);font-size:1rem;cursor:pointer;" onclick="document.getElementById('room2-${idx}').remove()">×</button>` : ''}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.6rem;">
+    <p class="room-entry-title">${isEN ? 'Room' : 'Habitación'} ${idx}</p>
+    ${roomCount2 > 1 ? `<button class="remove-room" onclick="document.getElementById('room2-${idx}').remove()">×</button>` : ''}
+    <div class="grid2" style="margin-bottom:.8rem;">
       <div>
-        <p style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem;">Double / King</p>
-        <div style="display:flex;align-items:center;gap:.5rem;">
+        <p class="beds-type-label" style="margin-bottom:.4rem;">Double / King</p>
+        <div class="beds-row">
           <button type="button" class="counter-btn" onclick="chgCnt('d2-${idx}',-1)">−</button>
           <span class="counter-val" id="d2-${idx}">${initDbl}</span>
           <button type="button" class="counter-btn" onclick="chgCnt('d2-${idx}',1)">+</button>
         </div>
       </div>
       <div>
-        <p style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.08em;color:var(--muted);margin-bottom:.4rem;">Single / Twin</p>
-        <div style="display:flex;align-items:center;gap:.5rem;">
+        <p class="beds-type-label" style="margin-bottom:.4rem;">Single / Twin</p>
+        <div class="beds-row">
           <button type="button" class="counter-btn" onclick="chgCnt('s2-${idx}',-1)">−</button>
           <span class="counter-val" id="s2-${idx}">${initSgl}</span>
           <button type="button" class="counter-btn" onclick="chgCnt('s2-${idx}',1)">+</button>
@@ -608,6 +672,14 @@ function addRoom2(prefill) {
       style="width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.25);color:var(--ink);font-family:'Cinzel',serif;font-size:.65rem;padding:.5rem .8rem;outline:none;">
   `;
   document.getElementById('room-list2').appendChild(div);
+}
+
+function toggleChip2(el) {
+  el.classList.toggle('selected');
+  if(el.dataset.val === 'other-acc2') {
+    const inp = document.getElementById('acc2-other');
+    if(inp) inp.style.display = el.classList.contains('selected') ? 'block' : 'none';
+  }
 }
 function chgCnt(id, d) {
   const el=document.getElementById(id); if(!el) return;
@@ -651,23 +723,22 @@ async function submitReconf() {
   if(!validate2()) return;
   const btn = document.getElementById('submit-btn2');
   btn.disabled = true;
-  btn.textContent = '…';
+  document.getElementById('loader-overlay').classList.add('show');
 
   const stayVal2 = document.getElementById('stay2')?.value || '';
+  const hasChanges = (stayVal2 !== (preloadedData?.springkell_accommodation || '')) ? 'yes' : 'no';
   const payload = {
     type: 'reconfirmation',
-    nombre: selectedPerson.nombre,
-    apellido: selectedPerson.apellido,
-    email: selectedPerson.email || '',
-    asistencia_reconf: attend2,
-    transporte_llegada: transportVals.llegada,
-    transporte_salida: transportVals.salida,
-    dieta_cambio: document.getElementById('dieta2')?.value.trim() || '',
-    alojamiento_reconf: stayVal2,
-    habitaciones_reconf: (stayVal2 === 'yes-both' || stayVal2 === 'yes-28') ? JSON.stringify(collectRooms2()) : '',
-    accesibilidad_reconf: collectAcc2(),
-    notas_reconf: document.getElementById('notas2')?.value.trim() || '',
-    timestamp_reconf: new Date().toISOString()
+    name: selectedPerson.name,
+    attendance2: attend2,
+    changes: hasChanges,
+    reconf_transp_arrival: transportVals.llegada,
+    reconf_transp_departure: transportVals.salida,
+    reconf_diet: document.getElementById('dieta2')?.value.trim() || '',
+    reconf_accommodation: stayVal2,
+    reconf_rooms: (stayVal2 === 'yes-both' || stayVal2 === 'yes-28') ? JSON.stringify(collectRooms2()) : '',
+    reconf_notes: document.getElementById('notas2')?.value.trim() || '',
+    timestamp: new Date().toISOString()
   };
 
   try {
@@ -676,13 +747,15 @@ async function submitReconf() {
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify(payload)
     });
+    document.getElementById('loader-overlay').classList.remove('show');
     document.getElementById('reconf-form').style.display='none';
     document.getElementById('success-box').classList.add('show');
     window.scrollTo({top:0,behavior:'smooth'});
   } catch(e) {
+    document.getElementById('loader-overlay').classList.remove('show');
     btn.disabled = false;
     btn.textContent = document.body.classList.contains('en') ? 'Error, try again' : 'Error, intenta de nuevo';
-    setTimeout(()=>{ btn.textContent = document.body.classList.contains('en') ? 'Send reconfirmation' : 'Enviar reconfirmación'; }, 3000);
+    setTimeout(()=>{ btn.textContent = document.body.classList.contains('en') ? 'Send reconfirmation' : 'Enviar reconfirmación'; btn.disabled = false; }, 3000);
   }
 }
 </script>
