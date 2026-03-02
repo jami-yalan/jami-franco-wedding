@@ -388,18 +388,25 @@ async function onSearchInput(val) {
   clearTimeout(searchTimer);
   const list = document.getElementById('autocomplete-list');
   if(val.trim().length < 2){ list.style.display='none'; return; }
-  searchTimer = setTimeout(async ()=>{
+  searchTimer = setTimeout(()=>{
     list.innerHTML = '<div class="autocomplete-loading">…</div>';
     list.style.display = 'block';
-    try {
-      const url = APPS_SCRIPT_URL + '?action=search&q=' + encodeURIComponent(val.trim());
-      const res = await fetch(url);
-      const data = await res.json();
+    const cbName = 'jfSearchCb_' + Date.now();
+    window[cbName] = function(data) {
       currentSuggestions = data.results || [];
       renderSuggestions(val.trim());
-    } catch(e) {
+      delete window[cbName];
+      const s = document.getElementById('jf-search-script');
+      if(s) s.remove();
+    };
+    const s = document.createElement('script');
+    s.id = 'jf-search-script';
+    s.src = APPS_SCRIPT_URL + '?action=search&q=' + encodeURIComponent(val.trim()) + '&callback=' + cbName;
+    s.onerror = function() {
       list.innerHTML = '<div class="autocomplete-loading">—</div>';
-    }
+      delete window[cbName]; s.remove();
+    };
+    document.head.appendChild(s);
   }, 320);
 }
 
@@ -442,19 +449,21 @@ async function selectPerson(idx) {
   document.getElementById('section-main').classList.add('show');
 
   // Jalar datos del RSVP original para pre-cargar alojamiento y habitaciones
-  try {
-    const url = APPS_SCRIPT_URL + '?action=person'
-      + '&nombre='   + encodeURIComponent(selectedPerson.nombre)
-      + '&apellido=' + encodeURIComponent(selectedPerson.apellido);
-    const res  = await fetch(url);
-    const data = await res.json();
-    if (data.found) {
-      preloadRsvpData(data);
-    }
-  } catch(e) {
-    // Si falla la carga, el formulario igual funciona vacío — no bloqueamos
-    console.warn('No se pudo cargar datos del RSVP:', e);
-  }
+  const cbName2 = 'jfPersonCb_' + Date.now();
+  window[cbName2] = function(data) {
+    if (data.found) preloadRsvpData(data);
+    delete window[cbName2];
+    const s = document.getElementById('jf-person-script');
+    if(s) s.remove();
+  };
+  const sp = document.createElement('script');
+  sp.id = 'jf-person-script';
+  sp.src = APPS_SCRIPT_URL + '?action=person'
+    + '&nombre='   + encodeURIComponent(selectedPerson.nombre)
+    + '&apellido=' + encodeURIComponent(selectedPerson.apellido)
+    + '&callback=' + cbName2;
+  sp.onerror = function() { delete window[cbName2]; sp.remove(); };
+  document.head.appendChild(sp);
 }
 
 // Pre-carga los datos de alojamiento del RSVP1 en el formulario de reconf
