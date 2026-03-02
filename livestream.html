@@ -53,9 +53,9 @@ body::before {
 body.en [data-lang="es"] { display:none; }
 body.en [data-lang="en"] { display:unset; }
 
-.lang-toggle { position:fixed; bottom:1.4rem; right:1rem; z-index:500; display:flex; gap:.4rem; }
+.lang-toggle { position:fixed; top:1.1rem; right:1.4rem; z-index:500; display:flex; gap:.4rem; }
 .lang-btn {
-  font-family:'Cinzel',serif; font-size:.76rem; letter-spacing:.1em;
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.18em;
   background:none; border:1px solid var(--burg); color:var(--burg);
   padding:.28rem .65rem; cursor:pointer; transition:all .3s;
 }
@@ -214,9 +214,9 @@ body.en [data-lang="en"] { display:unset; }
   aspect-ratio:16/9; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:1.2rem;
   background:linear-gradient(135deg,var(--ink2) 0%,#0e0b08 100%);
-  min-height:300px;
+  width:100%;
 }
-.placeholder-icon { width:60px; height:60px; border:1px solid rgba(196,160,80,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold2); font-size:1.4rem; opacity:.7; }
+.placeholder-icon { display:flex; align-items:center; justify-content:center; color:var(--gold2); font-size:clamp(1.2rem,4vw,2.2rem); opacity:.65; margin-top:24px; }
 .placeholder-title { font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic; font-size:1.5rem; color:var(--paper); opacity:.7; }
 .placeholder-sub { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.15em; color:var(--muted2); text-transform:uppercase; }
 
@@ -574,7 +574,9 @@ function setLang(l){
   document.getElementById('modal-sub-es').style.display = l==='en' ? 'none' : 'block';
   document.getElementById('modal-sub-en').style.display = l==='en' ? 'block' : 'none';
   refreshCalLinks();
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
 }
+try { const s=localStorage.getItem('jf-lang'); if(s==='en') setLang('en'); } catch(e) {}
 
 // ── ACCORDION ───────────────────────────────────────────────────────────────
 function toggleAccordion(){

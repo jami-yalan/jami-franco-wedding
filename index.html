@@ -1235,7 +1235,9 @@ function setLang(l){
     b.classList.toggle('active', active);
     b.setAttribute('aria-pressed', active ? 'true' : 'false');
   });
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
 }
+try { const s=localStorage.getItem('jf-lang'); if(s==='en') setLang('en'); } catch(e) {}
 
 // ── HAMBURGER NAV ──
 function toggleNav(){

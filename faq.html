@@ -380,7 +380,9 @@ body.en .blk-en { display:block; }
 function setLang(l){
   document.body.classList.toggle('en',l==='en');
   document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
 }
+try { const s=localStorage.getItem('jf-lang'); if(s==='en') setLang('en'); } catch(e) {}
 
 function toggle(btn) {
   const item = btn.closest('.faq-item');
