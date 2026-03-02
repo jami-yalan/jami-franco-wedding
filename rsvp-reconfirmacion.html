@@ -334,10 +334,10 @@ body.en [data-lang="en"]{display:unset;}
             <label for="stay2"><span data-lang="es">¿Quieres quedarte en Springkell?</span><span data-lang="en">Would you like to stay at Springkell?</span></label>
             <select id="stay2" onchange="toggleStay2(this.value)">
               <option value="">—</option>
-              <option value="yes-both">Sí · 27/07 &amp; 28/07</option>
-              <option value="yes-28">Sí · 28/07</option>
-              <option value="undecided"><span data-lang="es">Aún no decido</span><span data-lang="en">Still not sure</span></option>
-              <option value="no"><span data-lang="es">No, me busco alojamiento por mi cuenta</span><span data-lang="en">No, I'll sort my own accommodation</span></option>
+              <option value="yes-both">Sí · 27/07 &amp; 28/07 / Yes · 27/07 &amp; 28/07</option>
+              <option value="yes-28">Sí · 28/07 / Yes · 28/07</option>
+              <option value="undecided">Aún no decido / Still not sure</option>
+              <option value="no">No, me busco alojamiento por mi cuenta / No, I'll sort my own</option>
             </select>
           </div>
 
@@ -441,6 +441,7 @@ function setLang(l){
 
 // ── AUTOCOMPLETE ──
 let selectedPerson = null;
+let preloadedData  = null;
 let searchTimer = null;
 let highlighted = -1;
 let currentSuggestions = [];
@@ -515,7 +516,7 @@ async function selectPerson(idx) {
   // Jalar datos del RSVP original para pre-cargar alojamiento y habitaciones
   const cbName2 = 'jfPersonCb_' + Date.now();
   window[cbName2] = function(data) {
-    if (data.found) preloadRsvpData(data);
+    if (data.found) { preloadedData = data.data || data; preloadRsvpData(data); }
     delete window[cbName2];
     const s = document.getElementById('jf-person-script');
     if(s) s.remove();
