@@ -1363,18 +1363,27 @@ const gifts=[
 // Totales confirmados — se cargan del Sheet al abrir la página
 let C = {};
 
-async function cargarTotales() {
-  try {
-    const url = APPS_SCRIPT_URL + '?action=totales';
-    const res  = await fetch(url);
-    const data = await res.json();
-    if (data.totales) {
+function cargarTotales() {
+  // JSONP: inyecta un <script> para evitar bloqueo CORS en GET
+  const callbackName = 'jfTotalesCallback_' + Date.now();
+  window[callbackName] = function(data) {
+    if (data && data.totales) {
       C = data.totales;
       render();
     }
-  } catch(e) {
-    console.warn('No se pudieron cargar los totales:', e);
-  }
+    // limpiar
+    delete window[callbackName];
+    const s = document.getElementById('jf-totales-script');
+    if (s) s.remove();
+  };
+  const script = document.createElement('script');
+  script.id  = 'jf-totales-script';
+  script.src = APPS_SCRIPT_URL + '?action=totales&callback=' + callbackName;
+  script.onerror = function() {
+    delete window[callbackName];
+    script.remove();
+  };
+  document.head.appendChild(script);
 }
 
 function render(){
