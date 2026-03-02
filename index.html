@@ -1360,9 +1360,22 @@ const gifts=[
   {id:7,es:'Tours',en:'Tours',icon:'🗺️',goal:500},
 ];
 
-// C stores confirmed amounts (only after receipt upload)
-// P stores pending amounts (entered but receipt not yet uploaded)
-const C=JSON.parse(localStorage.getItem('jf7')||'{}');
+// Totales confirmados — se cargan del Sheet al abrir la página
+let C = {};
+
+async function cargarTotales() {
+  try {
+    const url = APPS_SCRIPT_URL + '?action=totales';
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data.totales) {
+      C = data.totales;
+      render();
+    }
+  } catch(e) {
+    console.warn('No se pudieron cargar los totales:', e);
+  }
+}
 
 function render(){
   const isEN = document.body.classList.contains('en');
@@ -1402,7 +1415,8 @@ function render(){
 
 // ── REVOLUT QR ──
 window.addEventListener('load', () => {
-  render(); // populate gift list
+  render(); // populate gift list (vacío mientras carga)
+  cargarTotales(); // carga totales reales del Sheet
   if(typeof QRCode !== 'undefined' && document.getElementById('qr-revolut')) {
     new QRCode(document.getElementById('qr-revolut'), {
       text: 'https://revolut.me/jamilet/pocket/bcssiSyQ2s',
