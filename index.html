@@ -1710,6 +1710,9 @@ function _resetModalTitle(){
     }, 4200);
   }
 
+  // Mostrar tooltip 1.5s después de cargar la página
+  setTimeout(showTooltip, 1500);
+
   // parallax offset acumulado por foto (independiente de drag)
   const parallaxY = new Array(PHOTOS.length).fill(0);
   // posición de drag por foto
@@ -1869,8 +1872,6 @@ function _resetModalTitle(){
             el.classList.add('hint-show');
             setTimeout(()=>{ el.classList.remove('hint-show'); }, 5000);
           }
-          // mostrar tooltip la primera vez que aparece cualquier foto
-          if(i === 0) showTooltip();
         }, i%3 * 120);
         io.unobserve(el);
       }
