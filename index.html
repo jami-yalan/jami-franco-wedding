@@ -442,6 +442,14 @@ nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); colo
 .receipt-upload-btn { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em; text-transform:uppercase; background:none; border:1px solid var(--goldA); color:var(--muted); padding:.38rem .9rem; cursor:pointer; transition:all .25s; white-space:nowrap; }
 .receipt-upload-btn:hover { border-color:var(--gold2); color:var(--gold); }
 
+/* ── GIFT LOADER OVERLAY ── */
+.gift-loader-overlay { position:fixed; inset:0; z-index:9500; background:rgba(248,245,239,.92); backdrop-filter:blur(6px); display:none; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
+.gift-loader-overlay.show { display:flex; }
+@keyframes loaderSpin { to { transform:rotate(360deg); } }
+.gift-loader-ring { width:64px; height:64px; border-radius:50%; border:2px solid var(--goldA); border-top-color:var(--gold2); animation:loaderSpin 1s linear infinite; }
+@keyframes fadepulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+.gift-loader-text { font-family:'Cormorant Garamond',serif; font-size:1.1rem; font-weight:300; font-style:italic; color:var(--muted); letter-spacing:.06em; animation:fadepulse 2s ease-in-out infinite; }
+
 /* ── BANK BOX, copy on click ── */
 .bank-box { margin-top:3.2rem; position:relative; border:1px solid rgba(196,160,80,.22); padding:2.8rem 2.3rem; text-align:center; background:var(--paper2); }
 .bc { position:absolute; width:20px; height:20px; border-color:var(--gold2); border-style:solid; opacity:.45; }
@@ -638,10 +646,8 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
 @media(hover:hover){
   .fp:hover .fp-hints{ opacity:1; }
 }
-/* móvil/touch: siempre visible con menor opacidad */
-@media(hover:none){
-  .fp-hints{ opacity:.55; }
-}
+/* touch: hints controlados por JS (clase .hint-show), no siempre visibles */
+.fp.hint-show .fp-hints{ opacity:.7; }
 .fp-hint-icon{
   font-size:10px; color:rgba(92,13,42,.55);
   font-family:'Cinzel',serif; letter-spacing:.03em;
@@ -1210,6 +1216,12 @@ body.en [data-lang="en"] { display:unset; }
   </div>
 </div>
 
+<!-- GIFT LOADER OVERLAY -->
+<div class="gift-loader-overlay" id="gift-loader">
+  <div class="gift-loader-ring"></div>
+  <p class="gift-loader-text"><span data-lang="es">Enviando tu regalo…</span><span data-lang="en">Sending your gift…</span></p>
+</div>
+
 <!-- SWATCH MODAL -->
 <div class="sw-modal-overlay" id="sw-modal" role="dialog" aria-modal="true" aria-label="Vista previa de color">
   <div class="sw-modal">
@@ -1483,6 +1495,10 @@ async function submitModalMsg() {
   const btn = document.getElementById('modal-submit-btn');
   if(btn) { btn.disabled = true; btn.textContent = '…'; }
 
+  // Mostrar loader
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('gift-loader').classList.add('show');
+
   const fileInput = document.getElementById('m-file-input');
   const file      = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
   const giftName  = document.getElementById('mn').textContent;
@@ -1525,8 +1541,8 @@ async function submitModalMsg() {
     console.warn('fetch error:', err);
   }
 
-  // Cerrar modal
-  document.getElementById('modal').classList.remove('open');
+  // Ocultar loader
+  document.getElementById('gift-loader').classList.remove('show');
   _resetModalTitle();
 
   // Registrar monto y animar la barra
@@ -1649,7 +1665,13 @@ function _resetModalTitle(){
     layer.innerHTML = '';
     const docH = getDocHeight();
 
+  const isMobileGlobal = window.innerWidth < 600;
+  const isTabletTouch  = window.innerWidth >= 600 && window.innerWidth < 1024 && window.matchMedia('(hover:none)').matches;
+
     PHOTOS.forEach((p, i) => {
+      // En mobile: solo Foto8 y Foto12
+      if(isMobileGlobal && !p.big && !p.heroTop) return;
+
       const el = document.createElement('div');
       el.className = 'fp' + (p.horiz ? ' horizontal' : '');
       el.dataset.i = i;
@@ -1708,42 +1730,46 @@ function _resetModalTitle(){
       img.loading = 'lazy';
       el.appendChild(img);
 
-      // iconos de hint en el borde inferior polaroid
-      const hints = document.createElement('div');
-      hints.className = 'fp-hints';
-      hints.innerHTML = `
-        <span class="fp-hint-icon"><span class="hint-emoji">✋</span> mover</span>
-        <span class="fp-hint-sep">·</span>
-        <span class="fp-hint-icon"><span class="hint-emoji">🔍</span> clic para ampliar</span>`;
-      el.appendChild(hints);
+      // iconos de hint: en mobile no se muestran, en tablet aparecen 5s y desaparecen
+      if(!isMobile){
+        const hints = document.createElement('div');
+        hints.className = 'fp-hints';
+        hints.innerHTML = `
+          <span class="fp-hint-icon"><span class="hint-emoji">✋</span> mover</span>
+          <span class="fp-hint-sep">·</span>
+          <span class="fp-hint-icon"><span class="hint-emoji">🔍</span> clic para ampliar</span>`;
+        el.appendChild(hints);
+      }
 
       layer.appendChild(el);
 
-      // --- DRAG ---
-      let dragging = false, startX, startY, startDX, startDY;
+      // --- DRAG: desactivado en mobile ---
+      if(!isMobile){
+        let dragging = false, startX, startY, startDX, startDY;
 
-      function startDrag(clientX, clientY){
-        dragging = true;
-        startX = clientX; startY = clientY;
-        startDX = dragOff[i].x; startDY = dragOff[i].y;
-        el.classList.add('dragging');
-        el.style.zIndex = ++zTop;
+        function startDrag(clientX, clientY){
+          dragging = true;
+          startX = clientX; startY = clientY;
+          startDX = dragOff[i].x; startDY = dragOff[i].y;
+          el.classList.add('dragging');
+          el.style.zIndex = ++zTop;
+        }
+        function moveDrag(clientX, clientY){
+          if(!dragging) return;
+          dragOff[i].x = startDX + (clientX - startX);
+          dragOff[i].y = startDY + (clientY - startY);
+          applyTransform(i, el, p);
+        }
+        function endDrag(){ dragging = false; el.classList.remove('dragging'); }
+
+        el.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
+        window.addEventListener('mousemove', e=>{ if(dragging) moveDrag(e.clientX,e.clientY); });
+        window.addEventListener('mouseup', endDrag);
+
+        el.addEventListener('touchstart', e=>{ startDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
+        el.addEventListener('touchmove',  e=>{ e.preventDefault(); moveDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
+        el.addEventListener('touchend',   endDrag);
       }
-      function moveDrag(clientX, clientY){
-        if(!dragging) return;
-        dragOff[i].x = startDX + (clientX - startX);
-        dragOff[i].y = startDY + (clientY - startY);
-        applyTransform(i, el, p);
-      }
-      function endDrag(){ dragging = false; el.classList.remove('dragging'); }
-
-      el.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
-      window.addEventListener('mousemove', e=>{ if(dragging) moveDrag(e.clientX,e.clientY); });
-      window.addEventListener('mouseup', endDrag);
-
-      el.addEventListener('touchstart', e=>{ startDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
-      el.addEventListener('touchmove',  e=>{ e.preventDefault(); moveDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
-      el.addEventListener('touchend',   endDrag);
 
       // --- CLIC: lightbox (distingue de drag) ---
       let clickStartX, clickStartY;
@@ -1754,6 +1780,7 @@ function _resetModalTitle(){
         lbImg.src = p.src;
         lb.classList.add('open');
       });
+      el.addEventListener('touchstart', e=>{ clickStartX=e.touches[0].clientX; clickStartY=e.touches[0].clientY; },{passive:true});
       el.addEventListener('touchend', e=>{
         const t = e.changedTouches[0];
         const moved = Math.abs(t.clientX-clickStartX) + Math.abs(t.clientY-clickStartY);
@@ -1785,6 +1812,11 @@ function _resetModalTitle(){
         setTimeout(()=>{
           el.classList.add('visible');
           applyTransform(i,el,p);
+          // En tablet touch: mostrar hints 5 segundos y luego ocultarlos
+          if(isTabletTouch && !isMobile){
+            el.classList.add('hint-show');
+            setTimeout(()=>{ el.classList.remove('hint-show'); }, 5000);
+          }
           // mostrar tooltip la primera vez que aparece cualquier foto
           if(i === 0) showTooltip();
         }, i%3 * 120);

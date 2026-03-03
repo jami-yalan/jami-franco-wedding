@@ -700,15 +700,13 @@ const CAL_LOC   = 'Springkell Estate%2C Lockerbie%2C Scotland';
 
 function buildGCalURL(es){
   const title = es ? 'Boda de Jami %26 Franco' : 'Jami %26 Franco Wedding';
-  const desc  = es
-    ? 'Ver la transmisi%C3%B3n en vivo en la p%C3%A1gina web de la boda.'
-    : 'Watch the live stream on the wedding website.';
+  const desc  = 'Livestream link%3A https%3A%2F%2Fjami-yalan.github.io%2Fjami-franco-wedding%2Flivestream.html';
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${CAL_START}/${CAL_END}&details=${desc}&location=${CAL_LOC}`;
 }
 
 function buildICS(es){
   const title = es ? 'Boda de Jami & Franco' : 'Jami & Franco Wedding';
-  const desc  = es ? 'Ver la boda en vivo en la página web.' : 'Watch the wedding live on the website.';
+  const desc  = 'Livestream link: https://jami-yalan.github.io/jami-franco-wedding/livestream.html';
   return [
     'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Jami&Franco//Livestream//ES',
     'BEGIN:VEVENT',
