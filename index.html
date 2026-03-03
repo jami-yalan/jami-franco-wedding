@@ -1721,8 +1721,22 @@ function _resetModalTitle(){
 
       el.style.left = leftPx + 'px';
 
+      // ── ajustes de posición/rotación exclusivos para mobile
+      let mobileRot = p.rot;
+      if(isMobile){
+        if(p.heroTop){        // Foto12: 32px abajo, 24px a la izquierda
+          el.style.top  = (parseFloat(el.style.top)  + 32) + 'px';
+          el.style.left = (parseFloat(el.style.left) - 24) + 'px';
+        } else if(p.big){     // Foto8: -20deg, sube 24px, 12px a la derecha
+          mobileRot = -20;
+          el.style.top  = (parseFloat(el.style.top)  - 24) + 'px';
+          el.style.left = (parseFloat(el.style.left) + 12) + 'px';
+        }
+      }
+      el.dataset.rot = mobileRot;
+
       // transform inicial (antes de visible = entrada desde abajo)
-      el.style.transform = `rotate(${p.rot}deg) translateY(24px)`;
+      el.style.transform = `rotate(${mobileRot}deg) translateY(24px)`;
 
       const img = document.createElement('img');
       img.src = p.src;
@@ -1829,10 +1843,11 @@ function _resetModalTitle(){
   }
 
   function applyTransform(i, el, p){
-    const py = parallaxY[i];
-    const dx = dragOff[i].x;
-    const dy = dragOff[i].y;
-    el.style.transform = `rotate(${p.rot}deg) translate(${dx}px, ${py + dy}px)`;
+    const py  = parallaxY[i];
+    const dx  = dragOff[i].x;
+    const dy  = dragOff[i].y;
+    const rot = el.dataset.rot !== undefined ? el.dataset.rot : p.rot;
+    el.style.transform = `rotate(${rot}deg) translate(${dx}px, ${py + dy}px)`;
   }
 
   // --- PARALLAX etéreo en scroll ---
