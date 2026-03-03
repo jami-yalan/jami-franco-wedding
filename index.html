@@ -675,10 +675,12 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
   opacity:0;
   max-height:0;
   overflow:hidden;
-  transition:opacity .5s ease, max-height .4s ease, padding .4s ease;
+  margin-top:-12px;
+  transition:opacity .6s ease, max-height .4s ease, padding .4s ease, margin-bottom .4s ease;
 }
 .fp-tooltip.show{ opacity:1; max-height:3rem; padding:.55rem 1.4rem; margin-bottom:.4rem; }
-.fp-tooltip span{ color:rgba(196,160,80,.9); margin:0 .3em; }
+.fp-tooltip.hiding{ opacity:0; }
+.fp-tooltip span{ color:#ffffff; margin:0 .3em; }
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
   background:rgba(20,14,10,.88);
@@ -1815,7 +1817,10 @@ function _resetModalTitle(){
       ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
       : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
     tooltip.classList.add('show');
-    setTimeout(()=>{ tooltip.classList.remove('show'); }, 4200);
+    setTimeout(()=>{
+      tooltip.classList.add('hiding');
+      setTimeout(()=>{ tooltip.classList.remove('show','hiding'); }, 650);
+    }, 4200);
   }
 
   // IntersectionObserver para fade-in
