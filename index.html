@@ -691,23 +691,7 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
 }
 .fp-hint-sep{ color:rgba(92,13,42,.2); font-size:8px; }
 
-/* tooltip flotante: una vez, adaptado a móvil */
-.fp-tooltip{
-  position:relative;
-  z-index:8000;
-  background:var(--burg);
-  color:var(--paper);
-  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em;
-  padding:.55rem 1.4rem;
-  text-align:center;
-  max-width:340px;
-  white-space:normal;
-  line-height:1.7;
-  pointer-events:none;
-  margin-bottom:.4rem;
-  display:none;
-}
-.fp-tooltip span{ color:var(--paper); margin:0 .3em; }
+/* tooltip: estilos en el HTML inline + JS */
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
   background:rgba(20,14,10,.88);
@@ -886,6 +870,11 @@ body.en [data-lang="en"] { display:unset; }
     <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
     <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
 
+    <!-- TOOLTIP FOTOS: debajo del separador, encima de los nombres -->
+    <div id="fp-tooltip" style="position:relative;z-index:8001;display:none;text-align:center;margin-bottom:.6rem;">
+      <span id="fp-tooltip-text" style="display:inline-block;background:var(--burg);color:var(--paper);font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.18em;padding:.5rem 1.4rem;line-height:1.7;"></span>
+    </div>
+
     <div class="name-frame">
 
       <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
@@ -896,13 +885,6 @@ body.en [data-lang="en"] { display:unset; }
     <div class="hero-stem"><div class="hero-stem-line"></div></div>
   </div>
 </section>
-
-<!-- TOOLTIP FOTOS: entre hero y countdown, 12px arriba -->
-<div style="background:var(--paper);display:flex;justify-content:center;padding:.5rem 1rem 0;margin-top:-12px;position:relative;z-index:8001;">
-  <div class="fp-tooltip" id="fp-tooltip">
-    <span id="fp-tooltip-text"></span>
-  </div>
-</div>
 
 <!-- COUNTDOWN -->
 <div id="cbar">
@@ -1666,7 +1648,7 @@ function _resetModalTitle(){
     { src:'Foto12.jpg', rot: 3,   w:210, h:315, topPct: 1,  side:'right', ox:1,  heroTop:true },
     // Foto8 protagonista
     { src:'Foto8.jpg',  rot:-4.5, w:240, h:360, topPct: 8,  side:'left',  ox:1,  big:true },
-    { src:'Foto11.jpg', rot: 4.5, w:220, h:330, topPct:14,  side:'right', ox:1, objPos:'center center' },
+    { src:'Foto11.jpg', rot: 4.5, w:220, h:330, topPct:14,  side:'right', ox:1, objPos:'center 60%' },
     { src:'Foto3.jpg',  rot: 6,   w:194, h:289, topPct:21,  side:'left',  ox:1 },
     { src:'Foto1.jpg',  rot:-5,   w:210, h:313, topPct:28,  side:'right', ox:1,  horiz:true },
     { src:'Foto9.jpg',  rot: 3.5, w:205, h:307, topPct:34,  side:'left',  ox:1 },
@@ -1696,17 +1678,15 @@ function _resetModalTitle(){
     if(tooltipShown) return;
     tooltipShown = true;
     try { localStorage.setItem('jf-photo-hint','1'); } catch(e){}
-    tooltipTxt.innerHTML = isTouch
-      ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
-      : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
-    tooltip.style.display   = 'block';
-    tooltip.style.opacity   = '0';
+    tooltipTxt.textContent = isTouch
+      ? '✋  Arrastra las fotos  ·  Toca para ampliar 🔍'
+      : '✋  Arrastra las fotos  ·  Clic para ampliar 🔍';
+    tooltip.style.display  = 'block';
+    tooltip.style.opacity  = '0';
     tooltip.style.transition = 'opacity .6s ease';
-    // fade in
     requestAnimationFrame(()=>{
       requestAnimationFrame(()=>{ tooltip.style.opacity = '1'; });
     });
-    // fade out después de 4.2s
     setTimeout(()=>{
       tooltip.style.opacity = '0';
       setTimeout(()=>{ tooltip.style.display = 'none'; }, 650);
