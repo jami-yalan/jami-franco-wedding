@@ -661,24 +661,24 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
 
 /* tooltip flotante: una vez, adaptado a móvil */
 .fp-tooltip{
-  position:fixed;
-  bottom:2rem; left:50%; transform:translateX(-50%);
+  position:relative;
   z-index:8000;
-  background:rgba(28,21,16,.85);
-  backdrop-filter:blur(8px);
-  color:#f5f0e8;
-  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.14em;
-  padding:.5rem 1.2rem;
+  background:var(--burg);
+  color:#ffffff;
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em;
+  padding:0 1.4rem;
   text-align:center;
-  max-width:90vw;
+  max-width:340px;
   white-space:normal;
   line-height:1.7;
   pointer-events:none;
   opacity:0;
-  transition:opacity .5s ease;
+  max-height:0;
+  overflow:hidden;
+  transition:opacity .5s ease, max-height .4s ease, padding .4s ease;
 }
-.fp-tooltip.show{ opacity:1; }
-.fp-tooltip span{ color:rgba(196,160,80,.85); margin:0 .3em; }
+.fp-tooltip.show{ opacity:1; max-height:3rem; padding:.55rem 1.4rem; margin-bottom:.4rem; }
+.fp-tooltip span{ color:rgba(196,160,80,.9); margin:0 .3em; }
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
   background:rgba(20,14,10,.88);
@@ -856,6 +856,12 @@ body.en [data-lang="en"] { display:unset; }
   <div class="hero-content">
     <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
     <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
+
+    <!-- TOOLTIP FOTOS (aparece aquí, entre eyebrow y nombres) -->
+    <div class="fp-tooltip" id="fp-tooltip">
+      <span id="fp-tooltip-text"></span>
+    </div>
+
     <div class="name-frame">
 
       <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
@@ -1141,11 +1147,6 @@ body.en [data-lang="en"] { display:unset; }
 
 <!-- CAPA DE FOTOS POLAROID -->
 <div id="photos-layer"></div>
-
-<!-- TOOLTIP FOTOS -->
-<div class="fp-tooltip" id="fp-tooltip">
-  <span id="fp-tooltip-text"></span>
-</div>
 
 <!-- LIGHTBOX -->
 <div class="fp-lightbox" id="fp-lightbox" onclick="this.classList.remove('open')">
