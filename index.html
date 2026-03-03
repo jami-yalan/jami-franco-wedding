@@ -698,19 +698,15 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
   background:var(--burg);
   color:var(--paper);
   font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em;
-  padding:0 1.4rem;
+  padding:.55rem 1.4rem;
   text-align:center;
   max-width:340px;
   white-space:normal;
   line-height:1.7;
   pointer-events:none;
-  opacity:0;
-  max-height:0;
-  overflow:hidden;
-  transition:opacity .6s ease, max-height .4s ease, padding .4s ease;
+  margin-bottom:.4rem;
+  display:none;
 }
-.fp-tooltip.show{ opacity:1; max-height:3rem; padding:.55rem 1.4rem; margin-bottom:.4rem; }
-.fp-tooltip.hide{ opacity:0; }
 .fp-tooltip span{ color:var(--paper); margin:0 .3em; }
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
@@ -1670,7 +1666,7 @@ function _resetModalTitle(){
     { src:'Foto12.jpg', rot: 3,   w:210, h:315, topPct: 1,  side:'right', ox:1,  heroTop:true },
     // Foto8 protagonista
     { src:'Foto8.jpg',  rot:-4.5, w:240, h:360, topPct: 8,  side:'left',  ox:1,  big:true },
-    { src:'Foto11.jpg', rot: 4.5, w:220, h:330, topPct:14,  side:'right', ox:1 },
+    { src:'Foto11.jpg', rot: 4.5, w:220, h:330, topPct:14,  side:'right', ox:1, objPos:'center center' },
     { src:'Foto3.jpg',  rot: 6,   w:194, h:289, topPct:21,  side:'left',  ox:1 },
     { src:'Foto1.jpg',  rot:-5,   w:210, h:313, topPct:28,  side:'right', ox:1,  horiz:true },
     { src:'Foto9.jpg',  rot: 3.5, w:205, h:307, topPct:34,  side:'left',  ox:1 },
@@ -1703,19 +1699,17 @@ function _resetModalTitle(){
     tooltipTxt.innerHTML = isTouch
       ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
       : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
-    // Mostrar con estilos directos (evita conflictos de especificidad CSS)
-    tooltip.style.maxHeight = '3rem';
-    tooltip.style.padding   = '.55rem 1.4rem';
-    tooltip.style.marginBottom = '.4rem';
-    tooltip.style.opacity   = '1';
+    tooltip.style.display   = 'block';
+    tooltip.style.opacity   = '0';
     tooltip.style.transition = 'opacity .6s ease';
+    // fade in
+    requestAnimationFrame(()=>{
+      requestAnimationFrame(()=>{ tooltip.style.opacity = '1'; });
+    });
+    // fade out después de 4.2s
     setTimeout(()=>{
       tooltip.style.opacity = '0';
-      setTimeout(()=>{
-        tooltip.style.maxHeight   = '0';
-        tooltip.style.padding     = '0';
-        tooltip.style.marginBottom = '0';
-      }, 650);
+      setTimeout(()=>{ tooltip.style.display = 'none'; }, 650);
     }, 4200);
   }
 
@@ -1807,6 +1801,7 @@ function _resetModalTitle(){
       img.src = p.src;
       img.alt = 'Jami & Franco';
       img.loading = 'lazy';
+      if(p.objPos) img.style.objectPosition = p.objPos;
       el.appendChild(img);
 
       // iconos de hint: en mobile no se muestran, en tablet aparecen 5s y desaparecen
