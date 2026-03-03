@@ -392,6 +392,16 @@ nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); colo
 .hotel-num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; font-style:italic; color:rgba(196,160,80,.4); line-height:1; }
 .hotel-name { font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.1em; color:var(--ink); margin-bottom:.2rem; }
 .hotel-det { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.05em; color:var(--muted); }
+/* ── BTN-PRIMARY ── */
+.btn-primary, .btn-link.primary {
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em;
+  background:var(--burg); color:var(--paper); border:1px solid var(--burg);
+  padding:.65rem 1.6rem; text-transform:uppercase;
+  transition:background .3s, border-color .3s;
+  white-space:nowrap; display:inline-block; text-decoration:none; cursor:pointer;
+}
+.btn-primary:hover, .btn-link.primary:hover { background:var(--wine); border-color:var(--wine); }
+
 /* ── BTN-SECONDARY · todos los botones de borde borgoña ── */
 .btn-link, .btn-secondary {
   font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em;
@@ -401,6 +411,15 @@ nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); colo
   white-space:nowrap; display:inline-block; background:none; cursor:pointer;
 }
 .btn-link:hover, .btn-secondary:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+
+/* ── BTN-TERTIARY ── */
+.btn-tertiary {
+  font-family:'Cinzel',serif; font-size:.52rem; font-weight:400; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted); text-decoration:none;
+  cursor:pointer; display:inline-block; background:none; border:none; padding:0;
+  transition:color .3s;
+}
+.btn-tertiary:hover { color:var(--burg); font-weight:500; }
 
 /* ── TRAVEL ── */
 .travel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
@@ -860,6 +879,11 @@ body.en [data-lang="en"] { display:unset; }
     <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
     <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
 
+    <!-- TOOLTIP FOTOS (aparece aquí, entre eyebrow y nombres) -->
+    <div class="fp-tooltip" id="fp-tooltip">
+      <span id="fp-tooltip-text"></span>
+    </div>
+
     <div class="name-frame">
 
       <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
@@ -870,13 +894,6 @@ body.en [data-lang="en"] { display:unset; }
     <div class="hero-stem"><div class="hero-stem-line"></div></div>
   </div>
 </section>
-
-<!-- TOOLTIP FOTOS: aparece en el divider entre hero y countdown -->
-<div style="background:var(--paper);display:flex;justify-content:center;padding:.5rem 1rem 0;">
-  <div class="fp-tooltip" id="fp-tooltip">
-    <span id="fp-tooltip-text"></span>
-  </div>
-</div>
 
 <!-- COUNTDOWN -->
 <div id="cbar">
@@ -895,7 +912,7 @@ body.en [data-lang="en"] { display:unset; }
     <span data-lang="es">Esperamos tu confirmación antes del <strong>1 de abril de 2026</strong>.</span>
     <span data-lang="en">Please confirm your attendance by <strong>April 1st, 2026</strong>.</span>
   </p>
-  <a class="btn-link" href="rsvp.html" style="font-size:.65rem;padding:.85rem 2.8rem;background:var(--burg);color:var(--paper);border-color:var(--burg);">
+  <a class="btn-link primary" href="rsvp.html" style="font-size:.65rem;padding:.85rem 2.8rem;">
     <span data-lang="es">Confirmar asistencia →</span><span data-lang="en">RSVP now →</span>
   </a>
 </section>
@@ -1021,14 +1038,14 @@ body.en [data-lang="en"] { display:unset; }
         Springkell has <strong>21 en-suite bedrooms</strong> in the main house and <strong>3 self-catering cottages</strong> just 50 metres away, each uniquely designed. Prices include a Scottish breakfast and come at a <strong>special discounted rate for our wedding guests</strong>.<br><br>
         You'll indicate your room preference when you RSVP. You can book for the <strong>nights of 27th and 28th July</strong> or just the <strong>28th July</strong>.</span>
       </p>
-      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem;">
-        <a class="btn-link" href="https://www.springkell.com/stay" target="_blank" rel="noopener noreferrer" aria-label="Ver el venue Springkell (abre en nueva pestaña)" style="font-size:.72rem; padding:.6rem 1.3rem;">
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem; align-items:center;">
+        <a class="btn-link" href="https://www.springkell.com/stay" target="_blank" rel="noopener noreferrer" aria-label="Ver el venue Springkell (abre en nueva pestaña)" style="font-size:.52rem;">
           <span data-lang="es">Ver el venue →</span>
           <span data-lang="en">See the venue →</span>
         </a>
-        <a class="btn-link" href="https://www.google.com/maps/search/?api=1&query=Springkell+House+Lockerbie+Scotland" target="_blank" rel="noopener noreferrer" aria-label="Ver Springkell en Google Maps (abre en nueva pestaña)" style="font-size:.72rem; padding:.6rem 1.3rem; border-color:rgba(92,13,42,.2); color:var(--muted);">
-          <span data-lang="es">Ver en Google Maps</span>
-          <span data-lang="en">Open in Google Maps</span>
+        <a class="btn-tertiary" href="https://www.google.com/maps/search/?api=1&query=Springkell+House+Lockerbie+Scotland" target="_blank" rel="noopener noreferrer" aria-label="Ver Springkell en Google Maps (abre en nueva pestaña)">
+          <span data-lang="es">Ver en Google Maps →</span>
+          <span data-lang="en">Open in Google Maps →</span>
         </a>
       </div>
     </div>
@@ -1058,7 +1075,7 @@ body.en [data-lang="en"] { display:unset; }
     <span data-lang="en">ETA, weather, transport, train to Springkell, Edinburgh accommodation and food.</span>
   </p>
   <div style="text-align:center;">
-    <a class="btn-link" href="travel-guide.html" style="font-size:.65rem;padding:.85rem 2.8rem;background:var(--burg);color:var(--paper);border-color:var(--burg);">
+    <a class="btn-link primary" href="travel-guide.html" style="font-size:.65rem;padding:.85rem 2.8rem;">
       <span data-lang="es">Ver guía completa →</span><span data-lang="en">View full guide →</span>
     </a>
   </div>
