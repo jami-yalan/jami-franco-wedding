@@ -686,7 +686,7 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
   position:relative;
   z-index:8000;
   background:var(--burg);
-  color:#ffffff;
+  color:var(--paper);
   font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em;
   padding:0 1.4rem;
   text-align:center;
@@ -697,10 +697,11 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
   opacity:0;
   max-height:0;
   overflow:hidden;
-  transition:opacity .5s ease, max-height .4s ease, padding .4s ease;
+  transition:opacity .6s ease, max-height .4s ease, padding .4s ease;
 }
 .fp-tooltip.show{ opacity:1; max-height:3rem; padding:.55rem 1.4rem; margin-bottom:.4rem; }
-.fp-tooltip span{ color:rgba(196,160,80,.9); margin:0 .3em; }
+.fp-tooltip.hide{ opacity:0; }
+.fp-tooltip span{ color:var(--paper); margin:0 .3em; }
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
   background:rgba(20,14,10,.88);
@@ -879,11 +880,6 @@ body.en [data-lang="en"] { display:unset; }
     <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
     <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
 
-    <!-- TOOLTIP FOTOS (aparece aquí, entre eyebrow y nombres) -->
-    <div class="fp-tooltip" id="fp-tooltip">
-      <span id="fp-tooltip-text"></span>
-    </div>
-
     <div class="name-frame">
 
       <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
@@ -894,6 +890,13 @@ body.en [data-lang="en"] { display:unset; }
     <div class="hero-stem"><div class="hero-stem-line"></div></div>
   </div>
 </section>
+
+<!-- TOOLTIP FOTOS: entre hero y countdown, 12px arriba -->
+<div style="background:var(--paper);display:flex;justify-content:center;padding:.5rem 1rem 0;margin-top:-12px;position:relative;z-index:8001;">
+  <div class="fp-tooltip" id="fp-tooltip">
+    <span id="fp-tooltip-text"></span>
+  </div>
+</div>
 
 <!-- COUNTDOWN -->
 <div id="cbar">
@@ -1837,7 +1840,10 @@ function _resetModalTitle(){
       ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
       : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
     tooltip.classList.add('show');
-    setTimeout(()=>{ tooltip.classList.remove('show'); }, 4200);
+    setTimeout(()=>{
+      tooltip.classList.add('hide');           // fade out solo opacity
+      setTimeout(()=>{ tooltip.classList.remove('show','hide'); }, 650); // colapsa después del fade
+    }, 4200);
   }
 
   // IntersectionObserver para fade-in
