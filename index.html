@@ -1757,33 +1757,31 @@ function _resetModalTitle(){
 
       layer.appendChild(el);
 
-      // --- DRAG: desactivado en mobile ---
-      if(!isMobile){
-        let dragging = false, startX, startY, startDX, startDY;
+      // --- DRAG ---
+      let dragging = false, startX, startY, startDX, startDY;
 
-        function startDrag(clientX, clientY){
-          dragging = true;
-          startX = clientX; startY = clientY;
-          startDX = dragOff[i].x; startDY = dragOff[i].y;
-          el.classList.add('dragging');
-          el.style.zIndex = ++zTop;
-        }
-        function moveDrag(clientX, clientY){
-          if(!dragging) return;
-          dragOff[i].x = startDX + (clientX - startX);
-          dragOff[i].y = startDY + (clientY - startY);
-          applyTransform(i, el, p);
-        }
-        function endDrag(){ dragging = false; el.classList.remove('dragging'); }
-
-        el.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
-        window.addEventListener('mousemove', e=>{ if(dragging) moveDrag(e.clientX,e.clientY); });
-        window.addEventListener('mouseup', endDrag);
-
-        el.addEventListener('touchstart', e=>{ startDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
-        el.addEventListener('touchmove',  e=>{ e.preventDefault(); moveDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
-        el.addEventListener('touchend',   endDrag);
+      function startDrag(clientX, clientY){
+        dragging = true;
+        startX = clientX; startY = clientY;
+        startDX = dragOff[i].x; startDY = dragOff[i].y;
+        el.classList.add('dragging');
+        el.style.zIndex = ++zTop;
       }
+      function moveDrag(clientX, clientY){
+        if(!dragging) return;
+        dragOff[i].x = startDX + (clientX - startX);
+        dragOff[i].y = startDY + (clientY - startY);
+        applyTransform(i, el, p);
+      }
+      function endDrag(){ dragging = false; el.classList.remove('dragging'); }
+
+      el.addEventListener('mousedown', e=>{ e.preventDefault(); startDrag(e.clientX,e.clientY); });
+      window.addEventListener('mousemove', e=>{ if(dragging) moveDrag(e.clientX,e.clientY); });
+      window.addEventListener('mouseup', endDrag);
+
+      el.addEventListener('touchstart', e=>{ startDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:true});
+      el.addEventListener('touchmove',  e=>{ e.preventDefault(); moveDrag(e.touches[0].clientX,e.touches[0].clientY); },{passive:false});
+      el.addEventListener('touchend',   endDrag);
 
       // --- CLIC: lightbox (distingue de drag) ---
       let clickStartX, clickStartY;
