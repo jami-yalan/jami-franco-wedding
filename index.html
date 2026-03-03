@@ -392,12 +392,15 @@ nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); colo
 .hotel-num { font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:300; font-style:italic; color:rgba(196,160,80,.4); line-height:1; }
 .hotel-name { font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.1em; color:var(--ink); margin-bottom:.2rem; }
 .hotel-det { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.05em; color:var(--muted); }
-.btn-link {
-  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.16em;
-  color:var(--burg); text-decoration:none; border:1px solid rgba(92,13,42,.28);
-  padding:.5rem .85rem; text-transform:uppercase; transition:all .3s; white-space:nowrap; display:inline-block;
+/* ── BTN-SECONDARY · todos los botones de borde borgoña ── */
+.btn-link, .btn-secondary {
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em;
+  color:var(--burg); text-decoration:none; border:1px solid rgba(92,13,42,.35);
+  padding:.65rem 1.6rem; text-transform:uppercase;
+  transition:background .3s, color .3s, border-color .3s;
+  white-space:nowrap; display:inline-block; background:none; cursor:pointer;
 }
-.btn-link:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+.btn-link:hover, .btn-secondary:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
 
 /* ── TRAVEL ── */
 .travel-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.4rem; }
@@ -433,14 +436,14 @@ nav .nav-rsvp-btn:hover { background:var(--wine); border-color:var(--wine); colo
 .gift-input { flex:1; min-width:100px; background:rgba(255,255,255,.5); border:1px solid rgba(196,160,80,.28); color:var(--ink); font-family:'Cinzel',serif; font-size:.75rem; padding:.48rem .9rem; outline:none; transition:border-color .3s; }
 .gift-input:focus { border-color:var(--gold2); }
 .gift-input::placeholder { color:var(--muted); opacity:.45; }
-.gift-btn { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; background:none; border:1px solid rgba(196,160,80,.38); color:var(--gold); padding:.55rem 1rem; cursor:pointer; transition:all .3s; white-space:nowrap; }
+.gift-btn { font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em; text-transform:uppercase; background:none; border:1px solid rgba(92,13,42,.35); color:var(--burg); padding:.65rem 1.6rem; cursor:pointer; transition:background .3s, color .3s, border-color .3s; white-space:nowrap; }
 .gift-btn:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
 .gift-contributed { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.06em; color:var(--muted); margin-bottom:.5rem; }
 .bar-empty { opacity:.3; }
 .receipt-row { display:flex; align-items:center; gap:.8rem; flex-wrap:wrap; padding:.8rem 0 0; border-top:1px solid rgba(196,160,80,.15); margin-top:.6rem; }
 .receipt-lbl { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.1em; color:var(--muted2); flex:1; min-width:160px; }
-.receipt-upload-btn { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.18em; text-transform:uppercase; background:none; border:1px solid var(--goldA); color:var(--muted); padding:.38rem .9rem; cursor:pointer; transition:all .25s; white-space:nowrap; }
-.receipt-upload-btn:hover { border-color:var(--gold2); color:var(--gold); }
+.receipt-upload-btn { font-family:'Cinzel',serif; font-size:.52rem; font-weight:400; letter-spacing:.2em; text-transform:uppercase; background:none; border:none; color:var(--muted); padding:0; cursor:pointer; transition:color .3s; white-space:nowrap; }
+.receipt-upload-btn:hover { color:var(--burg); font-weight:500; }
 
 /* ── GIFT LOADER OVERLAY ── */
 .gift-loader-overlay { position:fixed; inset:0; z-index:9500; background:rgba(248,245,239,.92); backdrop-filter:blur(6px); display:none; flex-direction:column; align-items:center; justify-content:center; gap:2rem; }
@@ -675,12 +678,10 @@ footer { text-align:center; padding:4.5rem 2rem 6.5rem; border-top:1px solid rgb
   opacity:0;
   max-height:0;
   overflow:hidden;
-  margin-top:-12px;
-  transition:opacity .6s ease, max-height .4s ease, padding .4s ease, margin-bottom .4s ease;
+  transition:opacity .5s ease, max-height .4s ease, padding .4s ease;
 }
 .fp-tooltip.show{ opacity:1; max-height:3rem; padding:.55rem 1.4rem; margin-bottom:.4rem; }
-.fp-tooltip.hiding{ opacity:0; }
-.fp-tooltip span{ color:#ffffff; margin:0 .3em; }
+.fp-tooltip span{ color:rgba(196,160,80,.9); margin:0 .3em; }
 .fp-lightbox{
   position:fixed;inset:0;z-index:9000;
   background:rgba(20,14,10,.88);
@@ -859,11 +860,6 @@ body.en [data-lang="en"] { display:unset; }
     <p class="hero-eyebrow"><span data-lang="es">Nos casamos</span><span data-lang="en">We're getting married</span></p>
     <div class="hero-rule"><div class="rule-line"></div><span class="rule-glyph">✦ ✦ ✦</span><div class="rule-line rv"></div></div>
 
-    <!-- TOOLTIP FOTOS (aparece aquí, entre eyebrow y nombres) -->
-    <div class="fp-tooltip" id="fp-tooltip">
-      <span id="fp-tooltip-text"></span>
-    </div>
-
     <div class="name-frame">
 
       <h1 class="hero-names">Jami<span class="hero-amp">&amp;</span>Franco</h1>
@@ -874,6 +870,13 @@ body.en [data-lang="en"] { display:unset; }
     <div class="hero-stem"><div class="hero-stem-line"></div></div>
   </div>
 </section>
+
+<!-- TOOLTIP FOTOS: aparece en el divider entre hero y countdown -->
+<div style="background:var(--paper);display:flex;justify-content:center;padding:.5rem 1rem 0;">
+  <div class="fp-tooltip" id="fp-tooltip">
+    <span id="fp-tooltip-text"></span>
+  </div>
+</div>
 
 <!-- COUNTDOWN -->
 <div id="cbar">
@@ -1817,10 +1820,7 @@ function _resetModalTitle(){
       ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
       : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
     tooltip.classList.add('show');
-    setTimeout(()=>{
-      tooltip.classList.add('hiding');
-      setTimeout(()=>{ tooltip.classList.remove('show','hiding'); }, 650);
-    }, 4200);
+    setTimeout(()=>{ tooltip.classList.remove('show'); }, 4200);
   }
 
   // IntersectionObserver para fade-in

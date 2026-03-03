@@ -149,23 +149,26 @@ body::after {
 
 .cta {
   opacity:0; animation:fadeUp 1.2s 1.2s ease forwards;
+  display:flex; flex-direction:column; align-items:center; gap:.8rem;
 }
+/* btn-primary */
 .cta-btn {
-  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.22em; text-transform:uppercase;
-  background:none; color:var(--burg);
-  border:1px solid var(--burg);
-  padding:.72rem 2rem;
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em; text-transform:uppercase;
+  background:var(--burg); color:var(--paper);
+  border:1px solid var(--burg); padding:.65rem 1.6rem;
   cursor:pointer; text-decoration:none; display:inline-block;
-  transition:all .3s; position:relative; overflow:hidden;
+  transition:background .3s, border-color .3s; white-space:nowrap;
 }
-.cta-btn::before {
-  content:''; position:absolute; inset:0;
-  background:var(--burg); transform:translateY(100%);
-  transition:transform .35s cubic-bezier(.22,.61,.36,1);
-  z-index:-1;
+.cta-btn:hover { background:var(--wine); border-color:var(--wine); }
+/* btn-tertiary */
+.cta-link {
+  font-family:'Cinzel',serif; font-size:.52rem; font-weight:400;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none; cursor:pointer;
+  display:inline-block; transition:color .3s;
+  background:none; border:none; padding:0;
 }
-.cta-btn:hover { color:var(--paper); }
-.cta-btn:hover::before { transform:translateY(0); }
+.cta-link:hover { color:var(--burg); font-weight:500; }
 
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(14px); }
@@ -298,8 +301,10 @@ a[lang-es],a[lang-en] { display:none; }
   </div>
 
   <div class="cta">
-    <a class="cta-btn" lang-es href="index.html" onclick="fadeOut(event, 'index.html')">Ver los detalles del evento</a>
-    <a class="cta-btn" lang-en href="index.html" onclick="fadeOut(event, 'index.html')">View the event details</a>
+    <a class="cta-btn" lang-es href="rsvp.html" onclick="fadeOut(event,'rsvp.html')">Confirmar asistencia</a>
+    <a class="cta-btn" lang-en href="rsvp.html" onclick="fadeOut(event,'rsvp.html')">Confirm attendance</a>
+    <a class="cta-link" lang-es href="index.html" onclick="fadeOut(event, 'index.html')">Ver detalles del evento →</a>
+    <a class="cta-link" lang-en href="index.html" onclick="fadeOut(event, 'index.html')">View event details →</a>
   </div>
 
 </div>

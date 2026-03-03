@@ -68,10 +68,11 @@ body.en [data-lang="en"] { display:unset; }
   position:sticky; top:0; z-index:100; backdrop-filter:blur(4px);
 }
 .back-link {
-  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.22em;
+  font-family:'Cinzel',serif; font-size:.52rem; font-weight:400;
+  letter-spacing:.2em;
   color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .3s;
 }
-.back-link:hover { color:var(--burg); }
+.back-link:hover { color:var(--burg); font-weight:500; }
 .header-center { text-align:center; }
 .header-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; font-style:italic; color:var(--ink); }
 .header-sub { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; display:block; }
@@ -229,13 +230,13 @@ body.en [data-lang="en"] { display:unset; }
 .msg-section.visible { display:flex; }
 .msg-section.shown { opacity:1; }
 .msg-btn {
-  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.18em; text-transform:uppercase;
-  padding:.75rem 1.6rem; cursor:pointer; border:1px solid; transition:all .3s;
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em; text-transform:uppercase;
+  padding:.65rem 1.6rem; cursor:pointer; border:1px solid; transition:background .3s, color .3s, border-color .3s;
   background:transparent; display:inline-flex; align-items:center; gap:.55rem;
 }
 .msg-btn-primary { color:var(--paper); background:var(--burg); border-color:var(--burg); }
 .msg-btn-primary:hover { background:var(--wine); border-color:var(--wine); }
-.msg-btn-secondary { color:var(--burg); background:transparent; border-color:rgba(92,13,42,.4); }
+.msg-btn-secondary { color:var(--burg); background:none; border-color:rgba(92,13,42,.35); }
 .msg-btn-secondary:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
 
 /* ── MODAL ── */

@@ -73,10 +73,11 @@ body::before {
   backdrop-filter:blur(4px);
 }
 .back-link {
-  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.22em;
+  font-family:'Cinzel',serif; font-size:.52rem; font-weight:400;
+  letter-spacing:.2em;
   color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .3s;
 }
-.back-link:hover { color:var(--burg); }
+.back-link:hover { color:var(--burg); font-weight:500; }
 .header-title {
   font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300;
   font-style:italic; color:var(--ink); text-align:center;
@@ -263,9 +264,10 @@ body::before {
 }
 .food-desc { font-size:1rem; color:var(--muted); line-height:1.68; margin:.5rem 0 1rem; }
 .food-map-btn {
-  display:inline-block; font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.18em;
+  display:inline-block; font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--burg); text-decoration:none;
-  border:1px solid rgba(92,13,42,.28); padding:.42rem .85rem; transition:all .3s;
+  border:1px solid rgba(92,13,42,.35); padding:.65rem 1.6rem;
+  transition:background .3s, color .3s, border-color .3s; background:none;
 }
 .food-map-btn:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
 .fav-badge {
@@ -298,10 +300,10 @@ body::before {
 }
 .qr-link {
   display:inline-block; margin-top:1rem;
-  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.2em;
+  font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.2em;
   color:var(--burg); text-decoration:none; text-transform:uppercase;
-  border:1px solid rgba(92,13,42,.28); padding:.55rem 1.2rem; display:inline-block;
-  transition:all .3s;
+  border:1px solid rgba(92,13,42,.35); padding:.65rem 1.6rem;
+  transition:background .3s, color .3s, border-color .3s; background:none;
 }
 .qr-link:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
 
