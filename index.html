@@ -1883,7 +1883,11 @@ function _resetModalTitle(){
   } else {
     buildPhotos();
   }
-  window.addEventListener('resize', ()=>{ buildPhotos(); });
+  let lastWidth = window.innerWidth;
+  window.addEventListener('resize', ()=>{
+    const newWidth = window.innerWidth;
+    if(newWidth !== lastWidth){ lastWidth = newWidth; buildPhotos(); }
+  });
 
 })();
 
