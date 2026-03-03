@@ -1689,6 +1689,27 @@ function _resetModalTitle(){
   const SPEED  = 0.35; // factor parallax: 0=inmóvil, 1=igual que scroll
   let zTop     = 10;
 
+  // ── TOOLTIP: fuera del loop para que no se repita en cada foto ──
+  const tooltip    = document.getElementById('fp-tooltip');
+  const tooltipTxt = document.getElementById('fp-tooltip-text');
+  const isTouch    = window.matchMedia('(hover:none)').matches;
+  let tooltipShown = false;
+  try { tooltipShown = localStorage.getItem('jf-photo-hint') === '1'; } catch(e){}
+
+  function showTooltip(){
+    if(tooltipShown) return;
+    tooltipShown = true;
+    try { localStorage.setItem('jf-photo-hint','1'); } catch(e){}
+    tooltipTxt.innerHTML = isTouch
+      ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
+      : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
+    tooltip.classList.add('show');
+    setTimeout(()=>{
+      tooltip.classList.add('hide');
+      setTimeout(()=>{ tooltip.classList.remove('show','hide'); }, 650);
+    }, 4200);
+  }
+
   // parallax offset acumulado por foto (independiente de drag)
   const parallaxY = new Array(PHOTOS.length).fill(0);
   // posición de drag por foto
@@ -1835,25 +1856,6 @@ function _resetModalTitle(){
         lbImg.src = p.src;
         lb.classList.add('open');
       });
-
-  const tooltip   = document.getElementById('fp-tooltip');
-  const tooltipTxt = document.getElementById('fp-tooltip-text');
-  const isTouch   = window.matchMedia('(hover:none)').matches;
-  let tooltipShown = localStorage.getItem('jf-photo-hint') === '1';
-
-  function showTooltip(){
-    if(tooltipShown) return;
-    tooltipShown = true;
-    localStorage.setItem('jf-photo-hint','1');
-    tooltipTxt.innerHTML = isTouch
-      ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
-      : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
-    tooltip.classList.add('show');
-    setTimeout(()=>{
-      tooltip.classList.add('hide');           // fade out solo opacity
-      setTimeout(()=>{ tooltip.classList.remove('show','hide'); }, 650); // colapsa después del fade
-    }, 4200);
-  }
 
   // IntersectionObserver para fade-in
   const io = new IntersectionObserver(entries=>{
