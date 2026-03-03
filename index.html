@@ -1710,9 +1710,6 @@ function _resetModalTitle(){
     }, 4200);
   }
 
-  // Mostrar tooltip 1.5s después de cargar la página
-  setTimeout(showTooltip, 1500);
-
   // parallax offset acumulado por foto (independiente de drag)
   const parallaxY = new Array(PHOTOS.length).fill(0);
   // posición de drag por foto
@@ -1879,6 +1876,9 @@ function _resetModalTitle(){
   },{ threshold:0.05 });
   io.observe(el);
     });
+
+    // Mostrar tooltip 1.5s después de construir las fotos
+    setTimeout(showTooltip, 1500);
   }
 
   function applyTransform(i, el, p){
