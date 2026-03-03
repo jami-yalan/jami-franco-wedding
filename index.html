@@ -1703,10 +1703,19 @@ function _resetModalTitle(){
     tooltipTxt.innerHTML = isTouch
       ? '✋ Arrastra las fotos &nbsp;·&nbsp; Toca para ampliar 🔍'
       : '✋ Arrastra las fotos &nbsp;·&nbsp; Clic para ampliar 🔍';
-    tooltip.classList.add('show');
+    // Mostrar con estilos directos (evita conflictos de especificidad CSS)
+    tooltip.style.maxHeight = '3rem';
+    tooltip.style.padding   = '.55rem 1.4rem';
+    tooltip.style.marginBottom = '.4rem';
+    tooltip.style.opacity   = '1';
+    tooltip.style.transition = 'opacity .6s ease';
     setTimeout(()=>{
-      tooltip.classList.add('hide');
-      setTimeout(()=>{ tooltip.classList.remove('show','hide'); }, 650);
+      tooltip.style.opacity = '0';
+      setTimeout(()=>{
+        tooltip.style.maxHeight   = '0';
+        tooltip.style.padding     = '0';
+        tooltip.style.marginBottom = '0';
+      }, 650);
     }, 4200);
   }
 
