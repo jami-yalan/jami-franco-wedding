@@ -64,13 +64,13 @@ body::after {
 /* ── RINGS, exact copy from hero ── */
 .c-ring-outer {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:clamp(450px,115vw,900px); height:clamp(450px,115vw,900px);
+  width:clamp(550px,115vw,900px); height:clamp(550px,115vw,900px);
   max-width:96vh; max-height:96vh;
   pointer-events:none; animation:spin 130s linear infinite;
 }
 .c-ring-inner {
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:clamp(335px,86vw,680px); height:clamp(335px,86vw,680px);
+  width:clamp(415px,86vw,680px); height:clamp(415px,86vw,680px);
   max-width:72vh; max-height:72vh;
   pointer-events:none; animation:spinRev 95s linear infinite;
 }
@@ -87,10 +87,16 @@ body::after {
 }
 
 .eyebrow {
-  font-family:'Cinzel',serif; font-size:.75rem; font-weight:500; letter-spacing:.4em;
+  font-family:'Cinzel',serif; font-size:clamp(.48rem,3.8vw,.75rem); font-weight:500; letter-spacing:.25em;
   color:var(--gold2); text-transform:uppercase; margin-bottom:.65rem;
-  max-width:26em;
+  white-space:nowrap;
   opacity:0; animation:fadeUp 1.2s .2s ease forwards;
+}
+.eyebrow-br { display:none; }
+
+@media(max-width:700px){
+  .eyebrow { white-space:normal; font-size:clamp(.44rem,3.8vw,.72rem); }
+  .eyebrow-br { display:block; }
 }
 
 .wedding-label {
@@ -200,7 +206,6 @@ a[lang-es],a[lang-en] { display:none; }
 @media(max-width:480px){
   body { overflow:auto; }
   .content { height:auto; min-height:100vh; padding:4rem 1.5rem; }
-  .eyebrow { max-width:20em; }
 }
 </style>
 </head>
@@ -269,8 +274,8 @@ a[lang-es],a[lang-en] { display:none; }
 <div class="content">
 
   <p class="eyebrow">
-    <span lang-es>Con cariño te invitamos a celebrar</span>
-    <span lang-en>With love, we invite you to celebrate</span>
+    <span lang-es>Con cariño te invitamos<br class="eyebrow-br"> a celebrar</span>
+    <span lang-en>With love, we invite you<br class="eyebrow-br"> to celebrate</span>
   </p>
 
   <p class="wedding-label">
