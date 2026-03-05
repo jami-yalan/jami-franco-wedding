@@ -26,20 +26,23 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-html,body { height:100%; height:100dvh; }
+html, body { height:100%; height:100dvh; }
 
 body {
-  background-color: var(--paper);
-  color: var(--ink);
   font-family: 'Cinzel', serif;
+  color: var(--ink);
   overflow: hidden;
+  background-image: url('Flores.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #1a1208;
 }
 
-/* grain overlay */
-body::after {
-  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
-  opacity:.6;
+/* Overlay oscuro sobre la imagen */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background: rgba(10,6,2,.32);
 }
 
 /* ── LANG ── */
@@ -49,47 +52,31 @@ body::after {
 }
 .lang-btn {
   font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.18em;
-  background:var(--paper); border:1px solid var(--burg); color:var(--burg);
+  background:transparent; border:1px solid rgba(244,238,228,.5); color:rgba(244,238,228,.85);
   padding:.28rem .65rem; cursor:pointer; transition:all .3s;
 }
-.lang-btn.active,.lang-btn:hover { background:var(--burg); color:var(--paper); }
+.lang-btn.active,.lang-btn:hover { background:rgba(244,238,228,.15); border-color:rgba(244,238,228,.9); color:rgba(244,238,228,1); }
 
-/* ── SCENE ── */
-.scene {
-  position:fixed; inset:0; overflow:hidden;
-  background:var(--paper);
+/* ── FRANJA DE TEXTURA ── */
+.content-band {
+  position: relative; z-index: 10;
+  width: 100%;
+  height: 100vh; height: 100dvh;
+  display: flex; align-items: center; justify-content: center;
 }
-.scene::before {
-  content:''; position:absolute; inset:0;
+
+.band-inner {
+  width: 100%;
   background-image: url('textura.jpg');
   background-repeat: repeat;
   background-size: 900px auto;
-  pointer-events: none;
-}
-
-/* ── RINGS, exact copy from hero ── */
-.c-ring-outer {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:clamp(550px,115vw,900px); height:clamp(550px,115vw,900px);
-  max-width:96vh; max-height:96vh;
-  pointer-events:none; animation:spin 130s linear infinite;
-}
-.c-ring-inner {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:clamp(415px,86vw,680px); height:clamp(415px,86vw,680px);
-  max-width:72vh; max-height:72vh;
-  pointer-events:none; animation:spinRev 95s linear infinite;
-}
-@keyframes spin    { to { transform:translate(-50%,-50%) rotate(360deg); } }
-@keyframes spinRev { to { transform:translate(-50%,-50%) rotate(-360deg); } }
-
-/* ── CONTENT ── */
-.content {
-  position:relative; z-index:10;
-  height:100vh; height:100dvh;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:2rem 1.5rem; text-align:center;
+  background-color: var(--paper);
+  border-top: 1px solid rgba(196,160,80,.35);
+  border-bottom: 1px solid rgba(196,160,80,.35);
+  box-shadow: 0 -8px 48px rgba(0,0,0,.28), 0 8px 48px rgba(0,0,0,.28);
+  padding: 1.8rem 2rem;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
 }
 
 .eyebrow {
@@ -211,7 +198,7 @@ a[lang-es],a[lang-en] { display:none; }
 
 @media(max-width:480px){
   body { overflow:hidden; }
-  .content { height:100vh; height:100dvh; padding:2rem 1.5rem; }
+  .band-inner { padding:2rem 1.5rem; }
   .names-block { margin-bottom:.9rem; }
   .divider { margin-bottom:.9rem; }
   .guest-name { margin-bottom:1.1rem; }
@@ -229,104 +216,53 @@ a[lang-es],a[lang-en] { display:none; }
   <button class="lang-btn" id="btn-en" onclick="setLang('en')" aria-label="View in English" aria-pressed="false">EN</button>
 </div>
 
-<div class="scene">
+<div class="content-band">
+  <div class="band-inner">
 
-  <!-- OUTER RING, exact copy from hero -->
-  <svg class="c-ring-outer" viewBox="0 0 600 600" fill="none">
-    <defs>
-      <linearGradient id="gr1" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse">
-        <stop offset="0%"   stop-color="#9a7830" stop-opacity=".55"/>
-        <stop offset="50%"  stop-color="#c4a050" stop-opacity=".88"/>
-        <stop offset="100%" stop-color="#9a7830" stop-opacity=".55"/>
-      </linearGradient>
-    </defs>
-    <circle cx="300" cy="300" r="278" stroke="url(#gr1)" stroke-width=".9"/>
-    <circle cx="300" cy="300" r="262" stroke="#c4a050" stroke-width=".4" stroke-dasharray="2 9" opacity=".45"/>
-    <circle cx="300" cy="300" r="247" stroke="#9a7830" stroke-width=".5" opacity=".35"/>
-    <polygon points="300,17 303.5,27 314,27 305.5,33.5 309,43.5 300,37 291,43.5 294.5,33.5 286,27 296.5,27" fill="#c4a050" opacity=".75"/>
-    <polygon points="300,583 303.5,573 314,573 305.5,566.5 309,556.5 300,563 291,556.5 294.5,566.5 286,573 296.5,573" fill="#c4a050" opacity=".75"/>
-    <polygon points="583,300 573,303.5 573,314 566.5,305.5 556.5,309 563,300 556.5,291 566.5,294.5 573,286 573,296.5" fill="#c4a050" opacity=".75"/>
-    <polygon points="17,300 27,303.5 27,314 33.5,305.5 43.5,309 37,300 43.5,291 33.5,294.5 27,286 27,296.5" fill="#c4a050" opacity=".75"/>
-    <circle cx="497" cy="103" r="2.8" fill="#c4a050" opacity=".55"/>
-    <circle cx="103" cy="497" r="2.8" fill="#c4a050" opacity=".55"/>
-    <circle cx="497" cy="497" r="2.8" fill="#c4a050" opacity=".55"/>
-    <circle cx="103" cy="103" r="2.8" fill="#c4a050" opacity=".55"/>
-    <line x1="300" y1="22" x2="300" y2="73"  stroke="#c4a050" stroke-width=".5" opacity=".4"/>
-    <line x1="300" y1="527" x2="300" y2="578" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
-    <line x1="22"  y1="300" x2="73"  y2="300" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
-    <line x1="527" y1="300" x2="578" y2="300" stroke="#c4a050" stroke-width=".5" opacity=".4"/>
-    <g stroke="#c4a050" stroke-width=".5" opacity=".28">
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(30 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(60 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(120 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(150 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(210 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(240 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(300 300 300)"/>
-      <line x1="300" y1="22" x2="300" y2="34" transform="rotate(330 300 300)"/>
-    </g>
-    <path d="M300 52 A22 22 0 1 1 300 96 A12 12 0 1 0 300 52Z" fill="#5c0d2a" opacity=".32"/>
-  </svg>
+    <p class="eyebrow">
+      <span lang-es>Queremos celebrar contigo</span>
+      <span lang-en>We want to celebrate with you</span>
+    </p>
 
-  <!-- INNER RING, exact copy from hero -->
-  <svg class="c-ring-inner" viewBox="0 0 500 500" fill="none">
-    <circle cx="250" cy="250" r="233" stroke="#c4a050" stroke-width=".35" stroke-dasharray="1.5 13" opacity=".4"/>
-    <circle cx="250" cy="250" r="218" stroke="#9a7830" stroke-width=".45" opacity=".3"/>
-    <rect x="246" y="13"  width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 250 17)"/>
-    <rect x="246" y="471" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 250 475)"/>
-    <rect x="13"  y="246" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 17 250)"/>
-    <rect x="471" y="246" width="8" height="8" fill="#c4a050" opacity=".5" transform="rotate(45 475 250)"/>
-    <line x1="250" y1="28" x2="250" y2="472" stroke="#c4a050" stroke-width=".22" stroke-dasharray="3 22" opacity=".18"/>
-    <line x1="28"  y1="250" x2="472" y2="250" stroke="#c4a050" stroke-width=".22" stroke-dasharray="3 22" opacity=".18"/>
-  </svg>
+    <p class="wedding-label">
+      <span lang-es>Nuestra Boda</span>
+      <span lang-en>Our Wedding</span>
+    </p>
 
-</div>
-
-<div class="content">
-
-  <p class="eyebrow">
-    <span lang-es>Queremos celebrar contigo</span>
-    <span lang-en>We want to celebrate with you</span>
-  </p>
-
-  <p class="wedding-label">
-    <span lang-es>Nuestra Boda</span>
-    <span lang-en>Our Wedding</span>
-  </p>
-
-  <div class="names-block">
-    <h1>Jami <span class="amp">&</span> Franco</h1>
-  </div>
-
-  <div class="divider">
-    <span class="div-line"></span>
-    <div class="div-center">
-      <span>·</span>
-      <span class="big">✦</span>
-      <span>·</span>
+    <div class="names-block">
+      <h1>Jami <span class="amp">&</span> Franco</h1>
     </div>
-    <span class="div-line rv"></span>
+
+    <div class="divider">
+      <span class="div-line"></span>
+      <div class="div-center">
+        <span>·</span>
+        <span class="big">✦</span>
+        <span>·</span>
+      </div>
+      <span class="div-line rv"></span>
+    </div>
+
+    <p class="para-label" id="para-label">
+      <span lang-es>Para</span>
+      <span lang-en>For</span>
+    </p>
+
+    <p class="guest-name" id="guest-name">Sofía</p>
+
+    <div class="meta">
+      <p class="meta-date">28 · 07 · 2026</p>
+      <p class="meta-place">Springkell House · Dumfries, Scotland</p>
+    </div>
+
+    <div class="cta">
+      <a class="cta-btn" lang-es href="rsvp.html" onclick="fadeOut(event,'rsvp.html')">Confirmar asistencia</a>
+      <a class="cta-btn" lang-en href="rsvp.html?lang=en" onclick="fadeOut(event,'rsvp.html?lang=en')">Confirm attendance</a>
+      <a class="cta-link" lang-es href="index.html" onclick="fadeOut(event, 'index.html')">Ver detalles del evento →</a>
+      <a class="cta-link" lang-en href="index.html?lang=en" onclick="fadeOut(event, 'index.html?lang=en')">View event details →</a>
+    </div>
+
   </div>
-
-  <p class="para-label" id="para-label">
-    <span lang-es>Para</span>
-    <span lang-en>For</span>
-  </p>
-
-  <p class="guest-name" id="guest-name">Sofía</p>
-
-  <div class="meta">
-    <p class="meta-date">28 · 07 · 2026</p>
-    <p class="meta-place">Springkell House · Dumfries, Scotland</p>
-  </div>
-
-  <div class="cta">
-    <a class="cta-btn" lang-es href="rsvp.html" onclick="fadeOut(event,'rsvp.html')">Confirmar asistencia</a>
-    <a class="cta-btn" lang-en href="rsvp.html?lang=en" onclick="fadeOut(event,'rsvp.html?lang=en')">Confirm attendance</a>
-    <a class="cta-link" lang-es href="index.html" onclick="fadeOut(event, 'index.html')">Ver detalles del evento →</a>
-    <a class="cta-link" lang-en href="index.html?lang=en" onclick="fadeOut(event, 'index.html?lang=en')">View event details →</a>
-  </div>
-
 </div>
 
 <script>
