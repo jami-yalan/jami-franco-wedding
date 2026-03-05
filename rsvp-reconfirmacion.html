@@ -296,15 +296,18 @@ body.en [data-lang="en"]{display:unset;}
         <p class="fsec-label"><span data-lang="es">Transporte</span><span data-lang="en">Transport</span></p>
 
         <div class="info-box">
-          <p><span data-lang="es">Organizaremos transporte entre la estación de Lockerbie y Springkell. ¿Necesitas que te recojamos?</span>
-          <span data-lang="en">We'll organise transport between Lockerbie station and Springkell. Do you need a pick-up?</span></p>
+          <p><span data-lang="es">Organizaremos transporte entre la estación de Lockerbie y Springkell. ¿Necesitas que te recojamos? Si quieres un refresh de cómo llegar, <a href="travel-guide.html#tren" target="_blank" style="color:var(--burg);text-decoration:underline;">mira la guía de viaje →</a></span>
+          <span data-lang="en">We'll organise transport between Lockerbie station and Springkell. Do you need a pick-up? If you'd like a refresher on how to get there, <a href="travel-guide.html#tren" target="_blank" style="color:var(--burg);text-decoration:underline;">check the travel guide →</a></span></p>
         </div>
 
         <div class="field">
-          <label><span data-lang="es">¿Necesitas transporte a Springkell el 27?</span><span data-lang="en">Do you need a lift to Springkell on the 27th?</span></label>
+          <label><span data-lang="es">¿Necesitas transporte a Springkell para llegar?</span><span data-lang="en">Do you need a lift to Springkell on your arrival day?</span></label>
           <div class="transport-row">
-            <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="yes" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
+            <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="yes-27" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
               <span data-lang="es">Sí, el 27</span><span data-lang="en">Yes, 27th</span>
+            </div>
+            <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="yes-28" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
+              <span data-lang="es">Sí, el 28</span><span data-lang="en">Yes, 28th</span>
             </div>
             <div class="transport-chip" onclick="toggleTransport(this,'llegada')" data-val="no" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleTransport(this,'llegada')">
               <span data-lang="es">No, llego por mi cuenta</span><span data-lang="en">No, I'll get there myself</span>
