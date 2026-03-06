@@ -167,6 +167,13 @@ body.en [data-lang="en"]{display:unset;}
 .regrets-box{display:none;text-align:center;padding:2.5rem;background:var(--paper2);border:1px solid var(--goldA);margin-top:1.5rem;}
 .regrets-box.show{display:block;}
 
+/* CAL BUTTONS (in regrets) */
+.regrets-cal-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:1.4rem 0 .8rem;display:block;}
+.cal-buttons{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+.cal-btn{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--burg);background:transparent;border:1px solid rgba(92,13,42,.35);padding:.6rem 1.4rem;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;}
+.cal-btn:hover{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.cal-btn svg{width:14px;height:14px;flex-shrink:0;}
+
 /* INFO BOX */
 .info-box{background:rgba(196,160,80,.08);border-left:3px solid var(--gold2);padding:1rem 1.4rem;margin:1.2rem 0;}
 .info-box p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
@@ -398,9 +405,23 @@ body.en [data-lang="en"]{display:unset;}
           <span data-lang="es">Lo sentimos mucho 🖤</span><span data-lang="en">We're so sorry to hear that 🖤</span>
         </p>
         <p style="font-family:'Cinzel',serif;font-size:.82rem;letter-spacing:.05em;color:var(--muted);line-height:1.8;">
-          <span data-lang="es">Entendemos que las cosas cambian. Gracias por avisarnos y te mandamos todo nuestro cariño.</span>
-          <span data-lang="en">We understand things change. Thank you for letting us know, sending you all our love.</span>
+          <span data-lang="es">Entendemos que las cosas cambian. Que no puedas estar en persona no significa que no puedas estar presente. Únete a nosotros a través del livestream.</span>
+          <span data-lang="en">We understand things change. Not being here in person doesn't mean you can't be part of the moment. Join us from wherever you are through the livestream.</span>
         </p>
+        <span class="regrets-cal-label">
+          <span data-lang="es">Guarda la fecha y no te pierdas nada</span>
+          <span data-lang="en">Save the date and don't miss a moment</span>
+        </span>
+        <div class="cal-buttons">
+          <a class="cal-btn" id="reconf-gcal-btn" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Google Calendar
+          </a>
+          <a class="cal-btn" id="reconf-ical-btn" href="#" download="jami-franco-boda.ics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Apple / iCal
+          </a>
+        </div>
       </div>
 
       <button class="submit-btn" id="submit-btn2" onclick="submitReconf()">
@@ -813,6 +834,33 @@ async function submitReconf() {
     setTimeout(()=>{ btn.textContent = document.body.classList.contains('en') ? 'Send reconfirmation' : 'Enviar reconfirmación'; btn.disabled = false; }, 3000);
   }
 }
+// ── ADD TO CALENDAR (sección "no asiste") ──
+(function() {
+  const CAL_START = '20260728T201500Z';
+  const CAL_END   = '20260728T231500Z';
+  const gcalTitle = '%F0%9F%A5%80%20Jami%20%26%20Franco';
+  const gcalDesc  = 'Livestream link%3A https%3A%2F%2Fjami-yalan.github.io%2Fjami-franco-wedding%2Flivestream.html';
+  const gcalURL   = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${gcalTitle}&dates=${CAL_START}/${CAL_END}&details=${gcalDesc}&location=Springkell Estate%2C Lockerbie%2C Scotland`;
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Jami&Franco//Wedding//ES',
+    'BEGIN:VEVENT',
+    `DTSTART:${CAL_START}`,`DTEND:${CAL_END}`,
+    'SUMMARY:🥀 Jami & Franco',
+    'DESCRIPTION:Livestream link: https://jami-yalan.github.io/jami-franco-wedding/livestream.html',
+    'LOCATION:Springkell Estate, Lockerbie, Scotland',
+    // Alarma 1 día antes
+    'BEGIN:VALARM','TRIGGER:-P1D','ACTION:EMAIL',
+    'SUMMARY:🥀 Mañana: Jami & Franco Livestream',
+    'DESCRIPTION:El livestream de Jami & Franco es mañana. Link: https://jami-yalan.github.io/jami-franco-wedding/livestream.html',
+    'END:VALARM',
+    // Alarma 5 min antes
+    'BEGIN:VALARM','TRIGGER:-PT5M','ACTION:DISPLAY',
+    'DESCRIPTION:🥀 Jami & Franco empieza en 5 minutos — https://jami-yalan.github.io/jami-franco-wedding/livestream.html',
+    'END:VALARM',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  document.getElementById('reconf-gcal-btn').href = gcalURL;
+  document.getElementById('reconf-ical-btn').href = URL.createObjectURL(blob);
+})();
 </script>
-</body>
-</html>
