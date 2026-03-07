@@ -981,6 +981,43 @@ body.en [data-lang="en"] { display:unset; }
         Springkell has <strong>21 en-suite bedrooms</strong> in the main house and <strong>3 self-catering cottages</strong> just 50 metres away, each uniquely designed. Prices include a Scottish breakfast and come at a <strong>special discounted rate for our wedding guests</strong>.<br><br>
         You'll indicate your room preference when you RSVP. You can book for the <strong>nights of 27th and 28th July</strong> or just the <strong>28th July</strong>.</span>
       </p>
+
+      <!-- PRECIOS · acordeón -->
+      <div class="other-stay-toggle" onclick="togglePrices(this)" role="button" tabindex="0" aria-expanded="false" aria-controls="springkell-prices" onkeydown="if(event.key==='Enter'||event.key===' ')togglePrices(this)" style="margin-top:1.2rem;">
+        <span data-lang="es">Ver precios por habitación</span>
+        <span data-lang="en">View room prices</span>
+        <span class="other-stay-arrow">›</span>
+      </div>
+      <div class="other-stay-list" id="springkell-prices">
+        <div style="border:1px solid rgba(196,160,80,.2); background:rgba(196,160,80,.05); padding:1.4rem 1.6rem; margin-bottom:.4rem;">
+          <p style="font-family:'Cinzel',serif; font-size:.52rem; letter-spacing:.26em; color:var(--gold); text-transform:uppercase; margin-bottom:.9rem;">
+            <span data-lang="es">Por habitación · por noche · incluye desayuno escocés</span>
+            <span data-lang="en">Per room · per night · Scottish breakfast included</span>
+          </p>
+          <div style="display:grid; grid-template-columns:1fr auto; gap:.45rem .8rem;">
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;"><span data-lang="es">Doble o twin</span><span data-lang="en">Double or twin</span></div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£150</div>
+
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;"><span data-lang="es">Ocupación individual</span><span data-lang="en">Single occupancy</span></div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£130</div>
+
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;"><span data-lang="es">Triple <em style="color:var(--muted); font-size:.88rem;">(1 disponible)</em></span><span data-lang="en">Triple <em style="color:var(--muted); font-size:.88rem;">(1 available)</em></span></div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£180</div>
+
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;"><span data-lang="es">5 personas <em style="color:var(--muted); font-size:.88rem;">(2 disponibles)</em></span><span data-lang="en">Five-guest <em style="color:var(--muted); font-size:.88rem;">(2 available)</em></span></div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£230</div>
+
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;">Honeymoon Suite</div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£230</div>
+
+            <div style="grid-column:1/-1; height:1px; background:rgba(196,160,80,.18); margin:.5rem 0;"></div>
+            <div style="grid-column:1/-1; font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.26em; color:var(--gold); text-transform:uppercase; margin-bottom:.1rem;"><span data-lang="es">Cottages</span><span data-lang="en">Cottages</span></div>
+
+            <div style="font-family:'EB Garamond',serif; font-size:.95rem; color:var(--muted2); line-height:1.55;"><span data-lang="es">Cottage <em style="color:var(--muted); font-size:.88rem;">(2 dorm. · 3 disponibles)</em></span><span data-lang="en">Cottage <em style="color:var(--muted); font-size:.88rem;">(2 bedrooms · 3 available)</em></span></div>
+            <div style="font-family:'Cinzel',serif; font-size:.7rem; color:var(--ink); letter-spacing:.04em; display:flex; align-items:center;">£300</div>
+          </div>
+        </div>
+      </div>
       <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem; align-items:center;">
         <a class="btn-link" href="https://www.springkell.com/stay" target="_blank" rel="noopener noreferrer" aria-label="Ver el venue Springkell (abre en nueva pestaña)" style="font-size:.52rem;">
           <span data-lang="es">Ver el venue →</span>
@@ -1245,6 +1282,13 @@ function toggleOtherStay(btn) {
   document.getElementById('other-stay').classList.toggle('open');
 }
 
+function togglePrices(btn) {
+  btn.classList.toggle('open');
+  const isOpen = btn.classList.contains('open');
+  btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  document.getElementById('springkell-prices').classList.toggle('open');
+}
+
 // ── COUNTDOWN ──
 const WD=new Date('2026-07-28T21:15:00+01:00'); // 21:15 hora de Escocia (BST)
 function tick(){
@@ -1338,7 +1382,7 @@ const gifts=[
   {id:2,es:'Estadía en Grecia',en:'Accommodation in Greece',icon:'🏨',goal:1500},
   {id:3,es:'Museos en Grecia',en:'Museums in Greece',icon:'🏛️',goal:500},
   {id:4,es:'Pasajes para visitar islas en Grecia',en:'Flights to Greek islands',icon:'🚤',goal:500},
-  {id:5,es:'Visita a Ítaca',en:'Visit to Ithaca',icon:'⛵',goal:1000},
+  {id:5,es:'Visita Ítaca',en:'Visit Ithaca',icon:'⛵',goal:1000},
   {id:6,es:'Viáticos',en:'Daily expenses',icon:'💰',goal:1000},
   {id:7,es:'Tours',en:'Tours',icon:'🗺️',goal:500},
 ];
