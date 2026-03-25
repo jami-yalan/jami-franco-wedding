@@ -1244,6 +1244,17 @@ body.en [data-lang="en"] { display:unset; }
 </div>
 
 <script>
+// ── iOS 26 HERO HEIGHT FIX ──
+// En iOS 26, window.outerHeight cubre toda la pantalla incluyendo las barras de Safari
+function fixHeroHeight() {
+  const hero = document.getElementById('hero');
+  if (hero && window.outerHeight) {
+    hero.style.minHeight = window.outerHeight + 'px';
+  }
+}
+fixHeroHeight();
+window.addEventListener('resize', fixHeroHeight);
+
 // ── LANG ──
 function setLang(l){
   document.body.classList.toggle('en',l==='en');
