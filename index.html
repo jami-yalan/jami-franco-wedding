@@ -78,6 +78,17 @@ nav {
   border-bottom:1px solid transparent;
   transition:background .35s, border-color .35s, backdrop-filter .35s;
 }
+/* Tapa la safe area de iOS 26 con el mismo color del fondo */
+nav::before {
+  content:'';
+  position:absolute; top:calc(-1 * env(safe-area-inset-top)); left:0; right:0;
+  height:env(safe-area-inset-top);
+  background:inherit;
+  z-index:-1;
+}
+nav.scrolled::before {
+  background:rgba(248,245,239,.97);
+}
 nav.scrolled {
   background:rgba(248,245,239,.97);
   border-bottom-color:rgba(196,160,80,.18);
@@ -128,7 +139,7 @@ nav.scrolled .nav-hamburger:hover span { background:var(--burg); }
 #hero {
   position:relative; min-height:100vh; min-height:100svh;
   display:flex; align-items:center; justify-content:center;
-  overflow:hidden; background:#1a1208;
+  overflow:visible; background:#1a1208;
   margin-top: calc(-1 * env(safe-area-inset-top));
   padding-top: env(safe-area-inset-top);
 }
