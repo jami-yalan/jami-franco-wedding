@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Jami & Franco · 28.07.2026</title>
 <meta property="og:title" content="Jami &amp; Franco · 28.07.2026">
 <meta property="og:description" content="Springkell House · Dumfries, Scotland">
@@ -73,7 +73,7 @@ body::before {
 /* ── NAV ── */
 nav {
   position:fixed; top:0; width:100%; z-index:100;
-  display:flex; align-items:center; justify-content:center; gap:2rem; padding:1.2rem 2rem;
+  display:flex; align-items:center; justify-content:center; gap:2rem; padding:1.2rem 2rem; padding-top:max(1.2rem, env(safe-area-inset-top));
   background:transparent;
   border-bottom:1px solid transparent;
   transition:background .35s, border-color .35s, backdrop-filter .35s;
