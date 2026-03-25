@@ -39,8 +39,8 @@
 html { scroll-behavior:smooth; background-color:#1a1208; }
 
 body {
-  background-color: var(--paper);
-  background-image: url('textura.jpg');
+  background-color: #1a1208;
+  background-image: none;
   background-repeat: repeat;
   background-size: 900px auto;
   color: var(--ink);
@@ -1273,8 +1273,17 @@ function closeNav(){
 
 // ── NAV scroll background ──
 const navEl = document.querySelector('nav');
+const heroEl = document.getElementById('hero');
 window.addEventListener('scroll', () => {
   navEl.classList.toggle('scrolled', window.scrollY > 60);
+  const heroBottom = heroEl ? heroEl.offsetHeight : window.innerHeight;
+  if (window.scrollY > heroBottom * 0.8) {
+    document.body.style.backgroundColor = 'var(--paper)';
+    document.body.style.backgroundImage = "url('textura.jpg')";
+  } else {
+    document.body.style.backgroundColor = '#1a1208';
+    document.body.style.backgroundImage = 'none';
+  }
 }, { passive: true });
 
 function toggleOtherStay(btn) {
