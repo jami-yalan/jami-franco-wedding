@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RSVP · Jami & Franco · 28.07.2026</title>
 <meta property="og:title" content="Jami &amp; Franco · 28.07.2026">
 <meta property="og:description" content="Springkell House · Dumfries, Scotland">
@@ -44,7 +44,7 @@ span.blk-es,span.blk-en{display:inline;}
 body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 
 /* HEADER */
-.site-header{background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);padding:1.2rem 2rem;padding-top:max(1.2rem, env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);}
+.site-header{background:rgba(248,245,239,.97);border-bottom:1px solid var(--goldA);padding:1.2rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(4px);}
 .back-link{font-family:'Cinzel',serif;font-size:.52rem;font-weight:400;letter-spacing:.2em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .3s;}
 .back-link:hover{color:var(--burg);font-weight:500;}
 .header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
@@ -621,9 +621,10 @@ function addRoom() {
   div.innerHTML = `
     <p class="room-entry-title">${isEN ? 'Room' : 'Habitación'} ${idx}</p>
     ${roomCount > 1 ? `<button class="remove-room" onclick="document.getElementById('room-${idx}').remove()">×</button>` : ''}
+    <p style="font-family:'EB Garamond',serif;font-size:.88rem;color:var(--muted2);margin-bottom:.9rem;line-height:1.55;">${isEN ? 'Select how many beds of each type you need in this room.' : 'Selecciona cuántas camas de cada tipo necesitas en esta habitación.'}</p>
     <div class="grid2" style="margin-bottom:.8rem;">
       <div>
-        <p class="beds-type-label" style="margin-bottom:.4rem;">Double / King</p>
+        <p class="beds-type-label" style="margin-bottom:.4rem;">${isEN ? 'Double / King' : 'Cama de 2 plazas'}</p>
         <div class="beds-row">
           <button type="button" class="counter-btn" onclick="chgCnt('dbl-${idx}',-1)">−</button>
           <span class="counter-val" id="dbl-${idx}">0</span>
@@ -631,7 +632,7 @@ function addRoom() {
         </div>
       </div>
       <div>
-        <p class="beds-type-label" style="margin-bottom:.4rem;">Single / Twin</p>
+        <p class="beds-type-label" style="margin-bottom:.4rem;">${isEN ? 'Single / Twin' : 'Cama de 1 plaza'}</p>
         <div class="beds-row">
           <button type="button" class="counter-btn" onclick="chgCnt('sgl-${idx}',-1)">−</button>
           <span class="counter-val" id="sgl-${idx}">0</span>
