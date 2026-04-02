@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Preguntas Frecuentes · Jami & Franco</title>
+<meta property="og:title" content="Jami &amp; Franco · 28.07.2026">
+<meta property="og:description" content="Springkell House · Dumfries, Scotland">
+<meta property="og:image" content="Social.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="Social.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --paper:  #f8f5ef;
+  --paper2: #f0ebe0;
+  --paper3: #e8e0d0;
+  --ink:    #1c1510;
+  --ink2:   #2e2018;
+  --burg:   #5c0d2a;
+  --gold:   #765f25;
+  --gold2:  #c4a050;
+  --goldA:  rgba(196,160,80,.2);
+  --goldB:  rgba(196,160,80,.38);
+  --muted:  #6a5a42;
+  --muted2: #786848;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background-color: var(--paper);
+  background-image: url('textura.jpg');
+  background-repeat: repeat;
+  background-size: 900px auto;
+  color: var(--ink);
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+body::before {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.65;
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--paper2); }
+::-webkit-scrollbar-thumb { background:var(--burg); }
+
+/* ── LANG ── */
+.lang-toggle { position:fixed; top:1.1rem; right:1.4rem; z-index:500; display:flex; gap:.4rem; }
+.lang-btn { font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.18em; background:var(--paper); border:1px solid var(--burg); color:var(--burg); padding:.28rem .65rem; cursor:pointer; transition:all .3s; }
+.lang-btn.active,.lang-btn:hover { background:var(--burg); color:var(--paper); }
+[data-lang="en"] { display:none; }
+body.en [data-lang="es"] { display:none; }
+body.en [data-lang="en"] { display:unset; }
+.blk-es { display:block; }
+.blk-en { display:none; }
+body.en .blk-es { display:none; }
+body.en .blk-en { display:block; }
+
+/* ── HEADER ── */
+.site-header {
+  background:rgba(248,245,239,.97); border-bottom:1px solid var(--goldA);
+  padding:1.2rem 2rem; padding-top:max(1.2rem, env(safe-area-inset-top)); display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100; backdrop-filter:blur(4px);
+}
+.back-link { font-family:'Cinzel',serif; font-size:.52rem; font-weight:400; letter-spacing:.2em; color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .3s; }
+.back-link:hover { color:var(--burg); font-weight:500; }
+.header-center { text-align:center; }
+.header-title { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300; font-style:italic; color:var(--ink); }
+.header-sub { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; display:block; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+  text-align:center; padding:5rem 2rem 3.5rem;
+  position:relative;
+  background:radial-gradient(ellipse 80% 50% at 50% 100%, rgba(196,160,80,.06) 0%, transparent 70%);
+  border-bottom:1px solid var(--goldA);
+}
+.page-hero::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background-image:url('textura.jpg');
+  background-repeat:repeat; background-size:900px auto;
+  opacity:.55; pointer-events:none;
+}
+.page-hero > * { position:relative; z-index:1; }
+.ph-eyebrow { font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.5em; color:var(--gold2); text-transform:uppercase; margin-bottom:1rem; }
+.ph-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,4.8rem); font-weight:300; font-style:italic; color:var(--ink); line-height:.95; margin-bottom:1rem; }
+.ph-rule { display:flex; align-items:center; gap:.9rem; justify-content:center; margin:1.2rem auto; }
+.ph-line { width:60px; height:1px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.ph-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.ph-sym { color:var(--gold2); font-size:.8rem; opacity:.8; }
+.ph-sub { font-family:'Cinzel',serif; font-size:.82rem; letter-spacing:.06em; color:var(--muted); max-width:480px; margin:0 auto; line-height:1.9; }
+
+/* ── CONTENT ── */
+.content { max-width:780px; margin:0 auto; padding:4rem 2rem 7rem; }
+
+/* ── FAQ ITEM ── */
+.faq-item {
+  border-bottom:1px solid rgba(92,13,42,.1);
+  overflow:hidden;
+}
+.faq-item:first-child { border-top:1px solid rgba(92,13,42,.1); }
+
+.faq-q {
+  width:100%; background:none; border:none; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:1.6rem 0; gap:1.5rem; text-align:left;
+  transition:color .25s;
+}
+.faq-q:hover .faq-q-text { color:var(--burg); }
+
+.faq-q-text {
+  font-family:'Cinzel',serif; font-size:.82rem; letter-spacing:.08em;
+  color:var(--ink2); line-height:1.7; transition:color .25s;
+}
+
+.faq-icon {
+  font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:300;
+  color:var(--gold2); flex-shrink:0; transition:transform .3s;
+  width:1.2rem; text-align:center;
+}
+.faq-item.open .faq-icon { transform:rotate(45deg); }
+
+.faq-a {
+  max-height:0; overflow:hidden;
+  transition:max-height .4s ease, padding .3s ease;
+  padding:0 0 0 0;
+}
+.faq-item.open .faq-a {
+  max-height:600px;
+  padding-bottom:1.8rem;
+}
+
+.faq-a-inner {
+  font-family:'EB Garamond',serif; font-size:1rem; letter-spacing:0;
+  color:var(--muted); line-height:1.68; padding-right:2.5rem;
+}
+.faq-a-inner a { color:var(--burg); text-decoration:none; }
+.faq-a-inner a:hover { text-decoration:underline; }
+.faq-a-inner strong { color:var(--ink); font-weight:700; }
+
+/* Gold accent left border when open */
+.faq-item.open { border-color:rgba(196,160,80,.3); }
+.faq-item.open .faq-q-text { color:var(--burg); }
+
+/* ── QR BOX (WhatsApp) ── */
+.qr-box {
+  background:var(--paper2); border:1px solid rgba(196,160,80,.22);
+  padding:2.2rem; text-align:center; margin:2rem 0 0; position:relative;
+  border-radius:0;
+}
+.qr-box::before {
+  content:'✦'; position:absolute; top:-.78rem; left:50%; transform:translateX(-50%);
+  width:1.55rem; height:1.55rem; border-radius:50%;
+  background:var(--paper); color:var(--gold2); font-size:.8rem;
+  display:flex; align-items:center; justify-content:center;
+  padding:0;
+}
+.qr-title { font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; margin-bottom:.4rem; }
+.qr-sub { font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.07em; color:var(--muted); margin-bottom:1.4rem; line-height:1.8; }
+.qr-num { display:none; } /* hidden, number already in text above */
+.qr-wrap { display:inline-block; padding:.7rem; background:white; border:1px solid var(--goldA); }
+.qr-wa-link {
+  display:inline-block; margin-top:1.2rem;
+  font-family:'Cinzel',serif; font-size:.54rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--burg); background:transparent; border:1px solid rgba(92,13,42,.4);
+  padding:.6rem 1.4rem; text-decoration:none; transition:all .3s;
+}
+.qr-wa-link:hover { background:var(--burg); color:var(--paper); border-color:var(--burg); }
+
+/* ── FOOTER ── */
+.page-footer {
+  text-align:center; padding:3.5rem 2rem 6rem;
+  border-top:1px solid rgba(196,160,80,.16);
+  background:linear-gradient(to top,var(--paper3),transparent);
+}
+.pf-names { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; font-style:italic; color:var(--ink); }
+.pf-back { font-family:'Cinzel',serif; font-size:.74rem; letter-spacing:.18em; color:var(--muted); text-decoration:none; text-transform:uppercase; border:1px solid var(--goldA); padding:.52rem 1.2rem; display:inline-block; margin-top:1.5rem; transition:all .3s; }
+.pf-back:hover { border-color:var(--goldB); color:var(--burg); }
+.pf-orn { display:flex; align-items:center; gap:1.1rem; justify-content:center; margin-bottom:1.8rem; }
+.pf-line { height:1px; width:70px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.pf-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.pf-sym { color:var(--gold2); font-size:.85rem; opacity:.65; }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+
+@media(max-width:600px){
+  .content { padding:3rem 1.2rem 6rem; }
+  .faq-q-text { font-size:.76rem; }
+  .faq-a-inner { font-size:.95rem; padding-right:1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="lang-toggle" role="group" aria-label="Idioma / Language">
+  <button class="lang-btn active" onclick="setLang('es')" aria-label="Ver en español" aria-pressed="true">ES</button>
+  <button class="lang-btn" onclick="setLang('en')" aria-label="View in English" aria-pressed="false">EN</button>
+</div>
+
+<header class="site-header">
+  <a class="back-link" href="index.html">← <span data-lang="es">Volver</span><span data-lang="en">Back</span></a>
+  <div class="header-center">
+    <p class="header-title">Jami & Franco</p>
+    <span class="header-sub"><span data-lang="es">Preguntas Frecuentes</span><span data-lang="en">Frequently Asked Questions</span></span>
+  </div>
+  <div style="width:80px"></div>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="ph-eyebrow"><span data-lang="es">Todo lo que necesitas saber</span><span data-lang="en">Everything you need to know</span></p>
+  <h1 class="ph-title">FAQ</h1>
+  <div class="ph-rule"><div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div></div>
+  <p class="ph-sub">
+    <span data-lang="es">Si tienes alguna pregunta que no está aquí, escríbele a Beth, nuestra wedding planner.</span>
+    <span data-lang="en">If you have a question that isn't answered here, please reach out to Beth, our wedding planner.</span>
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- ── FAQ LIST ── -->
+  <div id="faq-list">
+
+    <!-- 1 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Cuándo es la fecha límite para confirmar asistencia?</span><span data-lang="en">When is the RSVP deadline?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">Por favor confirma tu asistencia antes del <strong>1 de abril de 2026</strong> para que podamos tener un conteo preciso de invitados. ¡Gracias! 🖤</span>
+        <span data-lang="en">Please RSVP by <strong>April 1st, 2026</strong>, so we can have an accurate headcount. Thank you! 🖤</span>
+      </div></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Puedo llevar acompañante?</span><span data-lang="en">Can I bring a date?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">Las invitaciones son personales y los lugares son limitados. Si tienes una situación especial, conversemos con anticipación y vemos qué podemos hacer. 🖤</span>
+        <span data-lang="en">Invitations are personal and space is limited. If you have a special situation, let's have a conversation and we'll see what we can do. 🖤</span>
+      </div></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Los niños están invitados?</span><span data-lang="en">Are children welcome?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">Nuestra boda es un evento solo para adultos. Esperamos que esto les dé la oportunidad de disfrutar la noche con total libertad. 🥂</span>
+        <span data-lang="en">Our wedding is an adults-only event. We hope this gives everyone the chance to enjoy the evening freely. 🥂</span>
+      </div></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Cómo será el clima?</span><span data-lang="en">What will the weather be like?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">Es una boda de verano y esperamos un día precioso, pero esto es el Reino Unido, así que todo puede pasar. <strong>Lleva siempre un impermeable o capa ligera</strong>. Si quieres saber más sobre el clima en Escocia en julio, visita nuestra <a href="travel-guide.html#clima">Guía de Viaje</a>.</span>
+        <span data-lang="en">It's a Summer wedding and we're hoping for beautiful sunny weather, but this is also the UK, so anything can happen. <strong>Be prepared with a raincoat or light layer</strong>. For more detail on Scottish July weather, check our <a href="travel-guide.html#clima">Travel Guide</a>.</span>
+      </div></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Qué debo vestir?</span><span data-lang="en">What should I wear?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">El código de vestimenta es <strong>Formal en tonos oscuros</strong>. Piensa en terciopelo borgoña, negro profundo, azul noche o verde bosque, elegante y sofisticado. Puedes elegir entre vestido largo de color entero o traje oscuro, lo que más te represente. Por favor evitar el blanco, beige e ivori. Consulta la sección de <a href="index.html#dresscode">Dress Code</a> para ver la paleta completa.</span>
+        <span data-lang="en">The dress code is <strong>Formal dark tones</strong>. Think burgundy velvet, deep black, midnight navy or forest green, elegant and sophisticated. You're welcome to choose between a floor-length gown or a dark suit, whatever feels most like you. Please avoid white, beige and ivory. See the <a href="index.html#dresscode">Dress Code</a> section for the full colour palette.</span>
+      </div></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿La boda es en interior o al aire libre?</span><span data-lang="en">Is the wedding indoors or outdoors?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">La <strong>ceremonia es al aire libre</strong>, en los jardines de Springkell Estate. La <strong>recepción es en interior</strong>. Recomendamos llevar zapatos cómodos para caminar sobre césped y un abrigo ligero para la ceremonia.</span>
+        <span data-lang="en">Our <strong>ceremony is outdoors</strong>, in the grounds of Springkell Estate. The <strong>reception is indoors</strong>. We recommend comfortable shoes for the grass and a light layer for the ceremony.</span>
+      </div></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Puedo tomar fotos durante la boda?</span><span data-lang="en">Is it okay to take pictures during the wedding?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">¡Sí! Nos encantaría que tomaras fotos y las compartieras con nosotros, habrá un QR disponible el día de la boda para que puedas subir tus fotos fácilmente. <strong>Durante la ceremonia, por favor guarda el teléfono</strong> para que podamos vivir ese momento juntos. 📸</span>
+        <span data-lang="en">Yes! We'd love for you to take photos and share them with us, there will be a QR code available on the day for you to upload your photos easily. <strong>During the ceremony, please keep your phone away</strong> so we can all be present together. 📸</span>
+      </div></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿A quién puedo contactar si tengo preguntas?</span><span data-lang="en">Whom should I contact with questions?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <div class="blk-es">
+          <p>Nuestra wedding planner <strong>Beth</strong> estará disponible a partir de <strong>6 semanas antes de la boda</strong> para responder cualquier duda. Puedes escribirle por WhatsApp al <strong>+44 07518 496004</strong>.</p>
+        </div>
+        <div class="blk-en">
+          <p>Our wedding planner <strong>Beth</strong> will be available from <strong>6 weeks before the wedding date</strong> to answer any questions. You can reach her on WhatsApp at <strong>+44 07518 496004</strong>.</p>
+        </div>
+        <div class="qr-box" style="margin-top:1.5rem;">
+          <p class="qr-title"><span data-lang="es">Escríbele a Beth</span><span data-lang="en">Message Beth</span></p>
+          <p class="qr-sub"><span data-lang="es">Escanea para abrir WhatsApp directamente</span><span data-lang="en">Scan to open WhatsApp directly</span></p>
+          <div class="qr-wrap"><div id="qr-beth"></div></div><br>
+          <a class="qr-wa-link" href="https://wa.me/4407518496004" target="_blank">
+            <span data-lang="es">Abrir WhatsApp →</span>
+            <span data-lang="en">Open WhatsApp →</span>
+          </a>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Habrá transmisión en vivo de la ceremonia?</span><span data-lang="en">Will you live stream the ceremony?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">¡Sí! Para quienes no puedan estar con nosotros en persona, habrá transmisión en vivo. Puedes verla directamente en nuestra <a href="livestream.html">página de Livestream</a>. 🖤</span>
+        <span data-lang="en">Yes! For those who can't be with us in person, there will be a live stream. You can watch it directly on our <a href="livestream.html">Livestream page</a>. 🖤</span>
+      </div></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Habrá transporte desde y hacia la estación de tren?</span><span data-lang="en">Will there be transport to and from the train station?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">¡Sí! Organizaremos transporte entre la estación de Lockerbie y Springkell para que el viaje sea más fácil. Más detalles y horarios se comunicarán próximamente. 🚌</span>
+        <span data-lang="en">Yes! We'll be organising transport between Lockerbie station and Springkell to make your journey easier. More details and timings coming soon. 🚌</span>
+      </div></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Puedo llevar bebidas alcohólicas al venue?</span><span data-lang="en">Can I bring alcohol to the venue?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es"><strong>No</strong>, Springkell no permite ingresar bebidas alcohólicas externas al venue. Todo el alcohol de la celebración estará incluido durante la boda. 🥂</span>
+        <span data-lang="en"><strong>No</strong>, Springkell does not allow guests to bring outside alcohol onto the property. All drinks during the celebration will be provided as part of the wedding. 🥂</span>
+      </div></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        <span class="faq-q-text"><span data-lang="es">¿Tienen lista de regalos?</span><span data-lang="en">Is there a gift registry?</span></span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">
+        <span data-lang="es">Tu presencia ya es el mejor regalo para nosotros. Pero si deseas hacernos un obsequio, en la sección de <a href="index.html#regalos">Regalos</a> encontrarás la forma de enviarnos un regalo en efectivo. ¡Gracias desde el corazón! 🖤</span>
+        <span data-lang="en">Your presence is more than enough for us. But if you'd like to leave us a gift, head to our <a href="index.html#regalos">Gifts</a> section, where there's a link to send us a cash gift. Thank you so much! 🖤</span>
+      </div></div>
+    </div>
+
+  </div><!-- end #faq-list -->
+
+</div><!-- end .content -->
+
+<footer class="page-footer">
+  <div class="pf-orn"><div class="pf-line"></div><span class="pf-sym">✦ ❧ ✦</span><div class="pf-line rv"></div></div>
+  <p class="pf-names">Jami & Franco · 28.07.2026</p>
+  <a class="pf-back" href="index.html">← <span data-lang="es">Volver a la página principal</span><span data-lang="en">Back to main page</span></a>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='es')||(i===1&&l==='en')));
+  try { localStorage.setItem('jf-lang', l); } catch(e) {}
+}
+const _urlLang = new URLSearchParams(window.location.search).get('lang');
+if (_urlLang === 'en') { setLang('en'); }
+else { try { const s=localStorage.getItem('jf-lang'); if(s==='en') setLang('en'); } catch(e) {} }
+
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  // Open clicked if it was closed
+  if (!wasOpen) item.classList.add('open');
+}
+
+// Generate QR for Beth WhatsApp
+window.addEventListener('load', function(){
+  try {
+    new QRCode(document.getElementById('qr-beth'), {
+      text: 'https://wa.me/4407518496004',
+      width: 130,
+      height: 130,
+      colorDark: '#1c1510',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch(e) { console.log('QR error', e); }
+});
+</script>
+</body>
+</html>
