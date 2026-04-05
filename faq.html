@@ -325,16 +325,17 @@ body.en .blk-en { display:block; }
           <p>Puedes escribirle a nuestra dama de honor <strong>María Pía Mosquera</strong> por WhatsApp al <strong>+51 947 610 026</strong>.</p>
         </div>
         <div class="blk-en">
-          <p>You can reach our maid of honour <strong>María Pía Mosquera</strong> on WhatsApp at <strong>+51 947 610 026</strong>.</p>
+          <p>You can reach our maid of honour <strong>Kath Vega</strong> on WhatsApp at <strong>+39 352 071 0261</strong>.</p>
         </div>
         <div class="qr-box" style="margin-top:1.5rem;">
-          <p class="qr-title"><span data-lang="es">Escríbele a María Pía</span><span data-lang="en">Message María Pía</span></p>
+          <p class="qr-title"><span data-lang="es">Escríbele a María Pía</span><span data-lang="en">Message Kath</span></p>
           <p class="qr-sub"><span data-lang="es">Escanea para abrir WhatsApp directamente</span><span data-lang="en">Scan to open WhatsApp directly</span></p>
-          <div class="qr-wrap"><div id="qr-mariapia"></div></div><br>
-          <a class="qr-wa-link" href="https://wa.me/51947610026" target="_blank">
-            <span data-lang="es">Abrir WhatsApp →</span>
-            <span data-lang="en">Open WhatsApp →</span>
-          </a>
+          <div class="qr-wrap">
+            <div id="qr-mariapia" class="blk-es"></div>
+            <div id="qr-kath" class="blk-en"></div>
+          </div><br>
+          <a class="qr-wa-link blk-es" href="https://wa.me/51947610026" target="_blank">Abrir WhatsApp →</a>
+          <a class="qr-wa-link blk-en" href="https://wa.me/393520710261" target="_blank">Open WhatsApp →</a>
         </div>
       </div></div>
     </div>
@@ -416,15 +417,19 @@ function toggle(btn) {
   if (!wasOpen) item.classList.add('open');
 }
 
-// Generate QR for María Pía WhatsApp
+// Generate QR codes for WhatsApp contacts
 window.addEventListener('load', function(){
   try {
     new QRCode(document.getElementById('qr-mariapia'), {
       text: 'https://wa.me/51947610026',
-      width: 130,
-      height: 130,
-      colorDark: '#1c1510',
-      colorLight: '#ffffff',
+      width: 130, height: 130,
+      colorDark: '#1c1510', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+    new QRCode(document.getElementById('qr-kath'), {
+      text: 'https://wa.me/393520710261',
+      width: 130, height: 130,
+      colorDark: '#1c1510', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M
     });
   } catch(e) { console.log('QR error', e); }
