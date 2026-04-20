@@ -817,7 +817,7 @@ body.en [data-lang="en"] { display:unset; }
   <div class="nav-links" id="nav-links">
     <a href="#dresscode" onclick="closeNav()">Dress Code</a>
     <a href="#alojamiento" onclick="closeNav()"><span data-lang="es">Alojamiento</span><span data-lang="en">Stay</span></a>
-    <a href="travel-guide.html"><span data-lang="es">Viaje</span><span data-lang="en">Travel</span></a>
+    <a href="travel-guide.html" data-href-es="travel-guide.html" data-href-en="travel-guide-en.html" class="tg-link"><span data-lang="es">Viaje</span><span data-lang="en">Travel</span></a>
     <a href="#regalos" onclick="closeNav()"><span data-lang="es">Regalos</span><span data-lang="en">Gifts</span></a>
     <a href="faq.html">FAQ</a>
     <a href="fotos.html"><span data-lang="es">Fotos</span><span data-lang="en">Photos</span></a>
@@ -1068,7 +1068,7 @@ body.en [data-lang="en"] { display:unset; }
     <span data-lang="en">ETA, weather, transport, train to Springkell, Edinburgh accommodation and food.</span>
   </p>
   <div style="text-align:center;">
-    <a class="btn-link primary" href="travel-guide.html" style="font-size:.65rem;padding:.85rem 2.8rem;">
+    <a class="btn-link primary tg-link" href="travel-guide.html" data-href-es="travel-guide.html" data-href-en="travel-guide-en.html" style="font-size:.65rem;padding:.85rem 2.8rem;">
       <span data-lang="es">Ver guía completa →</span><span data-lang="en">View full guide →</span>
     </a>
   </div>
@@ -1956,6 +1956,20 @@ function _resetModalTitle(){
     });
   }, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
   els.forEach(el => io.observe(el));
+})();
+</script>
+
+<!-- ── TRAVEL GUIDE LANG REDIRECT ── -->
+<script>
+(function(){
+  function updateTGLinks(){
+    var isEn = document.body.classList.contains('en');
+    document.querySelectorAll('.tg-link').forEach(function(a){
+      a.href = isEn ? a.dataset.hrefEn : a.dataset.hrefEs;
+    });
+  }
+  updateTGLinks();
+  new MutationObserver(updateTGLinks).observe(document.body,{attributes:true,attributeFilter:['class']});
 })();
 </script>
 
