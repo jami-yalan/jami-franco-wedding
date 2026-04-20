@@ -300,6 +300,17 @@ body.en [data-lang="en"]{display:unset;}
       <div class="conditional" id="section2-yes">
 
         <!-- TRANSPORT -->
+        <!-- PARTE DE LA BODA (solo EN) -->
+        <div class="field blk-en" id="f-wedding-part2">
+          <label for="wedding-part2">Which part of the wedding will you be joining?</label>
+          <select id="wedding-part2">
+            <option value="" disabled selected>— Select —</option>
+            <option value="beginning">Beginning (from the start)</option>
+            <option value="ceremony">Ceremony</option>
+            <option value="reception">Reception / Party</option>
+          </select>
+        </div>
+
         <p class="fsec-label"><span data-lang="es">Transporte</span><span data-lang="en">Transport</span></p>
 
         <div class="info-box">
@@ -839,6 +850,7 @@ async function submitReconf() {
     name: selectedPerson.name,
     attendance2: attend2,
     changes: hasChanges,
+    reconf_wedding_part: document.getElementById('wedding-part2')?.value || '',
     reconf_transp_arrival: transportVals.llegada,
     reconf_transp_departure: transportVals.salida,
     reconf_diet: document.getElementById('dieta2')?.value.trim() || '',

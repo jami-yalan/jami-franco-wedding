@@ -311,6 +311,17 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
           <div class="field-err"><span data-lang="es">Por favor selecciona tu fecha de llegada</span><span data-lang="en">Please select your arrival date</span></div>
         </div>
 
+        <!-- PARTE DE LA BODA (solo EN) -->
+        <div class="field blk-en" id="f-wedding-part">
+          <label for="wedding-part">Which part of the wedding will you be joining?</label>
+          <select id="wedding-part">
+            <option value="" disabled selected>— Select —</option>
+            <option value="beginning">Beginning (from the start)</option>
+            <option value="ceremony">Ceremony</option>
+            <option value="reception">Reception / Party</option>
+          </select>
+        </div>
+
         <!-- DIETA -->
         <p class="fsec-label"><span data-lang="es">Alimentación</span><span data-lang="en">Dietary requirements</span></p>
 
@@ -721,6 +732,7 @@ async function submitRSVP() {
     whatsapp: document.getElementById('whatsapp').value.trim(),
     attendance: attendValue,
     uk_arrival: document.getElementById('llegada')?.value || '',
+    wedding_part: document.getElementById('wedding-part')?.value || '',
     diet: document.getElementById('dieta')?.value.trim() || '',
     springkell_accommodation: stayVal,
     rooms: JSON.stringify(collectRooms()),
