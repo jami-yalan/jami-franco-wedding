@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Guide · Jami & Franco</title>
+<meta property="og:title" content="Jami &amp; Franco · 28.07.2026">
+<meta property="og:description" content="Springkell House · Dumfries, Scotland">
+<meta property="og:image" content="Social.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="Social.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:  #f8f5ef;
+  --paper2: #f0ebe0;
+  --paper3: #e8e0d0;
+  --paper4: #ddd3be;
+  --ink:    #1c1510;
+  --ink2:   #2e2018;
+  --burg:   #5c0d2a;
+  --wine:   #7a1535;
+  --gold:   #765f25;
+  --gold2:  #c4a050;
+  --goldA:  rgba(196,160,80,.2);
+  --goldB:  rgba(196,160,80,.38);
+  --burgA:  rgba(92,13,42,.04);
+  --burgB:  rgba(92,13,42,.09);
+  --muted:  #6a5a42;
+  --muted2: #786848;
+  --forest: #1e3326;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background-color: var(--paper);
+  background-image: url('textura.jpg');
+  background-repeat: repeat;
+  background-size: 900px auto;
+  color: var(--ink);
+  font-family: 'EB Garamond', serif;
+  font-size: 16px;
+  line-height: 1.68;
+  overflow-x: hidden;
+}
+body::before {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.62;
+}
+
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--paper2); }
+::-webkit-scrollbar-thumb { background:var(--burg); }
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--paper);
+  border-bottom:1px solid var(--goldA);
+  padding:1.2rem 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+  background:linear-gradient(to bottom, rgba(248,245,239,.98), rgba(248,245,239,.95));
+  backdrop-filter:blur(4px);
+}
+.back-link {
+  font-family:'Cinzel',serif; font-size:.52rem; font-weight:400;
+  letter-spacing:.2em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .3s;
+}
+.back-link:hover { color:var(--burg); font-weight:500; }
+.header-title {
+  font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:300;
+  font-style:italic; color:var(--ink); text-align:center;
+}
+.header-sub {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.3em;
+  color:var(--gold); text-transform:uppercase; display:block; text-align:center;
+}
+
+/* ── PAGE HERO ── */
+.page-hero {
+  text-align:center; padding:5rem 2rem 3.5rem;
+  position:relative;
+  background: radial-gradient(ellipse 80% 50% at 50% 100%, rgba(196,160,80,.06) 0%, transparent 70%);
+  border-bottom:1px solid var(--goldA);
+}
+.page-hero::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background-image:url('textura.jpg');
+  background-repeat:repeat; background-size:900px auto;
+  opacity:.55; pointer-events:none;
+}
+.page-hero > * { position:relative; z-index:1; }
+.ph-eyebrow {
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.5em;
+  color:var(--gold2); text-transform:uppercase; margin-bottom:1rem;
+}
+.ph-title {
+  font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,7vw,5rem);
+  font-weight:300; font-style:italic; color:var(--ink); line-height:.95;
+  margin-bottom:1rem;
+}
+.ph-rule {
+  display:flex; align-items:center; gap:.9rem;
+  justify-content:center; margin:1.2rem auto;
+}
+.ph-line { width:60px; height:1px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.ph-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.ph-sym { color:var(--gold2); font-size:.8rem; opacity:.8; }
+.ph-sub {
+  font-style:italic; color:var(--muted); font-size:.95rem; max-width:500px; margin:0 auto;
+}
+
+/* ── TOC ── */
+.toc {
+  max-width:760px; margin:3rem auto; padding:0 2rem;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.5rem;
+}
+.toc-item {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.2em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase;
+  padding:.6rem .9rem; border:1px solid var(--goldA);
+  background:var(--burgA); transition:all .3s; text-align:center;
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+}
+.toc-item:hover { border-color:rgba(92,13,42,.35); color:var(--burg); background:var(--burgB); }
+
+/* ── CONTENT WRAPPER ── */
+.content {
+  max-width:820px; margin:0 auto; padding:0 2rem 6rem;
+}
+
+/* ── SECTION ── */
+.gsec {
+  padding:4rem 0; border-top:1px solid rgba(92,13,42,.09);
+}
+.gsec:first-child { border-top:none; }
+
+.slabel {
+  font-family:'Cinzel',serif; font-size:.56rem; letter-spacing:.42em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:.35rem;
+}
+.stitle {
+  font-family:'Cormorant Garamond',serif; font-weight:300; font-style:italic;
+  font-size:clamp(2.2rem,5vw,3.2rem); color:var(--ink); line-height:1;
+  margin-bottom:.3rem;
+}
+
+.div {
+  display:flex; align-items:center; gap:.9rem; justify-content:center; margin:1.5rem 0 2.2rem;
+}
+.div-line { width:75px; height:1px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.div-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.div-sym { color:var(--gold2); font-size:.75rem; opacity:.72; }
+
+/* ── HIGHLIGHT BOX ── */
+.hbox {
+  background:linear-gradient(135deg, rgba(196,160,80,.06) 0%, rgba(196,160,80,.09) 100%);
+  border-left:3px solid var(--gold2);
+  padding:1.3rem 1.5rem;
+  margin:1.8rem 0;
+}
+.hbox.burg {
+  background:linear-gradient(135deg, rgba(92,13,42,.04) 0%, rgba(92,13,42,.07) 100%);
+  border-left-color:var(--burg);
+}
+.hbox-title {
+  font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.3em;
+  color:var(--ink); text-transform:uppercase; margin-bottom:.6rem; font-weight:500;
+}
+.hbox-body {
+  color:var(--ink2); line-height:1.65;
+}
+.hbox-body strong { color:var(--ink); font-weight:500; }
+
+/* ── INFO CARDS ── */
+.grid2 {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.2rem; margin:2rem 0;
+}
+.info-card {
+  background:var(--paper); border:1px solid var(--goldA);
+  padding:1.5rem; transition:all .3s;
+}
+.info-card:hover {
+  border-color:rgba(196,160,80,.35); box-shadow:0 3px 12px rgba(92,13,42,.08);
+}
+.info-card-icon {
+  font-size:2rem; display:block; margin-bottom:.8rem;
+}
+.info-card-title {
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--burg); margin-bottom:.6rem;
+}
+.info-card-body {
+  color:var(--ink2); line-height:1.6; font-size:.95rem;
+}
+.info-card-body strong { color:var(--ink); }
+
+/* ── ROUTE STEPS ── */
+.route-steps {
+  display:flex; flex-direction:column; gap:1.5rem; margin:2rem 0;
+}
+.rstep {
+  display:flex; gap:1.2rem; align-items:flex-start;
+}
+.rstep-num {
+  flex-shrink:0; width:42px; height:42px;
+  background:var(--burg); color:var(--paper);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-size:.7rem; font-weight:500;
+}
+.rstep-content {
+  flex:1; padding-top:.3rem;
+}
+.rstep-title {
+  font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--burg); margin-bottom:.4rem;
+}
+.rstep-body {
+  color:var(--ink2); line-height:1.6;
+}
+.rstep-body strong { color:var(--ink); }
+
+/* ── SCHEDULE TABLE ── */
+.sched-table {
+  width:100%; border-collapse:collapse; margin:1.5rem 0;
+  border:1px solid var(--goldA);
+}
+.sched-table thead {
+  background:linear-gradient(to bottom, var(--paper2), var(--paper));
+  border-bottom:2px solid var(--goldB);
+}
+.sched-table th {
+  font-family:'Cinzel',serif; font-size:.54rem; letter-spacing:.25em;
+  text-transform:uppercase; color:var(--burg);
+  padding:.9rem 1rem; text-align:left; font-weight:500;
+}
+.sched-table td {
+  padding:.9rem 1rem; border-top:1px solid var(--goldA);
+  color:var(--ink2); line-height:1.5;
+}
+.sched-table tbody tr:hover {
+  background:rgba(196,160,80,.04);
+}
+.time-col { font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.12em; color:var(--burg); }
+
+/* ── QR BOX ── */
+.qr-box {
+  background:var(--paper); border:1px solid var(--goldA);
+  padding:2rem; margin:2rem 0; text-align:center;
+}
+.qr-title {
+  font-family:'Cinzel',serif; font-size:.68rem; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--burg); margin-bottom:.6rem;
+}
+.qr-sub {
+  color:var(--muted); font-style:italic; margin-bottom:1.5rem; font-size:.92rem;
+}
+.qr-link {
+  display:inline-block; font-family:'Cinzel',serif; font-size:.54rem;
+  letter-spacing:.2em; color:var(--burg); text-decoration:none;
+  border-bottom:1px solid transparent; transition:border-color .3s;
+}
+.qr-link:hover { border-bottom-color:var(--burg); }
+
+/* ── FOOTER ── */
+.page-footer {
+  background:linear-gradient(to top, var(--paper2), var(--paper));
+  border-top:1px solid var(--goldA); padding:3.5rem 2rem 2.5rem;
+  text-align:center;
+}
+.pf-names {
+  font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:300;
+  font-style:italic; color:var(--ink); margin-bottom:1.2rem;
+}
+.pf-back {
+  font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.22em;
+  color:var(--muted); text-decoration:none; text-transform:uppercase;
+  display:inline-block; transition:color .3s;
+}
+.pf-back:hover { color:var(--burg); }
+
+@media (max-width: 640px) {
+  .site-header { flex-direction:column; gap:.8rem; text-align:center; }
+  .back-link { order:2; }
+  .toc { grid-template-columns:1fr; }
+  .grid2 { grid-template-columns:1fr; }
+  .rstep { flex-direction:column; gap:.8rem; }
+  .rstep-num { margin:0 auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="back-link" href="index.html">← Back</a>
+  <div class="header-title">
+    Jami & Franco
+    <span class="header-sub">28 · July · 2026</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="page-hero">
+  <p class="ph-eyebrow">Getting There</p>
+  <h1 class="ph-title">Travel Guide</h1>
+  <div class="ph-rule">
+    <div class="ph-line"></div>
+    <span class="ph-sym">✦</span>
+    <div class="ph-line rv"></div>
+  </div>
+  <p class="ph-sub">How to get from London to Springkell House</p>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <a class="toc-item" href="#journey">🚂 Your Journey</a>
+  <a class="toc-item" href="#schedule">⏰ Schedule</a>
+  <a class="toc-item" href="#transport">🚕 Local Transport</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ═══ THE JOURNEY ═══ -->
+  <section class="gsec" id="journey">
+    <p class="slabel">From London</p>
+    <h2 class="stitle">Getting to Springkell</h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <p style="color:var(--muted);margin-bottom:2.5rem;font-size:.95rem;">
+      Springkell House is located in Dumfries & Galloway, Scotland. Choose your preferred route from London.
+    </p>
+
+    <!-- Journey Options Cards -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem;margin-bottom:3rem;">
+      
+      <!-- OPTION 1: BY AIR -->
+      <div style="background:linear-gradient(135deg, rgba(92,13,42,.03) 0%, rgba(92,13,42,.06) 100%);border:2px solid var(--goldA);padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle, rgba(196,160,80,.08), transparent);border-radius:50%;"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;">
+            <span style="font-size:2.2rem;">✈️</span>
+            <div>
+              <p style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--burg);margin:0;">Option 1</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;font-weight:300;color:var(--ink);margin:0;">By Air</p>
+            </div>
+          </div>
+          
+          <div style="background:white;border-left:3px solid var(--burg);padding:1rem 1.2rem;margin-bottom:1.2rem;">
+            <p style="font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Total Time</p>
+            <p style="font-size:1.8rem;font-weight:300;color:var(--burg);margin:0;">~3 hours</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--burg);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">1</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">London → Edinburgh</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Flight (1hr 20min) from Heathrow, Gatwick, Stansted or London City</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--burg);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">2</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">Edinburgh → Lockerbie</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Train (1hr 15min) via ScotRail</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--burg);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">3</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">Lockerbie → Springkell</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Bus (15min) or taxi</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OPTION 2: BY TRAIN -->
+      <div style="background:linear-gradient(135deg, rgba(118,95,37,.03) 0%, rgba(118,95,37,.06) 100%);border:2px solid var(--goldA);padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle, rgba(92,13,42,.08), transparent);border-radius:50%;"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;">
+            <span style="font-size:2.2rem;">🚂</span>
+            <div>
+              <p style="font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin:0;">Option 2</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;font-weight:300;color:var(--ink);margin:0;">By Train</p>
+            </div>
+          </div>
+          
+          <div style="background:white;border-left:3px solid var(--gold);padding:1rem 1.2rem;margin-bottom:1.2rem;">
+            <p style="font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Total Time</p>
+            <p style="font-size:1.8rem;font-weight:300;color:var(--gold);margin:0;">~4 hours</p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">1</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">London Euston → Carlisle</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Direct train (3hr 30min) via Avanti West Coast</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">2</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">Carlisle → Lockerbie</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Train (20min) via TransPennine Express</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:.8rem;">
+              <div style="flex-shrink:0;width:28px;height:28px;background:var(--gold);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;">3</div>
+              <div>
+                <p style="font-weight:500;color:var(--ink);margin:0 0 .3rem;">Lockerbie → Springkell</p>
+                <p style="font-size:.9rem;color:var(--muted);line-height:1.5;margin:0;">Bus (15min) or taxi</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:rgba(196,160,80,.08);padding:.8rem 1rem;margin-top:1.2rem;border-radius:4px;">
+            <p style="font-size:.85rem;color:var(--ink2);line-height:1.5;margin:0;"><strong>💡 Tip:</strong> Book train tickets in advance for the best prices. The scenic route through the English countryside is beautiful!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Last Leg Section -->
+    <div style="background:var(--paper);border:2px solid var(--burg);padding:2.5rem;margin-bottom:3rem;">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <p style="font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;">Final Step</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-style:italic;font-weight:300;color:var(--ink);margin:0;">Lockerbie → Springkell</h3>
+        <div style="display:flex;align-items:center;gap:.7rem;justify-content:center;margin-top:1rem;">
+          <div style="width:50px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));"></div>
+          <span style="color:var(--gold2);font-size:.7rem;">✦</span>
+          <div style="width:50px;height:1px;background:linear-gradient(to left,transparent,var(--goldB));"></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+        
+        <!-- Bus Option -->
+        <div style="background:linear-gradient(to bottom, white, rgba(248,245,239,.5));border:1px solid var(--goldA);padding:1.5rem;">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;">
+            <span style="font-size:1.8rem;">🚌</span>
+            <p style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--burg);margin:0;">Local Bus</p>
+          </div>
+          <p style="font-size:.9rem;color:var(--ink2);line-height:1.6;margin-bottom:1rem;">
+            Bus route <strong>382</strong> to Eaglesfield (nearest stop)<br>
+            <span style="color:var(--muted);">Journey: ~15 minutes</span>
+          </p>
+          <a href="#bus-schedule" style="font-size:.85rem;color:var(--burg);font-weight:500;background:rgba(92,13,42,.08);padding:.7rem;border-radius:3px;margin:0;text-decoration:none;display:block;text-align:center;transition:all .3s;">
+            View bus timetable →
+          </a>
+        </div>
+
+        <!-- Taxi Option -->
+        <div style="background:linear-gradient(to bottom, white, rgba(248,245,239,.5));border:1px solid var(--goldA);padding:1.5rem;">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;">
+            <span style="font-size:1.8rem;">🚕</span>
+            <p style="font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--burg);margin:0;">Private Taxi</p>
+          </div>
+          <p style="font-size:.9rem;color:var(--ink2);line-height:1.6;margin-bottom:1rem;">
+            Book with <a href="https://www.lockerbietaxis.com/" target="_blank" style="color:var(--burg);text-decoration:underline;font-weight:500;">Lockerbie Taxis</a><br>
+            <span style="color:var(--muted);">Direct to Springkell House</span>
+          </p>
+          <div style="background:rgba(92,13,42,.06);padding:.7rem;border-radius:3px;">
+            <p style="font-size:.85rem;color:var(--ink);margin:0;"><strong>⚠️ Book in advance</strong></p>
+            <p style="font-size:.82rem;color:var(--muted);margin:.3rem 0 0;line-height:1.4;">Especially for your return journey. Rural area with limited availability.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Train Booking Info -->
+    <div class="qr-box">
+      <p class="qr-title">Book Your Train Tickets</p>
+      <p class="qr-sub">
+        Use Trainline or National Rail to book all your train connections in one go. Book in advance for the best prices.
+      </p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;width:100%;max-width:350px;">
+          <a href="https://www.thetrainline.com/" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:white;border:1px solid var(--goldA);text-decoration:none;transition:all .3s;">
+            <span style="font-size:2rem;">🚂</span>
+            <span style="font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.18em;color:var(--burg);text-transform:uppercase;">Trainline</span>
+          </a>
+          <a href="https://www.nationalrail.co.uk/" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1rem;background:white;border:1px solid var(--goldA);text-decoration:none;transition:all .3s;">
+            <span style="font-size:2rem;">🎫</span>
+            <span style="font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.18em;color:var(--burg);text-transform:uppercase;">National Rail</span>
+          </a>
+        </div>
+        <p style="font-size:.85rem;color:var(--muted);font-style:italic;text-align:center;max-width:400px;margin:0;">
+          Both platforms let you book London → Carlisle → Lockerbie in a single booking
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WEDDING SCHEDULE ═══ -->
+  <section class="gsec" id="schedule">
+    <p class="slabel">28 July 2026</p>
+    <h2 class="stitle">Wedding Day Schedule</h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <p style="color:var(--muted);margin-bottom:2rem;font-size:.95rem;">
+      Most of our Peruvian guests are staying at Springkell from the 27th to the 29th. You're more than welcome to join us for the full experience! However, if you prefer a quicker visit (it's a Monday, after all), here's a rough schedule:
+    </p>
+
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time-col">2:00 PM</td>
+          <td>Venue opens</td>
+        </tr>
+        <tr>
+          <td class="time-col">9:00 PM</td>
+          <td><strong>Ceremony</strong></td>
+        </tr>
+        <tr>
+          <td class="time-col">11:00 PM</td>
+          <td><strong>Party starts</strong></td>
+        </tr>
+        <tr>
+          <td class="time-col">3:00 AM</td>
+          <td>Party ends</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hbox">
+      <p class="hbox-title">💡 Flexible Attendance</p>
+      <p class="hbox-body">
+        Feel free to come for whichever part works best for you! Whether you want to join us from 2pm, arrive just for the ceremony at 9pm, or pop in for the party at 11pm – you're welcome whenever suits you.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ LOCAL TRANSPORT ═══ -->
+  <section class="gsec" id="transport">
+    <p class="slabel">Lockerbie → Springkell</p>
+    <h2 class="stitle">Local Transport Options</h2>
+    <div class="div"><div class="div-line"></div><span class="div-sym">✦</span><div class="div-line rv"></div></div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:1.8rem;color:var(--ink);margin:0 0 1.2rem;" id="bus-schedule">
+      Bus Schedule
+    </h3>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:.92rem;">
+      Local bus service from Lockerbie to Eaglesfield (nearest stop to Springkell). Journey time: approx. 15 minutes.
+    </p>
+
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th>From Lockerbie</th>
+          <th>To Springkell Area</th>
+          <th>Days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time-col">07:12</td>
+          <td>07:27</td>
+          <td>Monday – Friday</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:12</td>
+          <td>08:27</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">09:57</td>
+          <td>10:12</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">12:57</td>
+          <td>13:12</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">14:57</td>
+          <td>15:12</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">17:12</td>
+          <td>17:27</td>
+          <td>Monday – Friday</td>
+        </tr>
+        <tr>
+          <td class="time-col">18:27</td>
+          <td>18:42</td>
+          <td>Monday – Friday</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-style:italic;font-size:1.8rem;color:var(--ink);margin:2.5rem 0 1.2rem;">
+      Return Journey
+    </h3>
+    <table class="sched-table">
+      <thead>
+        <tr>
+          <th>From Springkell Area</th>
+          <th>To Lockerbie</th>
+          <th>Days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="time-col">07:31</td>
+          <td>07:45</td>
+          <td>Monday – Friday</td>
+        </tr>
+        <tr>
+          <td class="time-col">08:31</td>
+          <td>08:45</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">10:16</td>
+          <td>10:30</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">13:16</td>
+          <td>13:30</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">15:16</td>
+          <td>15:30</td>
+          <td>Monday – Saturday</td>
+        </tr>
+        <tr>
+          <td class="time-col">17:31</td>
+          <td>17:45</td>
+          <td>Monday – Friday</td>
+        </tr>
+        <tr>
+          <td class="time-col">18:46</td>
+          <td>19:00</td>
+          <td>Monday – Friday</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="hbox burg" style="margin-top:2rem;">
+      <p class="hbox-title">🚕 Taxi Option</p>
+      <p class="hbox-body">
+        If the bus times don't work for you, we recommend booking a taxi with <strong><a href="https://www.lockerbietaxis.com/" target="_blank" style="color:var(--burg);text-decoration:underline;">Lockerbie Taxis</a></strong>. Book in advance, especially for your return journey, as availability can be limited in this rural area. Consider sharing with other guests if you're not staying overnight.
+      </p>
+    </div>
+
+  </section>
+
+</div><!-- end .content -->
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div style="display:flex;align-items:center;gap:1.1rem;justify-content:center;margin-bottom:1.8rem;">
+    <div class="f-line" style="height:1px;width:75px;background:linear-gradient(to right,transparent,rgba(196,160,80,.38));"></div>
+    <span style="color:var(--gold2);font-size:.85rem;opacity:.68;">✦ ❧ ✦</span>
+    <div style="height:1px;width:75px;background:linear-gradient(to left,transparent,rgba(196,160,80,.38));"></div>
+  </div>
+  <p class="pf-names">Jami & Franco · 28.07.2026</p>
+  <a class="pf-back" href="index.html">
+    ← Back to main page
+  </a>
+</footer>
+
+<script>
+// No additional scripts needed
+</script>
+</body>
+</html>
