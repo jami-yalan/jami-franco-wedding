@@ -346,6 +346,60 @@ body.en [data-lang="en"]{display:unset;}
           <div class="field-hint"><span data-lang="es">Los horarios exactos se confirmarán más adelante.</span><span data-lang="en">Exact times will be confirmed closer to the date.</span></div>
         </div>
 
+        <!-- MENÚ -->
+        <p class="fsec-label"><span data-lang="es">Confirma tu selección de menú</span><span data-lang="en">Confirm your menu selection</span></p>
+
+        <div class="field blk-es">
+          <label for="reconf-starter-es">Entrante <span class="req">*</span></label>
+          <select id="reconf-starter-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="prawns-es">Tian de langostinos de Groenlandia con aguacate picante y aderezo frío de gazpacho</option>
+            <option value="salmon-es">Gravadlax de salmón curado en gin tonic con mayonesa coral y tostadas melba</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="reconf-starter-en">Starter <span class="req">*</span></label>
+          <select id="reconf-starter-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="prawns-en">Tian of Greenland prawns with spicy avocado and chilled Gazpacho dressing</option>
+            <option value="salmon-en">Gin and tonic cured salmon gravadlax with coral mayonnaise and melba toast</option>
+          </select>
+        </div>
+
+        <div class="field blk-es">
+          <label for="reconf-main-es">Plato principal <span class="req">*</span></label>
+          <select id="reconf-main-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="beef-es">Ternera local estofada a fuego lento con puré cremoso de patatas y vino tinto</option>
+            <option value="cod-es">Lomo de bacalao al horno con costra de hierbas, puré de azafrán y crema de estragón</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="reconf-main-en">Main course <span class="req">*</span></label>
+          <select id="reconf-main-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="beef-en">Slow-cooked locally-sourced feather beef with creamed potatoes and red wine</option>
+            <option value="cod-en">Herb crust baked cod loin with saffron mash and tarragon cream</option>
+          </select>
+        </div>
+
+        <div class="field blk-es">
+          <label for="reconf-dessert-es">Postre <span class="req">*</span></label>
+          <select id="reconf-dessert-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="toffee-es">Sticky toffee pudding con helado de vainilla</option>
+            <option value="trio-es">Trío de postres: tarta de queso con fresas, tarta de limón y brownie de chocolate</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="reconf-dessert-en">Dessert <span class="req">*</span></label>
+          <select id="reconf-dessert-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="toffee-en">Sticky toffee pudding with vanilla bean ice cream</option>
+            <option value="trio-en">Dessert trio: Strawberry cheesecake, lemon tart and chocolate brownie</option>
+          </select>
+        </div>
+
         <div class="field">
           <label for="dieta2"><span data-lang="es">¿Algún cambio en tu dieta desde el RSVP?</span><span data-lang="en">Any dietary changes since your RSVP?</span></label>
           <input type="text" id="dieta2" placeholder="Ej. ahora soy vegano / sin cambios…">
@@ -851,6 +905,9 @@ async function submitReconf() {
     attendance2: attend2,
     changes: hasChanges,
     reconf_wedding_part: document.getElementById('wedding-part2')?.value || '',
+    reconf_menu_starter: (document.body.classList.contains('en') ? document.getElementById('reconf-starter-en') : document.getElementById('reconf-starter-es'))?.value || '',
+    reconf_menu_main: (document.body.classList.contains('en') ? document.getElementById('reconf-main-en') : document.getElementById('reconf-main-es'))?.value || '',
+    reconf_menu_dessert: (document.body.classList.contains('en') ? document.getElementById('reconf-dessert-en') : document.getElementById('reconf-dessert-es'))?.value || '',
     reconf_transp_arrival: transportVals.llegada,
     reconf_transp_departure: transportVals.salida,
     reconf_diet: document.getElementById('dieta2')?.value.trim() || '',

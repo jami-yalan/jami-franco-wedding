@@ -198,8 +198,8 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
   <h1 class="ph-title">RSVP</h1>
   <div class="ph-rule"><div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div></div>
   <p class="ph-sub">
-    <span data-lang="es">Por favor completa este formulario antes del <strong>27 de abril de 2026</strong>. Nos ayuda muchísimo para organizar todo con amor. 🖤</span>
-    <span data-lang="en">Please complete this form before <strong>April 27th, 2026</strong>. It helps us enormously to organise everything with care. 🖤</span>
+    <span data-lang="es">Por favor completa este formulario antes del <strong>15 de mayo de 2026</strong>. Nos ayuda muchísimo para organizar todo con amor. 🖤</span>
+    <span data-lang="en">Please complete this form before <strong>May 15th, 2026</strong>. It helps us enormously to organise everything with care. 🖤</span>
   </p>
 </div>
 
@@ -319,6 +319,60 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
             <option value="beginning">Beginning (from the start)</option>
             <option value="ceremony">Ceremony</option>
             <option value="reception">Reception / Party</option>
+          </select>
+        </div>
+
+        <!-- MENÚ -->
+        <p class="fsec-label"><span data-lang="es">Selección de menú</span><span data-lang="en">Menu selection</span></p>
+
+        <div class="field blk-es">
+          <label for="menu-starter-es">Entrante <span class="req">*</span></label>
+          <select id="menu-starter-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="prawns-es">Tian de langostinos de Groenlandia con aguacate picante y aderezo frío de gazpacho</option>
+            <option value="salmon-es">Gravadlax de salmón curado en gin tonic con mayonesa coral y tostadas melba</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="menu-starter-en">Starter <span class="req">*</span></label>
+          <select id="menu-starter-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="prawns-en">Tian of Greenland prawns with spicy avocado and chilled Gazpacho dressing</option>
+            <option value="salmon-en">Gin and tonic cured salmon gravadlax with coral mayonnaise and melba toast</option>
+          </select>
+        </div>
+
+        <div class="field blk-es">
+          <label for="menu-main-es">Plato principal <span class="req">*</span></label>
+          <select id="menu-main-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="beef-es">Ternera local estofada a fuego lento con puré cremoso de patatas y vino tinto</option>
+            <option value="cod-es">Lomo de bacalao al horno con costra de hierbas, puré de azafrán y crema de estragón</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="menu-main-en">Main course <span class="req">*</span></label>
+          <select id="menu-main-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="beef-en">Slow-cooked locally-sourced feather beef with creamed potatoes and red wine</option>
+            <option value="cod-en">Herb crust baked cod loin with saffron mash and tarragon cream</option>
+          </select>
+        </div>
+
+        <div class="field blk-es">
+          <label for="menu-dessert-es">Postre <span class="req">*</span></label>
+          <select id="menu-dessert-es">
+            <option value="" disabled selected>— Elige una opción —</option>
+            <option value="toffee-es">Sticky toffee pudding con helado de vainilla</option>
+            <option value="trio-es">Trío de postres: tarta de queso con fresas, tarta de limón y brownie de chocolate</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="menu-dessert-en">Dessert <span class="req">*</span></label>
+          <select id="menu-dessert-en">
+            <option value="" disabled selected>— Choose an option —</option>
+            <option value="toffee-en">Sticky toffee pudding with vanilla bean ice cream</option>
+            <option value="trio-en">Dessert trio: Strawberry cheesecake, lemon tart and chocolate brownie</option>
           </select>
         </div>
 
@@ -733,6 +787,9 @@ async function submitRSVP() {
     attendance: attendValue,
     uk_arrival: document.getElementById('llegada')?.value || '',
     wedding_part: document.getElementById('wedding-part')?.value || '',
+    menu_starter: (document.body.classList.contains('en') ? document.getElementById('menu-starter-en') : document.getElementById('menu-starter-es'))?.value || '',
+    menu_main: (document.body.classList.contains('en') ? document.getElementById('menu-main-en') : document.getElementById('menu-main-es'))?.value || '',
+    menu_dessert: (document.body.classList.contains('en') ? document.getElementById('menu-dessert-en') : document.getElementById('menu-dessert-es'))?.value || '',
     diet: document.getElementById('dieta')?.value.trim() || '',
     springkell_accommodation: stayVal,
     rooms: JSON.stringify(collectRooms()),
