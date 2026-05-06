@@ -346,14 +346,51 @@ body.en [data-lang="en"]{display:unset;}
           <div class="field-hint"><span data-lang="es">Los horarios exactos se confirmarán más adelante.</span><span data-lang="en">Exact times will be confirmed closer to the date.</span></div>
         </div>
 
+        <!-- DIETA -->
+        <p class="fsec-label"><span data-lang="es">Restricciones alimentarias</span><span data-lang="en">Dietary requirements</span></p>
+
+        <div class="field blk-es">
+          <label for="dieta2-es">¿Tienes alguna restricción alimentaria?</label>
+          <select id="dieta2-es" onchange="onDietChange2()">
+            <option value="">Ninguna — como de todo</option>
+            <option value="vegano">Vegano/a</option>
+            <option value="vegetariano">Vegetariano/a</option>
+            <option value="gluten-free">Sin gluten (Gluten free)</option>
+            <option value="lactose-free">Sin lactosa (Lactose free)</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="dieta2-en">Any dietary requirements?</label>
+          <select id="dieta2-en" onchange="onDietChange2()">
+            <option value="">None — I eat everything</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="gluten-free">Gluten free</option>
+            <option value="lactose-free">Lactose free</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field" id="dieta2-otro-wrap" style="display:none;">
+          <label for="dieta2-otro"><span data-lang="es">Cuéntanos más</span><span data-lang="en">Tell us more</span></label>
+          <input type="text" id="dieta2-otro" placeholder="…">
+        </div>
+        <div id="dieta2-msg" class="info-box" style="display:none;">
+          <p>
+            <span data-lang="es">¡Entendido! Nos comunicaremos contigo directamente para asegurarnos de que todo esté perfecto para ti. 🖤</span>
+            <span data-lang="en">Got it! We'll be in touch directly to make sure everything is perfect for you. 🖤</span>
+          </p>
+        </div>
+
         <!-- MENÚ -->
+        <div id="reconf-menu-section">
         <p class="fsec-label"><span data-lang="es">Confirma tu selección de menú</span><span data-lang="en">Confirm your menu selection</span></p>
 
         <div class="field blk-es">
-          <label for="reconf-starter-es">Entrante <span class="req">*</span></label>
+          <label for="reconf-starter-es">Entrada <span class="req">*</span></label>
           <select id="reconf-starter-es">
             <option value="" disabled selected>— Elige una opción —</option>
-            <option value="prawns-es">Tian de langostinos de Groenlandia con aguacate picante y aderezo frío de gazpacho</option>
+            <option value="prawns-es">Tian de langostinos de Groenlandia con palta picante y aderezo frío de gazpacho</option>
             <option value="salmon-es">Gravadlax de salmón curado en gin tonic con mayonesa coral y tostadas melba</option>
           </select>
         </div>
@@ -370,7 +407,7 @@ body.en [data-lang="en"]{display:unset;}
           <label for="reconf-main-es">Plato principal <span class="req">*</span></label>
           <select id="reconf-main-es">
             <option value="" disabled selected>— Elige una opción —</option>
-            <option value="beef-es">Ternera local estofada a fuego lento con puré cremoso de patatas y vino tinto</option>
+            <option value="beef-es">Ternera local cocida a fuego lento con vino tinto con puré cremoso de papas</option>
             <option value="cod-es">Lomo de bacalao al horno con costra de hierbas, puré de azafrán y crema de estragón</option>
           </select>
         </div>
@@ -388,7 +425,7 @@ body.en [data-lang="en"]{display:unset;}
           <select id="reconf-dessert-es">
             <option value="" disabled selected>— Elige una opción —</option>
             <option value="toffee-es">Sticky toffee pudding con helado de vainilla</option>
-            <option value="trio-es">Trío de postres: tarta de queso con fresas, tarta de limón y brownie de chocolate</option>
+            <option value="trio-es">Trío de postres: cheesecake con fresas, tarta de limón y brownie de chocolate</option>
           </select>
         </div>
         <div class="field blk-en">
@@ -399,12 +436,7 @@ body.en [data-lang="en"]{display:unset;}
             <option value="trio-en">Dessert trio: Strawberry cheesecake, lemon tart and chocolate brownie</option>
           </select>
         </div>
-
-        <div class="field">
-          <label for="dieta2"><span data-lang="es">¿Algún cambio en tu dieta desde el RSVP?</span><span data-lang="en">Any dietary changes since your RSVP?</span></label>
-          <input type="text" id="dieta2" placeholder="Ej. ahora soy vegano / sin cambios…">
-          <div class="field-hint"><span data-lang="es">Déjalo en blanco si no hay cambios</span><span data-lang="en">Leave blank if nothing has changed</span></div>
-        </div>
+        </div><!-- /reconf-menu-section -->
 
         <!-- ALOJAMIENTO — siempre visible para quien confirma asistencia -->
         <div id="section-stay-reconf">
@@ -882,6 +914,24 @@ document.addEventListener('click', e => {
   }
 });
 
+// ── DIET TOGGLE ──
+function onDietChange2() {
+  const isEN = document.body.classList.contains('en');
+  const sel = isEN ? document.getElementById('dieta2-en') : document.getElementById('dieta2-es');
+  const val = sel ? sel.value : '';
+  const otroWrap = document.getElementById('dieta2-otro-wrap');
+  const msg      = document.getElementById('dieta2-msg');
+  const menuSec  = document.getElementById('reconf-menu-section');
+  otroWrap.style.display = (val === 'otro' || val === 'other') ? '' : 'none';
+  if (val) {
+    msg.style.display = '';
+    menuSec.style.display = 'none';
+  } else {
+    msg.style.display = 'none';
+    menuSec.style.display = '';
+  }
+}
+
 // ── VALIDATE ──
 function validate2() {
   let ok = true;
@@ -910,7 +960,15 @@ async function submitReconf() {
     reconf_menu_dessert: (document.body.classList.contains('en') ? document.getElementById('reconf-dessert-en') : document.getElementById('reconf-dessert-es'))?.value || '',
     reconf_transp_arrival: transportVals.llegada,
     reconf_transp_departure: transportVals.salida,
-    reconf_diet: document.getElementById('dieta2')?.value.trim() || '',
+    reconf_diet: (function(){
+      const isEN = document.body.classList.contains('en');
+      const sel = isEN ? document.getElementById('dieta2-en') : document.getElementById('dieta2-es');
+      const v = sel ? sel.value : '';
+      if (v === 'otro' || v === 'other') {
+        return document.getElementById('dieta2-otro')?.value.trim() || v;
+      }
+      return v;
+    })(),
     reconf_accommodation: stayVal2,
     reconf_rooms: (stayVal2 === 'yes-both' || stayVal2 === 'yes-28') ? JSON.stringify(collectRooms2()) : '',
     reconf_notes: document.getElementById('notas2')?.value.trim() || '',

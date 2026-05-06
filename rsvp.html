@@ -322,67 +322,98 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
           </select>
         </div>
 
-        <!-- MENÚ -->
-        <p class="fsec-label"><span data-lang="es">Selección de menú</span><span data-lang="en">Menu selection</span></p>
-
-        <div class="field blk-es">
-          <label for="menu-starter-es">Entrante <span class="req">*</span></label>
-          <select id="menu-starter-es">
-            <option value="" disabled selected>— Elige una opción —</option>
-            <option value="prawns-es">Tian de langostinos de Groenlandia con aguacate picante y aderezo frío de gazpacho</option>
-            <option value="salmon-es">Gravadlax de salmón curado en gin tonic con mayonesa coral y tostadas melba</option>
-          </select>
-        </div>
-        <div class="field blk-en">
-          <label for="menu-starter-en">Starter <span class="req">*</span></label>
-          <select id="menu-starter-en">
-            <option value="" disabled selected>— Choose an option —</option>
-            <option value="prawns-en">Tian of Greenland prawns with spicy avocado and chilled Gazpacho dressing</option>
-            <option value="salmon-en">Gin and tonic cured salmon gravadlax with coral mayonnaise and melba toast</option>
-          </select>
-        </div>
-
-        <div class="field blk-es">
-          <label for="menu-main-es">Plato principal <span class="req">*</span></label>
-          <select id="menu-main-es">
-            <option value="" disabled selected>— Elige una opción —</option>
-            <option value="beef-es">Ternera local estofada a fuego lento con puré cremoso de patatas y vino tinto</option>
-            <option value="cod-es">Lomo de bacalao al horno con costra de hierbas, puré de azafrán y crema de estragón</option>
-          </select>
-        </div>
-        <div class="field blk-en">
-          <label for="menu-main-en">Main course <span class="req">*</span></label>
-          <select id="menu-main-en">
-            <option value="" disabled selected>— Choose an option —</option>
-            <option value="beef-en">Slow-cooked locally-sourced feather beef with creamed potatoes and red wine</option>
-            <option value="cod-en">Herb crust baked cod loin with saffron mash and tarragon cream</option>
-          </select>
-        </div>
-
-        <div class="field blk-es">
-          <label for="menu-dessert-es">Postre <span class="req">*</span></label>
-          <select id="menu-dessert-es">
-            <option value="" disabled selected>— Elige una opción —</option>
-            <option value="toffee-es">Sticky toffee pudding con helado de vainilla</option>
-            <option value="trio-es">Trío de postres: tarta de queso con fresas, tarta de limón y brownie de chocolate</option>
-          </select>
-        </div>
-        <div class="field blk-en">
-          <label for="menu-dessert-en">Dessert <span class="req">*</span></label>
-          <select id="menu-dessert-en">
-            <option value="" disabled selected>— Choose an option —</option>
-            <option value="toffee-en">Sticky toffee pudding with vanilla bean ice cream</option>
-            <option value="trio-en">Dessert trio: Strawberry cheesecake, lemon tart and chocolate brownie</option>
-          </select>
-        </div>
-
         <!-- DIETA -->
         <p class="fsec-label"><span data-lang="es">Alimentación</span><span data-lang="en">Dietary requirements</span></p>
 
-        <div class="field">
-          <label for="dieta"><span data-lang="es">¿Tienes algún requerimiento alimenticio?</span><span data-lang="en">Any dietary requirements?</span></label>
-          <input type="text" id="dieta" placeholder="Ej. vegetariano, sin gluten… · E.g. vegetarian, gluten-free…">
-          <div class="field-hint"><span data-lang="es">Si no tienes, déjalo en blanco</span><span data-lang="en">Leave blank if none</span></div>
+        <div class="field blk-es">
+          <label for="dieta-es">¿Tienes alguna restricción alimentaria?</label>
+          <select id="dieta-es" onchange="onDietChange()">
+            <option value="">Ninguna — como de todo</option>
+            <option value="vegano">Vegano/a</option>
+            <option value="vegetariano">Vegetariano/a</option>
+            <option value="gluten-free">Sin gluten (Gluten free)</option>
+            <option value="lactose-free">Sin lactosa (Lactose free)</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="field blk-en">
+          <label for="dieta-en">Any dietary requirements?</label>
+          <select id="dieta-en" onchange="onDietChange()">
+            <option value="">None — I eat everything</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="gluten-free">Gluten free</option>
+            <option value="lactose-free">Lactose free</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field" id="dieta-otro-wrap" style="display:none;">
+          <label for="dieta-otro"><span data-lang="es">Por favor especifica</span><span data-lang="en">Please specify</span></label>
+          <input type="text" id="dieta-otro" placeholder="…">
+        </div>
+
+        <div id="dieta-msg" class="info-box" style="display:none;">
+          <p>
+            <span data-lang="es">¡Entendido! Nos comunicaremos contigo directamente para asegurarnos de que todo esté perfecto para ti. 🖤</span>
+            <span data-lang="en">Got it! We'll be in touch directly to make sure everything is perfect for you. 🖤</span>
+          </p>
+        </div>
+
+        <!-- MENÚ -->
+        <div id="menu-section">
+          <p class="fsec-label"><span data-lang="es">Selección de menú</span><span data-lang="en">Menu selection</span></p>
+
+          <div class="field blk-es">
+            <label for="menu-starter-es">Entrada <span class="req">*</span></label>
+            <select id="menu-starter-es">
+              <option value="" disabled selected>— Elige una opción —</option>
+              <option value="prawns-es">Tian de langostinos de Groenlandia con palta picante y aderezo frío de gazpacho</option>
+              <option value="salmon-es">Gravadlax de salmón curado en gin tonic con mayonesa coral y tostadas melba</option>
+            </select>
+          </div>
+          <div class="field blk-en">
+            <label for="menu-starter-en">Starter <span class="req">*</span></label>
+            <select id="menu-starter-en">
+              <option value="" disabled selected>— Choose an option —</option>
+              <option value="prawns-en">Tian of Greenland prawns with spicy avocado and chilled Gazpacho dressing</option>
+              <option value="salmon-en">Gin and tonic cured salmon gravadlax with coral mayonnaise and melba toast</option>
+            </select>
+          </div>
+
+          <div class="field blk-es">
+            <label for="menu-main-es">Plato principal <span class="req">*</span></label>
+            <select id="menu-main-es">
+              <option value="" disabled selected>— Elige una opción —</option>
+              <option value="beef-es">Ternera local cocida a fuego lento con vino tinto con puré cremoso de papas</option>
+              <option value="cod-es">Lomo de bacalao al horno con costra de hierbas, puré de azafrán y crema de estragón</option>
+            </select>
+          </div>
+          <div class="field blk-en">
+            <label for="menu-main-en">Main course <span class="req">*</span></label>
+            <select id="menu-main-en">
+              <option value="" disabled selected>— Choose an option —</option>
+              <option value="beef-en">Slow-cooked locally-sourced feather beef with creamed potatoes and red wine</option>
+              <option value="cod-en">Herb crust baked cod loin with saffron mash and tarragon cream</option>
+            </select>
+          </div>
+
+          <div class="field blk-es">
+            <label for="menu-dessert-es">Postre <span class="req">*</span></label>
+            <select id="menu-dessert-es">
+              <option value="" disabled selected>— Elige una opción —</option>
+              <option value="toffee-es">Sticky toffee pudding con helado de vainilla</option>
+              <option value="trio-es">Trío de postres: cheesecake con fresas, tarta de limón y brownie de chocolate</option>
+            </select>
+          </div>
+          <div class="field blk-en">
+            <label for="menu-dessert-en">Dessert <span class="req">*</span></label>
+            <select id="menu-dessert-en">
+              <option value="" disabled selected>— Choose an option —</option>
+              <option value="toffee-en">Sticky toffee pudding with vanilla bean ice cream</option>
+              <option value="trio-en">Dessert trio: Strawberry cheesecake, lemon tart and chocolate brownie</option>
+            </select>
+          </div>
         </div>
 
         <!-- ALOJAMIENTO -->
@@ -746,6 +777,30 @@ function collectAccessibility() {
   return chips.join(', ');
 }
 
+// ── DIET TOGGLE ──
+function onDietChange() {
+  const isEN = document.body.classList.contains('en');
+  const sel = isEN ? document.getElementById('dieta-en') : document.getElementById('dieta-es');
+  const val = sel ? sel.value : '';
+  const otroWrap = document.getElementById('dieta-otro-wrap');
+  const msg      = document.getElementById('dieta-msg');
+  const menuSec  = document.getElementById('menu-section');
+  // "otro" / "other" → show text field
+  otroWrap.style.display = (val === 'otro' || val === 'other') ? '' : 'none';
+  // any restriction chosen → hide menu, show message
+  if (val && val !== 'otro' && val !== 'other') {
+    msg.style.display = '';
+    menuSec.style.display = 'none';
+  } else if (val === 'otro' || val === 'other') {
+    msg.style.display = '';
+    menuSec.style.display = 'none';
+  } else {
+    // empty → show menu, hide message
+    msg.style.display = 'none';
+    menuSec.style.display = '';
+  }
+}
+
 // ── VALIDATION ──
 function validate() {
   let ok = true;
@@ -790,7 +845,15 @@ async function submitRSVP() {
     menu_starter: (document.body.classList.contains('en') ? document.getElementById('menu-starter-en') : document.getElementById('menu-starter-es'))?.value || '',
     menu_main: (document.body.classList.contains('en') ? document.getElementById('menu-main-en') : document.getElementById('menu-main-es'))?.value || '',
     menu_dessert: (document.body.classList.contains('en') ? document.getElementById('menu-dessert-en') : document.getElementById('menu-dessert-es'))?.value || '',
-    diet: document.getElementById('dieta')?.value.trim() || '',
+    diet: (function(){
+      const isEN = document.body.classList.contains('en');
+      const sel = isEN ? document.getElementById('dieta-en') : document.getElementById('dieta-es');
+      const v = sel ? sel.value : '';
+      if (v === 'otro' || v === 'other') {
+        return document.getElementById('dieta-otro')?.value.trim() || v;
+      }
+      return v;
+    })(),
     springkell_accommodation: stayVal,
     rooms: JSON.stringify(collectRooms()),
     accessibility: collectAccessibility(),
