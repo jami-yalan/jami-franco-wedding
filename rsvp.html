@@ -26,7 +26,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
 body{background-color:var(--paper);background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;color:var(--ink);font-family:'Cinzel',serif;font-size:16px;line-height:1.8;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");opacity:.65;}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");opacity:.28;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--paper2);}
 ::-webkit-scrollbar-thumb{background:var(--burg);}
@@ -52,7 +52,7 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 
 /* HERO */
 .page-hero{text-align:center;padding:4.5rem 2rem 3rem;position:relative;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,160,80,.06) 0%,transparent 70%);}
-.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;opacity:.55;pointer-events:none;}
+.page-hero::before{content:'';position:absolute;inset:0;z-index:0;background-image:url('textura.jpg');background-repeat:repeat;background-size:900px auto;opacity:.25;pointer-events:none;}
 .page-hero > *{position:relative;z-index:1;}
 .ph-eyebrow{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.35em;color:var(--gold2);text-transform:uppercase;margin-bottom:.8rem;}
 .ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,7vw,4.5rem);font-weight:300;font-style:italic;color:var(--ink);line-height:.95;margin-bottom:.9rem;}
