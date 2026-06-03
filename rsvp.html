@@ -72,7 +72,24 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 .field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--ink);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;padding:.62rem 1rem;outline:none;transition:border-color .3s,background .3s;appearance:none;-webkit-appearance:none;}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold2);background:rgba(255,255,255,.8);}
 .field textarea{resize:vertical;min-height:80px;line-height:1.7;}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a8a70' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem;}
+/* ── CUSTOM SELECT ── */
+.cselect{position:relative;}
+.cselect-trigger{width:100%;background:rgba(255,255,255,.55);border:1px solid rgba(196,160,80,.28);color:var(--muted);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.05em;padding:.62rem 2.8rem .62rem 1rem;cursor:pointer;display:flex;align-items:center;transition:border-color .25s,background .25s;user-select:none;-webkit-user-select:none;min-height:2.52rem;}
+.cselect-trigger:hover{border-color:var(--gold2);background:rgba(255,255,255,.7);}
+.cselect-trigger.open{border-color:var(--gold2);background:rgba(255,255,255,.8);border-bottom-color:transparent;}
+.cs-placeholder{color:var(--muted);font-style:italic;}
+.cs-value{color:var(--ink);}
+.cselect-arrow{position:absolute;right:1rem;top:50%;transform:translateY(-50%);pointer-events:none;transition:transform .22s;color:var(--gold2);}
+.cselect-trigger.open~.cselect-arrow{transform:translateY(-50%) rotate(180deg);}
+.cselect-dropdown{position:absolute;top:100%;left:0;right:0;z-index:400;background:var(--paper);border:1px solid var(--gold2);border-top:none;box-shadow:0 12px 32px rgba(28,21,16,.13);max-height:0;overflow:hidden;transition:max-height .25s cubic-bezier(.4,0,.2,1),opacity .18s;opacity:0;pointer-events:none;}
+.cselect-dropdown.open{max-height:320px;overflow-y:auto;opacity:1;pointer-events:all;}
+.cselect-option{padding:.65rem 1.1rem;font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--ink2);cursor:pointer;border-bottom:1px solid rgba(196,160,80,.1);transition:background .15s,color .15s;line-height:1.4;}
+.cselect-option:last-child{border-bottom:none;}
+.cselect-option:hover{background:rgba(196,160,80,.1);color:var(--burg);}
+.cselect-option.cs-selected{color:var(--burg);display:flex;align-items:center;justify-content:space-between;gap:.8rem;}
+.cselect-option.cs-selected::after{content:'✦';flex-shrink:0;font-size:.55rem;color:var(--gold2);line-height:1;}
+.cselect-dropdown::-webkit-scrollbar{width:2px;}
+.cselect-dropdown::-webkit-scrollbar-thumb{background:var(--gold2);}
 .field-err{font-family:'Cinzel',serif;font-size:.48rem;letter-spacing:.1em;color:var(--err);margin-top:.3rem;display:none;}
 .field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--err);}
 .field.invalid .field-err{display:block;}
@@ -813,6 +830,7 @@ function toggleDietaryOptions(show) {
       if (selEl.value === existing.value) selEl.value = '';
       existing.remove();
     }
+    if (window.syncCSelect) window.syncCSelect(item[0]);
   });
 }
 
@@ -941,6 +959,102 @@ async function submitRSVP() {
   const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
   document.getElementById('rsvp-gcal-btn').href = gcalURL;
   document.getElementById('rsvp-ical-btn').href = URL.createObjectURL(blob);
+})();
+
+// ── CUSTOM SELECT SYSTEM ──
+(function(){
+  function buildOpts(nativeSel, wrapper) {
+    var trigger = wrapper.querySelector('.cselect-trigger');
+    var dropdown = wrapper.querySelector('.cselect-dropdown');
+    dropdown.innerHTML = '';
+    var selOpt = nativeSel.options[nativeSel.selectedIndex] || null;
+    var triggerSet = false;
+    Array.from(nativeSel.options).forEach(function(opt) {
+      if (opt.disabled) {
+        if (opt === selOpt) {
+          trigger.innerHTML = '<span class="cs-placeholder">' + opt.text + '</span>';
+          triggerSet = true;
+        }
+        return;
+      }
+      var div = document.createElement('div');
+      div.className = 'cselect-option';
+      div.dataset.value = opt.value;
+      div.textContent = opt.text;
+      if (opt === selOpt) {
+        trigger.innerHTML = '<span class="cs-value">' + opt.text + '</span>';
+        triggerSet = true;
+        if (opt.value) div.classList.add('cs-selected');
+      }
+      div.addEventListener('click', function() {
+        dropdown.querySelectorAll('.cselect-option').forEach(function(o){ o.classList.remove('cs-selected'); });
+        if (opt.value) div.classList.add('cs-selected');
+        trigger.innerHTML = '<span class="cs-value">' + opt.text + '</span>';
+        nativeSel.value = opt.value;
+        nativeSel.dispatchEvent(new Event('change'));
+        dropdown.classList.remove('open');
+        trigger.classList.remove('open');
+      });
+      dropdown.appendChild(div);
+    });
+    if (!triggerSet) trigger.innerHTML = '<span class="cs-placeholder">—</span>';
+  }
+
+  function initCS(nativeSel) {
+    if (nativeSel.dataset.csInit) return;
+    nativeSel.dataset.csInit = '1';
+    nativeSel.style.display = 'none';
+    var w = document.createElement('div');
+    w.className = 'cselect';
+    w.dataset.forId = nativeSel.id;
+    var trigger = document.createElement('div');
+    trigger.className = 'cselect-trigger';
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns,'svg');
+    svg.setAttribute('class','cselect-arrow');
+    svg.setAttribute('viewBox','0 0 12 8');
+    svg.setAttribute('width','12');
+    svg.setAttribute('height','8');
+    svg.setAttribute('fill','none');
+    var p = document.createElementNS(ns,'path');
+    p.setAttribute('d','M1 1l5 5 5-5');
+    p.setAttribute('stroke','currentColor');
+    p.setAttribute('stroke-width','1.5');
+    p.setAttribute('stroke-linecap','round');
+    svg.appendChild(p);
+    var dd = document.createElement('div');
+    dd.className = 'cselect-dropdown';
+    w.appendChild(trigger); w.appendChild(svg); w.appendChild(dd);
+    nativeSel.parentNode.insertBefore(w, nativeSel);
+    buildOpts(nativeSel, w);
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = dd.classList.contains('open');
+      closeAll();
+      if (!isOpen) { dd.classList.add('open'); trigger.classList.add('open'); }
+    });
+  }
+
+  function closeAll() {
+    document.querySelectorAll('.cselect-dropdown.open').forEach(function(d) {
+      d.classList.remove('open');
+      d.closest('.cselect').querySelector('.cselect-trigger').classList.remove('open');
+    });
+  }
+
+  window.syncCSelect = function(id) {
+    var native = document.getElementById(id);
+    if (!native || !native.dataset.csInit) return;
+    var w = document.querySelector('.cselect[data-for-id="' + id + '"]');
+    if (w) buildOpts(native, w);
+  };
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('select').forEach(function(s) { if (s.id) initCS(s); });
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.cselect')) closeAll();
+  });
 })();
 </script>
 
