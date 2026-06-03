@@ -778,27 +778,56 @@ function collectAccessibility() {
 }
 
 // ── DIET TOGGLE ──
+var DIETARY_OPTS = {
+  starter: {
+    es: { value: 'mushrooms-es', text: 'Champiñones silvestres salteados con mantequilla de ajo y perejil, croûte de brioche, aceite de hierbas y rúcula (Sin gluten · Vegano)' },
+    en: { value: 'mushrooms-en', text: 'Sautéed wild mushrooms in garlic and parsley butter, brioche croute, herb oil, rocket (G/F and Vegan)' }
+  },
+  main: {
+    es: { value: 'squash-es', text: 'Calabaza asada, batata y garbanzos en salsa picante de lemongrass, coco y mango, con arroz pilaf y guarnición de cilantro (Sin gluten · Vegano)' },
+    en: { value: 'squash-en', text: 'Roast butternut squash, sweet potato and chickpeas in a spicy lemongrass, coconut and mango sauce served with pilau rice and a coriander garnish (G/F and Vegan)' }
+  },
+  dessert: {
+    es: { value: 'no-dessert', text: 'Sin postre' },
+    en: { value: 'no-dessert', text: 'No dessert' }
+  }
+};
+
+function toggleDietaryOptions(show) {
+  [['menu-starter-es','starter','es'],['menu-starter-en','starter','en'],
+   ['menu-main-es','main','es'],['menu-main-en','main','en'],
+   ['menu-dessert-es','dessert','es'],['menu-dessert-en','dessert','en']
+  ].forEach(function(item) {
+    var selEl = document.getElementById(item[0]);
+    var course = item[1], lang = item[2];
+    if (!selEl) return;
+    var cls = course === 'dessert' ? 'no-dessert-opt' : 'dietary-opt';
+    var existing = selEl.querySelector('.' + cls);
+    if (show && !existing) {
+      var opt = document.createElement('option');
+      opt.className = cls;
+      opt.value = DIETARY_OPTS[course][lang].value;
+      opt.textContent = DIETARY_OPTS[course][lang].text;
+      selEl.appendChild(opt);
+    } else if (!show && existing) {
+      if (selEl.value === existing.value) selEl.value = '';
+      existing.remove();
+    }
+  });
+}
+
 function onDietChange() {
   const isEN = document.body.classList.contains('en');
   const sel = isEN ? document.getElementById('dieta-en') : document.getElementById('dieta-es');
   const val = sel ? sel.value : '';
-  const otroWrap = document.getElementById('dieta-otro-wrap');
-  const msg      = document.getElementById('dieta-msg');
-  const menuSec  = document.getElementById('menu-section');
+  const hasRestriction = val !== '';
   // "otro" / "other" → show text field
-  otroWrap.style.display = (val === 'otro' || val === 'other') ? '' : 'none';
-  // any restriction chosen → hide menu, show message
-  if (val && val !== 'otro' && val !== 'other') {
-    msg.style.display = '';
-    menuSec.style.display = 'none';
-  } else if (val === 'otro' || val === 'other') {
-    msg.style.display = '';
-    menuSec.style.display = 'none';
-  } else {
-    // empty → show menu, hide message
-    msg.style.display = 'none';
-    menuSec.style.display = '';
-  }
+  document.getElementById('dieta-otro-wrap').style.display = (val === 'otro' || val === 'other') ? '' : 'none';
+  // message when any restriction
+  document.getElementById('dieta-msg').style.display = hasRestriction ? '' : 'none';
+  // menu always visible; toggle dietary options
+  document.getElementById('menu-section').style.display = '';
+  toggleDietaryOptions(hasRestriction);
 }
 
 // ── VALIDATION ──
