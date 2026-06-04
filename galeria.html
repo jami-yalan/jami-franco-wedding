@@ -49,7 +49,11 @@ body.en [data-lang="en"]{display:unset;}
   background:rgba(248,245,239,.97); border-bottom:1px solid var(--goldA);
   padding:1.1rem 2rem; display:flex; align-items:center; justify-content:space-between;
   position:sticky; top:0; z-index:100; backdrop-filter:blur(4px);
+  opacity:0; pointer-events:none;
 }
+/* Gallery hidden until animation positions cards in the pile */
+body.intro-running #gallery{ visibility:hidden; }
+body.intro-running .gallery-toolbar{ opacity:0; pointer-events:none; }
 .back-link{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .3s;}
 .back-link:hover{color:var(--burg);}
 .header-center{text-align:center;}
@@ -58,8 +62,8 @@ body.en [data-lang="en"]{display:unset;}
 
 /* ── HERO ── */
 .page-hero{
-  text-align:center; padding:4rem 2rem 3rem; position:relative;
-  background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(196,160,80,.06) 0%,transparent 70%);
+  text-align:center; padding:2.8rem 2rem 2rem; position:relative;
+  opacity:0; pointer-events:none;
 }
 .page-hero::before{
   content:''; position:absolute; inset:0; z-index:0;
@@ -67,13 +71,16 @@ body.en [data-lang="en"]{display:unset;}
   opacity:.25; pointer-events:none;
 }
 .page-hero>*{position:relative;z-index:1;}
-.ph-eyebrow{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.38em;color:var(--gold2);text-transform:uppercase;margin-bottom:.8rem;}
-.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,7vw,4rem);font-weight:300;font-style:italic;color:var(--ink);line-height:.95;margin-bottom:.9rem;}
-.ph-rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:1rem auto;}
-.ph-line{width:60px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));}
+.ph-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,6vw,3.4rem);
+  font-weight:300; font-style:italic;
+  color:var(--ink); letter-spacing:.04em;
+}
+.ph-rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:.9rem auto 0;}
+.ph-line{width:50px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));}
 .ph-line.rv{background:linear-gradient(to left,transparent,var(--goldB));}
-.ph-sym{color:var(--gold2);font-size:.8rem;}
-.ph-sub{font-family:'EB Garamond',serif;font-size:1rem;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.75;}
+.ph-sym{color:var(--gold2);font-size:.75rem;}
 
 /* ── LOADING ── */
 #loading-state{
@@ -251,7 +258,7 @@ body.en [data-lang="en"]{display:unset;}
 }
 </style>
 </head>
-<body>
+<body class="intro-running">
 
 <div class="lang-toggle">
   <button class="lang-btn active" onclick="setLang('es')" id="btn-es">ES</button>
@@ -268,15 +275,10 @@ body.en [data-lang="en"]{display:unset;}
 </header>
 
 <div class="page-hero">
-  <p class="ph-eyebrow"><span data-lang="es">28 · Julio · 2026</span><span data-lang="en">28 · July · 2026</span></p>
-  <h1 class="ph-title"><span data-lang="es">Nuestros<br>momentos</span><span data-lang="en">Our<br>moments</span></h1>
+  <h1 class="ph-title">28 &thinsp;·&thinsp; 07 &thinsp;·&thinsp; 2026</h1>
   <div class="ph-rule">
     <div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div>
   </div>
-  <p class="ph-sub">
-    <span data-lang="es">Fotos del día más especial, capturadas por quienes más queremos.</span>
-    <span data-lang="en">Photos from our most special day, captured by the ones we love most.</span>
-  </p>
 </div>
 
 <!-- LOADING -->
@@ -372,6 +374,7 @@ function renderGallery(data) {
     card.className = 'polaroid';
     card.style.transform = 'rotate(' + rot.toFixed(2) + 'deg)';
     card.dataset.idx = i;
+    card.dataset.finalRot = rot.toFixed(3);
     card.innerHTML =
       '<div class="check-ring"></div>' +
       '<img src="' + photo.thumb + '" alt="' + escHtml(photo.uploader) + '" loading="lazy">' +
@@ -502,6 +505,87 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
   if (e.target === this) closeLB();
 });
 
+// ── INTRO ANIMATION ──
+function rot(i){ var s=Math.sin(i*9301+49297)*233280; return ((s-Math.floor(s))*12)-6; }
+function pileRot(i){ var s=Math.sin(i*3141+271)*233280; return ((s-Math.floor(s))*50)-25; }
+function pileNX(i){ var s=Math.sin(i*5.13+1.7)*43758.5; return (s-Math.floor(s))*2-1; }
+function pileNY(i){ var s=Math.sin(i*8.27+4.1)*12943.7; return (s-Math.floor(s))*2-1; }
+
+var _introDone = false;
+function runIntro(){
+  if(_introDone) return; _introDone = true;
+  var gallery = document.getElementById('gallery');
+  var cards   = Array.from(document.querySelectorAll('.polaroid'));
+  if(!cards.length){ document.body.classList.remove('intro-running'); gallery.style.visibility='visible'; return; }
+
+  var rects = cards.map(function(c){ return c.getBoundingClientRect(); });
+  var vpCX  = window.innerWidth  / 2;
+  var vpCY  = window.innerHeight * 0.42;
+  var SPX   = Math.min(230, window.innerWidth  * 0.22);
+  var SPY   = Math.min(180, window.innerHeight * 0.16);
+
+  // Place every card in the pile, fully opaque
+  cards.forEach(function(card, i){
+    var r  = rects[i];
+    var dx = vpCX - (r.left + r.width  / 2) + pileNX(i) * SPX;
+    var dy = vpCY - (r.top  + r.height / 2) + pileNY(i) * SPY;
+    var pr = pileRot(i);
+    card.dataset.finalRot = rot(i).toFixed(3);
+    card.style.transition = 'none';
+    card.style.transform  = 'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) rotate('+pr.toFixed(2)+'deg) scale(0.72)';
+    card.style.opacity    = '1';
+    card.style.zIndex     = 300 - i;
+  });
+
+  // Fade in the whole pile as one layer (no inter-card blink)
+  gallery.style.opacity    = '0';
+  gallery.offsetHeight;
+  gallery.style.visibility = 'visible';
+
+  var PILE_FADE = 380;
+  setTimeout(function(){
+    gallery.style.transition = 'opacity '+PILE_FADE+'ms ease';
+    gallery.style.opacity    = '1';
+  }, 30);
+
+  // Hold pile, then scatter smoothly
+  var HOLD = 500;
+  setTimeout(function(){
+    var STAGGER  = 70;
+    var CARD_DUR = 1500;
+    var EASE     = 'cubic-bezier(0.62, 0, 0.30, 1)';
+
+    cards.forEach(function(card, i){
+      var finalRot = parseFloat(card.dataset.finalRot);
+      setTimeout(function(){
+        card.style.transition = 'transform '+CARD_DUR+'ms '+EASE;
+        card.style.transform  = 'rotate('+finalRot+'deg)';
+        setTimeout(function(){ card.style.zIndex = ''; }, CARD_DUR);
+      }, i * STAGGER);
+    });
+
+    // Fade in UI after last card nearly settles
+    var uiDelay = (cards.length - 1) * STAGGER + CARD_DUR * 0.6;
+    setTimeout(function(){
+      document.body.classList.remove('intro-running');
+      var els = [
+        document.querySelector('.site-header'),
+        document.querySelector('.page-hero'),
+        document.getElementById('gallery-toolbar')
+      ];
+      els.forEach(function(el, i){
+        if(!el) return;
+        setTimeout(function(){
+          el.style.transition    = 'opacity 1s ease';
+          el.style.opacity       = '1';
+          el.style.pointerEvents = 'all';
+        }, i * 220);
+      });
+    }, uiDelay);
+
+  }, PILE_FADE + HOLD);
+}
+
 // ── FETCH PHOTOS ──
 fetch(SCRIPT_URL + '?action=gallery')
   .then(function(r){ return r.json(); })
@@ -509,14 +593,25 @@ fetch(SCRIPT_URL + '?action=gallery')
     if (data.status === 'ok' && data.photos && data.photos.length > 0) {
       photos = data.photos;
       renderGallery(photos);
+      // Trigger scatter animation once images are in the DOM
+      setTimeout(runIntro, 60);
     } else {
       document.getElementById('loading-state').style.display = 'none';
       document.getElementById('empty-state').style.display = 'block';
+      document.body.classList.remove('intro-running');
+      // Show UI even when empty
+      [document.querySelector('.site-header'), document.querySelector('.page-hero')].forEach(function(el){
+        if(el){ el.style.transition='opacity 0.8s ease'; el.style.opacity='1'; el.style.pointerEvents='all'; }
+      });
     }
   })
   .catch(function() {
     document.getElementById('loading-state').style.display = 'none';
     document.getElementById('empty-state').style.display = 'block';
+    document.body.classList.remove('intro-running');
+    [document.querySelector('.site-header'), document.querySelector('.page-hero')].forEach(function(el){
+      if(el){ el.style.transition='opacity 0.8s ease'; el.style.opacity='1'; el.style.pointerEvents='all'; }
+    });
   });
 </script>
 
