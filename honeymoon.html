@@ -332,10 +332,8 @@ function setLang(l) {
   document.getElementById('btn-en').classList.toggle('active', l === 'en');
   localStorage.setItem('wedding-lang', l);
 }
-(function(){
-  var saved = localStorage.getItem('wedding-lang');
-  if (saved === 'en') setLang('en');
-})();
+// No restauramos el idioma del localStorage aquí —
+// el idioma lo determina el botón que presione el invitado.
 
 // ── DESTINATION TOGGLE ──
 function showDest(dest) {
@@ -345,8 +343,10 @@ function showDest(dest) {
   var uk   = document.getElementById('section-uk');
   if (dest === 'peru') {
     peru.classList.add('show'); uk.classList.remove('show');
+    setLang('es');
   } else {
     uk.classList.add('show'); peru.classList.remove('show');
+    setLang('en');
   }
 }
 
