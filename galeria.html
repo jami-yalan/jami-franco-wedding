@@ -135,6 +135,22 @@ body.en [data-lang="en"]{display:unset;}
   padding:.6rem .2rem .1rem; letter-spacing:.02em; line-height:1.3;
 }
 
+/* ── SELECT MODE ── */
+.polaroid .check-ring{
+  display:none; position:absolute; top:.6rem; right:.6rem; z-index:10;
+  width:1.4rem; height:1.4rem; border-radius:50%;
+  border:2px solid rgba(92,13,42,.35); background:rgba(255,255,255,.75);
+  transition:all .2s;
+}
+.select-mode .polaroid .check-ring{display:block;}
+.polaroid.selected .check-ring{background:var(--burg);border-color:var(--burg);}
+.polaroid.selected .check-ring::after{
+  content:'✓'; position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:.65rem; font-family:'Cinzel',serif;
+}
+.polaroid.selected{box-shadow:0 0 0 2px var(--burg),0 8px 24px rgba(92,13,42,.18)!important;}
+
 /* ── LIGHTBOX ── */
 #lightbox{
   position:fixed; inset:0; z-index:10000;
@@ -197,6 +213,30 @@ body.en [data-lang="en"]{display:unset;}
 }
 #lb-close:hover{color:#fff;}
 
+/* ── TOOLBAR ── */
+.gallery-toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 2.5rem; max-width:1400px; margin:0 auto;
+  border-bottom:1px solid var(--goldA);
+}
+.photo-count{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--muted);}
+.toolbar-btn{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid rgba(196,160,80,.4);color:var(--muted);background:none;
+  padding:.38rem .9rem;cursor:pointer;transition:all .22s;text-decoration:none;display:inline-block;
+}
+.toolbar-btn:hover{border-color:var(--gold2);color:var(--ink);}
+.toolbar-btn.active{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.select-actions{display:none;align-items:center;gap:.6rem;}
+.select-actions.show{display:flex;}
+.sel-count{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;color:var(--muted);}
+.download-sel-btn{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--burg);color:var(--paper);border:1px solid var(--burg);
+  padding:.38rem 1rem;cursor:pointer;transition:opacity .2s;
+}
+.download-sel-btn:disabled{opacity:.35;cursor:default;}
+
 /* ── FOOTER ── */
 .page-footer{
   text-align:center; padding:2rem;
@@ -255,6 +295,20 @@ body.en [data-lang="en"]{display:unset;}
   <a class="upload-link" href="fotos.html">
     <span data-lang="es">Subir fotos →</span><span data-lang="en">Upload photos →</span>
   </a>
+</div>
+
+<!-- TOOLBAR (shown once photos load) -->
+<div class="gallery-toolbar" id="gallery-toolbar" style="display:none;">
+  <span class="photo-count" id="photo-count-label"></span>
+  <div style="display:flex;gap:.6rem;align-items:center;">
+    <div class="select-actions" id="select-actions">
+      <span class="sel-count" id="sel-count">0 <span data-lang="es">seleccionadas</span><span data-lang="en">selected</span></span>
+      <button class="toolbar-btn" onclick="selectAll()" id="sel-all-btn"><span data-lang="es">Seleccionar todas</span><span data-lang="en">Select all</span></button>
+      <button class="download-sel-btn" id="dl-sel-btn" onclick="downloadSelected()" disabled>↓ <span data-lang="es">Descargar</span><span data-lang="en">Download</span></button>
+    </div>
+    <button class="toolbar-btn" id="select-btn" onclick="toggleSelectMode()"><span data-lang="es">Seleccionar</span><span data-lang="en">Select</span></button>
+    <a class="toolbar-btn" href="fotos.html">↑ <span data-lang="es">Subir fotos</span><span data-lang="en">Upload</span></a>
+  </div>
 </div>
 
 <!-- GALLERY -->
@@ -319,13 +373,86 @@ function renderGallery(data) {
     card.style.transform = 'rotate(' + rot.toFixed(2) + 'deg)';
     card.dataset.idx = i;
     card.innerHTML =
+      '<div class="check-ring"></div>' +
       '<img src="' + photo.thumb + '" alt="' + escHtml(photo.uploader) + '" loading="lazy">' +
       '<p class="polaroid-caption">' + escHtml(photo.uploader) + '</p>';
-    card.addEventListener('click', function(){ openLB(parseInt(this.dataset.idx)); });
+    card.addEventListener('click', function(){ handleCardClick(parseInt(this.dataset.idx)); });
     gallery.appendChild(card);
   });
   document.getElementById('loading-state').style.display = 'none';
   gallery.style.display = '';
+  // Show toolbar with correct count
+  var isEN = document.body.classList.contains('en');
+  var toolbar = document.getElementById('gallery-toolbar');
+  document.getElementById('photo-count-label').textContent =
+    data.length + (isEN ? ' photos' : ' fotos');
+  toolbar.style.display = '';
+}
+
+// ── SELECT MODE ──
+var selectMode = false;
+var selected = new Set();
+
+function toggleSelectMode(){
+  selectMode = !selectMode;
+  document.getElementById('gallery').classList.toggle('select-mode', selectMode);
+  document.getElementById('select-btn').classList.toggle('active', selectMode);
+  var isEN = document.body.classList.contains('en');
+  document.getElementById('select-btn').querySelector('[data-lang="'+(isEN?'en':'es')+'"]').parentElement.style.display='';
+  // update button text
+  document.querySelectorAll('#select-btn [data-lang]').forEach(function(el){
+    el.textContent = el.dataset.lang === 'es'
+      ? (selectMode ? 'Cancelar' : 'Seleccionar')
+      : (selectMode ? 'Cancel' : 'Select');
+  });
+  document.getElementById('select-actions').classList.toggle('show', selectMode);
+  if(!selectMode){
+    selected.clear();
+    document.querySelectorAll('.polaroid.selected').forEach(function(c){ c.classList.remove('selected'); });
+    updateSelCount();
+  }
+}
+
+function selectAll(){
+  var cards = document.querySelectorAll('.polaroid');
+  if(selected.size === photos.length){
+    selected.clear();
+    cards.forEach(function(c){ c.classList.remove('selected'); });
+  } else {
+    cards.forEach(function(c,i){ selected.add(i); c.classList.add('selected'); });
+  }
+  updateSelCount();
+}
+
+function updateSelCount(){
+  var isEN = document.body.classList.contains('en');
+  document.getElementById('sel-count').firstChild.textContent = selected.size + ' ';
+  document.getElementById('dl-sel-btn').disabled = selected.size === 0;
+  var allBtn = document.getElementById('sel-all-btn');
+  allBtn.querySelectorAll('[data-lang]').forEach(function(el){
+    el.textContent = selected.size === photos.length
+      ? (el.dataset.lang==='es' ? 'Deseleccionar todas' : 'Deselect all')
+      : (el.dataset.lang==='es' ? 'Seleccionar todas'  : 'Select all');
+  });
+}
+
+function downloadSelected(){
+  Array.from(selected).forEach(function(i, j){
+    setTimeout(function(){
+      var a=document.createElement('a');
+      a.href=photos[i].download; a.download=photos[i].name;
+      a.target='_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }, j*350);
+  });
+}
+
+function handleCardClick(idx){
+  if(selectMode){
+    var card=document.querySelector('[data-idx="'+idx+'"]');
+    if(selected.has(idx)){ selected.delete(idx); card.classList.remove('selected'); }
+    else { selected.add(idx); card.classList.add('selected'); }
+    updateSelCount();
+  } else { openLB(idx); }
 }
 
 function escHtml(s) {

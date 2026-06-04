@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview Galería · Jami & Franco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:#f8f5ef; --paper2:#f0ebe0;
+  --ink:#1c1510; --ink2:#2e2018;
+  --burg:#5c0d2a;
+  --gold:#765f25; --gold2:#c4a050;
+  --goldA:rgba(196,160,80,.2); --goldB:rgba(196,160,80,.38);
+  --muted:#6a5a42; --muted2:#786848;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--paper);
+  background-image:url('textura.jpg');
+  background-repeat:repeat; background-size:900px auto;
+  color:var(--ink); font-family:'Cinzel',serif; overflow-x:hidden;
+}
+body.intro-running { overflow:hidden; }
+body::before{
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.28;
+}
+
+/* ── HEADER ── */
+.site-header{
+  background:rgba(248,245,239,.97); border-bottom:1px solid var(--goldA);
+  padding:1.1rem 2rem; display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100; backdrop-filter:blur(4px);
+  opacity:0; pointer-events:none;
+}
+.back-link{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:var(--muted);text-decoration:none;text-transform:uppercase;}
+.header-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;font-style:italic;color:var(--ink);text-align:center;}
+.header-sub{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;display:block;text-align:center;}
+
+/* ── HERO ── */
+.page-hero{
+  text-align:center; padding:2.8rem 2rem 2rem; position:relative;
+  opacity:0; pointer-events:none;
+}
+.page-hero::before{
+  content:''; position:absolute; inset:0; z-index:0;
+  background-image:url('textura.jpg'); background-repeat:repeat; background-size:900px auto;
+  opacity:.25; pointer-events:none;
+}
+.page-hero>*{position:relative;z-index:1;}
+.ph-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.2rem,6vw,3.4rem);
+  font-weight:300; font-style:italic;
+  color:var(--ink); letter-spacing:.04em;
+}
+.ph-rule{display:flex;align-items:center;gap:.9rem;justify-content:center;margin:.9rem auto 0;}
+.ph-line{width:50px;height:1px;background:linear-gradient(to right,transparent,var(--goldB));}
+.ph-line.rv{background:linear-gradient(to left,transparent,var(--goldB));}
+.ph-sym{color:var(--gold2);font-size:.75rem;}
+
+/* ── TOOLBAR ── */
+.gallery-toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 2.5rem; max-width:1400px; margin:0 auto;
+  border-bottom:1px solid var(--goldA);
+  opacity:0; pointer-events:none;
+}
+.photo-count{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;color:var(--muted);}
+.toolbar-btns{display:flex;gap:.6rem;align-items:center;}
+.toolbar-btn{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;
+  border:1px solid rgba(196,160,80,.4);color:var(--muted);background:none;
+  padding:.38rem .9rem;cursor:pointer;transition:all .22s;
+}
+.toolbar-btn:hover{border-color:var(--gold2);color:var(--ink);}
+.toolbar-btn.active{background:var(--burg);color:var(--paper);border-color:var(--burg);}
+.select-actions{display:none;align-items:center;gap:.6rem;}
+.select-actions.show{display:flex;}
+.sel-count{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;color:var(--muted);}
+.download-sel-btn{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--burg);color:var(--paper);border:1px solid var(--burg);
+  padding:.38rem 1rem;cursor:pointer;transition:opacity .2s;
+}
+.download-sel-btn:disabled{opacity:.35;cursor:default;}
+
+/* ── GALLERY ── */
+#gallery{
+  columns:3 260px; column-gap:1.5rem;
+  padding:2rem 2.5rem 6rem; max-width:1400px; margin:0 auto;
+}
+/* Hide gallery until cards are positioned in the pile (no grid flash) */
+body.intro-running #gallery{ visibility:hidden; }
+
+/* ── POLAROID ── */
+.polaroid{
+  break-inside:avoid; display:block;
+  background:#fff;
+  padding:.85rem .85rem 2.4rem;
+  box-shadow:0 3px 14px rgba(28,21,16,.13), 0 1px 3px rgba(28,21,16,.08);
+  margin-bottom:1.5rem;
+  cursor:pointer;
+  position:relative;
+  will-change:transform, opacity;
+}
+body:not(.intro-running) .polaroid {
+  transition: transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+}
+.polaroid:hover:not(.select-mode .polaroid){
+  box-shadow:0 10px 32px rgba(28,21,16,.22), 0 2px 6px rgba(28,21,16,.1);
+}
+.polaroid img{
+  width:100%; display:block;
+  object-fit:cover;
+  filter:sepia(.08) contrast(.97) saturate(.9);
+  transition:filter .25s;
+}
+.polaroid:hover img{filter:sepia(.02) contrast(1) saturate(1);}
+.polaroid-caption{
+  font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:300;
+  font-style:italic; color:var(--muted); text-align:center;
+  padding:.7rem .2rem 0; letter-spacing:.02em;
+}
+
+/* ── SELECT MODE ── */
+.polaroid .check-ring{
+  display:none; position:absolute; top:.6rem; right:.6rem; z-index:10;
+  width:1.4rem; height:1.4rem; border-radius:50%;
+  border:2px solid rgba(92,13,42,.35); background:rgba(255,255,255,.75);
+  transition:all .2s;
+}
+.select-mode .polaroid .check-ring{ display:block; }
+.polaroid.selected .check-ring{ background:var(--burg); border-color:var(--burg); }
+.polaroid.selected .check-ring::after{
+  content:'✓'; position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:.65rem; font-family:'Cinzel',serif;
+}
+.polaroid.selected{ box-shadow:0 0 0 2px var(--burg), 0 8px 24px rgba(92,13,42,.18) !important; }
+
+/* ── LIGHTBOX ── */
+#lightbox{
+  position:fixed; inset:0; z-index:10000;
+  background:rgba(10,6,2,.93);
+  display:none; align-items:center; justify-content:center; padding:1.5rem;
+}
+#lightbox.open{display:flex;}
+.lb-content{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:1rem;}
+#lb-img{max-width:90vw;max-height:78vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.lb-nav{
+  position:fixed;top:50%;transform:translateY(-50%);
+  background:rgba(248,245,239,.08);border:1px solid rgba(248,245,239,.18);
+  color:rgba(248,245,239,.75);font-size:1.6rem;padding:.3rem .7rem;
+  cursor:pointer;transition:all .2s;z-index:10001;
+}
+.lb-nav:hover{background:rgba(248,245,239,.18);color:#fff;}
+#lb-prev{left:1rem;} #lb-next{right:1rem;}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;max-width:600px;}
+.lb-uploader{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:rgba(248,245,239,.6);text-transform:uppercase;flex:1;}
+.lb-counter{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;color:rgba(196,160,80,.7);}
+.lb-btn{
+  font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;
+  border:1px solid rgba(248,245,239,.3);color:rgba(248,245,239,.8);
+  background:none;padding:.4rem .9rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;
+}
+.lb-btn:hover{background:rgba(248,245,239,.12);color:#fff;}
+#lb-close{position:fixed;top:1rem;right:1rem;z-index:10001;font-size:1.4rem;color:rgba(248,245,239,.65);background:none;border:none;cursor:pointer;padding:.4rem .7rem;}
+#lb-close:hover{color:#fff;}
+
+.page-footer{text-align:center;padding:2rem;font-family:'Cinzel',serif;font-size:.5rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;border-top:1px solid var(--goldA);}
+@media(max-width:600px){
+  #gallery{columns:2 150px;column-gap:.8rem;padding:1.2rem 1rem 4rem;}
+  .polaroid{padding:.6rem .6rem 2rem;margin-bottom:.8rem;}
+  .lb-nav{display:none;}
+  .gallery-toolbar{padding:.8rem 1rem;}
+}
+</style>
+</head>
+<body class="intro-running">
+
+<header class="site-header">
+  <a class="back-link" href="#">← Volver</a>
+  <div style="text-align:center">
+    <p class="header-title">Jami &amp; Franco</p>
+    <span class="header-sub">28 · 07 · 2026</span>
+  </div>
+  <div style="width:60px"></div>
+</header>
+
+<div class="page-hero">
+  <h1 class="ph-title">28 &thinsp;·&thinsp; 07 &thinsp;·&thinsp; 2026</h1>
+  <div class="ph-rule">
+    <div class="ph-line"></div><span class="ph-sym">✦ ❧ ✦</span><div class="ph-line rv"></div>
+  </div>
+</div>
+
+<div class="gallery-toolbar">
+  <span class="photo-count">12 fotos</span>
+  <div style="display:flex;gap:.6rem;align-items:center;">
+    <div class="select-actions" id="select-actions">
+      <span class="sel-count" id="sel-count">0 seleccionadas</span>
+      <button class="toolbar-btn" onclick="selectAll()">Seleccionar todas</button>
+      <button class="download-sel-btn" id="dl-sel-btn" onclick="downloadSelected()" disabled>↓ Descargar</button>
+    </div>
+    <button class="toolbar-btn" id="select-btn" onclick="toggleSelectMode()">Seleccionar</button>
+    <a class="toolbar-btn" href="fotos.html">↑ <span data-lang="es">Subir fotos</span><span data-lang="en">Upload</span></a>
+  </div>
+</div>
+
+<div id="gallery"></div>
+
+<div id="lightbox">
+  <button id="lb-close" onclick="closeLB()">✕</button>
+  <button class="lb-nav" id="lb-prev" onclick="navLB(-1)">‹</button>
+  <button class="lb-nav" id="lb-next" onclick="navLB(1)">›</button>
+  <div class="lb-content">
+    <img id="lb-img" src="" alt="">
+    <div class="lb-bar">
+      <span class="lb-uploader" id="lb-uploader"></span>
+      <span class="lb-counter" id="lb-counter"></span>
+      <a class="lb-btn" id="lb-download" href="#" download>↓ Guardar</a>
+    </div>
+  </div>
+</div>
+
+<div class="page-footer">Jami &amp; Franco · 28.07.2026 · Springkell Estate, Scotland</div>
+
+<script>
+const PHOTOS = [
+  { src:'Foto1.jpg',  name:'Jami & Franco' },
+  { src:'Foto2.jpg',  name:'María García' },
+  { src:'Foto3.jpg',  name:'Carlos López' },
+  { src:'Foto4.jpg',  name:'Ana Martínez' },
+  { src:'Foto5.jpg',  name:'Lucía Herrera' },
+  { src:'Foto6.jpg',  name:'Pablo Ruiz' },
+  { src:'Foto7.jpg',  name:'Sofía Castro' },
+  { src:'Foto8.jpg',  name:'Miguel Torres' },
+  { src:'Foto9.jpg',  name:'Valentina Paz' },
+  { src:'Foto10.jpg', name:'Diego Salas' },
+  { src:'Foto11.jpg', name:'Camila Ríos' },
+  { src:'Foto12.jpg', name:'Roberto Vega' },
+];
+
+function rot(i){ var s=Math.sin(i*9301+49297)*233280; return ((s-Math.floor(s))*12)-6; }
+// Dense pile rotation — more extreme overlap
+function pileRot(i){ var s=Math.sin(i*3141+271)*233280; return ((s-Math.floor(s))*50)-25; }
+// Deterministic spread in [-1,1] — scaled to the viewport at run time so the
+// pile is loose (every card mostly visible, nothing hidden to "pop" later)
+function pileNX(i){ var s=Math.sin(i*5.13+1.7)*43758.5; return (s-Math.floor(s))*2-1; }
+function pileNY(i){ var s=Math.sin(i*8.27+4.1)*12943.7; return (s-Math.floor(s))*2-1; }
+
+// ── BUILD GALLERY ──
+const gallery = document.getElementById('gallery');
+PHOTOS.forEach(function(p, i){
+  var card = document.createElement('div');
+  card.className = 'polaroid';
+  card.dataset.idx = i;
+  card.dataset.finalRot = rot(i).toFixed(3);
+  card.innerHTML =
+    '<div class="check-ring"></div>' +
+    '<img src="'+p.src+'" alt="'+p.name+'">' +
+    '<p class="polaroid-caption">'+p.name+'</p>';
+  card.addEventListener('click', function(){ handleCardClick(parseInt(this.dataset.idx)); });
+  gallery.appendChild(card);
+});
+
+// ── INTRO ANIMATION ──
+// Phase A: pile fades in · Phase B: hold 0.5s · Phase C: scatter (smooth) · Phase D: UI fade-in
+
+var _introDone = false;
+function runIntro(){
+  if(_introDone) return; _introDone = true;
+  var gallery = document.getElementById('gallery');
+  var cards   = Array.from(document.querySelectorAll('.polaroid'));
+  if(!cards.length){ document.body.classList.remove('intro-running'); gallery.style.visibility='visible'; return; }
+
+  // Measure natural grid positions (gallery is visibility:hidden but still laid out)
+  var rects = cards.map(function(c){ return c.getBoundingClientRect(); });
+  var vpCX  = window.innerWidth  / 2;
+  var vpCY  = window.innerHeight * 0.42;
+  // Loose pile spread, clamped so cards never leave the viewport on small screens
+  var SPX   = Math.min(230, window.innerWidth  * 0.22);
+  var SPY   = Math.min(180, window.innerHeight * 0.16);
+
+  // ── PHASE A.0: place every card in the pile (loosely spread), fully opaque ──
+  // Cards stay at opacity 1; we fade the whole GALLERY container instead, so the
+  // overlapping stack composites as a single layer (no inter-card blend "blink").
+  cards.forEach(function(card, i){
+    var r  = rects[i];
+    var dx = vpCX - (r.left + r.width  / 2) + pileNX(i) * SPX;
+    var dy = vpCY - (r.top  + r.height / 2) + pileNY(i) * SPY;
+    var pr = pileRot(i);
+    card.dataset.pileTransform = 'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) rotate('+pr.toFixed(2)+'deg) scale(0.72)';
+    card.style.transition = 'none';
+    card.style.transform  = card.dataset.pileTransform;
+    card.style.opacity    = '1';
+    card.style.zIndex     = 300 - i;
+  });
+
+  // Commit the pile layout with the container hidden, THEN fade the container in
+  gallery.style.opacity    = '0';
+  gallery.offsetHeight;                 // reflow
+  gallery.style.visibility = 'visible'; // inline overrides .intro-running rule
+
+  // ── PHASE A.1: quick fade-in of the whole pile (forms fast, dissolves slow) ──
+  var PILE_FADE = 380; // ms — quick appear, no blink
+  setTimeout(function(){
+    gallery.style.transition = 'opacity '+PILE_FADE+'ms ease';
+    gallery.style.opacity    = '1';
+  }, 30);
+
+  // ── PHASE B: hold the pile (0.5s) after it has appeared ──
+  var HOLD = 500;
+  setTimeout(function(){
+
+    // ── PHASE C: scatter — only MOVE the cards (no opacity change, nothing pops in) ──
+    var STAGGER  = 70;    // gentle overlap so they move together, not single-file
+    var CARD_DUR = 1500;  // each card glides slowly to its spot
+    var EASE     = 'cubic-bezier(0.62, 0, 0.30, 1)'; // ease-in-out: soft start AND soft end
+
+    // Cards move in z-order (topmost first). By the time a lower card's turn
+    // comes, the cards that were covering it have already lifted off — so it's
+    // naturally un-occluded and nothing "pops" into view. Keep each card's pile
+    // z-index during travel; reset to normal flow only after it has landed.
+    cards.forEach(function(card, i){
+      var finalRot = parseFloat(card.dataset.finalRot);
+      setTimeout(function(){
+        card.style.transition = 'transform '+CARD_DUR+'ms '+EASE;
+        card.style.transform  = 'rotate('+finalRot+'deg)';
+        setTimeout(function(){ card.style.zIndex = ''; }, CARD_DUR);
+      }, i * STAGGER);
+    });
+
+    // ── PHASE D: UI fades in once the last card has nearly settled ──
+    var uiDelay = (cards.length - 1) * STAGGER + CARD_DUR * 0.6;
+
+    setTimeout(function(){
+      document.body.classList.remove('intro-running');
+      var els = [
+        document.querySelector('.site-header'),
+        document.querySelector('.page-hero'),
+        document.querySelector('.gallery-toolbar')
+      ];
+      els.forEach(function(el, i){
+        setTimeout(function(){
+          el.style.transition    = 'opacity 1s ease';
+          el.style.opacity       = '1';
+          el.style.pointerEvents = 'all';
+        }, i * 220);
+      });
+    }, uiDelay);
+
+  }, PILE_FADE + HOLD); // appear, then hold
+}
+
+// Start once everything is laid out. Robust to the load event having
+// already fired (small timeout lets the column layout settle before measuring).
+function startIntro(){
+  setTimeout(runIntro, 60);
+}
+if(document.readyState === 'complete'){ startIntro(); }
+else { window.addEventListener('load', startIntro); }
+// Safety net: never leave the gallery hidden if something stalls
+setTimeout(runIntro, 2500);
+
+// ── SELECT MODE ──
+var selectMode = false;
+var selected = new Set();
+
+function toggleSelectMode(){
+  selectMode = !selectMode;
+  gallery.classList.toggle('select-mode', selectMode);
+  document.getElementById('select-btn').classList.toggle('active', selectMode);
+  document.getElementById('select-btn').textContent = selectMode ? 'Cancelar' : 'Seleccionar';
+  document.getElementById('select-actions').classList.toggle('show', selectMode);
+  if(!selectMode){
+    selected.clear();
+    document.querySelectorAll('.polaroid.selected').forEach(function(c){ c.classList.remove('selected'); });
+    updateSelCount();
+  }
+}
+
+function selectAll(){
+  var cards = document.querySelectorAll('.polaroid');
+  if(selected.size === cards.length){
+    selected.clear();
+    cards.forEach(function(c){ c.classList.remove('selected'); });
+  } else {
+    cards.forEach(function(c,i){ selected.add(i); c.classList.add('selected'); });
+  }
+  updateSelCount();
+}
+
+function updateSelCount(){
+  document.getElementById('sel-count').textContent = selected.size + ' seleccionada'+(selected.size!==1?'s':'');
+  document.getElementById('dl-sel-btn').disabled = selected.size === 0;
+  document.querySelector('[onclick="selectAll()"]').textContent =
+    selected.size === PHOTOS.length ? 'Deseleccionar todas' : 'Seleccionar todas';
+}
+
+function downloadSelected(){
+  Array.from(selected).forEach(function(i, j){
+    setTimeout(function(){
+      var a=document.createElement('a'); a.href=PHOTOS[i].src; a.download=PHOTOS[i].name+'.jpg';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    }, j * 350);
+  });
+}
+
+// ── CARD CLICK ──
+function handleCardClick(idx){
+  if(selectMode){
+    var card = document.querySelector('[data-idx="'+idx+'"]');
+    if(selected.has(idx)){ selected.delete(idx); card.classList.remove('selected'); }
+    else { selected.add(idx); card.classList.add('selected'); }
+    updateSelCount();
+  } else { openLB(idx); }
+}
+
+// ── LIGHTBOX ──
+var currentIdx = 0;
+function openLB(idx){ currentIdx=idx; updateLB(); document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLB(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+function navLB(d){ currentIdx=(currentIdx+d+PHOTOS.length)%PHOTOS.length; updateLB(); }
+function updateLB(){
+  var p=PHOTOS[currentIdx];
+  document.getElementById('lb-img').src=p.src;
+  document.getElementById('lb-uploader').textContent=p.name;
+  document.getElementById('lb-counter').textContent=(currentIdx+1)+' / '+PHOTOS.length;
+  document.getElementById('lb-download').href=p.src;
+}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lightbox').classList.contains('open'))return;
+  if(e.key==='ArrowLeft')navLB(-1); if(e.key==='ArrowRight')navLB(1); if(e.key==='Escape')closeLB();
+});
+document.getElementById('lightbox').addEventListener('click',function(e){ if(e.target===this)closeLB(); });
+</script>
+</body>
+</html>

@@ -820,7 +820,7 @@ body.en [data-lang="en"] { display:unset; }
     <a href="travel-guide.html" data-href-es="travel-guide.html" data-href-en="travel-guide-en.html" class="tg-link"><span data-lang="es">Viaje</span><span data-lang="en">Travel</span></a>
     <a href="#regalos" onclick="closeNav()"><span data-lang="es">Regalos</span><span data-lang="en">Gifts</span></a>
     <a href="faq.html">FAQ</a>
-    <a href="fotos.html"><span data-lang="es">Fotos</span><span data-lang="en">Photos</span></a>
+    <a id="nav-fotos-link" href="fotos.html"><span data-lang="es">Fotos</span><span data-lang="en">Photos</span></a>
     <a href="livestream.html">Livestream</a>
   </div>
   <a href="rsvp.html" class="nav-rsvp-btn">RSVP</a>
@@ -2008,6 +2008,15 @@ function _resetModalTitle(){
   function updateHref(){btn.href=document.body.classList.contains("en")?btn.dataset.hrefEn:btn.dataset.hrefEs;}
   updateHref();
   new MutationObserver(updateHref).observe(document.body,{attributes:true,attributeFilter:["class"]});
+})();
+
+// ── FOTOS NAV: switch to gallery after Aug 4 ──
+(function(){
+  var GALLERY_FROM = new Date('2026-08-04T00:00:00');
+  if(new Date() >= GALLERY_FROM){
+    var link = document.getElementById('nav-fotos-link');
+    if(link) link.href = 'galeria.html';
+  }
 })();
 </script>
 </body>
