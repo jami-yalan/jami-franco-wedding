@@ -393,31 +393,37 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
         <!-- DIETA -->
         <p class="fsec-label"><span data-lang="es">Restricciones alimentarias</span><span data-lang="en">Dietary requirements</span></p>
 
-        <div class="field blk-es">
-          <label for="dieta2-es">¿Tienes alguna restricción alimentaria?</label>
-          <select id="dieta2-es" onchange="onDietChange2()">
-            <option value="">Ninguna</option>
-            <option value="vegano">Vegano/a</option>
-            <option value="vegetariano">Vegetariano/a</option>
-            <option value="gluten-free">Sin gluten (Gluten free)</option>
-            <option value="lactose-free">Sin lactosa (Lactose free)</option>
-            <option value="otro">Otro</option>
-          </select>
+        <div class="info-box" id="diet-infobox" style="display:none;">
+          <p id="diet-infobox-text"></p>
         </div>
-        <div class="field blk-en">
-          <label for="dieta2-en">Any dietary requirements?</label>
-          <select id="dieta2-en" onchange="onDietChange2()">
-            <option value="">None</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="gluten-free">Gluten free</option>
-            <option value="lactose-free">Lactose free</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div class="field" id="dieta2-otro-wrap" style="display:none;">
-          <label for="dieta2-otro"><span data-lang="es">Cuéntanos más</span><span data-lang="en">Tell us more</span></label>
-          <input type="text" id="dieta2-otro" placeholder="…">
+
+        <div id="diet-fields-block">
+          <div class="field blk-es">
+            <label for="dieta2-es">¿Tienes alguna restricción alimentaria?</label>
+            <select id="dieta2-es" onchange="onDietChange2()">
+              <option value="">Ninguna</option>
+              <option value="vegano">Vegano/a</option>
+              <option value="vegetariano">Vegetariano/a</option>
+              <option value="gluten-free">Sin gluten (Gluten free)</option>
+              <option value="lactose-free">Sin lactosa (Lactose free)</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="field blk-en">
+            <label for="dieta2-en">Any dietary requirements?</label>
+            <select id="dieta2-en" onchange="onDietChange2()">
+              <option value="">None</option>
+              <option value="vegan">Vegan</option>
+              <option value="vegetarian">Vegetarian</option>
+              <option value="gluten-free">Gluten free</option>
+              <option value="lactose-free">Lactose free</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field" id="dieta2-otro-wrap" style="display:none;">
+            <label for="dieta2-otro"><span data-lang="es">Cuéntanos más</span><span data-lang="en">Tell us more</span></label>
+            <input type="text" id="dieta2-otro" placeholder="…">
+          </div>
         </div>
         <div id="dieta2-msg" class="info-box" style="display:none;">
           <p>
@@ -825,10 +831,34 @@ function preloadRsvpData(data) {
   preloadMenuSelections(data, isEN);
 }
 
-// ── DIETA: pre-cargar restricción alimentaria original ──
+// ── DIETA: pre-cargar restricción alimentaria original, con resumen + edición ──
+function dietValueLabel(esVal, otroText, isEN) {
+  const labelsEs = { '':'Ninguna', 'vegano':'Vegano/a', 'vegetariano':'Vegetariano/a', 'gluten-free':'Sin gluten (Gluten free)', 'lactose-free':'Sin lactosa (Lactose free)', 'otro':'Otro' };
+  const labelsEn = { '':'None', 'vegano':'Vegan', 'vegetariano':'Vegetarian', 'gluten-free':'Gluten free', 'lactose-free':'Lactose free', 'otro':'Other' };
+  const map = isEN ? labelsEn : labelsEs;
+  let label = map[esVal] !== undefined ? map[esVal] : esVal;
+  if (esVal === 'otro' && otroText) label = otroText;
+  return label;
+}
+
 function preloadDietSelection(data) {
-  const raw = ((data.reconf_diet || data.diet || '') + '').trim();
-  if (!raw) return;
+  const isEN = document.body.classList.contains('en');
+  const raw  = ((data.reconf_diet || data.diet || '') + '').trim();
+
+  const diBlock   = document.getElementById('diet-fields-block');
+  const diInfobox = document.getElementById('diet-infobox');
+  const diText    = document.getElementById('diet-infobox-text');
+  const msgBox    = document.getElementById('dieta2-msg');
+  const otroWrap  = document.getElementById('dieta2-otro-wrap');
+
+  if (!raw) {
+    // No habían indicado ninguna restricción: dejar el campo libre para elegir sin problema
+    diInfobox.style.display = 'none';
+    diBlock.classList.remove('acc-locked');
+    diBlock.querySelectorAll('select,input').forEach(el => { el.disabled = false; el.style.opacity = '1'; });
+    return;
+  }
+
   const dietMapEsToEn = { 'vegano':'vegan', 'vegetariano':'vegetarian', 'gluten-free':'gluten-free', 'lactose-free':'lactose-free', 'otro':'other' };
   const dietMapEnToEs = { 'vegan':'vegano', 'vegetarian':'vegetariano', 'gluten-free':'gluten-free', 'lactose-free':'lactose-free', 'other':'otro' };
   let esVal, enVal, otroText = '';
@@ -845,6 +875,40 @@ function preloadDietSelection(data) {
     const otroInp = document.getElementById('dieta2-otro');
     if (otroInp) otroInp.value = otroText;
   }
+
+  // Mostrar resumen bloqueado con botón editar (igual que alojamiento/menú)
+  const label = dietValueLabel(esVal, otroText, isEN);
+  diText.innerHTML = `
+    <span style="display:block;margin-bottom:.5rem;">
+      ${isEN ? 'From your original RSVP' : 'De tu RSVP original'}:
+      <strong style="color:var(--ink2);">${label}</strong>
+    </span>
+    <button type="button" onclick="unlockDiet()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.3rem .8rem;cursor:pointer;">
+      ${isEN ? '✎ Edit' : '✎ Editar'}
+    </button>
+  `;
+  diInfobox.style.display = 'block';
+  diBlock.classList.add('acc-locked');
+  diBlock.querySelectorAll('select,input').forEach(el => { el.disabled = true; el.style.opacity = '.6'; });
+
+  // Ocultar el mensaje genérico y el campo "otro" mientras está bloqueado
+  msgBox.style.display = 'none';
+  otroWrap.style.display = 'none';
+
+  // Asegurar que las alternativas por restricción alimentaria existan en los selects de menú
+  toggleDietaryOptions2(esVal !== '');
+}
+
+function unlockDiet() {
+  const isEN = document.body.classList.contains('en');
+  const diBlock = document.getElementById('diet-fields-block');
+  diBlock.classList.remove('acc-locked');
+  diBlock.classList.add('unlocked');
+  diBlock.querySelectorAll('select,input').forEach(el => { el.disabled = false; el.style.opacity = '1'; });
+  document.getElementById('diet-infobox-text').innerHTML = isEN
+    ? 'You can now update your dietary requirements.'
+    : 'Ya puedes actualizar tus restricciones alimentarias.';
+  // Refrescar visibilidad de "otro" según selección actual
   onDietChange2();
 }
 
@@ -989,6 +1053,10 @@ function clearPerson() {
   document.getElementById('rooms-preloaded-notice').style.display = 'none';
   document.getElementById('rooms-none-notice').style.display = 'none';
   // Resetear restricción alimentaria
+  document.getElementById('diet-infobox').style.display = 'none';
+  const dietBlock = document.getElementById('diet-fields-block');
+  dietBlock.classList.remove('acc-locked', 'unlocked');
+  dietBlock.querySelectorAll('select,input').forEach(el => { el.disabled = false; el.style.opacity = '1'; });
   ['dieta2-es','dieta2-en'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.value = ''; if (window.syncCSelect) window.syncCSelect(id); }
