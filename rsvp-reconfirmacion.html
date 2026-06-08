@@ -338,6 +338,8 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
         <div class="info-box">
           <p><span data-lang="es">Organizaremos transporte entre la estación de Lockerbie y Springkell. ¿Necesitas que te recojamos? Si quieres un refresh de cómo llegar, <a href="travel-guide.html#tren" target="_blank" style="color:var(--burg);text-decoration:underline;">mira la guía de viaje →</a></span>
           <span data-lang="en">We'll organise transport between Lockerbie station and Springkell. Do you need a pick-up? If you'd like a refresher on how to get there, <a href="travel-guide.html#tren" target="_blank" style="color:var(--burg);text-decoration:underline;">check the travel guide →</a></span></p>
+          <p style="margin-top:.6rem;"><span data-lang="es">Este transporte tendrá un costo aproximado de entre £5 y £8 por persona, dependiendo de cuántas personas lo soliciten. Te enviaremos una comunicación confirmando el monto exacto y los detalles del servicio.</span>
+          <span data-lang="en">This transport will have an approximate cost of between £5 and £8 per person, depending on how many people request it. We'll send you a message confirming the exact amount and the service details.</span></p>
         </div>
 
         <div class="field">
@@ -548,6 +550,10 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
               <div id="rooms-preloaded-notice" style="display:none;font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);margin-bottom:.8rem;line-height:1.65;">
                 <span data-lang="es">Estas son las habitaciones que pediste en tu RSVP original. Puedes modificarlas si algo cambió.</span>
                 <span data-lang="en">These are the rooms you requested in your original RSVP. Feel free to update them if anything has changed.</span>
+              </div>
+              <div id="rooms-none-notice" class="info-box" style="display:none;margin:0 0 .8rem;">
+                <p><span data-lang="es">No tienes ningún cuarto reservado a tu nombre, pero esto puede ser porque te vas a quedar junto a otra persona y ella reservó por ti. Si no es así, agrega tu habitación abajo.</span>
+                <span data-lang="en">You don't have any room booked under your name — this might be because you're staying with someone else and they booked on your behalf. If that's not the case, please add your room below.</span></p>
               </div>
               <div class="group-note">
               <p><span data-lang="es">Si vienes en grupo, solo una persona del grupo debe completar las habitaciones para no generar confusión. Esa persona será el punto de contacto para el pago.</span>
@@ -794,6 +800,7 @@ function preloadRsvpData(data) {
     } catch(e) { habitaciones = []; }
     if (habitaciones.length > 0) {
       document.getElementById('rooms-preloaded-notice').style.display = 'block';
+      document.getElementById('rooms-none-notice').style.display = 'none';
       habitaciones.forEach(h => addRoom2(h));
       // Bloquear inputs de habitaciones
       setTimeout(() => {
@@ -802,29 +809,72 @@ function preloadRsvpData(data) {
         });
       }, 100);
     } else {
+      // Eligió quedarse en Springkell pero no tiene ninguna habitación a su nombre:
+      // probablemente se está quedando con alguien más que ya reservó por ambos.
+      // Avisamos y dejamos la sección libre por si de verdad necesita agregar la suya.
       document.getElementById('rooms-preloaded-notice').style.display = 'none';
-      addRoom2();
-      setTimeout(() => {
-        document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
-          el.disabled = true; el.style.opacity = '.6';
-        });
-      }, 100);
+      document.getElementById('rooms-none-notice').style.display = 'block';
     }
   } else {
     document.getElementById('section-rooms2').style.display = 'none';
     document.getElementById('rooms-preloaded-notice').style.display = 'none';
+    document.getElementById('rooms-none-notice').style.display = 'none';
   }
 
+  preloadDietSelection(data);
   preloadMenuSelections(data, isEN);
 }
 
+// ── DIETA: pre-cargar restricción alimentaria original ──
+function preloadDietSelection(data) {
+  const raw = ((data.reconf_diet || data.diet || '') + '').trim();
+  if (!raw) return;
+  const dietMapEsToEn = { 'vegano':'vegan', 'vegetariano':'vegetarian', 'gluten-free':'gluten-free', 'lactose-free':'lactose-free', 'otro':'other' };
+  const dietMapEnToEs = { 'vegan':'vegano', 'vegetarian':'vegetariano', 'gluten-free':'gluten-free', 'lactose-free':'lactose-free', 'other':'otro' };
+  let esVal, enVal, otroText = '';
+  if (dietMapEsToEn[raw])      { esVal = raw; enVal = dietMapEsToEn[raw]; }
+  else if (dietMapEnToEs[raw]) { enVal = raw; esVal = dietMapEnToEs[raw]; }
+  else                          { esVal = 'otro'; enVal = 'other'; otroText = raw; }
+
+  const esEl = document.getElementById('dieta2-es');
+  const enEl = document.getElementById('dieta2-en');
+  if (esEl) esEl.value = esVal;
+  if (enEl) enEl.value = enVal;
+  if (window.syncCSelect) { window.syncCSelect('dieta2-es'); window.syncCSelect('dieta2-en'); }
+  if (otroText) {
+    const otroInp = document.getElementById('dieta2-otro');
+    if (otroInp) otroInp.value = otroText;
+  }
+  onDietChange2();
+}
+
 // ── MENÚ: pre-cargar selección original (entrada/principal/postre), con resumen + edición ──
-function menuOptionLabel(selectId, value) {
-  if (!value) return '';
-  const sel = document.getElementById(selectId);
-  if (!sel) return value;
-  const opt = Array.from(sel.options).find(o => o.value === value);
-  return opt ? opt.text : value;
+
+// Busca el texto legible de un valor de menú: primero en las opciones especiales
+// por restricción alimentaria (DIETARY_OPTS2, que se agregan dinámicamente y por
+// eso pueden no existir aún en el <select>), y si no, en las opciones normales.
+function menuValueLabel(course, rawValue, isEN) {
+  if (!rawValue) return '';
+  const lang = isEN ? 'en' : 'es';
+  const base = rawValue.replace(/-(es|en)$/, '');
+
+  const dOpt = DIETARY_OPTS2[course];
+  if (dOpt) {
+    const dBase = dOpt.es.value.replace(/-(es|en)$/, '');
+    if (dBase === base) return dOpt[lang].text;
+  }
+
+  const idsByCourse = {
+    starter: isEN ? 'reconf-starter-en' : 'reconf-starter-es',
+    main:    isEN ? 'reconf-main-en'    : 'reconf-main-es',
+    dessert: isEN ? 'reconf-dessert-en' : 'reconf-dessert-es'
+  };
+  const sel = document.getElementById(idsByCourse[course]);
+  if (sel) {
+    const opt = Array.from(sel.options).find(o => o.value.replace(/-(es|en)$/, '') === base);
+    if (opt) return opt.text;
+  }
+  return rawValue;
 }
 
 function preloadMenuSelections(data, isEN) {
@@ -834,10 +884,18 @@ function preloadMenuSelections(data, isEN) {
   const baseOf = v => (v || '').replace(/-(es|en)$/, '');
 
   const courses = [
-    { key: 'menu_starter', esId: 'reconf-starter-es', enId: 'reconf-starter-en' },
-    { key: 'menu_main',    esId: 'reconf-main-es',    enId: 'reconf-main-en'    },
-    { key: 'menu_dessert', esId: 'reconf-dessert-es', enId: 'reconf-dessert-en' }
+    { key: 'menu_starter', course: 'starter', esId: 'reconf-starter-es', enId: 'reconf-starter-en' },
+    { key: 'menu_main',    course: 'main',    esId: 'reconf-main-es',    enId: 'reconf-main-en'    },
+    { key: 'menu_dessert', course: 'dessert', esId: 'reconf-dessert-es', enId: 'reconf-dessert-en' }
   ];
+
+  // Si alguna selección original corresponde a una opción especial por dieta
+  // (p.ej. 'mushrooms', 'squash', 'no-dessert'), hay que agregar esas opciones
+  // a los selects ANTES de fijar el valor — si no, el navegador ignora el valor
+  // porque la opción todavía no existe en el <select>.
+  const dietaryBases = Object.keys(DIETARY_OPTS2).map(c => DIETARY_OPTS2[c].es.value.replace(/-(es|en)$/, ''));
+  const needsDietaryOpts = courses.some(c => dietaryBases.includes(baseOf(data[c.key])));
+  if (needsDietaryOpts) toggleDietaryOptions2(true);
 
   let anySelection = false;
   const summaryLines = [];
@@ -849,11 +907,13 @@ function preloadMenuSelections(data, isEN) {
     const enEl = document.getElementById(c.enId);
     if (base) {
       anySelection = true;
-      if (esEl) esEl.value = base + '-es';
-      if (enEl) enEl.value = base + '-en';
+      // 'no-dessert' no lleva sufijo de idioma; el resto sí (p.ej. 'mushrooms-es')
+      const esVal = base === 'no-dessert' ? 'no-dessert' : base + '-es';
+      const enVal = base === 'no-dessert' ? 'no-dessert' : base + '-en';
+      if (esEl) esEl.value = esVal;
+      if (enEl) enEl.value = enVal;
       if (window.syncCSelect) { window.syncCSelect(c.esId); window.syncCSelect(c.enId); }
-      const activeId = isEN ? c.enId : c.esId;
-      summaryLines.push(menuOptionLabel(activeId, base + (isEN ? '-en' : '-es')));
+      summaryLines.push(menuValueLabel(c.course, raw, isEN));
     } else {
       summaryLines.push(isEN ? 'Not answered' : 'Sin respuesta');
     }
@@ -927,6 +987,17 @@ function clearPerson() {
   document.getElementById('stay2').value = '';
   document.getElementById('section-rooms2').style.display = 'none';
   document.getElementById('rooms-preloaded-notice').style.display = 'none';
+  document.getElementById('rooms-none-notice').style.display = 'none';
+  // Resetear restricción alimentaria
+  ['dieta2-es','dieta2-en'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; if (window.syncCSelect) window.syncCSelect(id); }
+  });
+  const dietaOtroInp = document.getElementById('dieta2-otro');
+  if (dietaOtroInp) dietaOtroInp.value = '';
+  document.getElementById('dieta2-otro-wrap').style.display = 'none';
+  document.getElementById('dieta2-msg').style.display = 'none';
+  toggleDietaryOptions2(false);
   // Resetear bloque de menú
   document.getElementById('menu-infobox').style.display = 'none';
   const menuBlock = document.getElementById('menu-fields-block');
