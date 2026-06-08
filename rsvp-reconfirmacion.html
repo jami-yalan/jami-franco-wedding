@@ -225,8 +225,8 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
 .group-note{background:rgba(92,13,42,.05);border-left:3px solid var(--burg);padding:1rem 1.4rem;margin:1rem 0;}
 .group-note p{font-family:'EB Garamond',serif;font-size:1rem;letter-spacing:0;color:var(--muted2);line-height:1.68;}
 /* ACCOMMODATION LOCKED BLOCK */
-.acc-locked{opacity:.45;pointer-events:none;transition:opacity .3s;}
-.acc-locked.unlocked{opacity:1;pointer-events:all;}
+.acc-locked{display:none;}
+.acc-locked.unlocked{display:block;}
 
 /* LOADER OVERLAY */
 .loader-overlay{position:fixed;inset:0;z-index:9000;background:rgba(248,245,239,.92);backdrop-filter:blur(6px);display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
@@ -838,6 +838,16 @@ function preloadRsvpData(data) {
     document.getElementById('rooms-none-notice').style.display = 'none';
   }
 
+  // Pre-seleccionar la parte de la boda a la que se unirán (si ya lo habían dicho)
+  const wpEl = document.getElementById('wedding-part2');
+  if (wpEl) {
+    const wp = (data.reconf_wedding_part || data.wedding_part || '').trim();
+    if (wp) {
+      wpEl.value = wp;
+      if (window.syncCSelect) window.syncCSelect('wedding-part2');
+    }
+  }
+
   preloadDietSelection(data);
   preloadMenuSelections(data, isEN);
 }
@@ -1090,6 +1100,9 @@ function clearPerson() {
   document.getElementById('search-name').value = '';
   document.getElementById('person-confirmed').classList.remove('show');
   document.getElementById('section-main').classList.remove('show');
+  // Resetear "parte de la boda"
+  const wpEl = document.getElementById('wedding-part2');
+  if (wpEl) { wpEl.value = ''; if (window.syncCSelect) window.syncCSelect('wedding-part2'); }
   // Limpiar datos pre-cargados
   document.getElementById('room-list2').innerHTML = '';
   roomCount2 = 0;
