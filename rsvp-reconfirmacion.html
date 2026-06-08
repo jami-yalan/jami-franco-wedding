@@ -507,6 +507,10 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
               <span data-lang="es">¿Quieres hacer algún cambio en tu alojamiento?</span>
               <span data-lang="en">Would you like to make any changes to your accommodation?</span>
             </p>
+            <div id="rooms-summary-notice" style="display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(196,160,80,.18);">
+              <p style="margin-bottom:.4rem;"><span data-lang="es">Esto es lo que pediste en tu RSVP original:</span><span data-lang="en">Here's what you requested in your original RSVP:</span></p>
+              <p id="rooms-summary-text" style="font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);line-height:1.65;"></p>
+            </div>
             <div id="rooms-none-notice" style="display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(196,160,80,.18);">
               <p style="margin-bottom:.7rem;"><span data-lang="es">No tienes ningún cuarto reservado a tu nombre, pero esto puede ser porque te vas a quedar junto a otra persona y ella reservó por ti. Si no es así, agrega tu habitación aquí:</span>
               <span data-lang="en">You don't have any room booked under your name — this might be because you're staying with someone else and they booked on your behalf. If that's not the case, add your room here:</span></p>
@@ -810,6 +814,8 @@ function preloadRsvpData(data) {
     if (habitaciones.length > 0) {
       document.getElementById('rooms-preloaded-notice').style.display = 'block';
       document.getElementById('rooms-none-notice').style.display = 'none';
+      document.getElementById('rooms-summary-text').innerHTML = buildRoomsSummaryText(habitaciones, isEN);
+      document.getElementById('rooms-summary-notice').style.display = 'block';
       habitaciones.forEach(h => addRoom2(h));
       // Bloquear inputs de habitaciones
       setTimeout(() => {
@@ -822,11 +828,13 @@ function preloadRsvpData(data) {
       // probablemente se está quedando con alguien más que ya reservó por ambos.
       // Avisamos y dejamos la sección libre por si de verdad necesita agregar la suya.
       document.getElementById('rooms-preloaded-notice').style.display = 'none';
+      document.getElementById('rooms-summary-notice').style.display = 'none';
       document.getElementById('rooms-none-notice').style.display = 'block';
     }
   } else {
     document.getElementById('section-rooms2').style.display = 'none';
     document.getElementById('rooms-preloaded-notice').style.display = 'none';
+    document.getElementById('rooms-summary-notice').style.display = 'none';
     document.getElementById('rooms-none-notice').style.display = 'none';
   }
 
@@ -1043,6 +1051,23 @@ function unlockAccommodation() {
     : 'Ya puedes actualizar tus datos de alojamiento.';
 }
 
+// Construye un resumen legible de las habitaciones pedidas, p.ej.
+// "Habitación 1: 1 cama de 2 plazas · Habitación 2: 1 cama de 2 plazas, 2 camas de 1 plaza"
+function buildRoomsSummaryText(habitaciones, isEN) {
+  const lines = habitaciones.map((h, i) => {
+    const d = parseInt(h.doubles, 10) || 0;
+    const s = parseInt(h.singles, 10) || 0;
+    const parts = [];
+    if (d) parts.push(`${d} ${isEN ? (d === 1 ? 'double bed' : 'double beds') : (d === 1 ? 'cama de 2 plazas' : 'camas de 2 plazas')}`);
+    if (s) parts.push(`${s} ${isEN ? (s === 1 ? 'single bed' : 'single beds') : (s === 1 ? 'cama de 1 plaza' : 'camas de 1 plaza')}`);
+    const bedsText = parts.length ? parts.join(', ') : (isEN ? 'no beds specified' : 'sin camas especificadas');
+    let line = `<strong style="color:var(--ink2);">${isEN ? 'Room' : 'Habitación'} ${i + 1}:</strong> ${bedsText}`;
+    if (h.note) line += ` — <em>${h.note}</em>`;
+    return line;
+  });
+  return lines.join('<br>');
+}
+
 // CTA del aviso "no tienes cuarto registrado": desbloquea alojamiento, agrega
 // una habitación y lleva el foco ahí para que la persona la complete de una vez
 function addRoomFromNotice() {
@@ -1071,6 +1096,7 @@ function clearPerson() {
   document.getElementById('stay2').value = '';
   document.getElementById('section-rooms2').style.display = 'none';
   document.getElementById('rooms-preloaded-notice').style.display = 'none';
+  document.getElementById('rooms-summary-notice').style.display = 'none';
   document.getElementById('rooms-none-notice').style.display = 'none';
   // Resetear restricción alimentaria
   document.getElementById('diet-infobox').style.display = 'none';
