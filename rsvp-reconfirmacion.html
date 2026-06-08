@@ -508,8 +508,11 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
               <span data-lang="en">Would you like to make any changes to your accommodation?</span>
             </p>
             <div id="rooms-none-notice" style="display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(196,160,80,.18);">
-              <p><span data-lang="es">No tienes ningún cuarto reservado a tu nombre, pero esto puede ser porque te vas a quedar junto a otra persona y ella reservó por ti. Si no es así, agrega tu habitación abajo.</span>
-              <span data-lang="en">You don't have any room booked under your name — this might be because you're staying with someone else and they booked on your behalf. If that's not the case, please add your room below.</span></p>
+              <p style="margin-bottom:.7rem;"><span data-lang="es">No tienes ningún cuarto reservado a tu nombre, pero esto puede ser porque te vas a quedar junto a otra persona y ella reservó por ti. Si no es así, agrega tu habitación aquí:</span>
+              <span data-lang="en">You don't have any room booked under your name — this might be because you're staying with someone else and they booked on your behalf. If that's not the case, add your room here:</span></p>
+              <button type="button" onclick="addRoomFromNotice()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.45rem 1rem;cursor:pointer;">
+                + <span data-lang="es">Agregar mi habitación aquí</span><span data-lang="en">Add my room here</span>
+              </button>
             </div>
           </div>
 
@@ -1038,6 +1041,23 @@ function unlockAccommodation() {
   document.getElementById('stay-infobox-text').innerHTML = isEN
     ? 'You can now update your accommodation details.'
     : 'Ya puedes actualizar tus datos de alojamiento.';
+}
+
+// CTA del aviso "no tienes cuarto registrado": desbloquea alojamiento, agrega
+// una habitación y lleva el foco ahí para que la persona la complete de una vez
+function addRoomFromNotice() {
+  unlockAccommodation();
+  document.getElementById('section-rooms2').style.display = 'block';
+  addRoom2();
+  setTimeout(() => {
+    const list = document.getElementById('room-list2');
+    const lastRoom = list && list.lastElementChild;
+    if (lastRoom) {
+      lastRoom.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const firstInput = lastRoom.querySelector('input, select');
+      if (firstInput) firstInput.focus();
+    }
+  }, 50);
 }
 
 function clearPerson() {
