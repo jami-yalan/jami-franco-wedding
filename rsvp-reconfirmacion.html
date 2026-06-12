@@ -757,6 +757,7 @@ async function selectPerson(idx) {
   const cbName2 = 'jfPersonCb_' + Date.now();
   window[cbName2] = function(data) {
     if (data.found) { preloadedData = data.data || data; preloadRsvpData(preloadedData); }
+    else { unlockAccommodation(); }
     delete window[cbName2];
     const s = document.getElementById('jf-person-script');
     if(s) s.remove();
