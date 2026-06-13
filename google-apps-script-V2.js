@@ -97,11 +97,11 @@ function handleRSVP(p) {
       'timestamp','name','email','whatsapp','attendance','attendance2','changes',
       'uk_arrival','wedding_part','menu_starter','menu_main','menu_dessert',
       'diet','springkell_accommodation','rooms','accessibility','other_accommodation',
-      'reconf_transp_arrival','reconf_transp_departure','reconf_diet',
+      'reconf_transp_arrival','reconf_transp_pickup_time','reconf_transp_departure','reconf_diet',
       'reconf_accommodation','reconf_rooms','reconf_notes','reconf_wedding_part',
       'reconf_menu_starter','reconf_menu_main','reconf_menu_dessert'
     ]);
-    const r = sheet.getRange(1, 1, 1, 27);
+    const r = sheet.getRange(1, 1, 1, 28);
     r.setFontWeight('bold'); r.setBackground('#2e2018'); r.setFontColor('#f2ece0');
     sheet.setFrozenRows(1);
   }
@@ -148,14 +148,19 @@ function handleReconfirmation(p) {
       'timestamp','name','email','whatsapp','attendance','attendance2','changes',
       'uk_arrival','wedding_part','menu_starter','menu_main','menu_dessert',
       'diet','springkell_accommodation','rooms','accessibility','other_accommodation',
-      'reconf_transp_arrival','reconf_transp_departure','reconf_diet',
+      'reconf_transp_arrival','reconf_transp_pickup_time','reconf_transp_departure','reconf_diet',
       'reconf_accommodation','reconf_rooms','reconf_notes','reconf_wedding_part',
       'reconf_menu_starter','reconf_menu_main','reconf_menu_dessert'
     ]);
-    const r = sheet.getRange(1, 1, 1, 27);
+    const r = sheet.getRange(1, 1, 1, 28);
     r.setFontWeight('bold'); r.setBackground('#2e2018'); r.setFontColor('#f2ece0');
     sheet.setFrozenRows(1);
   }
+  // Si la hoja ya existía sin esta columna, la agregamos al final
+  if (sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].indexOf('reconf_transp_pickup_time') === -1) {
+    sheet.getRange(1, sheet.getLastColumn() + 1).setValue('reconf_transp_pickup_time');
+  }
+
   const data     = sheet.getDataRange().getValues();
   const hdrs     = data[0];
   const idxName  = hdrs.indexOf('name');
@@ -163,6 +168,7 @@ function handleReconfirmation(p) {
     'attendance2':             p.attendance2 || '',
     'changes':                 p.changes || '',
     'reconf_transp_arrival':   p.reconf_transp_arrival || '',
+    'reconf_transp_pickup_time': p.reconf_transp_pickup_time || '',
     'reconf_transp_departure': p.reconf_transp_departure || '',
     'reconf_diet':             p.reconf_diet || '',
     'reconf_accommodation':    p.reconf_accommodation || '',
