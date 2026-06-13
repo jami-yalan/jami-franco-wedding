@@ -509,7 +509,10 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
             </p>
             <div id="rooms-summary-notice" style="display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(196,160,80,.18);">
               <p style="margin-bottom:.4rem;"><span data-lang="es">Esto es lo que pediste en tu RSVP original:</span><span data-lang="en">Here's what you requested in your original RSVP:</span></p>
-              <p id="rooms-summary-text" style="font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);line-height:1.65;"></p>
+              <p id="rooms-summary-text" style="font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);line-height:1.65;margin-bottom:.7rem;"></p>
+              <button type="button" onclick="unlockRooms()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.3rem .8rem;cursor:pointer;">
+                <span data-lang="es">✎ Editar habitaciones</span><span data-lang="en">✎ Edit rooms</span>
+              </button>
             </div>
             <div id="rooms-none-notice" style="display:none;margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(196,160,80,.18);">
               <p style="margin-bottom:.7rem;"><span data-lang="es">No tienes ningún cuarto reservado a tu nombre, pero esto puede ser porque te vas a quedar junto a otra persona y ella reservó por ti. Si no es así, agrega tu habitación aquí:</span>
@@ -554,7 +557,8 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
             </p>
           </div>
 
-          <div id="accommodation-block" class="acc-locked">
+          <div id="accommodation-block">
+          <div id="stay-choice-block" class="acc-locked">
           <div class="field">
             <label for="stay2"><span data-lang="es">¿Quieres quedarte en Springkell?</span><span data-lang="en">Would you like to stay at Springkell?</span></label>
             <select id="stay2" onchange="toggleStay2(this.value)">
@@ -564,8 +568,9 @@ body.en span.blk-es{display:none;} body.en span.blk-en{display:inline;}
               <option value="no">No, me busco alojamiento por mi cuenta / No, I'll sort my own</option>
             </select>
           </div>
+          </div><!-- /stay-choice-block -->
 
-          <div id="section-rooms2" style="display:none;">
+          <div id="section-rooms2" class="acc-locked">
             <div class="field">
               <label><span data-lang="es">Habitaciones que necesitas</span><span data-lang="en">Rooms needed</span></label>
               <div id="rooms-preloaded-notice" style="display:none;font-family:'EB Garamond',serif;font-size:.92rem;color:var(--muted2);margin-bottom:.8rem;line-height:1.65;">
@@ -757,7 +762,7 @@ async function selectPerson(idx) {
   const cbName2 = 'jfPersonCb_' + Date.now();
   window[cbName2] = function(data) {
     if (data.found) { preloadedData = data.data || data; preloadRsvpData(preloadedData); }
-    else { unlockAccommodation(); }
+    else { unlockStayChoice(); }
     delete window[cbName2];
     const s = document.getElementById('jf-person-script');
     if(s) s.remove();
@@ -798,19 +803,23 @@ function preloadRsvpData(data) {
       ${isEN ? 'From your original RSVP' : 'De tu RSVP original'}:
       <strong style="color:var(--ink2);">${labelActual}</strong>
     </span>
-    <button type="button" onclick="unlockAccommodation()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.3rem .8rem;cursor:pointer;">
+    <button type="button" onclick="unlockStayChoice()" style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;background:none;border:1px solid rgba(196,160,80,.4);color:var(--muted);padding:.3rem .8rem;cursor:pointer;">
       ${isEN ? '✎ Edit' : '✎ Editar'}
     </button>
   `;
 
   // Bloquear el select por defecto
   stay2El.value = alojamiento;
+  if (window.syncCSelect) window.syncCSelect('stay2');
   stay2El.disabled = true;
   stay2El.style.opacity = '.6';
 
   // Mostrar habitaciones si aplica, también bloqueadas
+  const roomsBlock = document.getElementById('section-rooms2');
+  roomsBlock.classList.add('acc-locked');
+  roomsBlock.classList.remove('unlocked');
+  roomsBlock.style.display = '';
   if (alojamiento === 'yes-both' || alojamiento === 'yes-28') {
-    document.getElementById('section-rooms2').style.display = 'block';
     let habitaciones = [];
     try {
       const raw = data.rooms || data.habitaciones || '';
@@ -822,7 +831,7 @@ function preloadRsvpData(data) {
       document.getElementById('rooms-summary-text').innerHTML = buildRoomsSummaryText(habitaciones, isEN);
       document.getElementById('rooms-summary-notice').style.display = 'block';
       habitaciones.forEach(h => addRoom2(h));
-      // Bloquear inputs de habitaciones
+      // Bloquear inputs de habitaciones hasta que pidan editarlas
       setTimeout(() => {
         document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
           el.disabled = true; el.style.opacity = '.6';
@@ -837,7 +846,6 @@ function preloadRsvpData(data) {
       document.getElementById('rooms-none-notice').style.display = 'block';
     }
   } else {
-    document.getElementById('section-rooms2').style.display = 'none';
     document.getElementById('rooms-preloaded-notice').style.display = 'none';
     document.getElementById('rooms-summary-notice').style.display = 'none';
     document.getElementById('rooms-none-notice').style.display = 'none';
@@ -1044,13 +1052,27 @@ function unlockMenu() {
     : 'Ya puedes actualizar tu selección de menú.';
 }
 
-function unlockAccommodation() {
-  const isEN = document.body.classList.contains('en');
-  const block = document.getElementById('accommodation-block');
+// Desbloquea la decisión de quedarse o no en Springkell (select stay2)
+function unlockStayChoice() {
+  const block = document.getElementById('stay-choice-block');
   block.classList.remove('acc-locked');
   block.classList.add('unlocked');
   const stay2El = document.getElementById('stay2');
   stay2El.disabled = false;
+  stay2El.style.opacity = '1';
+  // Cambiar el infobox
+  document.getElementById('stay-infobox-text').innerHTML = `
+    <span data-lang="es">Actualiza o confirma tus datos de alojamiento.</span>
+    <span data-lang="en">Update or confirm your accommodation details.</span>
+  `;
+}
+
+// Desbloquea la sección de habitaciones + accesibilidad para edición
+function unlockRooms() {
+  const block = document.getElementById('section-rooms2');
+  block.classList.remove('acc-locked');
+  block.classList.add('unlocked');
+  block.style.display = 'block';
   // Desbloquear habitaciones
   document.querySelectorAll('#room-list2 input, #room-list2 button').forEach(el => {
     el.disabled = false; el.style.opacity = '1';
@@ -1060,11 +1082,7 @@ function unlockAccommodation() {
     chip.onclick = function() { toggleChip2(this); };
     chip.style.cursor = 'pointer';
   });
-  // Cambiar el infobox
-  document.getElementById('stay-infobox-text').innerHTML = `
-    <span data-lang="es">Actualiza o confirma tus datos de alojamiento.</span>
-    <span data-lang="en">Update or confirm your accommodation details.</span>
-  `;
+  document.getElementById('rooms-summary-notice').style.display = 'none';
 }
 
 // Construye un resumen legible de las habitaciones pedidas, p.ej.
@@ -1087,8 +1105,8 @@ function buildRoomsSummaryText(habitaciones, isEN) {
 // CTA del aviso "no tienes cuarto registrado": desbloquea alojamiento, agrega
 // una habitación y lleva el foco ahí para que la persona la complete de una vez
 function addRoomFromNotice() {
-  unlockAccommodation();
-  document.getElementById('section-rooms2').style.display = 'block';
+  unlockStayChoice();
+  unlockRooms();
   addRoom2();
   setTimeout(() => {
     const list = document.getElementById('room-list2');
@@ -1113,10 +1131,22 @@ function clearPerson() {
   document.getElementById('room-list2').innerHTML = '';
   roomCount2 = 0;
   document.getElementById('stay2').value = '';
-  document.getElementById('section-rooms2').style.display = 'none';
+  document.getElementById('stay2').disabled = false;
+  document.getElementById('stay2').style.opacity = '1';
+  const stayChoiceBlock = document.getElementById('stay-choice-block');
+  stayChoiceBlock.classList.remove('unlocked');
+  stayChoiceBlock.classList.add('acc-locked');
+  const roomsBlock = document.getElementById('section-rooms2');
+  roomsBlock.classList.remove('unlocked');
+  roomsBlock.classList.add('acc-locked');
+  roomsBlock.style.display = '';
   document.getElementById('rooms-preloaded-notice').style.display = 'none';
   document.getElementById('rooms-summary-notice').style.display = 'none';
   document.getElementById('rooms-none-notice').style.display = 'none';
+  document.getElementById('stay-infobox-text').innerHTML = `
+    <span data-lang="es">¿Quieres hacer algún cambio en tu alojamiento?</span>
+    <span data-lang="en">Would you like to make any changes to your accommodation?</span>
+  `;
   // Resetear restricción alimentaria
   document.getElementById('diet-infobox').style.display = 'none';
   const dietBlock = document.getElementById('diet-fields-block');
@@ -1183,8 +1213,12 @@ function toggleTransport(el, group) {
 let roomCount2 = 0;
 function toggleStay2(val) {
   const staying = val === 'yes-both' || val === 'yes-28';
-  document.getElementById('section-rooms2').style.display = staying ? 'block' : 'none';
-  if(staying && document.getElementById('room-list2').children.length === 0) addRoom2();
+  if (staying) {
+    unlockRooms();
+    if (document.getElementById('room-list2').children.length === 0) addRoom2();
+  } else {
+    document.getElementById('section-rooms2').style.display = 'none';
+  }
 }
 
 function addRoom2(prefill) {
