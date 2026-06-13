@@ -1061,9 +1061,10 @@ function unlockAccommodation() {
     chip.style.cursor = 'pointer';
   });
   // Cambiar el infobox
-  document.getElementById('stay-infobox-text').innerHTML = isEN
-    ? 'You can now update your accommodation details.'
-    : 'Ya puedes actualizar tus datos de alojamiento.';
+  document.getElementById('stay-infobox-text').innerHTML = `
+    <span data-lang="es">Actualiza o confirma tus datos de alojamiento.</span>
+    <span data-lang="en">Update or confirm your accommodation details.</span>
+  `;
 }
 
 // Construye un resumen legible de las habitaciones pedidas, p.ej.
