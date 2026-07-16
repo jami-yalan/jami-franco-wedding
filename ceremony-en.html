@@ -622,6 +622,25 @@ tomb.</p>
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyNAXYgdeZr6GfbNwAuZDXeeTSC24G1GSmJC4jQKJpvCXdxtBfX4lscDGdEO61CNc/exec';
 
+// ── Crypto (AES-GCM, key derived from person's name) ────────
+async function deriveKey(password) {
+  const enc = new TextEncoder();
+  const km = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt:enc.encode('jami-franco-2026'), iterations:100000, hash:'SHA-256' },
+    km, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
+  );
+}
+async function decryptText(b64, password) {
+  if (!b64) return '';
+  try {
+    const buf = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    const pt  = await crypto.subtle.decrypt({name:'AES-GCM',iv:buf.slice(0,12)}, await deriveKey(password), buf.slice(12));
+    return new TextDecoder().decode(pt);
+  } catch(e) { return ''; }
+}
+// ────────────────────────────────────────────────────────────
+
 function setContent(elId, text) {
   const el = document.getElementById(elId);
   if (!el) return;
@@ -635,11 +654,18 @@ function setContent(elId, text) {
 (function loadCeremony() {
   const cbName = '_ceremony_cb_' + Date.now();
   window[cbName] = function(data) {
-    setContent('private-franco-love', data.franco && data.franco.what_i_love);
-    setContent('private-jami-love',   data.jami   && data.jami.what_i_love);
-    setContent('private-franco-vows', data.franco && data.franco.vows);
-    setContent('private-jami-vows',   data.jami   && data.jami.vows);
     delete window[cbName];
+    Promise.all([
+      decryptText(data.franco && data.franco.what_i_love, 'franco'),
+      decryptText(data.jami   && data.jami.what_i_love,   'jami'),
+      decryptText(data.franco && data.franco.vows,         'franco'),
+      decryptText(data.jami   && data.jami.vows,           'jami')
+    ]).then(function([francoLove, jamiLove, francoVows, jamiVows]) {
+      setContent('private-franco-love', francoLove);
+      setContent('private-jami-love',   jamiLove);
+      setContent('private-franco-vows', francoVows);
+      setContent('private-jami-vows',   jamiVows);
+    });
   };
   const s = document.createElement('script');
   s.src = APPS_SCRIPT_URL + '?action=ceremony&callback=' + cbName;

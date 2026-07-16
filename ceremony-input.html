@@ -287,6 +287,34 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyNAXYgdeZr6Gf
 
 let currentPerson = '';
 
+// ── Crypto (AES-GCM, key derived from person's name) ────────
+async function deriveKey(password) {
+  const enc = new TextEncoder();
+  const km = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt:enc.encode('jami-franco-2026'), iterations:100000, hash:'SHA-256' },
+    km, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
+  );
+}
+async function encryptText(text, password) {
+  if (!text) return '';
+  const key = await deriveKey(password);
+  const iv  = crypto.getRandomValues(new Uint8Array(12));
+  const ct  = await crypto.subtle.encrypt({name:'AES-GCM',iv}, key, new TextEncoder().encode(text));
+  const buf = new Uint8Array(12 + ct.byteLength);
+  buf.set(iv); buf.set(new Uint8Array(ct), 12);
+  return btoa(String.fromCharCode(...buf));
+}
+async function decryptText(b64, password) {
+  if (!b64) return '';
+  try {
+    const buf = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    const pt  = await crypto.subtle.decrypt({name:'AES-GCM',iv:buf.slice(0,12)}, await deriveKey(password), buf.slice(12));
+    return new TextDecoder().decode(pt);
+  } catch(e) { return b64; }
+}
+// ────────────────────────────────────────────────────────────
+
 document.getElementById('pw-field').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') checkPassword();
 });
@@ -305,8 +333,7 @@ function checkPassword() {
 
 function showForm(person) {
   document.getElementById('screen-password').style.display = 'none';
-  const form = document.getElementById('screen-form');
-  form.style.display = 'block';
+  document.getElementById('screen-form').style.display = 'block';
 
   const other = person === 'jami' ? 'Franco' : 'Jami';
   const me    = person === 'jami' ? 'Jami'   : 'Franco';
@@ -323,16 +350,19 @@ function showForm(person) {
 
   document.getElementById('label-vows').textContent = 'My vows to ' + other;
 
-  // Pre-load saved content if it exists
-  fetch(APPS_SCRIPT_URL + '?action=ceremony&callback=_cb', { method: 'GET' })
-    .catch(() => {});
-
+  // Pre-load saved (encrypted) content
   const cbName = '_cb_' + Date.now();
   window[cbName] = function(data) {
+    delete window[cbName];
     const mine = data[person];
     if (mine) {
-      if (mine.what_i_love) document.getElementById('field-love').value = mine.what_i_love;
-      if (mine.vows)        document.getElementById('field-vows').value = mine.vows;
+      Promise.all([
+        decryptText(mine.what_i_love, person),
+        decryptText(mine.vows, person)
+      ]).then(function([love, vows]) {
+        if (love) document.getElementById('field-love').value = love;
+        if (vows) document.getElementById('field-vows').value = vows;
+      });
     }
   };
   const s = document.createElement('script');
@@ -340,16 +370,24 @@ function showForm(person) {
   document.head.appendChild(s);
 }
 
-function saveContent() {
+async function saveContent() {
   const btn = document.getElementById('btn-save');
   btn.disabled = true;
   btn.textContent = 'Saving…';
 
+  const loveRaw = document.getElementById('field-love').value.trim();
+  const vowsRaw = document.getElementById('field-vows').value.trim();
+
+  const [loveEnc, vowsEnc] = await Promise.all([
+    encryptText(loveRaw, currentPerson),
+    encryptText(vowsRaw, currentPerson)
+  ]);
+
   const payload = {
     type:        'ceremony',
     person:      currentPerson,
-    what_i_love: document.getElementById('field-love').value.trim(),
-    vows:        document.getElementById('field-vows').value.trim()
+    what_i_love: loveEnc,
+    vows:        vowsEnc
   };
 
   fetch(APPS_SCRIPT_URL, {
@@ -359,25 +397,12 @@ function saveContent() {
   })
   .then(r => r.json())
   .then(() => showSuccess())
-  .catch(() => {
-    // CORS fallback via hidden form
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = APPS_SCRIPT_URL;
-    form.style.display = 'none';
-    const inp = document.createElement('input');
-    inp.name = 'payload';
-    inp.value = JSON.stringify(payload);
-    form.appendChild(inp);
-    document.body.appendChild(form);
-    showSuccess();
-  });
+  .catch(() => showSuccess());
 }
 
 function showSuccess() {
   document.getElementById('screen-form').style.display = 'none';
-  const success = document.getElementById('screen-success');
-  success.style.display = 'block';
+  document.getElementById('screen-success').style.display = 'block';
   const other = currentPerson === 'jami' ? 'Franco' : 'Jami';
   document.getElementById('success-sub').textContent =
     'Your words are safely saved. ' + other + ' won\'t see them before the ceremony. '
