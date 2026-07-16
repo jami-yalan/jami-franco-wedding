@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ceremony · Private Input</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:  #f8f5ef;
+  --paper2: #f0ebe0;
+  --paper3: #e8e0d0;
+  --ink:    #1c1510;
+  --ink2:   #2e2018;
+  --burg:   #5c0d2a;
+  --gold:   #765f25;
+  --gold2:  #c4a050;
+  --goldA:  rgba(196,160,80,.2);
+  --goldB:  rgba(196,160,80,.38);
+  --muted:  #6a5a42;
+  --muted2: #786848;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background-color: var(--paper);
+  background-image: url('textura.jpg');
+  background-repeat: repeat;
+  background-size: 900px auto;
+  color: var(--ink);
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  line-height: 1.8;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content:''; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  opacity:.28;
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--paper2); }
+::-webkit-scrollbar-thumb { background:var(--burg); }
+
+.wrap {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+
+.eyebrow {
+  font-family:'Cinzel',serif;
+  font-size:.52rem;
+  letter-spacing:.5em;
+  color:var(--gold2);
+  text-transform:uppercase;
+  text-align:center;
+  margin-bottom:1.2rem;
+}
+.title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,6vw,3rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--ink);
+  text-align:center;
+  line-height:1.1;
+  margin-bottom:.6rem;
+}
+.rule {
+  display:flex; align-items:center; gap:.8rem; justify-content:center;
+  margin:1.2rem auto 2.5rem;
+}
+.rule-line { width:50px; height:1px; background:linear-gradient(to right,transparent,var(--goldB)); }
+.rule-line.rv { background:linear-gradient(to left,transparent,var(--goldB)); }
+.rule-sym { color:var(--gold2); font-size:.75rem; opacity:.8; }
+
+.notice {
+  background:rgba(196,160,80,.07);
+  border:1px solid var(--goldA);
+  border-radius:2px;
+  padding:1.2rem 1.5rem;
+  font-size:.95rem;
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:3rem;
+  text-align:center;
+}
+
+/* ── PASSWORD SCREEN ── */
+#screen-password { }
+.pw-label {
+  font-family:'Cinzel',serif;
+  font-size:.58rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  display:block;
+  margin-bottom:.7rem;
+  text-align:center;
+}
+.pw-input {
+  display:block;
+  width:100%;
+  max-width:280px;
+  margin:0 auto .5rem;
+  font-family:'EB Garamond',serif;
+  font-size:1.15rem;
+  color:var(--ink);
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--goldB);
+  border-radius:2px;
+  padding:.65rem 1rem;
+  text-align:center;
+  outline:none;
+  transition:border-color .2s;
+}
+.pw-input:focus { border-color:var(--gold2); }
+.pw-error {
+  text-align:center;
+  font-size:.85rem;
+  color:var(--burg);
+  min-height:1.4rem;
+  margin-bottom:1rem;
+}
+.btn-pw {
+  display:block;
+  margin:1rem auto 0;
+  font-family:'Cinzel',serif;
+  font-size:.58rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  background:var(--burg);
+  color:var(--paper);
+  border:none;
+  padding:.7rem 2.2rem;
+  cursor:pointer;
+  transition:opacity .2s;
+}
+.btn-pw:hover { opacity:.85; }
+
+/* ── FORM SCREEN ── */
+#screen-form { display:none; }
+.greeting {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;
+  font-weight:300;
+  color:var(--ink2);
+  margin-bottom:.3rem;
+}
+.greeting-sub {
+  font-size:.92rem;
+  color:var(--muted);
+  margin-bottom:2.5rem;
+  line-height:1.6;
+}
+.field-label {
+  font-family:'Cinzel',serif;
+  font-size:.56rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  display:block;
+  margin-bottom:.6rem;
+}
+.field-hint {
+  font-size:.88rem;
+  color:var(--muted2);
+  margin-bottom:.8rem;
+  line-height:1.55;
+  font-style:italic;
+}
+textarea {
+  width:100%;
+  min-height:160px;
+  font-family:'EB Garamond',serif;
+  font-size:1.05rem;
+  line-height:1.75;
+  color:var(--ink);
+  background:rgba(255,255,255,.55);
+  border:1px solid var(--goldB);
+  border-radius:2px;
+  padding:.8rem 1rem;
+  resize:vertical;
+  outline:none;
+  transition:border-color .2s;
+  margin-bottom:2rem;
+}
+textarea:focus { border-color:var(--gold2); }
+.btn-save {
+  font-family:'Cinzel',serif;
+  font-size:.62rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  background:var(--burg);
+  color:var(--paper);
+  border:none;
+  padding:.85rem 2.5rem;
+  cursor:pointer;
+  transition:opacity .2s;
+  display:block;
+  width:100%;
+}
+.btn-save:hover { opacity:.85; }
+.btn-save:disabled { opacity:.5; cursor:default; }
+
+/* ── SUCCESS SCREEN ── */
+#screen-success { display:none; text-align:center; }
+.success-icon { font-size:2.2rem; margin-bottom:1rem; }
+.success-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem;
+  font-weight:300;
+  font-style:italic;
+  color:var(--ink);
+  margin-bottom:.8rem;
+}
+.success-sub { font-size:.95rem; color:var(--muted); line-height:1.7; }
+
+.divider {
+  width:100%;
+  height:1px;
+  background:linear-gradient(to right, transparent, var(--goldB), transparent);
+  margin:2.5rem 0;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">28 · 07 · 2026 · Springkell</p>
+  <h1 class="title">Jami & Franco</h1>
+  <div class="rule">
+    <span class="rule-line rv"></span>
+    <span class="rule-sym">✦</span>
+    <span class="rule-sym">✦</span>
+    <span class="rule-sym">✦</span>
+    <span class="rule-line"></span>
+  </div>
+
+  <div class="notice">
+    This page is private. What you write here will only appear during the ceremony —<br>
+    not before. Please don't share this page with your partner.
+  </div>
+
+  <!-- PASSWORD SCREEN -->
+  <div id="screen-password">
+    <label class="pw-label" for="pw-field">Enter your name to continue</label>
+    <input id="pw-field" class="pw-input" type="text" autocomplete="off" autocorrect="off"
+           autocapitalize="off" placeholder="your name" />
+    <p class="pw-error" id="pw-error"></p>
+    <button class="btn-pw" onclick="checkPassword()">Continue</button>
+  </div>
+
+  <!-- FORM SCREEN -->
+  <div id="screen-form">
+    <p class="greeting" id="form-greeting"></p>
+    <p class="greeting-sub" id="form-sub"></p>
+
+    <label class="field-label" id="label-love"></label>
+    <p class="field-hint" id="hint-love"></p>
+    <textarea id="field-love" rows="6" placeholder="Write freely…"></textarea>
+
+    <div class="divider"></div>
+
+    <label class="field-label" id="label-vows"></label>
+    <p class="field-hint">These are your personal vows — what you promise to your partner. They will be read aloud during the ceremony.</p>
+    <textarea id="field-vows" rows="8" placeholder="Write freely…"></textarea>
+
+    <button class="btn-save" id="btn-save" onclick="saveContent()">Save my words</button>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div id="screen-success">
+    <div class="success-icon">♡</div>
+    <p class="success-title">Saved with love.</p>
+    <p class="success-sub" id="success-sub"></p>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyyNAXYgdeZr6GfbNwAuZDXeeTSC24G1GSmJC4jQKJpvCXdxtBfX4lscDGdEO61CNc/exec';
+
+let currentPerson = '';
+
+document.getElementById('pw-field').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') checkPassword();
+});
+
+function checkPassword() {
+  const val = document.getElementById('pw-field').value.trim().toLowerCase();
+  if (val === 'jami' || val === 'franco') {
+    currentPerson = val;
+    showForm(val);
+  } else {
+    document.getElementById('pw-error').textContent = 'Name not recognised. Try again.';
+    document.getElementById('pw-field').value = '';
+    document.getElementById('pw-field').focus();
+  }
+}
+
+function showForm(person) {
+  document.getElementById('screen-password').style.display = 'none';
+  const form = document.getElementById('screen-form');
+  form.style.display = 'block';
+
+  const other = person === 'jami' ? 'Franco' : 'Jami';
+  const me    = person === 'jami' ? 'Jami'   : 'Franco';
+
+  document.getElementById('form-greeting').textContent = 'Hello, ' + me + ' ♡';
+  document.getElementById('form-sub').textContent =
+    'Below are your two private sections. Only you can see this page. '
+    + 'Your words will appear in the ceremony guide for English-speaking guests '
+    + 'as they are read aloud.';
+
+  document.getElementById('label-love').textContent = 'What I love about ' + other;
+  document.getElementById('hint-love').textContent =
+    'Gerrie will read this during the ceremony — something ' + other + ' has not heard yet.';
+
+  document.getElementById('label-vows').textContent = 'My vows to ' + other;
+
+  // Pre-load saved content if it exists
+  fetch(APPS_SCRIPT_URL + '?action=ceremony&callback=_cb', { method: 'GET' })
+    .catch(() => {});
+
+  const cbName = '_cb_' + Date.now();
+  window[cbName] = function(data) {
+    const mine = data[person];
+    if (mine) {
+      if (mine.what_i_love) document.getElementById('field-love').value = mine.what_i_love;
+      if (mine.vows)        document.getElementById('field-vows').value = mine.vows;
+    }
+  };
+  const s = document.createElement('script');
+  s.src = APPS_SCRIPT_URL + '?action=ceremony&callback=' + cbName;
+  document.head.appendChild(s);
+}
+
+function saveContent() {
+  const btn = document.getElementById('btn-save');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const payload = {
+    type:        'ceremony',
+    person:      currentPerson,
+    what_i_love: document.getElementById('field-love').value.trim(),
+    vows:        document.getElementById('field-vows').value.trim()
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(() => showSuccess())
+  .catch(() => {
+    // CORS fallback via hidden form
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = APPS_SCRIPT_URL;
+    form.style.display = 'none';
+    const inp = document.createElement('input');
+    inp.name = 'payload';
+    inp.value = JSON.stringify(payload);
+    form.appendChild(inp);
+    document.body.appendChild(form);
+    showSuccess();
+  });
+}
+
+function showSuccess() {
+  document.getElementById('screen-form').style.display = 'none';
+  const success = document.getElementById('screen-success');
+  success.style.display = 'block';
+  const other = currentPerson === 'jami' ? 'Franco' : 'Jami';
+  document.getElementById('success-sub').textContent =
+    'Your words are safely saved. ' + other + ' won\'t see them before the ceremony. '
+    + 'You can come back to this page at any time to update them.';
+}
+</script>
+</body>
+</html>

@@ -37,6 +37,28 @@ function doGet(e) {
     return jsonpOrJson(e, { results });
   }
 
+  if (action === 'ceremony') {
+    const ss    = SpreadsheetApp.openById(INVITADOS_SHEET_ID);
+    const sheet = ss.getSheetByName('Ceremonia');
+    if (!sheet) return jsonpOrJson(e, { jami: null, franco: null });
+    const data    = sheet.getDataRange().getValues();
+    const headers = data[0];
+    const idxPerson  = headers.indexOf('person');
+    const idxWhatILove = headers.indexOf('what_i_love');
+    const idxVows    = headers.indexOf('vows');
+    const result = { jami: null, franco: null };
+    for (let i = 1; i < data.length; i++) {
+      const person = (data[i][idxPerson] || '').toString().toLowerCase().trim();
+      if (person === 'jami' || person === 'franco') {
+        result[person] = {
+          what_i_love: data[i][idxWhatILove] ? data[i][idxWhatILove].toString() : '',
+          vows:        data[i][idxVows]       ? data[i][idxVows].toString()       : ''
+        };
+      }
+    }
+    return jsonpOrJson(e, result);
+  }
+
   if (action === 'person') {
     const name = (e.parameter.name || '').toLowerCase().trim();
     const ss   = SpreadsheetApp.openById(INVITADOS_SHEET_ID);
@@ -82,6 +104,7 @@ function doPost(e) {
     const payload = JSON.parse(e.postData.contents);
     if      (payload.type === 'rsvp')           handleRSVP(payload);
     else if (payload.type === 'reconfirmation') handleReconfirmation(payload);
+    else if (payload.type === 'ceremony')       handleCeremony(payload);
     return setCorsHeaders(ContentService.createTextOutput(JSON.stringify({ status: 'ok' })));
   } catch (err) {
     return setCorsHeaders(ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() })));
@@ -191,4 +214,30 @@ function handleReconfirmation(p) {
   }
   const newRow = hdrs.map(function(h) { return fieldMap[h] !== undefined ? fieldMap[h] : ''; });
   sheet.appendRow(newRow);
+}
+
+function handleCeremony(p) {
+  const ss  = SpreadsheetApp.openById(INVITADOS_SHEET_ID);
+  let sheet = ss.getSheetByName('Ceremonia');
+  if (!sheet) {
+    sheet = ss.insertSheet('Ceremonia');
+    sheet.appendRow(['person', 'what_i_love', 'vows', 'timestamp']);
+    const r = sheet.getRange(1, 1, 1, 4);
+    r.setFontWeight('bold'); r.setBackground('#2e2018'); r.setFontColor('#f2ece0');
+    sheet.setFrozenRows(1);
+  }
+  const person = (p.person || '').toLowerCase().trim();
+  if (person !== 'jami' && person !== 'franco') return;
+  const data    = sheet.getDataRange().getValues();
+  const headers = data[0];
+  const idxPerson = headers.indexOf('person');
+  for (let i = 1; i < data.length; i++) {
+    if ((data[i][idxPerson] || '').toString().toLowerCase().trim() === person) {
+      sheet.getRange(i+1, headers.indexOf('what_i_love')+1).setValue(p.what_i_love || '');
+      sheet.getRange(i+1, headers.indexOf('vows')+1).setValue(p.vows || '');
+      sheet.getRange(i+1, headers.indexOf('timestamp')+1).setValue(new Date().toISOString());
+      return;
+    }
+  }
+  sheet.appendRow([person, p.what_i_love || '', p.vows || '', new Date().toISOString()]);
 }
