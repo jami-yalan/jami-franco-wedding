@@ -12,7 +12,7 @@
      Find the line below that says:
        const DESTINATION_URL = "";
      Paste your real link between the quotes, for example:
-       const DESTINATION_URL = "https://jami-yalan.github.io/jami-franco-wedding/museo.html";
+       const DESTINATION_URL = "https://jami-yalan.github.io/jami-franco-wedding/museum.html";
      Save (Commit changes on GitHub). Done, the QR now goes there.
 
   2. To change the placeholder message shown while DESTINATION_URL is empty:
