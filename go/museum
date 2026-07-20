@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Museum Translations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+  HOW TO EDIT THIS PAGE
+  ======================
+  1. To change WHERE this redirects to:
+     Find the line below that says:
+       const DESTINATION_URL = "";
+     Paste your real link between the quotes, for example:
+       const DESTINATION_URL = "https://jami-yalan.github.io/jami-franco-wedding/museo.html";
+     Save (Commit changes on GitHub). Done, the QR now goes there.
+
+  2. To change the placeholder message shown while DESTINATION_URL is empty:
+     Scroll down to the <body> section and edit the text inside <h1> and <p>.
+
+  3. If DESTINATION_URL is empty (""), this page shows the placeholder message
+     instead of redirecting anywhere.
+-->
+
+<script>
+  const DESTINATION_URL = ""; // <-- paste the real link between the quotes when ready
+
+  if (DESTINATION_URL.trim() !== "") {
+    window.location.replace(DESTINATION_URL);
+  }
+</script>
+
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1208;
+    color: #f8f5ef;
+    font-family: Georgia, 'EB Garamond', serif;
+    text-align: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+  }
+  .card {
+    max-width: 420px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+    color: #c4a050;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Translations coming soon</h1>
+  <p>This page isn't ready yet. Please check back later, the Love Museum translations will be live here soon.</p>
+</div>
+
+</body>
+</html>
