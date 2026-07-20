@@ -3,43 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <title>Love Museum · Yalán-Salazar Family · Founding Exhibition</title>
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@400;500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/*
+  TICKET CARD — CAROUSEL FRAME.svg measurements
+  viewBox: 0 0 266.73 489.84
+  top section:    y 0      → 213.39  = 43.57 %
+  notch midpoint: y 218.72            = 44.65 %
+  bottom section: y 224.06 → 489.84  = 45.74 % → 100 %
+  corner radius:  10.67 units = 4.0 % of width
+*/
 :root {
-  --paper:   #edeae2;
-  --card:    #e3dfd5;
-  --ink:     #1c1a16;
-  --ink2:    #2e2b24;
-  --forest:  #1b2d1f;
-  --bronze:  #7a5e2c;
-  --muted:   #706c65;
-  --muted2:  #9a9590;
-  --rule:    rgba(28,26,22,.14);
-  --ruleD:   rgba(28,26,22,.22);
+  --paper:  #ede9e0;
+  --card:   #dbd6ca;
+  --ink:    #1c1a14;
+  --ink2:   #2e2b22;
+  --forest: #1b2d1f;
+  --bronze: #8a6a2c;
+  --muted:  #706858;
+  --muted2: #9a9080;
+  --rule:   rgba(28,26,20,.11);
+  --ruleD:  rgba(28,26,20,.2);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:   #1a180f;
-    --card:    #222016;
-    --ink:     #ede9df;
-    --ink2:    #ccc8be;
-    --forest:  #1b2d1f;
-    --bronze:  #c4a050;
-    --muted:   #9a9590;
-    --muted2:  #6a6660;
-    --rule:    rgba(237,233,223,.11);
-    --ruleD:   rgba(237,233,223,.2);
-  }
-}
-:root[data-theme="dark"]  { --paper:#1a180f;--card:#222016;--ink:#ede9df;--ink2:#ccc8be;--forest:#1b2d1f;--bronze:#c4a050;--muted:#9a9590;--muted2:#6a6660;--rule:rgba(237,233,223,.11);--ruleD:rgba(237,233,223,.2); }
-:root[data-theme="light"] { --paper:#edeae2;--card:#e3dfd5;--ink:#1c1a16;--ink2:#2e2b24;--forest:#1b2d1f;--bronze:#7a5e2c;--muted:#706c65;--muted2:#9a9590;--rule:rgba(28,26,22,.14);--ruleD:rgba(28,26,22,.22); }
-
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-
 body {
   background: var(--paper);
   color: var(--ink);
@@ -51,322 +42,142 @@ body {
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-thumb { background: var(--forest); }
-
 /* ── HEADER ── */
-.hdr {
-  padding: env(safe-area-inset-top, 0) 18px 0;
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(8px);
-}
-.hdr-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 0;
-}
-.hdr-l {
-  font-family: 'Cinzel', serif;
-  font-size: 8px;
-  letter-spacing: .38em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.hdr-r {
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--muted2);
-}
+.hdr { padding:env(safe-area-inset-top,0) 18px 0; background:var(--paper); border-bottom:1px solid var(--rule); position:sticky; top:0; z-index:50; }
+.hdr-inner { display:flex; align-items:center; justify-content:space-between; padding:13px 0; }
+.hdr-l { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.38em; text-transform:uppercase; color:var(--muted); }
+.hdr-r { font-family:'Cinzel',serif; font-size:7.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted2); }
 
 /* ── HERO ── */
-.hero {
-  padding: 52px 20px 48px;
-}
-.hero-eyebrow {
-  font-family: 'Cinzel', serif;
-  font-size: 8px;
-  letter-spacing: .5em;
-  text-transform: uppercase;
-  color: var(--bronze);
-  display: block;
-  margin-bottom: 14px;
-}
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.05;
-  color: var(--ink);
-  margin-bottom: 6px;
-  text-wrap: balance;
-}
-.hero-sub {
-  font-family: 'Cinzel', serif;
-  font-size: 8px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 28px;
-}
-.hero-rule {
-  width: 32px;
-  height: 1px;
-  background: var(--bronze);
-  opacity: .5;
-  margin-bottom: 24px;
-}
-.hero-body {
-  font-size: 16px;
-  line-height: 1.78;
-  color: var(--ink2);
-}
-.hero-note {
-  margin-top: 24px;
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px;
-  letter-spacing: .35em;
-  text-transform: uppercase;
-  color: var(--muted2);
-}
-
-/* ── FULL RULE ── */
-.full-rule { height: 1px; background: var(--rule); }
+.hero { padding:48px 20px 44px; }
+.hero-eyebrow { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.5em; text-transform:uppercase; color:var(--bronze); display:block; margin-bottom:12px; }
+.hero-title { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:600; line-height:1.05; color:var(--ink); margin-bottom:6px; text-wrap:balance; }
+.hero-sub { font-family:'Cinzel',serif; font-size:8px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); margin-bottom:26px; }
+.hero-rule { width:28px; height:1px; background:var(--bronze); opacity:.5; margin-bottom:22px; }
+.hero-body { font-size:16px; line-height:1.78; color:var(--ink2); }
 
 /* ── SECTION BANNER ── */
-.sec-ban {
-  background: var(--forest);
-  padding: 13px 20px;
+.full-rule { height:1px; background:var(--rule); }
+.sec-ban { background:var(--forest); padding:12px 20px; display:flex; align-items:baseline; gap:14px; }
+.sec-ban-n { font-family:'Cormorant Garamond',serif; font-size:13px; color:rgba(255,255,255,.28); flex-shrink:0; }
+.sec-ban-t { font-family:'Cinzel',serif; font-size:8.5px; letter-spacing:.26em; text-transform:uppercase; color:rgba(255,255,255,.88); }
+
+/* ── ITEMS (vertical stack) ── */
+.items { padding:28px 20px 48px; display:flex; flex-direction:column; gap:32px; }
+
+/* ══════════════════════════════════════════
+   TICKET CARD  —  uses CAROUSEL FRAME.svg
+   aspect-ratio: 266.73 / 489.84
+   ══════════════════════════════════════════ */
+.tc {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 266.73 / 489.84;
+}
+
+/* SVG frame — fills the card, draws ticket shape */
+.tc > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.tc-fill {
+  fill: var(--card);
+  stroke: rgba(28,26,20,.16);
+  stroke-width: 1;
+}
+.tc-line {
+  stroke: rgba(28,26,20,.22);
+  stroke-width: 0.7;
+  stroke-dasharray: 3.5 2.8;
+  fill: none;
+}
+
+/* Photo section: 0 % → 43.57 % */
+.tc-photo {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 43.57%;
+  overflow: hidden;
+  border-radius: 4% 4% 0 0;
+  background: rgba(28,26,20,.07);
+}
+.tc-photo::before, .tc-photo::after {
+  content: ''; position: absolute; top:50%; left:50%;
+  background: rgba(28,26,20,.11);
+}
+.tc-photo::before { width:1px; height:18px; transform:translate(-50%,-50%); }
+.tc-photo::after  { width:18px; height:1px;  transform:translate(-50%,-50%); }
+.tc-photo .cm { position:absolute; width:8px; height:8px; }
+.tc-photo .cm.tl { top:8px; left:8px;   border-top:1px solid rgba(28,26,20,.16); border-left:1px solid rgba(28,26,20,.16); }
+.tc-photo .cm.tr { top:8px; right:8px;  border-top:1px solid rgba(28,26,20,.16); border-right:1px solid rgba(28,26,20,.16); }
+.tc-photo .cm.bl { bottom:8px; left:8px;  border-bottom:1px solid rgba(28,26,20,.16); border-left:1px solid rgba(28,26,20,.16); }
+.tc-photo .cm.br { bottom:8px; right:8px; border-bottom:1px solid rgba(28,26,20,.16); border-right:1px solid rgba(28,26,20,.16); }
+.tc-photo .ptag {
+  position:absolute; bottom:9px; left:50%; transform:translateX(-50%);
+  font-family:'Cinzel',serif; font-size:6.5px; letter-spacing:.26em; text-transform:uppercase;
+  color:rgba(28,26,20,.32); white-space:nowrap;
+}
+/* dark photo variant (video / projection) */
+.tc-photo.dk { background:#0e180f; }
+.tc-photo.dk::before, .tc-photo.dk::after { background:rgba(255,255,255,.12); }
+.tc-photo.dk .cm.tl, .tc-photo.dk .cm.tr,
+.tc-photo.dk .cm.bl, .tc-photo.dk .cm.br { border-color:rgba(255,255,255,.16); }
+.tc-photo.dk .ptag { color:rgba(255,255,255,.2); }
+
+/* Text body: 45.74 % → bottom */
+.tc-body {
+  position: absolute;
+  top: 45.74%; left: 0; right: 0; bottom: 0;
+  padding: 10px 15px 15px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+.tc-body::-webkit-scrollbar { display:none; }
+
+.tc-num   { font-family:'Cinzel',serif; font-size:7.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--bronze); display:block; margin-bottom:4px; }
+.tc-title { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600; line-height:1.2; color:var(--ink); margin-bottom:11px; text-wrap:balance; }
+.tc-meta  { font-family:'Cinzel',serif; font-size:6.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); line-height:2.1; border-bottom:1px solid var(--rule); padding-bottom:9px; margin-bottom:9px; }
+.tc-meta span { display:block; }
+.tc-meta .coll { color:var(--muted2); }
+.tc-desc  { font-size:13px; line-height:1.7; color:var(--ink2); }
+
+/* ══════════════════════════════════════════
+   CAROUSEL  (triptych section)
+   ══════════════════════════════════════════ */
+.carousel-intro { padding:24px 20px 16px; }
+.ci-num   { font-family:'Cinzel',serif; font-size:7.5px; letter-spacing:.3em; text-transform:uppercase; color:var(--bronze); display:block; margin-bottom:5px; }
+.ci-title { font-family:'Cormorant Garamond',serif; font-size:19px; font-weight:600; line-height:1.2; color:var(--ink); margin-bottom:10px; text-wrap:balance; }
+.ci-meta  { font-family:'Cinzel',serif; font-size:6.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); line-height:2.1; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:8px 0; margin-bottom:12px; }
+.ci-meta span { display:block; }
+.ci-body  { font-size:14px; line-height:1.72; color:var(--ink2); }
+
+.carousel-hint { padding:12px 20px 8px; font-family:'Cinzel',serif; font-size:7px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted2); }
+
+.carousel-track {
   display: flex;
-  align-items: baseline;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 20px 36px;
   gap: 14px;
+  scrollbar-width: none;
 }
-.sec-ban-n {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255,255,255,.28);
-  flex-shrink: 0;
-}
-.sec-ban-t {
-  font-family: 'Cinzel', serif;
-  font-size: 8.5px;
-  letter-spacing: .26em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.88);
-}
-
-/* ── ITEMS LIST ── */
-.items {
-  padding: 32px 20px 52px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
-/* ── TICKET CARD ── */
-.card {
-  background: var(--card);
-  border-radius: 10px;
-  position: relative;
-}
-
-/* Photo area */
-.card-photo {
-  width: 100%;
-  border-radius: 10px 10px 0 0;
-  background: rgba(28,26,22,.06);
-  position: relative;
-  overflow: hidden;
-}
-.card-photo.r4-3  { aspect-ratio: 4/3; }
-.card-photo.r3-4  { aspect-ratio: 3/4; }
-.card-photo.r3-2  { aspect-ratio: 3/2; }
-.card-photo.r16-9 { aspect-ratio: 16/9; background: #0e1a10; }
-
-/* crosshair */
-.card-photo::before, .card-photo::after {
-  content: ''; position: absolute;
-  top: 50%; left: 50%;
-  background: rgba(28,26,22,.12);
-}
-.card-photo::before { width: 1px; height: 24px; transform: translate(-50%,-50%); }
-.card-photo::after  { width: 24px; height: 1px; transform: translate(-50%,-50%); }
-
-/* corner marks */
-.card-photo .cm { position: absolute; width: 10px; height: 10px; }
-.card-photo .cm.tl { top:10px;left:10px; border-top:1px solid rgba(28,26,22,.18); border-left:1px solid rgba(28,26,22,.18); }
-.card-photo .cm.tr { top:10px;right:10px; border-top:1px solid rgba(28,26,22,.18); border-right:1px solid rgba(28,26,22,.18); }
-.card-photo .cm.bl { bottom:10px;left:10px; border-bottom:1px solid rgba(28,26,22,.18); border-left:1px solid rgba(28,26,22,.18); }
-.card-photo .cm.br { bottom:10px;right:10px; border-bottom:1px solid rgba(28,26,22,.18); border-right:1px solid rgba(28,26,22,.18); }
-.card-photo .ptag {
-  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-  font-family:'Cinzel',serif; font-size:7px; letter-spacing:.28em; text-transform:uppercase;
-  color:rgba(28,26,22,.3); white-space:nowrap;
-}
-.card-photo.r16-9 .ptag { color:rgba(255,255,255,.2); }
-.card-photo.r16-9 .cm.tl, .card-photo.r16-9 .cm.tr,
-.card-photo.r16-9 .cm.bl, .card-photo.r16-9 .cm.br {
-  border-color: rgba(255,255,255,.18);
-}
-.card-photo.r16-9::before, .card-photo.r16-9::after {
-  background: rgba(255,255,255,.12);
-}
-
-/* ── TICKET NOTCH ── */
-.card-notch {
-  display: flex;
-  align-items: center;
-  height: 0;
-  position: relative;
-  margin: 0 -13px; /* extend circles outside card */
-  z-index: 2;
-}
-.card-notch-circle {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  flex-shrink: 0;
-}
-.card-notch-line {
-  flex: 1;
-  border-top: 1px dashed rgba(28,26,22,.16);
-  margin: 0 3px;
-}
-
-/* ── CARD BODY ── */
-.card-body {
-  padding: 18px 18px 22px;
-}
-.card-num {
-  font-family: 'Cinzel', serif;
-  font-size: 8px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--bronze);
-  display: block;
-  margin-bottom: 6px;
-}
-.card-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 14px;
-  text-wrap: balance;
-}
-.card-meta {
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  line-height: 2;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 14px;
-}
-.card-meta span { display: block; }
-.card-meta .coll { color: var(--muted2); }
-.card-desc {
-  font-size: 15px;
-  line-height: 1.78;
-  color: var(--ink2);
-}
-
-/* ── TRIPTYCH SECTION ── */
-.tri-intro {
-  padding: 32px 20px 24px;
-}
-.tri-item-num {
-  font-family: 'Cinzel', serif;
-  font-size: 8px; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--bronze); display: block; margin-bottom: 6px;
-}
-.tri-item-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; font-weight: 600; line-height: 1.15;
-  color: var(--ink); margin-bottom: 12px;
-}
-.tri-item-meta {
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--muted); line-height: 2;
-  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
-  padding: 10px 0; margin-bottom: 16px;
-}
-.tri-item-meta span { display: block; }
-.tri-intro-body {
-  font-size: 15px; line-height: 1.78; color: var(--ink2);
-}
-
-.tri-items {
-  padding: 0 20px 52px;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-.tri-card {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 16px;
-  align-items: start;
-}
-.tri-photo {
-  width: 100%;
-  aspect-ratio: 3/4;
-  background: rgba(28,26,22,.06);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.tri-photo::before, .tri-photo::after {
-  content: ''; position: absolute;
-  top: 50%; left: 50%;
-  background: rgba(28,26,22,.1);
-}
-.tri-photo::before { width:1px; height:16px; transform:translate(-50%,-50%); }
-.tri-photo::after  { width:16px; height:1px; transform:translate(-50%,-50%); }
-.tri-photo .ptag {
-  position:absolute; bottom:7px; left:50%; transform:translateX(-50%);
-  font-family:'Cinzel',serif; font-size:6.5px; letter-spacing:.2em; text-transform:uppercase;
-  color:rgba(28,26,22,.28); white-space:nowrap;
-}
-.tri-caption-id {
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--muted); display: block; margin-bottom: 6px;
-}
-.tri-caption-text {
-  font-size: 14px; line-height: 1.7; color: var(--muted);
-}
+.carousel-track::-webkit-scrollbar { display:none; }
+.carousel-track .tc { flex:0 0 72vw; max-width:270px; scroll-snap-align:start; }
+.carousel-track .tc-title { font-size:15px; }
+.carousel-track .tc-body  { padding:9px 13px 13px; }
 
 /* ── FOOTER ── */
-.site-footer {
-  border-top: 1px solid var(--rule);
-  padding: 28px 20px calc(28px + env(safe-area-inset-bottom, 0));
-  text-align: center;
-}
-.footer-text {
-  font-family: 'Cinzel', serif;
-  font-size: 7.5px; letter-spacing: .32em; text-transform: uppercase;
-  color: var(--muted2); line-height: 2.2;
-}
+.site-footer { border-top:1px solid var(--rule); padding:24px 20px calc(24px + env(safe-area-inset-bottom,0)); text-align:center; }
+.footer-text { font-family:'Cinzel',serif; font-size:7.5px; letter-spacing:.32em; text-transform:uppercase; color:var(--muted2); line-height:2.2; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="hdr">
   <div class="hdr-inner">
     <span class="hdr-l">Love Museum</span>
@@ -374,313 +185,239 @@ body {
   </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <span class="hero-eyebrow">Founding Exhibition</span>
   <h1 class="hero-title">Yalán-Salazar Family</h1>
   <p class="hero-sub">Permanent Collection · Nine Works</p>
   <div class="hero-rule"></div>
   <p class="hero-body">This exhibition brings together nine works from the permanent collection of Jamilet Yalán and Franco Salazar. The objects gathered here were not produced with museographic intent: they are everyday artefacts, photographic records, self-produced works, and documents of a story that began in a faculty of art in 2011 and that tonight reaches one of its most publicly visible moments. The collection is, by nature, permanent and perpetually unfinished.</p>
-  <p class="hero-note">English descriptions · Scan to view</p>
 </section>
 
 <div class="full-rule"></div>
 
-<!-- ═══════════════════════════════ -->
-<!-- I · MTG DECKS                  -->
-<!-- ═══════════════════════════════ -->
-<div class="sec-ban">
-  <span class="sec-ban-n">I</span>
-  <span class="sec-ban-t">Magic: The Gathering Decks</span>
-</div>
-
+<!-- I · MTG DECKS -->
+<div class="sec-ban"><span class="sec-ban-n">I</span><span class="sec-ban-t">Magic: The Gathering Decks</span></div>
 <div class="items">
 
-  <!-- [1] -->
-  <div class="card">
-    <div class="card-photo r4-3">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">MTG Deck · Vorel</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[1]</span>
-      <h2 class="card-title">Commander Deck: Vorel of the Hull Clade</h2>
-      <div class="card-meta">
-        <span>Jamilet Yalán</span>
-        <span>c. 2012 – present</span>
-        <span>1 commander card, 4 selected cards</span>
-        <span>Magic: The Gathering · Commander Format</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">MTG Deck · Vorel</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[1]</span>
+      <h2 class="tc-title">Commander Deck: Vorel of the Hull Clade</h2>
+      <div class="tc-meta">
+        <span>Jamilet Yalán</span><span>c. 2012 – present</span>
+        <span>1 commander · 4 selected cards</span>
+        <span>Magic: The Gathering · Commander</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">Originally constructed from a Simic guild deck from the "Return to Ravnica" expansion during its owner's university years at the Faculty of Art, this deck has been continuously refined over more than a decade of active play. The choice of Vorel of the Hull Clade as commander reflects a sustained preference for proliferation mechanics and adaptive growth — characteristics that, in retrospect, might be read as biographical.</p>
+      <p class="tc-desc">Originally built from a Simic guild deck from "Return to Ravnica" during its owner's university years at the Faculty of Art, this deck has been continuously refined over more than a decade of active play. The choice of Vorel of the Hull Clade — a proliferation commander — reflects a sustained preference for adaptive growth that, in retrospect, might be read as biographical.</p>
     </div>
   </div>
 
-  <!-- [2] -->
-  <div class="card">
-    <div class="card-photo r4-3">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">MTG Deck · Kykar</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[2]</span>
-      <h2 class="card-title">Commander Deck: Kykar, Wind's Fury</h2>
-      <div class="card-meta">
-        <span>Franco Salazar</span>
-        <span>c. 2012 – present</span>
-        <span>1 commander card, 4 selected cards</span>
-        <span>Magic: The Gathering · Commander Format</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">MTG Deck · Kykar</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[2]</span>
+      <h2 class="tc-title">Commander Deck: Kykar, Wind's Fury</h2>
+      <div class="tc-meta">
+        <span>Franco Salazar</span><span>c. 2012 – present</span>
+        <span>1 commander · 4 selected cards</span>
+        <span>Magic: The Gathering · Commander</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">Originating from an old bird deck that came into Franco's hands in 2012 and was later transformed into an Azorius deck during "Return to Ravnica," this deck was subsequently restructured around Kykar, Wind's Fury — a Jeskai commander whose blue-red-white alignment represents a deliberate expansion beyond its origins. The deck functions as a living document of its builder's shifting aesthetic within the game.</p>
+      <p class="tc-desc">Originating from an old bird deck in 2012, later transformed into an Azorius deck, and subsequently restructured around Kykar, Wind's Fury — a Jeskai commander whose blue-red-white alignment represents a deliberate expansion beyond its origins. The deck is a living document of its builder's shifting aesthetic within the game.</p>
     </div>
   </div>
 
 </div>
-
 <div class="full-rule"></div>
 
-<!-- ═══════════════════════════════ -->
-<!-- II · FAMILY PORTRAITS          -->
-<!-- ═══════════════════════════════ -->
-<div class="sec-ban">
-  <span class="sec-ban-n">II</span>
-  <span class="sec-ban-t">Family Portraits</span>
-</div>
-
+<!-- II · FAMILY PORTRAITS -->
+<div class="sec-ban"><span class="sec-ban-n">II</span><span class="sec-ban-t">Family Portraits</span></div>
 <div class="items">
 
-  <!-- [3] -->
-  <div class="card">
-    <div class="card-photo r3-4">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">Portrait · Jamilet</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[3]</span>
-      <h2 class="card-title">Portrait of Jamilet Yalán (unfinished)</h2>
-      <div class="card-meta">
-        <span>Franco Salazar</span>
-        <span>14 February 2025</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Portrait · Jamilet</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[3]</span>
+      <h2 class="tc-title">Portrait of Jamilet Yalán (unfinished)</h2>
+      <div class="tc-meta">
+        <span>Franco Salazar</span><span>14 February 2025</span>
         <span>Acrylic on canvas</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">Executed on Valentine's Day 2025 as part of a simultaneous portrait exchange, this work depicts the co-founder of the collection in bust against a turquoise background. Salazar's treatment — characterised by simplified colour planes and an economy of line that nonetheless achieves a recognisable likeness — places the work within an expressionist tradition of intimate portraiture. The piece was incorporated into the collection in an unfinished state, a condition the artist has not ruled out resolving at some undetermined date.</p>
+      <p class="tc-desc">Painted on Valentine's Day 2025 as part of a simultaneous portrait exchange. Salazar's treatment — simplified colour planes and an economy of line that achieves a recognisable likeness — places the work within an expressionist tradition of intimate portraiture. The piece was incorporated in an unfinished state, a condition the artist has not ruled out resolving at some future date.</p>
     </div>
   </div>
 
-  <!-- [4] -->
-  <div class="card">
-    <div class="card-photo r3-4">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">Portrait · Franco</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[4]</span>
-      <h2 class="card-title">Portrait of Franco Salazar</h2>
-      <div class="card-meta">
-        <span>Jamilet Yalán</span>
-        <span>14 February 2025</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Portrait · Franco</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[4]</span>
+      <h2 class="tc-title">Portrait of Franco Salazar</h2>
+      <div class="tc-meta">
+        <span>Jamilet Yalán</span><span>14 February 2025</span>
         <span>Acrylic on canvas</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">Produced in the same session as "Portrait of Jamilet Yalán," this work adopts a markedly different approach: a palette of bluish greys, greater attention to volume and shadow, and a treatment closer to classical Western portraiture. The divergence between the two pieces — executed simultaneously and in the same medium — constitutes an involuntary document of each artist's pictorial sensibilities.</p>
+      <p class="tc-desc">Produced in the same session as [3], this work takes a markedly different approach: bluish greys, greater attention to volume and shadow, and a treatment closer to classical portraiture. The divergence between the two pieces — executed simultaneously in the same medium — constitutes an involuntary document of each artist's pictorial sensibility.</p>
     </div>
   </div>
 
-  <!-- [5] -->
-  <div class="card">
-    <div class="card-photo r3-2">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">El Pupi · Technical Pen</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[5]</span>
-      <h2 class="card-title">Captain Prick Von Popplewell, known as "El Pupi"</h2>
-      <div class="card-meta">
-        <span>Franco Salazar</span>
-        <span>Date unknown</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">El Pupi · Technical Pen</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[5]</span>
+      <h2 class="tc-title">Captain Prick Von Popplewell, "El Pupi"</h2>
+      <div class="tc-meta">
+        <span>Franco Salazar</span><span>Date unknown</span>
         <span>Technical pen on paper</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">An informal piece incorporated into the present exhibition as an unannounced element. The subject — a domestic feline and permanent member of the Yalán-Salazar household — appears here accompanied by Señor Platanito, a personal play object of his daily use. The work was not produced in the context of the main session; its inclusion responds to criteria distinct from the rest of the collection, without diminishing its documentary value.</p>
+      <p class="tc-desc">An informal piece incorporated as an unannounced addition. The subject — a domestic feline and permanent member of the household — appears with Señor Platanito, his personal play object. Its inclusion responds to criteria distinct from the rest of the collection, without diminishing its documentary value.</p>
     </div>
   </div>
 
 </div>
-
 <div class="full-rule"></div>
 
-<!-- ═══════════════════════════════ -->
-<!-- III · RECENT YEARS ARCHIVE     -->
-<!-- ═══════════════════════════════ -->
-<div class="sec-ban">
-  <span class="sec-ban-n">III</span>
-  <span class="sec-ban-t">Archive of Recent Years (2023–2026)</span>
-</div>
-
+<!-- III · ARCHIVE -->
+<div class="sec-ban"><span class="sec-ban-n">III</span><span class="sec-ban-t">Archive of Recent Years (2023–2026)</span></div>
 <div class="items">
 
-  <!-- [6] -->
-  <div class="card">
-    <div class="card-photo r3-2">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">Archive · 2023–2026</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[6]</span>
-      <h2 class="card-title">Archive of Recent Years (2023–2026)</h2>
-      <div class="card-meta">
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Archive · 2023–2026</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[6]</span>
+      <h2 class="tc-title">Archive of Recent Years (2023–2026)</h2>
+      <div class="tc-meta">
         <span>Yalán-Salazar · Joint production</span>
         <span>2023–2026</span>
-        <span>3 Instax Mini photographs · 1 analogue strip (Manchester, 2025)</span>
-        <span>Glass jar with cork stopper · Domestic feline hair</span>
+        <span>3 Instax Mini · 1 analogue strip · 1 glass jar</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">The ensemble documents four years of shared life through a selection of photographic objects of varying nature and provenance: an image of Captain Prick Von Popplewell; one of the last photographic records before the collectors' departure to the United Kingdom (2023); a portrait of the collectors on their tenth anniversary in Scotland (2024); an analogue photo-booth strip produced in Manchester (2025); and a photograph from the Gorillaz concert — the last photographic print made before the wedding (2026). The jar included in the composition contains hair from the feline subject of the collection, incorporated as a material representation of an attendant who, for logistical reasons, will be unable to be present at the ceremony.</p>
+      <p class="tc-desc">Four years of shared life through a selection of photographs and objects: the last image before departure to the United Kingdom (2023); their tenth anniversary in Scotland (2024); an analogue photo-booth strip from Manchester (2025); and the last print before the wedding (2026). The jar contains hair from El Pupi — present by material proxy since he cannot attend the ceremony.</p>
     </div>
   </div>
 
 </div>
-
 <div class="full-rule"></div>
 
-<!-- ═══════════════════════════════ -->
-<!-- IV · TRIPTYCH                  -->
-<!-- ═══════════════════════════════ -->
-<div class="sec-ban">
-  <span class="sec-ban-n">IV</span>
-  <span class="sec-ban-t">From Families of Origin to Our Own</span>
+<!-- IV · TRIPTYCH — intro + carousel -->
+<div class="sec-ban"><span class="sec-ban-n">IV</span><span class="sec-ban-t">From Families of Origin to Our Own</span></div>
+
+<div class="carousel-intro">
+  <span class="ci-num">[7 – 9]</span>
+  <h2 class="ci-title">From Families of Origin to Our Own Family: Photographic Triptych</h2>
+  <div class="ci-meta">
+    <span>Various authors · 2000–2022</span>
+    <span>3 framed printed photographs · Yalán-Salazar Collection</span>
+  </div>
+  <p class="ci-body">Three photographs charting a biographical arc: two childhood portraits from the collectors' families of origin, and a joint portrait documenting the family they built together. Arranged with the childhood portraits above and the joint portrait below, the triptych proposes convergence rather than descent.</p>
 </div>
 
-<div class="tri-intro">
-  <span class="tri-item-num">[7–9]</span>
-  <h2 class="tri-item-title">From Families of Origin to Our Own Family: Photographic Triptych</h2>
-  <div class="tri-item-meta">
-    <span>Various authors</span>
-    <span>2000–2022 · 3 framed printed photographs</span>
-    <span>Yalán-Salazar Collection</span>
+<p class="carousel-hint">Swipe to see all three →</p>
+
+<div class="carousel-track">
+
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Franco · c. 2001</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[7]</span>
+      <h2 class="tc-title">Franco Salazar, c. 2001</h2>
+      <div class="tc-meta"><span>Salazar-Niñán Family</span><span class="coll">Yalán-Salazar Collection</span></div>
+      <p class="tc-desc">Birthday record. The chocolate cake, decorated with Garurumon, Pikachu and Raichu figures, remains his favourite to this day.</p>
+    </div>
   </div>
-  <p class="tri-intro-body">The ensemble articulates, in three images, the biographical trajectory of the collection's founders: two childhood portraits taken within their respective families of origin, and a later portrait documenting the family they built together. The arrangement — with the childhood portraits in the upper position and the joint portrait below — inverts the usual genealogical convention and proposes a reading of convergence rather than descent.</p>
+
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Jamilet · c. 2000</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[8]</span>
+      <h2 class="tc-title">Jamilet Yalán, c. 2000</h2>
+      <div class="tc-meta"><span>Yalán-Méndez Family</span><span class="coll">Yalán-Salazar Collection</span></div>
+      <p class="tc-desc">Family travel record in which the subject is in full dental transition, consistent with her age.</p>
+    </div>
+  </div>
+
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Yalán-Salazar · 2022</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[9]</span>
+      <h2 class="tc-title">Yalán-Salazar &amp; El Pupi · Feb 2022</h2>
+      <div class="tc-meta"><span>Yalán-Salazar Family</span><span class="coll">Yalán-Salazar Collection</span></div>
+      <p class="tc-desc">Taken before a Valentine's Day picnic at home.</p>
+    </div>
+  </div>
+
 </div>
-
-<div class="tri-items">
-
-  <div class="tri-card">
-    <div class="tri-photo">
-      <span class="ptag">Franco, c. 2001</span>
-    </div>
-    <div>
-      <span class="tri-caption-id">[7] Franco Salazar, c. 2001 · Salazar-Niñan Family</span>
-      <p class="tri-caption-text">Birthday record. The chocolate cake, decorated with Garurumon, Pikachu and Raichu figures, remains his favourite to this day.</p>
-    </div>
-  </div>
-
-  <div class="tri-card">
-    <div class="tri-photo">
-      <span class="ptag">Jamilet, c. 2000</span>
-    </div>
-    <div>
-      <span class="tri-caption-id">[8] Jamilet Yalán, c. 2000 · Yalán-Méndez Family</span>
-      <p class="tri-caption-text">Family travel record in which the subject is in full dental transition, consistent with her age.</p>
-    </div>
-  </div>
-
-  <div class="tri-card">
-    <div class="tri-photo">
-      <span class="ptag">Yalán-Salazar, 2022</span>
-    </div>
-    <div>
-      <span class="tri-caption-id">[9] Yalán-Salazar & Captain Prick Von Popplewell · February 2022</span>
-      <p class="tri-caption-text">Taken before a Valentine's Day picnic at home.</p>
-    </div>
-  </div>
-
-</div>
-
 <div class="full-rule"></div>
 
-<!-- ═══════════════════════════════ -->
-<!-- V · PROJECTED ARCHIVE          -->
-<!-- ═══════════════════════════════ -->
-<div class="sec-ban">
-  <span class="sec-ban-n">V</span>
-  <span class="sec-ban-t">Projected Archive: Three Collections</span>
-</div>
-
+<!-- V · PROJECTED ARCHIVE -->
+<div class="sec-ban"><span class="sec-ban-n">V</span><span class="sec-ban-t">Projected Archive: Three Collections</span></div>
 <div class="items">
 
-  <!-- [10] -->
-  <div class="card">
-    <div class="card-photo r16-9">
-      <span class="cm tl"></span><span class="cm tr"></span>
-      <span class="cm bl"></span><span class="cm br"></span>
-      <span class="ptag">Projected Video · Loop · approx. 5 min</span>
-    </div>
-    <div class="card-notch">
-      <div class="card-notch-circle"></div>
-      <div class="card-notch-line" style="border-color:rgba(28,26,22,.14);"></div>
-      <div class="card-notch-circle"></div>
-    </div>
-    <div class="card-body">
-      <span class="card-num">[10]</span>
-      <h2 class="card-title">Projected Archive: Three Collections</h2>
-      <div class="card-meta">
-        <span>Jamilet Yalán · Compilation and editing</span>
-        <span>Additional photography: Fernando Roncal (Lima)</span>
-        <span>c. 1960s – 2026 · Looped video · With audio</span>
-        <span>Approx. 5 min · Projected on fabric</span>
+  <div class="tc">
+    <svg viewBox="0 0 266.73 489.84" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path class="tc-fill" d="m253.4,213.39h2.67c5.89,0,10.67-4.78,10.67-10.67V10.67c0-5.89-4.78-10.67-10.67-10.67H10.67C4.78,0,0,4.78,0,10.67v192.05c0,5.89,4.78,10.67,10.67,10.67h2.67c2.95,0,5.33,2.39,5.33,5.33s-2.39,5.33-5.33,5.33h-2.67c-5.89,0-10.67,4.78-10.67,10.67v244.45c0,5.89,4.78,10.67,10.67,10.67h245.39c5.89,0,10.67-4.78,10.67-10.67v-244.45c0-5.89-4.78-10.67-10.67-10.67h-2.67c-2.95,0-5.33-2.39-5.33-5.33s2.39-5.33,5.33-5.33Z"/>
+      <line class="tc-line" x1="20" y1="218.72" x2="246.73" y2="218.72"/>
+    </svg>
+    <div class="tc-photo dk"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span><span class="ptag">Projected Video · Loop · c. 5 min</span></div>
+    <div class="tc-body">
+      <span class="tc-num">[10]</span>
+      <h2 class="tc-title">Projected Archive: Three Collections</h2>
+      <div class="tc-meta">
+        <span>Jamilet Yalán · Compilation &amp; editing</span>
+        <span>Add. photography: Fernando Roncal (Lima)</span>
+        <span>c. 1960s–2026 · Looped video · With audio</span>
+        <span>Projected on fabric · Approx. 5 min</span>
         <span class="coll">Yalán-Salazar Collection</span>
       </div>
-      <p class="card-desc">The piece brings together three collections of different provenance and nature in a single continuous projection: records from the pre-wedding session held in Lima by photographer Fernando Roncal; photographs of the co-founder's grandmothers and mother on their respective wedding days; and an archive of founding moments in the collectors' shared life — including the signing of their first and second apartment and their engagement. The looped projection on fabric proposes a reading with no beginning or end, in which three generations of women and an ongoing story coexist simultaneously.</p>
+      <p class="tc-desc">Three collections in a single continuous projection: pre-wedding portraits by Fernando Roncal; photographs of the co-founder's grandmothers and mother on their wedding days; and an archive of founding moments — first apartment, second apartment, engagement. The loop has no beginning or end: three generations of women and an ongoing story coexist simultaneously.</p>
     </div>
   </div>
 
 </div>
-
 <div class="full-rule"></div>
 
 <footer class="site-footer">
-  <p class="footer-text">
-    Love Museum · Yalán-Salazar Family<br>
-    Permanent Collection · Perpetually Unfinished · Est. 2011
-  </p>
+  <p class="footer-text">Love Museum · Yalán-Salazar Family<br>Permanent Collection · Perpetually Unfinished · Est. 2011</p>
 </footer>
 
 </body>
