@@ -147,6 +147,8 @@ body.en .blk-es{display:none;} body.en .blk-en{display:block;}
   cursor:pointer; padding:0; transition:color .2s; white-space:nowrap; pointer-events:none;
 }
 .bank-val:hover .copy-btn{color:var(--gold2);}
+.bank-val--static{cursor:default; pointer-events:none;}
+.bank-val--static:hover{background:rgba(255,255,255,.6); border-color:rgba(196,160,80,.22);}
 
 .copy-toast{
   display:none; font-family:'Cinzel',serif; font-size:.48rem; letter-spacing:.16em;
@@ -259,6 +261,13 @@ body.en .blk-es{display:none;} body.en .blk-en{display:block;}
           <span class="copy-btn"><span data-lang="es">copiar</span><span data-lang="en">copy</span></span>
         </div>
         <span class="copy-toast" data-toast>✦ <span data-lang="es">copiado</span><span data-lang="en">copied</span></span>
+      </div>
+
+      <div class="bank-row">
+        <span class="bank-lbl"><span data-lang="es">Tipo de cuenta</span><span data-lang="en">Account type</span></span>
+        <div class="bank-val bank-val--static">
+          <span><span data-lang="es">Ahorro dólares</span><span data-lang="en">Dollar savings</span></span>
+        </div>
       </div>
     </div>
 
