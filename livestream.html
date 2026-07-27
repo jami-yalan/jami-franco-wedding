@@ -412,8 +412,8 @@ body.en [data-lang="en"] { display:unset; }
         <div class="instr-card" data-num="I">
           <h4><span data-lang="es">¿Cuándo es?</span><span data-lang="en">When is it?</span></h4>
           <p>
-            <span data-lang="es">Martes 28 de julio de 2026. La ceremonia empieza a las 21:15 hora de Escocia (BST), que equivale a las 16:15 hora de Lima (PET).</span>
-            <span data-lang="en">Tuesday, July 28th, 2026. The ceremony starts at 9:15 PM Scotland time (BST), which is 4:15 PM Lima time (PET).</span>
+            <span data-lang="es">Martes 28 de julio de 2026. La ceremonia empieza a las 22:00 hora de Escocia (BST), que equivale a las 17:00 hora de Lima (PET).</span>
+            <span data-lang="en">Tuesday, July 28th, 2026. The ceremony starts at 10:00 PM Scotland time (BST), which is 5:00 PM Lima time (PET).</span>
           </p>
         </div>
         <div class="instr-card" data-num="II">
@@ -479,8 +479,8 @@ body.en [data-lang="en"] { display:unset; }
         <span data-lang="en">Coming soon, live</span>
       </p>
       <p class="placeholder-sub">
-        <span data-lang="es">28 de julio · 21:15 hora de Escocia</span>
-        <span data-lang="en">July 28th · 9:15 PM Scotland time</span>
+        <span data-lang="es">28 de julio · 22:00 hora de Escocia</span>
+        <span data-lang="en">July 28th · 10:00 PM Scotland time</span>
       </p>
     </div>
   </div>
@@ -669,8 +669,8 @@ async function submitMessage(e){
 }
 
 // ── COUNTDOWN ───────────────────────────────────────────────────────────────
-// 21:15 hora de Escocia (BST = UTC+1) → 20:15 UTC
-const WD           = new Date('2026-07-28T21:15:00+01:00');
+// 22:00 hora de Escocia (BST = UTC+1) → 21:00 UTC
+const WD           = new Date('2026-07-28T22:00:00+01:00');
 const FIVE_BEFORE  = new Date(WD.getTime() - 5 * 60 * 1000);
 
 function tick(){
@@ -705,9 +705,9 @@ function tick(){
 setInterval(tick, 1000); tick();
 
 // ── ADD TO CALENDAR ─────────────────────────────────────────────────────────
-// 21:15 BST = 20:15 UTC; duración estimada 3h
-const CAL_START = '20260728T201500Z';
-const CAL_END   = '20260728T231500Z';
+// 22:00 BST = 21:00 UTC; duración estimada 3h
+const CAL_START = '20260728T210000Z';
+const CAL_END   = '20260729T000000Z';
 const CAL_LOC   = 'Springkell Estate%2C Lockerbie%2C Scotland';
 
 function buildGCalURL(es){
