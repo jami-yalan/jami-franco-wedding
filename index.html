@@ -135,6 +135,39 @@ nav.scrolled .nav-hamburger:hover span { background:var(--burg); }
   display:flex; align-items:center; gap:2rem;
 }
 
+/* ── FOTOS DROPDOWN ── */
+.nav-dropdown { position:relative; }
+.nav-dropdown-btn {
+  background:none; border:none; cursor:pointer; padding:0;
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.22em; text-transform:uppercase;
+  color:rgba(244,238,228,.82); display:flex; align-items:center; gap:.35rem;
+  transition:color .2s;
+}
+nav.scrolled .nav-dropdown-btn { color:var(--muted); }
+.nav-dropdown-btn:hover { color:rgba(244,238,228,1); }
+nav.scrolled .nav-dropdown-btn:hover { color:var(--burg); }
+.nav-dropdown-arrow { font-size:.5rem; transition:transform .2s; }
+.nav-dropdown:hover .nav-dropdown-arrow,
+.nav-dropdown.open .nav-dropdown-arrow { transform:rotate(180deg); }
+.nav-dropdown-menu {
+  display:none; position:absolute; top:calc(100% + .7rem); left:50%;
+  transform:translateX(-50%);
+  background:rgba(248,245,239,.97); backdrop-filter:blur(8px);
+  border:1px solid rgba(92,13,42,.12); border-radius:2px;
+  min-width:130px; overflow:hidden; z-index:200;
+}
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown.open .nav-dropdown-menu { display:block; }
+.nav-dropdown-menu a {
+  display:block; padding:.65rem 1.1rem;
+  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); text-decoration:none;
+  border-bottom:1px solid rgba(92,13,42,.07);
+  transition:background .15s, color .15s;
+}
+.nav-dropdown-menu a:last-child { border-bottom:none; }
+.nav-dropdown-menu a:hover { background:rgba(92,13,42,.06); color:var(--burg); }
+
 /* ═══ HERO ═══ */
 #hero {
   position:relative; min-height:100vh; min-height:100svh;
@@ -781,6 +814,23 @@ body.en [data-lang="en"] { display:unset; }
     color:var(--muted);
   }
   .nav-links a:hover { color:var(--burg); background:var(--burgA); }
+  /* dropdown mobile */
+  .nav-dropdown { width:100%; text-align:center; }
+  .nav-dropdown-btn {
+    font-size:.65rem; letter-spacing:.3em; padding:1.1rem 2rem; width:100%;
+    justify-content:center; color:var(--muted);
+    border-bottom:1px solid rgba(92,13,42,.07);
+  }
+  .nav-dropdown-btn:hover { color:var(--burg); background:var(--burgA); }
+  .nav-dropdown-menu {
+    position:static; transform:none; border:none; border-radius:0;
+    background:rgba(92,13,42,.04); backdrop-filter:none;
+    border-bottom:1px solid rgba(92,13,42,.07);
+  }
+  .nav-dropdown-menu a {
+    font-size:.6rem; padding:.85rem 2rem;
+    border-bottom:1px solid rgba(92,13,42,.05);
+  }
   .nav-rsvp-btn {
     margin-left:0 !important;
     font-size:.52rem !important;
@@ -820,8 +870,16 @@ body.en [data-lang="en"] { display:unset; }
     <a href="travel-guide.html" data-href-es="travel-guide.html" data-href-en="travel-guide-en.html" class="tg-link"><span data-lang="es">Viaje</span><span data-lang="en">Travel</span></a>
     <a href="#regalos" onclick="closeNav()"><span data-lang="es">Regalos</span><span data-lang="en">Gifts</span></a>
     <a href="faq.html">FAQ</a>
-    <a href="galeria.html"><span data-lang="es">Galería</span><span data-lang="en">Gallery</span></a>
-    <a href="fotos.html"><span data-lang="es">Subir fotos</span><span data-lang="en">Upload photos</span></a>
+    <div class="nav-dropdown" id="nav-fotos-dd">
+      <button class="nav-dropdown-btn" onclick="toggleFotosDD()">
+        <span data-lang="es">Fotos</span><span data-lang="en">Photos</span>
+        <span class="nav-dropdown-arrow">▾</span>
+      </button>
+      <div class="nav-dropdown-menu">
+        <a href="galeria.html" onclick="closeNav()"><span data-lang="es">Galería</span><span data-lang="en">Gallery</span></a>
+        <a href="fotos.html" onclick="closeNav()"><span data-lang="es">Subir fotos</span><span data-lang="en">Upload</span></a>
+      </div>
+    </div>
     <a href="livestream.html">Livestream</a>
   </div>
   <a href="rsvp.html" class="nav-rsvp-btn">RSVP</a>
@@ -1295,7 +1353,11 @@ function toggleNav(){
 function closeNav(){
   document.getElementById('nav-ham').classList.remove('open');
   document.getElementById('nav-links').classList.remove('open');
+  document.getElementById('nav-fotos-dd').classList.remove('open');
   document.body.style.overflow = '';
+}
+function toggleFotosDD(){
+  document.getElementById('nav-fotos-dd').classList.toggle('open');
 }
 
 // ── NAV scroll background ──
