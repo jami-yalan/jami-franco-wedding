@@ -524,7 +524,7 @@ function runIntro(){
   var SPX   = Math.min(230, window.innerWidth  * 0.22);
   var SPY   = Math.min(180, window.innerHeight * 0.16);
 
-  // Place every card in the pile, fully opaque
+  // Position cards in the pile (invisible) then scatter immediately — skip showing the pile
   cards.forEach(function(card, i){
     var r  = rects[i];
     var dx = vpCX - (r.left + r.width  / 2) + pileNX(i) * SPX;
@@ -533,57 +533,47 @@ function runIntro(){
     card.dataset.finalRot = rot(i).toFixed(3);
     card.style.transition = 'none';
     card.style.transform  = 'translate('+dx.toFixed(1)+'px,'+dy.toFixed(1)+'px) rotate('+pr.toFixed(2)+'deg) scale(0.72)';
-    card.style.opacity    = '1';
+    card.style.opacity    = '0';
     card.style.zIndex     = 300 - i;
   });
 
-  // Fade in the whole pile as one layer (no inter-card blink)
-  gallery.style.opacity    = '0';
+  // Make gallery visible (cards still transparent) then immediately scatter
+  gallery.style.opacity    = '1';
   gallery.offsetHeight;
   gallery.style.visibility = 'visible';
 
-  var PILE_FADE = 380;
-  setTimeout(function(){
-    gallery.style.transition = 'opacity '+PILE_FADE+'ms ease';
-    gallery.style.opacity    = '1';
-  }, 30);
+  var STAGGER  = 55;
+  var CARD_DUR = 1200;
+  var EASE     = 'cubic-bezier(0.62, 0, 0.30, 1)';
 
-  // Hold pile, then scatter smoothly
-  var HOLD = 500;
-  setTimeout(function(){
-    var STAGGER  = 70;
-    var CARD_DUR = 1500;
-    var EASE     = 'cubic-bezier(0.62, 0, 0.30, 1)';
-
-    cards.forEach(function(card, i){
-      var finalRot = parseFloat(card.dataset.finalRot);
-      setTimeout(function(){
-        card.style.transition = 'transform '+CARD_DUR+'ms '+EASE;
-        card.style.transform  = 'rotate('+finalRot+'deg)';
-        setTimeout(function(){ card.style.zIndex = ''; }, CARD_DUR);
-      }, i * STAGGER);
-    });
-
-    // Fade in UI after last card nearly settles
-    var uiDelay = (cards.length - 1) * STAGGER + CARD_DUR * 0.6;
+  cards.forEach(function(card, i){
+    var finalRot = parseFloat(card.dataset.finalRot);
     setTimeout(function(){
-      document.body.classList.remove('intro-running');
-      var els = [
-        document.querySelector('.site-header'),
-        document.querySelector('.page-hero'),
-        document.getElementById('gallery-toolbar')
-      ];
-      els.forEach(function(el, i){
-        if(!el) return;
-        setTimeout(function(){
-          el.style.transition    = 'opacity 1s ease';
-          el.style.opacity       = '1';
-          el.style.pointerEvents = 'all';
-        }, i * 220);
-      });
-    }, uiDelay);
+      card.style.transition = 'transform '+CARD_DUR+'ms '+EASE+', opacity 350ms ease';
+      card.style.transform  = 'rotate('+finalRot+'deg)';
+      card.style.opacity    = '1';
+      setTimeout(function(){ card.style.zIndex = ''; }, CARD_DUR);
+    }, i * STAGGER);
+  });
 
-  }, PILE_FADE + HOLD);
+  // Fade in UI after last card nearly settles
+  var uiDelay = (cards.length - 1) * STAGGER + CARD_DUR * 0.6;
+  setTimeout(function(){
+    document.body.classList.remove('intro-running');
+    var els = [
+      document.querySelector('.site-header'),
+      document.querySelector('.page-hero'),
+      document.getElementById('gallery-toolbar')
+    ];
+    els.forEach(function(el, i){
+      if(!el) return;
+      setTimeout(function(){
+        el.style.transition    = 'opacity 1s ease';
+        el.style.opacity       = '1';
+        el.style.pointerEvents = 'all';
+      }, i * 220);
+    });
+  }, uiDelay);
 }
 
 // ── FETCH PHOTOS ──
